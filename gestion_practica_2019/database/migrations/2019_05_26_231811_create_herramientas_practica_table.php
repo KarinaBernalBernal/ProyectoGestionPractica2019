@@ -15,9 +15,12 @@ class CreateHerramientasPracticaTable extends Migration
     {
         Schema::create('herramientas_practica', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('n_herramienta');
+            $table->integer('id_autoeval')->unsigned();
+            $table->integer('id_herramienta')->unsigned();
 
             $table->timestamps();
+            $table->foreign('id_autoeval')->references('id')->on('autoevaluaciones');
+            $table->foreign('id_herramienta')->references('id')->on('herramientas');
         });
     }
 
