@@ -22,8 +22,8 @@ class CreatePracticasTable extends Migration
             $table->date('f_hasta');
             $table->string('asist_ch_post_pract', 10);
             $table->string('asist_ch_pre_pract', 10);
+            
             $table->timestamps();
-
             $table->foreign('id_alumno')->references('id')->on('alumnos');
         });
     }
