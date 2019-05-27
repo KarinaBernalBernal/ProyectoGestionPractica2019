@@ -15,13 +15,13 @@ class CreateHabilidadesTable extends Migration
     {
         Schema::create('habilidades', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_practica')->unsigned();
+            $table->integer('id_autoeval')->unsigned();
             $table->string('n_habilidad');
             $table->string('dp_habilidad');
             $table->string('tipo_habilidad');
 
             $table->timestamps();
-            $table->foreign('id_practica')->references('id')->on('practicas');
+            $table->foreign('id_autoeval')->references('id')->on('autoevaluaciones');
         });
     }
 

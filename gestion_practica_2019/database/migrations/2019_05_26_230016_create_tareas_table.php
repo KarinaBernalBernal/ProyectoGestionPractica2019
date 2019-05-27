@@ -15,12 +15,12 @@ class CreateTareasTable extends Migration
     {
         Schema::create('tareas', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_practica')->unsigned();
+            $table->integer('id_autoeval')->unsigned();
             $table->string('n_tarea');
             $table->string('dp_tarea');
 
             $table->timestamps();
-            $table->foreign('id_practica')->references('id')->on('practicas');
+            $table->foreign('id_autoeval')->references('id')->on('autoevaluaciones');
         });
     }
 
