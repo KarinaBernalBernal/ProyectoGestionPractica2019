@@ -4,7 +4,7 @@ namespace SGPP;
 
 use Illuminate\Database\Eloquent\Model;
 
-class area_evaluacion extends Model
+class AreaEvaluacion extends Model
 {
     //
 }

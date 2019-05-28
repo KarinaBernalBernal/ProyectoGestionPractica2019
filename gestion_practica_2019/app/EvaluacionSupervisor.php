@@ -4,7 +4,7 @@ namespace SGPP;
 
 use Illuminate\Database\Eloquent\Model;
 
-class evaluacion_supervisor extends Model
+class EvaluacionSupervisor extends Model
 {
     //
 }
