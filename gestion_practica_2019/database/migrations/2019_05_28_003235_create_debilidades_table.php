@@ -19,6 +19,7 @@ class CreateDebilidadesTable extends Migration
             $table->string('dp_debilidad');
             $table->integer('id_practica')->unsigned();
             $table->foreign('id_practica')->references('id')->on('practicas');
+
             $table->timestamps();
         });
     }
