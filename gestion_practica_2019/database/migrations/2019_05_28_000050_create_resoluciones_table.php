@@ -19,9 +19,10 @@ class CreateResolucionesTable extends Migration
             $table->date('f_resolucion');
             $table->string('observacion_resolucion');
             $table->boolean('resolucion_practica');
-            $table->foreign('id_admin')->references('id')->on('administradores');
+            
 
             $table->timestamps();
+            $table->foreign('id_admin')->references('id')->on('administradores');
         });
     }
 

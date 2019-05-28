@@ -17,11 +17,10 @@ class CreateAreaEvaluacionTable extends Migration
             $table->increments('id');
             $table->integer('id_practica')->unsigned();
             $table->integer('id_area')->unsigned();
-            $table->foreign('id_practica')->references('id')->on('practicas');
-            $table->foreign('id_area')->references('id')->on('areas');
-
 
             $table->timestamps();
+            $table->foreign('id_practica')->references('id')->on('practicas');
+            $table->foreign('id_area')->references('id')->on('areas');
         });
     }
 

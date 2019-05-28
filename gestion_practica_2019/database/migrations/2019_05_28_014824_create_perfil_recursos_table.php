@@ -17,9 +17,10 @@ class CreatePerfilRecursosTable extends Migration
             $table->increments('id');
             $table->integer('id_perfil')->unsigned();
             $table->integer('id_recurso')->unsigned();
+            
+            $table->timestamps();
             $table->foreign('id_perfil')->references('id')->on('perfiles');
             $table->foreign('id_recurso')->references('id')->on('recursos');
-            $table->timestamps();
         });
     }
 
