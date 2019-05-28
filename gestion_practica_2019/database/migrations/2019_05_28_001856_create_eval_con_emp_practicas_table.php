@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePerfilsTable extends Migration
+class CreateEvalConEmpPracticasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,13 @@ class CreatePerfilsTable extends Migration
      */
     public function up()
     {
-        Schema::create('perfils', function (Blueprint $table) {
+        Schema::create('eval_con_emp_practicas', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('id_practica')->unsigned();
+            $table->foreign('id_practica')->references('id')->on('practicas');
+            $table->integer('valor_con_emp_practica');
+
             $table->timestamps();
-            $table->string('nombre');
         });
     }
 
@@ -27,6 +30,6 @@ class CreatePerfilsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('perfils');
+        Schema::dropIfExists('eval_con_emp_practicas');
     }
 }
