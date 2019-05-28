@@ -3,6 +3,8 @@
 namespace SGPP\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facade\Schema;
+
 
 class AppServiceProvider extends ServiceProvider
 {
