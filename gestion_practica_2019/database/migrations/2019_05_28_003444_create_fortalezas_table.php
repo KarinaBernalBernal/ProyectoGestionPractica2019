@@ -16,7 +16,7 @@ class CreateFortalezasTable extends Migration
         Schema::create('fortalezas', function (Blueprint $table) {
             $table->increments('id');
             $table->string('n_fortaleza');
-            $table->string('desc_fortaleza');
+            $table->string('dp_fortaleza');
             $table->integer('id_practica')->unsigned();
             $table->foreign('id_practica')->references('id')->on('practicas');
 
