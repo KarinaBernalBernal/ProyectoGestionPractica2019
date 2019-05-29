@@ -19,6 +19,16 @@ class CreateHerramientasTable extends Migration
 
             $table->timestamps();
         });
+
+        Schema::create('herramientas_practica', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('id_autoeval')->unsigned();
+            $table->integer('id_herramienta')->unsigned();
+
+            $table->timestamps();
+            $table->foreign('id_autoeval')->references('id')->on('autoevaluaciones');
+            $table->foreign('id_herramienta')->references('id')->on('herramientas');
+        });
     }
 
     /**
@@ -29,5 +39,6 @@ class CreateHerramientasTable extends Migration
     public function down()
     {
         Schema::dropIfExists('herramientas');
+        Schema::dropIfExists('herramientas_practica');
     }
 }
