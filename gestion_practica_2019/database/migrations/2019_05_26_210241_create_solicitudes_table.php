@@ -19,7 +19,7 @@ class CreateSolicitudesTable extends Migration
             $table->string('nombre');
             $table->string('apellido_paterno');
             $table->string('apellido_materno');
-            $table->string('rut')->unique();
+            $table->string('rut');
             $table->string('direccion');
             $table->string('fono');
             $table->string('anno_ingreso');
