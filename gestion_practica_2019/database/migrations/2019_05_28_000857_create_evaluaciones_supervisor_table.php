@@ -15,10 +15,10 @@ class CreateEvaluacionesSupervisorTable extends Migration
     {
         Schema::create('evaluaciones_supervisor', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('porcent_tarea_realizadas')->unsigned();
             $table->string('resultado_eval');
             $table->date('f_entrega_eval');
-            $table->integer('porcent_tarea_realizadas')->unsigned();
-
+            
 
             $table->timestamps();
         });

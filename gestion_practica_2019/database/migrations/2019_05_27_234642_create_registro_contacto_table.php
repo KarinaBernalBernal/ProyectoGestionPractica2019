@@ -21,11 +21,10 @@ class CreateRegistroContactoTable extends Migration
             $table->integer('cant_contacto');
             $table->string('observacion_contacto');
             $table->date('f_contacto');
-            $table->foreign('id_supervisor')->references('id')->on('supervisores');
-            $table->foreign('id_admin')->references('id')->on('administradores');
 
             $table->timestamps();
-
+            $table->foreign('id_supervisor')->references('id')->on('supervisores');
+            $table->foreign('id_admin')->references('id')->on('administradores');
 
         });
     }

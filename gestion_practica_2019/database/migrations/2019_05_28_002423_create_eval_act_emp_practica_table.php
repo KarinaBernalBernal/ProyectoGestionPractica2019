@@ -16,10 +16,10 @@ class CreateEvalActEmpPracticaTable extends Migration
         Schema::create('eval_act_emp_practica', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('id_practica')->unsigned();
-            $table->foreign('id_practica')->references('id')->on('practicas');
             $table->integer('valor_act_emp_practica');
 
             $table->timestamps();
+            $table->foreign('id_practica')->references('id')->on('practicas');
         });
     }
 

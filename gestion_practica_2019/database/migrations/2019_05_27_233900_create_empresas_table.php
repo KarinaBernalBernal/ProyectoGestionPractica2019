@@ -15,7 +15,6 @@ class CreateEmpresasTable extends Migration
     {
         Schema::create('empresas', function (Blueprint $table) {
             $table->increments('id');
-            $table->timestamps();
             $table->string('n_empresa');
             $table->string('rut');
             $table->string('ciudad');
@@ -24,7 +23,7 @@ class CreateEmpresasTable extends Migration
             $table->string('casilla');
             $table->string('email');
 
-
+            $table->timestamps();
         });
     }
 
