@@ -20,6 +20,25 @@ class CreateEvalActitudinalesTable extends Migration
 
             $table->timestamps();
         });
+
+        Schema::create('eval_act_practicas', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('id_autoeval')->unsigned();
+            $table->integer('id_eval_act')->unsigned();
+
+            $table->timestamps();
+            $table->foreign('id_autoeval')->references('id')->on('autoevaluaciones');
+            $table->foreign('id_eval_act')->references('id')->on('eval_act_practicas');
+        });
+
+        Schema::create('eval_act_emp_practica', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('id_practica')->unsigned();
+            $table->integer('valor_act_emp_practica');
+
+            $table->timestamps();
+            $table->foreign('id_practica')->references('id')->on('practicas');
+        });
     }
 
     /**
@@ -30,5 +49,7 @@ class CreateEvalActitudinalesTable extends Migration
     public function down()
     {
         Schema::dropIfExists('eval_actitudinales');
+        Schema::dropIfExists('eval_act_practicas');
+        Schema::dropIfExists('eval_act_emp_practica');
     }
 }
