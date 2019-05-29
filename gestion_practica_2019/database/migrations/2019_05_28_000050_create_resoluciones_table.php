@@ -14,15 +14,20 @@ class CreateResolucionesTable extends Migration
     public function up()
     {
         Schema::create('resoluciones', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('id_admin')->unsigned();
+            $table->integer('id_practica')->unsigned(); //PK,FK
+            $table->primary('id_practica');
+
             $table->date('f_resolucion');
             $table->string('observacion_resolucion');
             $table->boolean('resolucion_practica');
-            
 
+            $table->integer('id_admin')->unsigned();
             $table->timestamps();
-            $table->foreign('id_admin')->references('id')->on('administradores');
+
+            $table->foreign('id_practica')->references('id_practica')
+                    ->on('practicas')->onDelete('cascade');
+            $table->foreign('id_admin')->references('id_admin')
+                    ->on('administradores')->onDelete('cascade');
         });
     }
 

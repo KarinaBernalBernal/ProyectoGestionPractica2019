@@ -14,7 +14,7 @@ class CreateAdministradoresTable extends Migration
     public function up()
     {
         Schema::create('administradores', function (Blueprint $table) {
-            $table->increments('id');
+            $table->increments('id_admin');
             $table->string('nombre');
             $table->string('apellido_paterno');
             $table->string('apellido_materno');
@@ -22,7 +22,11 @@ class CreateAdministradoresTable extends Migration
             $table->string('email');
             $table->string('cargo');
 
+            $table->integer('id_user')->unsigned(); //Esto es debido a que no se puede crear una herencia
             $table->timestamps();
+            
+            $table->foreign('id_user')->references('id_user')
+                    ->on('users')->onDelete('cascade');
         });
     }
 

@@ -14,13 +14,14 @@ class CreateEvalActPracticasTable extends Migration
     public function up()
     {
         Schema::create('eval_act_practicas', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('id_autoeval')->unsigned();
-            $table->integer('id_eval_act')->unsigned();
-
+            $table->integer('id_practica')->unsigned();
+            $table->integer('id_actitudinal')->unsigned();
             $table->timestamps();
-            $table->foreign('id_autoeval')->references('id')->on('autoevaluaciones');
-            $table->foreign('id_eval_act')->references('id')->on('eval_act_practicas');
+
+            $table->foreign('id_practica')->references('id_practica')
+                    ->on('practicas')->onDelete('cascade');
+            $table->foreign('id_actitudinal')->references('id_actitudinal')
+                    ->on('eval_actitudinales')->onDelete('cascade');
         });
     }
 

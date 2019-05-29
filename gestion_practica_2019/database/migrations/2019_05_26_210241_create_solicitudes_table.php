@@ -14,8 +14,7 @@ class CreateSolicitudesTable extends Migration
     public function up()
     {
         Schema::create('solicitudes', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('id_alumno')->unsigned();
+            $table->increments('id_solicitud');
             $table->string('nombre');
             $table->string('apellido_paterno');
             $table->string('apellido_materno');
@@ -29,8 +28,11 @@ class CreateSolicitudesTable extends Migration
             $table->string('resolucion');
             $table->string('observacion');
 
+            $table->integer('id_alumno')->unsigned()->nullable();
             $table->timestamps();
-            $table->foreign('id_alumno')->references('id')->on('alumnos');
+
+            $table->foreign('id_alumno')->references('id_alumno')
+                    ->on('alumnos')->onDelete('cascade');
         });
     }
 

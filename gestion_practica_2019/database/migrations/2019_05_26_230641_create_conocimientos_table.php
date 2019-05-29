@@ -14,14 +14,16 @@ class CreateConocimientosTable extends Migration
     public function up()
     {
         Schema::create('conocimientos', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('id_autoeval')->unsigned();
+            $table->increments('id_conocimiento');
             $table->string('n_conocimiento');
             $table->string('dp_conocimiento');
             $table->string('tipo_conocimiento');
 
+            $table->integer('id_practica')->unsigned();
             $table->timestamps();
-            $table->foreign('id_autoeval')->references('id')->on('autoevaluaciones');
+
+            $table->foreign('id_practica')->references('id_practica')
+                    ->on('practicas')->onDelete('cascade');
         });
     }
 

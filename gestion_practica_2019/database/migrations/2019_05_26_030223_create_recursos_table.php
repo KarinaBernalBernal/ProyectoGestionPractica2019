@@ -14,10 +14,10 @@ class CreateRecursosTable extends Migration
     public function up()
     {
         Schema::create('recursos', function (Blueprint $table) {
-            $table->increments('id');
-            $table->timestamps();
+            $table->increments('id_recurso');
             $table->string('nombre');
             $table->string('url');
+            $table->timestamps();
         });
     }
 

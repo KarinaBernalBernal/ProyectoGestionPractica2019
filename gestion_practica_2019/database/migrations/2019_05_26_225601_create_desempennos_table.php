@@ -14,13 +14,15 @@ class CreateDesempennosTable extends Migration
     public function up()
     {
         Schema::create('desempennos', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('id_autoeval')->unsigned();
+            $table->integer('id_practica')->unsigned();//PK, FK
+            $table->primary('id_practica');
+
             $table->string('valor');
             $table->string('dp_tarea');
-
             $table->timestamps();
-            $table->foreign('id_autoeval')->references('id')->on('autoevaluaciones');
+
+            $table->foreign('id_practica')->references('id_practica')
+                    ->on('practicas')->onDelete('cascade');
         });
     }
 

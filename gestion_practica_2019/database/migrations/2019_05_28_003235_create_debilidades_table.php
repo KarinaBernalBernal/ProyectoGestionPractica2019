@@ -14,13 +14,15 @@ class CreateDebilidadesTable extends Migration
     public function up()
     {
         Schema::create('debilidades', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('id_practica')->unsigned();
+            $table->increments('id_debilidad');
             $table->string('n_debilidad');
             $table->string('dp_debilidad');
-
+            
+            $table->integer('id_practica')->unsigned();
             $table->timestamps();
-            $table->foreign('id_practica')->references('id')->on('practicas');
+            
+            $table->foreign('id_practica')->references('id_practica')
+                    ->on('practicas')->onDelete('cascade');
         });
     }
 

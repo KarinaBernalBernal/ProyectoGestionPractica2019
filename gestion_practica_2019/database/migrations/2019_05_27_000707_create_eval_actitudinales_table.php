@@ -14,7 +14,7 @@ class CreateEvalActitudinalesTable extends Migration
     public function up()
     {
         Schema::create('eval_actitudinales', function (Blueprint $table) {
-            $table->increments('id');
+            $table->increments('id_actitudinal');
             $table->string('n_actitud');
             $table->string('dp_actitud');
 

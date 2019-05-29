@@ -14,7 +14,7 @@ class CreateSupervisoresTable extends Migration
     public function up()
     {
         Schema::create('supervisores', function (Blueprint $table) {
-            $table->increments('id');
+            $table->increments('id_supervisor');
             $table->string('nombre');
             $table->string('apellido_paterno');
             $table->string('apellido_materno');
@@ -22,12 +22,12 @@ class CreateSupervisoresTable extends Migration
             $table->string('departamento');
             $table->string('email');
             $table->string('fono');
-
-            //$table->integer('id_empresa')->unsigned();
             
+            $table->integer('id_user')->unsigned(); //Esto es debido a que no se puede crear una herencia
             $table->timestamps();
-
-            //$table->foreign('id_empresa')->references('id')->on('empresas');
+            
+            $table->foreign('id_user')->references('id_user')
+                    ->on('users')->onDelete('cascade');
         });
     }
 

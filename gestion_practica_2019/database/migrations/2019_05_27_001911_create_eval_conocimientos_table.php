@@ -14,7 +14,7 @@ class CreateEvalConocimientosTable extends Migration
     public function up()
     {
         Schema::create('eval_conocimientos', function (Blueprint $table) {
-            $table->increments('id');
+            $table->increments('id_conocimiento');
             $table->string('n_con');
             $table->string('dp_con');
 
