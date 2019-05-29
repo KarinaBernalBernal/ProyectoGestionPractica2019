@@ -20,7 +20,7 @@ class CreateSupervisoresTable extends Migration
             $table->string('apellido_materno');
             $table->string('cargo');
             $table->string('departamento');
-            $table->string('email')->unique();
+            $table->string('email');
             $table->string('fono');
             
             $table->timestamps();

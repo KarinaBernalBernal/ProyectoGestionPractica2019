@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateEvalActitudinalesTable extends Migration
+class CreateAreasAutoevalTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,14 @@ class CreateEvalActitudinalesTable extends Migration
      */
     public function up()
     {
-        Schema::create('eval_actitudinales', function (Blueprint $table) {
+        Schema::create('areas_autoeval', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('n_actitud');
-            $table->string('dp_actitud');
+            $table->integer('id_autoeval')->unsigned();
+            $table->integer('id_area')->unsigned();
 
             $table->timestamps();
+            $table->foreign('id_autoeval')->references('id')->on('autoevaluaciones');
+            $table->foreign('id_area')->references('id')->on('areas');
         });
     }
 
@@ -29,6 +31,6 @@ class CreateEvalActitudinalesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('eval_actitudinales');
+        Schema::dropIfExists('areas_autoeval');
     }
 }
