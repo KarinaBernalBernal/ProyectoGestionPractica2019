@@ -15,8 +15,14 @@ class CreatePerfilesTable extends Migration
     {
         Schema::create('perfiles', function (Blueprint $table) {
             $table->increments('id');
-            $table->timestamps();
             $table->string('nombre');
+
+            //$table->integer('id_users')->unsigned();
+            
+            $table->timestamps();
+            
+            //$table->foreign('id_users')->references('id')->on('users');
+    
         });
     }
 

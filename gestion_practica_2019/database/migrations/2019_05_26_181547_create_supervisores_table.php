@@ -22,8 +22,12 @@ class CreateSupervisoresTable extends Migration
             $table->string('departamento');
             $table->string('email');
             $table->string('fono');
+
+            //$table->integer('id_empresa')->unsigned();
             
             $table->timestamps();
+
+            //$table->foreign('id_empresa')->references('id')->on('empresas');
         });
     }
 
