@@ -18,8 +18,8 @@ class CreateAlumnosTable extends Migration
             $table->string('nombre');
             $table->string('apellido_paterno');
             $table->string('apellido_materno');
-            $table->string('rut');
-            $table->string('email');
+            $table->string('rut')->unique();
+            $table->string('email')->unique();
             $table->string('direccion');
             $table->string('fono');
             $table->string('anno_ingreso');
