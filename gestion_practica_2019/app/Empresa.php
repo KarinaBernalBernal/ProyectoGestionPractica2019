@@ -6,8 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Empresa extends Model
 {
+    protected $primaryKey = 'id_empresa';
+
     protected $fillable = [
-        'id_empresa','n_empresa','rut','ciudad','direccion','fono','casilla','email'
+        'n_empresa','rut','ciudad','direccion','fono','casilla','email'
     ];
     public function supervisor(){
  		return $this->belongsTo('App\Supervisor');

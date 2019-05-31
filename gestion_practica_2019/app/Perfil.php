@@ -6,14 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Perfil extends Model
 {
+    protected $primaryKey = 'id_perfil';
+
     protected $fillable = [
-       	'id_perfil','n_perfil','id_user'
+       	'n_perfil','id_user'
     ];
 
-    public function users(){
+    public function user(){
  		return $this->hasMany('App\User');
     }
-    public function perfil_recurso(){
+    public function perfilRecurso(){
  		return $this->belongsTo('App\PerfilRecurso');
     }
 }

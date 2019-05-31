@@ -6,11 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Fortaleza extends Model
 {
+    protected $primaryKey = 'id_fortaleza';
+
     protected $fillable = [
-       	'id_fortaleza','n_fortaleza','dp_fortaleza','id_practica'
+       	'n_fortaleza','dp_fortaleza','id_eval_supervisor'
     ];
 
-    public function evaluaciones_supervisor(){
+    public function evaluacionSupervisor(){
  		return $this->hasMany('App\EvaluacionSupervisor');
     }
 }

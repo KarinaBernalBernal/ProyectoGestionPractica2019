@@ -7,10 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class AreaEvaluacion extends Model
 {
     protected $fillable = [
-       	'id_practica','id_area'
+       	'id_eval_supervisor','id_area'
     ];
 
-    public function evaluaciones_supervisor(){
+    public function evaluacionSupervisor(){
  		return $this->hasMany('App\EvaluacionSupervisor');
     }
     public function area(){

@@ -6,8 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class EvaluacionSupervisor extends Model
 {
+    protected $primaryKey = 'id_eval_supervisor';
+
     protected $fillable = [
-       	'id_practica','porcent_tarea_realizadas','resultado_eval','f_entrega_eval'
+       	'porcent_tareas_realizadas','resultado_eval','f_entrega_eval','id_practica'
     ];
 
     public function practica(){
@@ -19,13 +21,13 @@ class EvaluacionSupervisor extends Model
     public function debilidad(){
  		return $this->belongsTo('App\Debilidad');
     }
-    public function area_evaluacion(){
+    public function areaEvaluacion(){
  		return $this->belongsTo('App\AreaEvaluacion');
     }
-    public function eval_act_emp_practica(){
+    public function evalActEmpPractica(){
  		return $this->belongsTo('App\EvalActEmpPractica');
     }
-    public function eval_con_emp_practica(){
+    public function evalConEmpPractica(){
  		return $this->belongsTo('App\EvalConEmpPractica');
     }
 }

@@ -6,11 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Recurso extends Model
 {
+    protected $primaryKey = 'id_recurso';
+
     protected $fillable = [
-        'id_recurso','nombre','url'
+        'n_recurso','url'
     ];
 
-    public function perfil_recurso(){
+    public function perfilRecurso(){
         return $this->belongsTo('App\PerfilRecurso');
     }
 }

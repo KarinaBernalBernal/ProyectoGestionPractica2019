@@ -16,12 +16,12 @@ class CreateEvalConEmpPracticasTable extends Migration
         Schema::create('eval_con_emp_practicas', function (Blueprint $table) {
             $table->integer('valor_con_emp_practica');
             
-            $table->integer('id_practica')->unsigned();
+            $table->integer('id_eval_supervisor')->unsigned();
             $table->integer('id_conocimiento')->unsigned();
             $table->timestamps();
 
-            $table->foreign('id_practica')->references('id_practica')
-                    ->on('practicas')->onDelete('cascade');
+            $table->foreign('id_eval_supervisor')->references('id_eval_supervisor')
+                    ->on('evaluaciones_supervisor')->onDelete('cascade');
             $table->foreign('id_conocimiento')->references('id_conocimiento')
                     ->on('eval_conocimientos')->onDelete('cascade');
 

@@ -18,11 +18,11 @@ class CreateDebilidadesTable extends Migration
             $table->string('n_debilidad');
             $table->string('dp_debilidad');
             
-            $table->integer('id_practica')->unsigned();
+            $table->integer('id_eval_supervisor')->unsigned();
             $table->timestamps();
             
-            $table->foreign('id_practica')->references('id_practica')
-                    ->on('practicas')->onDelete('cascade');
+            $table->foreign('id_eval_supervisor')->references('id_eval_supervisor')
+                    ->on('evaluaciones_supervisor')->onDelete('cascade');
         });
     }
 

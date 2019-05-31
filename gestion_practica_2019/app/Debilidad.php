@@ -6,11 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Debilidad extends Model
 {
+    protected $primaryKey = 'id_debilidad';
+
     protected $fillable = [
-       	'id_debilidad','n_debilidad','dp_debilidad','id_practica'
+       	'n_debilidad','dp_debilidad','id_eval_supervisor'
     ];
 
-    public function evaluaciones_supervisor(){
+    public function evaluacionSupervisor(){
  		return $this->hasMany('App\EvaluacionSupervisor');
     }
 }

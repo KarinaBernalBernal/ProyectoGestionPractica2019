@@ -14,16 +14,15 @@ class CreateRegistroContactoTable extends Migration
     public function up()
     {
         Schema::create('registro_contacto', function (Blueprint $table) {
-            $table->integer('id_practica')->unsigned(); //PK, FK
-            $table->primary('id_practica');
-
+            $table->increments('id_registro_contacto');
             $table->string('tipo_contacto');
             $table->integer('cant_contacto');
             $table->string('observacion_contacto');
             $table->date('f_contacto');
 
             $table->integer('id_supervisor')->unsigned();
-            $table->integer('id_admin')->unsigned();
+            $table->integer('id_admin')->unsigned(); 
+            $table->integer('id_practica')->unsigned()->unique(); 
             $table->timestamps();
 
             $table->foreign('id_practica')->references('id_practica')

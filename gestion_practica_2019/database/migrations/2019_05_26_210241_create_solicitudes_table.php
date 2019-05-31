@@ -25,8 +25,8 @@ class CreateSolicitudesTable extends Migration
             $table->string('carrera');
             $table->string('estimacion_semestre');
             $table->date('f_solicitud');
-            $table->string('resolucion');
-            $table->string('observacion');
+            $table->string('resolucion_solicitud');
+            $table->string('observacion_solicitud');
 
             $table->integer('id_alumno')->unsigned()->nullable();
             $table->timestamps();

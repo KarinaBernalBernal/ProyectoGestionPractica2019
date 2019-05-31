@@ -22,7 +22,7 @@ class CreateAdministradoresTable extends Migration
             $table->string('email');
             $table->string('cargo');
 
-            $table->integer('id_user')->unsigned(); //Esto es debido a que no se puede crear una herencia
+            $table->integer('id_user')->unsigned()->unique(); //Esto es debido a que no se puede crear una herencia
             $table->timestamps();
             
             $table->foreign('id_user')->references('id_user')

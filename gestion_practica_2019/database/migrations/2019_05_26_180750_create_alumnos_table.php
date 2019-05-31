@@ -25,8 +25,8 @@ class CreateAlumnosTable extends Migration
             $table->string('anno_ingreso');
             $table->string('carrera');
             $table->string('estimacion_semestre');
-        
-            $table->integer('id_user')->unsigned(); //Esto es debido a que no se puede crear una herencia
+
+            $table->integer('id_user')->unsigned()->unique(); //Esto es debido a que no se puede crear una herencia
             $table->timestamps();
             
             $table->foreign('id_user')->references('id_user')

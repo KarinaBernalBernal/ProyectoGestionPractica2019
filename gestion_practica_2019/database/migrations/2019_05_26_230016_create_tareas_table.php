@@ -18,11 +18,11 @@ class CreateTareasTable extends Migration
             $table->string('n_tarea');
             $table->string('dp_tarea');
 
-            $table->integer('id_practica')->unsigned();
+            $table->integer('id_autoeval')->unsigned();
             $table->timestamps();
 
-            $table->foreign('id_practica')->references('id_practica')
-                    ->on('practicas')->onDelete('cascade');
+            $table->foreign('id_autoeval')->references('id_autoeval')
+                    ->on('autoevaluaciones')->onDelete('cascade');
         });
     }
 

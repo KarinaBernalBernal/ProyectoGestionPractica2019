@@ -14,12 +14,12 @@ class CreateEvaluacionesSupervisorTable extends Migration
     public function up()
     {
         Schema::create('evaluaciones_supervisor', function (Blueprint $table) {
-            $table->integer('id_practica')->unsigned(); //PK,FK
-            $table->primary('id_practica');
-
-            $table->integer('porcent_tarea_realizadas')->unsigned();
+            $table->increments('id_eval_supervisor');
+            $table->integer('porcent_tareas_realizadas')->unsigned();
             $table->string('resultado_eval');
             $table->date('f_entrega_eval');
+
+            $table->integer('id_practica')->unsigned()->unique(); 
             $table->timestamps();
 
             $table->foreign('id_practica')->references('id_practica')
