@@ -19,14 +19,17 @@
                                                 <h1 class="h4 text-gray-900 mb-4">Bienvenido!</h1>
                                             </div>
                                             <form class="user" method="POST" action="{{ route('login') }}">
-                                                    {{ csrf_field() }}
+                                                {{ csrf_field() }}
                                                 <div class="form-group {{ $errors->has('email') ? ' has-error' : '' }}">
-                                                    <input id="email" type="email" class="form-control form-control-user" aria-describedby="emailHelp" placeholder="Ingrese Correo Electronico..." name="email" value="{{ old('email') }}" required autofocus>
                                                     @if ($errors->has('email'))
                                                         <span class="help-block">
                                                             <strong>{{ $errors->first('email') }}</strong>
                                                         </span>
                                                     @endif
+                                                    <input class="form-control form-control-user" id="email"
+                                                        type="email" aria-describedby="emailHelp"
+                                                        name="email" placeholder="Ingresa tu email"
+                                                        value="{{ old('email') }}" required autofocus>
                                                 </div>
 
                                                 <div class="form-group {{ $errors->has('password') ? ' has-error' : '' }}">
@@ -36,8 +39,7 @@
                                                             <span class="help-block">
                                                                 <strong>{{ $errors->first('password') }}</strong>
                                                             </span>
-                                                        @endif
-                                                    
+                                                        @endif    
                                                 </div>
 
                                                 <div class="form-group">
