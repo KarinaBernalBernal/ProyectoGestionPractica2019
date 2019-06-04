@@ -42,7 +42,21 @@
         </div>
     </li>
 
+    <!-- Divider -->
+    <hr class="sidebar-divider">
 
+    <!-- Heading -->
+    <div class="sidebar-heading">
+            Mantenedores
+    </div>
+
+    <!-- Nav Item - Pages Collapse Menu -->
+    <li class="nav-item">
+        <a class="nav-link" href="{{route('lista_usuarios')}}">
+            <i class="fas fa-fw fa-folder"></i>
+            <span>Usuarios</span>
+        </a>
+    </li>
     <!-- Divider -->
     <hr class="sidebar-divider">
 
@@ -50,14 +64,14 @@
     <div class="sidebar-heading">
             Reportes
     </div>
-    
+
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
         <a class="nav-link" href="#">
             <i class="fas fa-fw fa-folder"></i>
             <span>Estudiantes</span>
         </a>
-    </li>    
+    </li>
 
     <!-- Divider -->
     <hr class="sidebar-divider">
@@ -93,6 +107,6 @@
     <div class="text-center d-none d-md-inline">
         <button class="rounded-circle border-0" id="sidebarToggle"></button>
     </div>
-    
+
 </ul>
 <!-- End of Sidebar -->
