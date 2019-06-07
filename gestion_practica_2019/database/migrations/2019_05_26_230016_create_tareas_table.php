@@ -14,13 +14,15 @@ class CreateTareasTable extends Migration
     public function up()
     {
         Schema::create('tareas', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('id_autoeval')->unsigned();
+            $table->increments('id_tarea');
             $table->string('n_tarea');
             $table->string('dp_tarea');
 
+            $table->integer('id_autoeval')->unsigned();
             $table->timestamps();
-            $table->foreign('id_autoeval')->references('id')->on('autoevaluaciones');
+
+            $table->foreign('id_autoeval')->references('id_autoeval')
+                    ->on('autoevaluaciones')->onDelete('cascade');
         });
     }
 

@@ -14,8 +14,7 @@ class CreateDocumentosSolicitadosTable extends Migration
     public function up()
     {
         Schema::create('documentos_solicitados', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('id_alumno')->unsigned();
+            $table->increments('id_doc_solicitado');
             $table->date('f_solicitud');
             $table->boolean('carta_presentacion');
             $table->boolean('seguro_escolar');
@@ -27,8 +26,11 @@ class CreateDocumentosSolicitadosTable extends Migration
             $table->string('cuidad');
             $table->string('empresa');
 
+            $table->integer('id_alumno')->unsigned();
             $table->timestamps();
-            $table->foreign('id_alumno')->references('id')->on('alumnos');
+
+            $table->foreign('id_alumno')->references('id_alumno')
+                    ->on('alumnos')->onDelete('cascade');
         });
     }
 
