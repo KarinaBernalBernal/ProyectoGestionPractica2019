@@ -14,14 +14,16 @@ class CreateHabilidadesTable extends Migration
     public function up()
     {
         Schema::create('habilidades', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('id_autoeval')->unsigned();
+            $table->increments('id_habilidad');
             $table->string('n_habilidad');
             $table->string('dp_habilidad');
             $table->string('tipo_habilidad');
 
+            $table->integer('id_autoeval')->unsigned();
             $table->timestamps();
-            $table->foreign('id_autoeval')->references('id')->on('autoevaluaciones');
+
+            $table->foreign('id_autoeval')->references('id_autoeval')
+                    ->on('autoevaluaciones')->onDelete('cascade');
         });
     }
 

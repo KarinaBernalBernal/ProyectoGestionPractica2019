@@ -14,12 +14,14 @@ class CreateAutoevaluacionesTable extends Migration
     public function up()
     {
         Schema::create('autoevaluaciones', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('id_practica')->unsigned();
-            $table->date('f_entrega');
-
+            $table->increments('id_autoeval');
+            $table->date('f_entrega'); 
+            
+            $table->integer('id_practica')->unsigned()->unique();        
             $table->timestamps();
-            $table->foreign('id_practica')->references('id')->on('practicas');
+
+            $table->foreign('id_practica')->references('id_practica')
+                    ->on('practicas')->onDelete('cascade');
         });
     }
 

@@ -14,13 +14,15 @@ class CreateFortalezasTable extends Migration
     public function up()
     {
         Schema::create('fortalezas', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('id_practica')->unsigned();
+            $table->increments('id_fortaleza');
             $table->string('n_fortaleza');
             $table->string('dp_fortaleza');
             
+            $table->integer('id_eval_supervisor')->unsigned();
             $table->timestamps();
-            $table->foreign('id_practica')->references('id')->on('practicas');
+            
+            $table->foreign('id_eval_supervisor')->references('id_eval_supervisor')
+                    ->on('evaluaciones_supervisor')->onDelete('cascade');
         });
     }
 
