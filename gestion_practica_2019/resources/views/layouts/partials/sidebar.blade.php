@@ -3,8 +3,9 @@
 
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-        <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-laugh-wink"></i></div>
-        <div class="sidebar-brand-text mx-3">INF PUCV </div>
+        <img src="\images\logo_escuela.png" alt="Escuela de Informatica" height="60" width="172" data-atf="1">
+        <!--<div class="sidebar-brand-icon rotate-n-15">
+        <div class="sidebar-brand-text mx-3"></div>-->
     </a>
 
     <!-- Divider -->
