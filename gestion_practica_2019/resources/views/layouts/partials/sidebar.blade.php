@@ -3,9 +3,7 @@
 
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-        <div class="sidebar-brand-icon rotate-n-15">
-        <i class="fas fa-laugh-wink"></i>
-        </div>
+        <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-laugh-wink"></i></div>
         <div class="sidebar-brand-text mx-3">INF PUCV </div>
     </a>
 
@@ -29,19 +27,46 @@
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
         <i class="fas fa-users"></i>
-        <span>Mantenedores</span>
+        <span>Ing. Civil Informatica:</span>
+        </a>
+        <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Gestión general</h6>
+                <a class="collapse-item" href="#">Alumnos</a>
+                <a class="collapse-item" href="#">Supervisores</a>
+
+                <h6 class="collapse-header">Etapas</h6>
+                <a class="collapse-item" href="#">Inscripciones</a>
+                <a class="collapse-item" href="#">Autoevaluaciones</a>
+                <a class="collapse-item" href="#">Evaluaciones de empresas</a>
+
+                <h7 class="collapse-header">Charlas</h7>
+                <a class="collapse-item" href="#">Explicación Introductoria</a>
+                <a class="collapse-item" href="#">Presentaciones de practica</a>
+            </div>
+        </div>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo"><i class="fas fa-users"></i>
+        <span>Ing. Ejec. Informatica</span>
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-        <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Ing. Ejec. Informatica:</h6>
-            <a class="collapse-item" href="#">Alumnos</a>
-            <a class="collapse-item" href="#">Autoevaluaciones</a>
-            <h6 class="collapse-header">Ing. Civil Informatica:</h6>
-            <a class="collapse-item" href="#">Alumnos</a>
-            <a class="collapse-item" href="#">Autoevaluaciones</a>
-        </div>
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Gestión general</h6>
+                <a class="collapse-item" href="#">Alumnos</a>
+                <a class="collapse-item" href="#">Supervisores</a>
+
+                <h6 class="collapse-header">Etapas</h6>
+                <a class="collapse-item" href="#">Inscripciones</a>
+                <a class="collapse-item" href="#">Autoevaluaciones</a>
+                <a class="collapse-item" href="#">Evaluaciones de empresas</a>
+
+                <h7 class="collapse-header">Charlas</h7>
+                <a class="collapse-item" href="#">Explicación Introductoria</a>
+                <a class="collapse-item" href="#">Presentaciones de practica</a>
+            </div>
         </div>
     </li>
 
