@@ -1,7 +1,7 @@
-@extends('layouts')
+@extends('layouts.mainlayout')
 
 @section('content')
-    <div class="container">
+    <div class="container-fluid">
         <h3>Mantenedor de Usuarios</h3>
         <br>
     </div>
@@ -25,21 +25,18 @@
                                     <th>
                                         Email
                                     </th>
-                                    <th>
-                                        Pasword
-                                    </th>
+
                                 </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($lista as $usuario)
                                         <tr>
-                                            <td>{{$usuario->$id}}</td>
-                                            <td>{{$usuario->$name}}</td>
-                                            <td>{{$usuario->$email}}</td>
-                                            <td>{{$usuario->$pasword}}</td>
+                                            <td>{{$usuario->id}}</td>
+                                            <td>{{$usuario->name}}</td>
+                                            <td>{{$usuario->email}}</td>
                                             <td>
-                                                <button class="btn btn-warning">Editar</button>
-                                                <button class="btn btn-danger">Eliminar</button>
+                                                <a href="{{route('editar_usuario')}}"><button class="btn btn-warning">Editar</button>
+                                                <a href="{{route('eliminar_usuario')}}"><button class="btn btn-danger">Eliminar</button></a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -54,9 +51,6 @@
                                     </th>
                                     <th>
                                         Email
-                                    </th>
-                                    <th>
-                                        Pasword
                                     </th>
                                 </tr>
                                 </tfoot>
@@ -78,7 +72,7 @@
                     <a href="{{route('home')}}"><button class="btn btn-lg btn-block">Atras</button></a>
             </div>
             <div class='ml-auto'>
-                <a href="#"><button id="boton_agregar" class="btn btn-primary btn-lg"></button></a>
+                <a href="{{route('crear_usuario')}}"><button id="boton_agregar" class="btn btn-primary btn-lg">Agregar</button></a>
             </div>
         </div>
 

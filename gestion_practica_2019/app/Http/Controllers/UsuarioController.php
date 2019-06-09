@@ -13,7 +13,6 @@ class UsuarioController extends Controller
     public function lista()
     {
         $lista=User::all();
-        return view('home');
         return view('lista_usuarios',[
                 'lista'=>$lista,
             ]);
