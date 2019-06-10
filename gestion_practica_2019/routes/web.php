@@ -27,10 +27,10 @@ Route::get('/home2', 'HomeTemplateController@index')->name('home2');
 Route::get('/Usuarios/lista', 'UsuarioController@lista')->name('lista_usuarios');
 Route::get('/Usuarios/editar', 'UsuarioController@editar')->name('editar_usuario');
 Route::get('/Usuarios/eliminar', 'UsuarioController@eliminar')->name('eliminar_usuario');
-Route::get('/Usuarios/crear', 'UsuarioController@registrar')->name('registrar');
+Route::get('/Usuarios/crear', 'ARegisterController@showRegistrationForm');
 
 
 //Rutas tipo POST
-Route::post('/Usuarios/crear', 'Auth\RegisterController@create')->name('crear_usuario');
+// Route::post('/Usuarios/crear', 'Auth\RegisterController@create')->name('crear_usuario');
 // Route::post('/Usuarios/editar', 'UsuarioController@editar_usuario')->name('editar_usuario');
 // Route::post('/Usuarios/eliminar', 'UsuarioController@eliminar_usuario')->name('eliminar_usuario');

@@ -8,7 +8,7 @@
                 <div class="panel-heading">Register</div>
 
                 <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="{{ route('register') }}">
+                    <form class="form-horizontal" method="POST" ">
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
@@ -69,6 +69,7 @@
                             </div>
                         </div>
                     </form>
+                    <a href="{{route('lista_usuarios')}}"><button class="btn btn-lg btn-block">Cancelar</button></a>
                 </div>
             </div>
         </div>

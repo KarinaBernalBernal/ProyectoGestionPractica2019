@@ -72,7 +72,7 @@
                     <a href="{{route('home')}}"><button class="btn btn-lg btn-block">Atras</button></a>
             </div>
             <div class='ml-auto'>
-                <a href="{{route ('registrar')}}"><button id="boton_agregar" class="btn btn-primary btn-lg">Agregar</button></a>
+                <a href="{{route ('register')}}"><button id="boton_agregar" class="btn btn-primary btn-lg">Agregar</button></a>
             </div>
         </div>
 
