@@ -17,4 +17,21 @@ class UsuarioController extends Controller
                 'lista'=>$lista,
             ]);
     }
+	public function registrar()
+    {
+
+		return view('register');
+
+    }
+    //vista para crear un usuario
+    public function crear_usuario(Request $request)
+    {
+
+        $nuevo = new User();
+        $nuevo->name= $request->name;
+        $nuevo->email = $request->email;
+        $nuevo->password = bcrypt($request->password);
+
+        $nuevo->save();
+    }
 }
