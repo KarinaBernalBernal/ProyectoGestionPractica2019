@@ -19,4 +19,26 @@ class UsuarioController extends Controller
                 'lista'=>$lista,
             ]);
     }
+    public function editar($id_elemento)
+    {
+        $elemento= User::find($id_elemento);
+        return view('editar_usuario',[
+                'elemento'=>$elemento,
+        	]);
+
+    }
+    public function editarUsuario(Request $request)
+    {
+        $elemento_editar=User::find($request->id);
+        if(isset($elemento_editar))
+        {
+            $elemento_editar->name=$request->name;
+            $elemento_editar->email=$request->email;
+            $elemento_editar->type=$request->type;
+            $elemento_editar->save();
+        }
+        return redirect()->route('lista_usuarios');
+
+    }
+
 }

@@ -35,7 +35,7 @@
                                             <td>{{$usuario->name}}</td>
                                             <td>{{$usuario->email}}</td>
                                             <td>
-                                                <a href="{{route('editar_usuario')}}"><button class="btn btn-warning">Editar</button>
+                                                <a href="{{route('editar_usuario',[$usuario->id])}} "><button id="{{$usuario->id}}" class="btn btn-warning">Editar</button></a>
                                                 <a href="{{route('eliminar_usuario')}}"><button class="btn btn-danger">Eliminar</button></a>
                                             </td>
                                         </tr>
