@@ -31,6 +31,13 @@ class UsuarioController extends Controller
 
     }
 
+    // public function eliminar($id_elemento){
+
+    //     $elemento= User::find($id_elemento);
+
+    //      return view('eliminar',['elemento'=>$elemento,'id_elemento'=>$id_elemento]);
+    // }
+
     public function editarUsuario(Request $request, $id_elemento)
     {
         $elemento_editar=User::find($id_elemento);
@@ -43,6 +50,13 @@ class UsuarioController extends Controller
 
             return redirect()->route('lista_usuarios');
         }
+    }
+
+    public function borrarUsuario($id_elemento){
+            $elemento_eliminar =  User::find($id_elemento);
+            $elemento_eliminar->delete();
+            return redirect()->route('lista_usuarios');
+
     }
 
 }

@@ -26,11 +26,11 @@ Route::get('/home2', 'HomeTemplateController@index')->name('home2');
 // Rutas tipo GET
 Route::get('/Usuarios/lista', 'UsuarioController@lista')->name('lista_usuarios');
 Route::get('/Usuarios/editar/{id_elemento}', 'UsuarioController@editar')->name('editar_usuario');
-Route::get('/Usuarios/eliminar', 'UsuarioController@eliminar')->name('eliminar_usuario');
+// Route::get('/Usuarios/eliminar/{id_elemento}', 'UsuarioController@eliminar')->name('eliminar_usuario');
 Route::get('/Usuarios/crear', 'RegisterController@showRegistrationForm');
 
 
 //Rutas tipo POST
 // Route::post('/Usuarios/crear', 'Auth\RegisterController@create')->name('crear_usuario');
 Route::post('/editar/{id_elemento}', 'UsuarioController@editarUsuario')->name('editar');
-// Route::post('/Usuarios/eliminar', 'UsuarioController@eliminar_usuario')->name('eliminar_usuario');
+Route::post('/borrar','UsuarioController@borrarUsuario')->name('borrar');

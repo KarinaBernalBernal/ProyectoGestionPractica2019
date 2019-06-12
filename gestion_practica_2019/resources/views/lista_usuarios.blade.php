@@ -36,7 +36,7 @@
                                             <td>{{$usuario->email}}</td>
                                             <td>
                                                 <a href="{{route('editar_usuario',[$usuario->id])}} "><button id="{{$usuario->id}}" class="btn btn-warning">Editar</button></a>
-                                                <a href="{{route('eliminar_usuario')}}"><button class="btn btn-danger">Eliminar</button></a>
+                                                <a href="#"><button id="{{$usuario->id}}" class="btn btn-danger" onclick="borrarElemento('{{$usuario->id}}')">Borrar</button></a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -79,6 +79,27 @@
     </div>
 
 <script>
+    function borrarElemento(id_elemento)
+    {
+        mensaje = '¿Esta seguro de querer eliminar al elemento de forma permanente?'
+        confirmacion = confirm(mensaje)
+        if(confirmacion)
+        {
+            parametros={
+                'id_elemento': id_elemento,
+                "_token": $('#token').val();
+            }
+            $.ajax({
+                type: 'post',
+                data: parametros,
+                url: "/borrar/",
+                success: function(response){
+                    $("#"+id_elemento).remove();
+                    alert(response);
+                }
+            });
+        }
 
+    }
 </script>
 @endsection
