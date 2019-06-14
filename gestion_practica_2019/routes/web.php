@@ -33,4 +33,4 @@ Route::get('/Usuarios/crear', 'RegisterController@showRegistrationForm');
 //Rutas tipo POST
 // Route::post('/Usuarios/crear', 'Auth\RegisterController@create')->name('crear_usuario');
 Route::post('/editar/{id_elemento}', 'UsuarioController@editarUsuario')->name('editar');
-Route::post('/borrar','UsuarioController@borrarUsuario')->name('borrar');
+Route::post('/borrar/{id_elemento}','UsuarioController@borrarUsuario')->name('borrar');

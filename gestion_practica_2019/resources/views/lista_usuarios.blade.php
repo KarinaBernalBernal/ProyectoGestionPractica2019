@@ -5,7 +5,6 @@
         <h3>Mantenedor de Usuarios</h3>
         <br>
     </div>
-    <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
     <div class="container">
         <div class="row justify-content-center">
             <div class="text-center">
@@ -15,7 +14,7 @@
                         <div class="col s12">
                             <table id="tabla" class="table">
                                 <thead>
-                                <tr>
+                                <tr >
                                     <th>
                                         Id
                                     </th>
@@ -26,23 +25,23 @@
                                         Email
                                     </th>
 
-                                </tr>
+                                </tr >
                                 </thead>
                                 <tbody>
                                     @foreach ($lista as $usuario)
-                                        <tr>
+                                        <tr id="{{$usuario->id}}">
                                             <td>{{$usuario->id}}</td>
                                             <td>{{$usuario->name}}</td>
                                             <td>{{$usuario->email}}</td>
                                             <td>
                                                 <a href="{{route('editar_usuario',[$usuario->id])}} "><button id="{{$usuario->id}}" class="btn btn-warning">Editar</button></a>
-                                                <a href="#"><button id="{{$usuario->id}}" class="btn btn-danger" onclick="borrarElemento('{{$usuario->id}}')">Borrar</button></a>
+                                                <a href="#"><button id="{{$usuario->id}}" class="btn btn-danger" onclick="borrar('{{$usuario->id}}', '{{route('borrar',[$usuario->id])}}')">Borrar</button></a>
                                             </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
                                 <tfoot>
-                                <tr>
+                                <tr >
                                     <th>
                                         Id
                                     </th>
@@ -79,7 +78,7 @@
     </div>
 
 <script>
-    function borrarElemento(id_elemento)
+    function borrar(id_elemento, url_action)
     {
         mensaje = '¿Esta seguro de querer eliminar al elemento de forma permanente?'
         confirmacion = confirm(mensaje)
@@ -87,15 +86,14 @@
         {
             parametros={
                 'id_elemento': id_elemento,
-                "_token": $('#token').val();
+                "_token": $("meta[name='csrf-token']").attr("content")
             }
             $.ajax({
-                type: 'post',
+                url: url_action,
+                method: "POST",
                 data: parametros,
-                url: "/borrar/",
                 success: function(response){
-                    $("#"+id_elemento).remove();
-                    alert(response);
+                    $('#'+id_elemento).remove();
                 }
             });
         }
