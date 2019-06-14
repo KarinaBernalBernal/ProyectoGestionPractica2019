@@ -1,6 +1,7 @@
 <!-- <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
  --><!-- Bootstrap core JavaScript-->
 <script src="../../vendor/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sweetalert2@7.33.1/dist/sweetalert2.all.min.js"></script>
 
 <script src="../../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 

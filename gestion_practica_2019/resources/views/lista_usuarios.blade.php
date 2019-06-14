@@ -35,7 +35,7 @@
                                             <td>{{$usuario->email}}</td>
                                             <td>
                                                 <a href="{{route('editar_usuario',[$usuario->id])}} "><button id="{{$usuario->id}}" class="btn btn-warning">Editar</button></a>
-                                                <a href="#"><button id="{{$usuario->id}}" class="btn btn-danger" onclick="borrar('{{$usuario->id}}', '{{route('borrar',[$usuario->id])}}')">Borrar</button></a>
+                                                <a href="#"><button id="{{$usuario->id}}" class="btn btn-danger" onclick="borrar('{{$usuario->id}}', '{{$usuario->name}}', '{{route('borrar',[$usuario->id])}}')">Borrar</button></a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -68,7 +68,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-2">
-                    <a href="{{route('home')}}"><button class="btn btn-lg btn-block">Atras</button></a>
+                    <a href="{{route('home')}}"><button class="btn btn-primary btn-lg">Atras</button></a>
             </div>
             <div class='ml-auto'>
                 <a href="{{route ('register')}}"><button id="boton_agregar" class="btn btn-primary btn-lg">Agregar</button></a>
@@ -78,25 +78,41 @@
     </div>
 
 <script>
-    function borrar(id_elemento, url_action)
+    function borrar(id_elemento,name , url_action)
     {
-        mensaje = '¿Esta seguro de querer eliminar al elemento de forma permanente?'
-        confirmacion = confirm(mensaje)
-        if(confirmacion)
-        {
-            parametros={
-                'id_elemento': id_elemento,
-                "_token": $("meta[name='csrf-token']").attr("content")
-            }
-            $.ajax({
-                url: url_action,
-                method: "POST",
-                data: parametros,
-                success: function(response){
-                    $('#'+id_elemento).remove();
+
+        Swal({
+              title: 'Estas seguro de querer eliminar el usuario '+name+'?',
+              text: "No sera posible revertir este cambio!",
+              type: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Si, Eliminalo!'
+            }).then((result) => {
+
+                if (result.value) {
+
+                    parametros={
+                        'id_elemento': id_elemento,
+                        "_token": $("meta[name='csrf-token']").attr("content")
+                    }
+
+                    $.ajax({
+                        url: url_action,
+                        method: "POST",
+                        data: parametros,
+                        success: function(response){
+                            Swal(
+                              'Eliminado!',
+                              'El usuario ha sido eliminado.',
+                              'success'
+                            )
+                            $('#'+id_elemento).remove();
+                        }
+                    });
                 }
-            });
-        }
+            })
 
     }
 </script>
