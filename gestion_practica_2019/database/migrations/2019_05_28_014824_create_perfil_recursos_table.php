@@ -14,13 +14,14 @@ class CreatePerfilRecursosTable extends Migration
     public function up()
     {
         Schema::create('perfil_recursos', function (Blueprint $table) {
-            $table->increments('id');
             $table->integer('id_perfil')->unsigned();
             $table->integer('id_recurso')->unsigned();
-            
             $table->timestamps();
-            $table->foreign('id_perfil')->references('id')->on('perfiles');
-            $table->foreign('id_recurso')->references('id')->on('recursos');
+
+            $table->foreign('id_perfil')->references('id_perfil')
+                    ->on('perfiles')->onDelete('cascade');
+            $table->foreign('id_recurso')->references('id_recurso')
+                    ->on('recursos')->onDelete('cascade');
         });
     }
 

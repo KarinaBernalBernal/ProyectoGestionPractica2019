@@ -14,7 +14,7 @@ class CreateAlumnosTable extends Migration
     public function up()
     {
         Schema::create('alumnos', function (Blueprint $table) {
-            $table->increments('id');
+            $table->increments('id_alumno');
             $table->string('nombre');
             $table->string('apellido_paterno');
             $table->string('apellido_materno');
@@ -26,7 +26,11 @@ class CreateAlumnosTable extends Migration
             $table->string('carrera');
             $table->string('estimacion_semestre');
 
+            $table->integer('id_user')->unsigned()->unique(); //Esto es debido a que no se puede crear una herencia
             $table->timestamps();
+            
+            $table->foreign('id_user')->references('id_user')
+                    ->on('users')->onDelete('cascade');
         });
     }
 
