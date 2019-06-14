@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container-fluid">
-        <h3>Mantenedor de Usuarios</h3>
+        <h3>Mantenedor de Recursos</h3>
         <br>
     </div>
     <div class="container">
@@ -21,21 +21,17 @@
                                     <th>
                                         Nombre
                                     </th>
-                                    <th>
-                                        Email
-                                    </th>
 
                                 </tr >
                                 </thead>
                                 <tbody>
-                                    @foreach ($lista as $usuario)
-                                        <tr id="{{$usuario->id_user}}">
-                                            <td>{{$usuario->id_user}}</td>
-                                            <td>{{$usuario->name}}</td>
-                                            <td>{{$usuario->email}}</td>
+                                    @foreach ($lista as $recurso)
+                                        <tr id="{{$recurso->id_recurso}}">
+                                            <td>{{$recurso->id_recurso}}</td>
+                                            <td>{{$recurso->n_recurso}}</td>
                                             <td>
-                                                <a href="{{route('editar_usuario',[$usuario->id_user])}} "><button id="{{$usuario->id_user}}" class="btn btn-warning">Editar</button></a>
-                                                <a href="#"><button id="{{$usuario->id_user}}" class="btn btn-danger" onclick="borrar('{{$usuario->id_user}}', '{{$usuario->name}}', '{{route('borrar',[$usuario->id_user])}}')">Borrar</button></a>
+                                                <a href="#"><button class="btn btn-warning">Editar</button></a>
+                                                <a href="#"><button id="{{$recurso->id_recurso}}" class="btn btn-danger" onclick="borrar('{{$recurso->id_recurso}}', '{{$recurso->n_recurso}}', '{{route('borrar',[$recurso->id_recurso])}}')">Borrar</button></a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -48,16 +44,13 @@
                                     <th>
                                         Nombre
                                     </th>
-                                    <th>
-                                        Email
-                                    </th>
                                 </tr>
                                 </tfoot>
                             </table>
                         </div>
                     </div>
                 @else
-                    <p>No existen Usuarios en este momento</p>
+                    <p>No existen Recursos en este momento</p>
                 @endif
                 <!-- FIN DATA TABLES -->
             </div>
@@ -71,7 +64,7 @@
                     <a href="/"><button class="btn btn-primary btn-lg">Atras</button></a>
             </div>
             <div class='ml-auto'>
-                <a href="{{route ('register')}}"><button id="boton_agregar" class="btn btn-primary btn-lg">Agregar</button></a>
+                <a href="#"><button id="boton_agregar" class="btn btn-primary btn-lg">Agregar</button></a>
             </div>
         </div>
 
@@ -82,7 +75,7 @@
     {
 
         Swal({
-              title: 'Estas seguro de querer eliminar el usuario '+name+'?',
+              title: 'Estas seguro de querer eliminar el recurso '+name+'?',
               text: "No sera posible revertir este cambio!",
               type: 'warning',
               showCancelButton: true,
@@ -105,7 +98,7 @@
                         success: function(response){
                             Swal(
                               'Eliminado!',
-                              'El usuario ha sido eliminado.',
+                              'El recurso ha sido eliminado.',
                               'success'
                             )
                             $('#'+id_elemento).remove();

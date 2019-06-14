@@ -34,7 +34,8 @@
             <div id="collapseGestionCuentas" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item" href="{{route('lista_usuarios')}}">Gestion de usuarios</a>
-                    <a class="collapse-item" href="#">Gestión de perfiles</a>
+                    <a class="collapse-item" href="{{route('lista_recursos')}}">Gestión de recursos</a>
+                    <a class="collapse-item" href="{{route('lista_perfiles')}}">Gestión de perfiles</a>
                 </div>
             </div>
         </li>
