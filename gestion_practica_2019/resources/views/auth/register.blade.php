@@ -62,6 +62,18 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="type" class="col-md-4 control-label"> Type</label>
+                            <div class="col-md-6">
+                            <select name="type" class="form-control">
+                                <option value="" disabled selected>Elige una opcion...</option>
+                                <option value="administrador">Administrador</option>
+                                <option value="alumno">Alumno</option>
+                                <option value="supervisor">Supervisor</option>
+                            </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
                                     Register
