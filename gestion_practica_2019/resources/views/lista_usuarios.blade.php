@@ -5,6 +5,7 @@
         <h3>Mantenedor de Usuarios</h3>
         <br>
     </div>
+    <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
     <div class="container">
         <div class="row justify-content-center">
             <div class="text-center">
@@ -35,7 +36,7 @@
                                             <td>{{$usuario->email}}</td>
                                             <td>
                                                 <a href="{{route('editar_usuario',[$usuario->id_user])}} "><button id="{{$usuario->id_user}}" class="btn btn-warning">Editar</button></a>
-                                                <a href="#"><button id="{{$usuario->id_user}}" class="btn btn-danger" onclick="borrar('{{$usuario->id_user}}', '{{$usuario->name}}', '{{route('borrar',[$usuario->id_user])}}')">Borrar</button></a>
+                                                <a href="#"><button id="{{$usuario->id_user}}" class="btn btn-danger" onclick="borrar('{{$usuario->id_user}}', '{{$usuario->name}}', '{{route('borrar_usuario',[$usuario->id_user])}}')">Borrar</button></a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -95,7 +96,7 @@
 
                     parametros={
                         'id_elemento': id_elemento,
-                        "_token": $("meta[name='csrf-token']").attr("content")
+                        "_token": $('#token').val()
                     }
 
                     $.ajax({

@@ -5,6 +5,7 @@
         <h3>Mantenedor de Perfiles</h3>
         <br>
     </div>
+    <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
     <div class="container">
         <div class="row justify-content-center">
             <div class="text-center">
@@ -30,8 +31,8 @@
                                             <td>{{$perfil->id_perfil}}</td>
                                             <td>{{$perfil->n_perfil}}</td>
                                             <td>
-                                                <a href="#"><button class="btn btn-warning">Editar</button></a>
-                                                <a href="#"><button id="{{$perfil->id_perfil}}" class="btn btn-danger" onclick="borrar('{{$perfil->id_perfil}}', '{{$perfil->n_perfil}}', '{{route('borrar',[$perfil->id_perfil])}}')">Borrar</button></a>
+                                                <a href="{{route('editar_perfil',[$perfil->id_perfil])}} "><button id="{{$perfil->id_perfil}}" class="btn btn-warning">Editar</button></a>
+                                                <a href="#"><button id="{{$perfil->id_perfil}}" class="btn btn-danger" onclick="borrar('{{$perfil->id_perfil}}', '{{$perfil->n_perfil}}', '{{route('borrar_perfil',[$perfil->id_perfil])}}')">Borrar</button></a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -64,7 +65,7 @@
                     <a href="/"><button class="btn btn-primary btn-lg">Atras</button></a>
             </div>
             <div class='ml-auto'>
-                <a href="#"><button id="boton_agregar" class="btn btn-primary btn-lg">Agregar</button></a>
+                <a href="{{route ('crear_perfil')}}"><button id="boton_agregar" class="btn btn-primary btn-lg">Agregar</button></a>
             </div>
         </div>
 
@@ -88,7 +89,7 @@
 
                     parametros={
                         'id_elemento': id_elemento,
-                        "_token": $("meta[name='csrf-token']").attr("content")
+                        "_token": $("#token").val()
                     }
 
                     $.ajax({

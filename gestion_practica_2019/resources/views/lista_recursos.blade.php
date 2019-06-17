@@ -5,6 +5,7 @@
         <h3>Mantenedor de Recursos</h3>
         <br>
     </div>
+    <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
     <div class="container">
         <div class="row justify-content-center">
             <div class="text-center">
@@ -21,6 +22,9 @@
                                     <th>
                                         Nombre
                                     </th>
+                                    <th>
+                                        Url
+                                    </th>
 
                                 </tr >
                                 </thead>
@@ -29,9 +33,11 @@
                                         <tr id="{{$recurso->id_recurso}}">
                                             <td>{{$recurso->id_recurso}}</td>
                                             <td>{{$recurso->n_recurso}}</td>
+                                            <td>{{$recurso->url}}</td>
+
                                             <td>
-                                                <a href="#"><button class="btn btn-warning">Editar</button></a>
-                                                <a href="#"><button id="{{$recurso->id_recurso}}" class="btn btn-danger" onclick="borrar('{{$recurso->id_recurso}}', '{{$recurso->n_recurso}}', '{{route('borrar',[$recurso->id_recurso])}}')">Borrar</button></a>
+                                                <a href="{{route('editar_recurso',[$recurso->id_recurso])}} "><button id="{{$recurso->id_recurso}}" class="btn btn-warning">Editar</button></a>
+                                                <a href="#"><button id="{{$recurso->id_recurso}}" class="btn btn-danger" onclick="borrar('{{$recurso->id_recurso}}', '{{$recurso->n_recurso}}', '{{route('borrar_recurso',[$recurso->id_recurso])}}')">Borrar</button></a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -43,6 +49,9 @@
                                     </th>
                                     <th>
                                         Nombre
+                                    </th>
+                                    <th>
+                                        Url
                                     </th>
                                 </tr>
                                 </tfoot>
@@ -64,7 +73,7 @@
                     <a href="/"><button class="btn btn-primary btn-lg">Atras</button></a>
             </div>
             <div class='ml-auto'>
-                <a href="#"><button id="boton_agregar" class="btn btn-primary btn-lg">Agregar</button></a>
+                <a href="{{route ('crear_recurso')}}"><button id="boton_agregar" class="btn btn-primary btn-lg">Agregar</button></a>
             </div>
         </div>
 
@@ -88,7 +97,7 @@
 
                     parametros={
                         'id_elemento': id_elemento,
-                        "_token": $("meta[name='csrf-token']").attr("content")
+                        "_token": $("#token").val()
                     }
 
                     $.ajax({
