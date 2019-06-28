@@ -23,3 +23,4 @@ Route::get('/home2', 'HomeTemplateController@index')->name('home2');
 //Solicitudes
 Route::get('/formularioSolicitud', 'SolicitudController@index')->name('formularioSolicitud');
 Route::post('/agregarSolicitud', 'SolicitudController@create')->name('agregarSolicitud');
+Route::get('/descripcionSolicitud', 'SolicitudController@descripcion')->name('descripcionSolicitud');

@@ -99,8 +99,7 @@
 
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
-            <a class="nav-link" href="{{route('formularioSolicitud')}}"><i class="fas fa-arrow-right"></i><span>Solicita tu práctica aquí</span>
-            <a class="nav-link collapsed" href="{{ route('home')}}">
+            <a class="nav-link collapsed" href="{{ route('descripcionSolicitud')}}">
                 <i class="fas fa-arrow-right"></i><span>Solicita tu práctica aquí</span>
             </a>
         </li>
