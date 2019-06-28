@@ -2,9 +2,12 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{route('home')}}">
-        <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-laugh-wink"></i></div>
-        <div class="sidebar-brand-text mx-3">INF PUCV </div>
+
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+        <img src="\images\logo_escuela.png" alt="Escuela de Informatica" height="60" width="172" data-atf="1">
+        <!--<div class="sidebar-brand-icon rotate-n-15">
+        <div class="sidebar-brand-text mx-3"></div>-->
+
     </a>
 
     <!-- Divider -->
@@ -98,8 +101,8 @@
 
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
-            <a class="nav-link collapsed" href="{{ route('home')}}">
-                <i class="fas fa-arrow-right"></i><span>Solicita tu práctica aquí</span>
+            <a class="nav-link" href="{{route('formularioSolicitud')}}"><i class="fas fa-arrow-right"></i><span>Solicita tu práctica aquí</span>
+
             </a>
         </li>
 

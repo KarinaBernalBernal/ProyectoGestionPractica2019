@@ -19,3 +19,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/home2', 'HomeTemplateController@index')->name('home2');
+
+//Solicitudes
+Route::get('/formularioSolicitud', 'SolicitudController@index')->name('formularioSolicitud');
+Route::post('/agregarSolicitud', 'SolicitudController@create')->name('agregarSolicitud');
