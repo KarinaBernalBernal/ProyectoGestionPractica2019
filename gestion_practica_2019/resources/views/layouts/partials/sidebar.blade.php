@@ -100,6 +100,8 @@
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
             <a class="nav-link" href="{{route('formularioSolicitud')}}"><i class="fas fa-arrow-right"></i><span>Solicita tu práctica aquí</span>
+            <a class="nav-link collapsed" href="{{ route('home')}}">
+                <i class="fas fa-arrow-right"></i><span>Solicita tu práctica aquí</span>
             </a>
         </li>
 
@@ -138,7 +140,7 @@
 
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
-            <a class="nav-link collapsed">
+            <a class="nav-link collapsed" href="#">
                 <i class="fas fa-arrow-right"></i><span>Evalúa a tu practicante</span>
             </a>
         </li>
