@@ -35,7 +35,7 @@ class SolicitudController extends Controller
      */
     public function store(Request $request)
     {
-       $estimacion = $request->semestre . '-' . $request->AñoProyecto;
+        $estimacion = $request->semestre . '-' . $request->AñoProyecto;
         $fecha= date("Y-m-d H:i:s");
 
         Solicitud::create([
@@ -75,7 +75,7 @@ class SolicitudController extends Controller
      */
     public function edit($id)
     {
-
+        //
     }
 
     /**
@@ -87,7 +87,7 @@ class SolicitudController extends Controller
      */
     public function update(Request $request, $id)
     {
-
+//
     }
 
     /**
@@ -98,7 +98,7 @@ class SolicitudController extends Controller
      */
     public function destroy($id)
     {
-        
+        //
     }
 
     public function descripcion(){

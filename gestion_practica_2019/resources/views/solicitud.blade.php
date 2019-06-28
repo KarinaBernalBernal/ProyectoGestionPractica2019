@@ -30,7 +30,7 @@
 
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-4">
-                                    <a href="{{route('formularioSolicitud')}}" class="btn btn-secondary btn-lg"> <span>Acceder al formulario</span></a>
+                                    <a href="{{route('formularioSolicitud')}}" class="btn btn-secondary"> <span>Acceder al formulario</span></a>
                                 </div>
                             </div>
                     </div>
