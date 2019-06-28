@@ -16,6 +16,6 @@ class Area extends Model
  		return $this->belongsTo('App\AreaAutoeval');
     }
     public function areaEvaluacion(){
- 		/return $this->belongsTo('App\AreaEvaluacion');
+ 		return $this->belongsTo('App\AreaEvaluacion');
     }
 }

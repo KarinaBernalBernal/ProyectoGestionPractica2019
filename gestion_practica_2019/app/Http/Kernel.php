@@ -57,5 +57,8 @@ class Kernel extends HttpKernel
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'guest' => \SGPP\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        'is_administrador' => \SGPP\Http\Middleware\IsAdministrador::class,
+        'is_alumno' => \SGPP\Http\Middleware\IsAlumno::class,
+        'is_supervisor' => \SGPP\Http\Middleware\IsSupervisor::class,
     ];
 }
