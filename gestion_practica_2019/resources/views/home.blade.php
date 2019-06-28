@@ -26,7 +26,7 @@
                     @endif
                     
                     
-                    <h5><strong>Para el Alumno:</strong> </h5>
+                    <h5><strong>Para el Alumno</strong> </h5>
                     <p>
                         <ul>
                             <li class="col-8">
@@ -35,7 +35,7 @@
                         </ul>
                     </p>
                     
-                    <h5><strong>Para el Escuela:</strong> </h5>
+                    <h5><strong>Para el Escuela</strong> </h5>
                     <p>
                         <ul>
                             <li>
