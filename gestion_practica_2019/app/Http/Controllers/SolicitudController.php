@@ -24,8 +24,18 @@ class SolicitudController extends Controller
      */
     public function create(Request $request)
     {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
         $estimacion = $request->semestre . '-' . $request->AñoProyecto;
-        //$fecha = new \DateTime();
         $fecha= date("Y-m-d H:i:s");
 
         Solicitud::create([
@@ -38,41 +48,12 @@ class SolicitudController extends Controller
             'anno_ingreso' => $request->AñoCarrera,
             'carrera' => $request->carrera,
             'estimacion_semestre' => $estimacion,
-            'f_solicitud' => $fecha,//->format('d-m-Y'),
+            'f_solicitud' => $fecha,
             'resolucion_solicitud' => null,
             'observacion_solicitud' => null
         ]);
         
         return redirect()->route('home2');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-       /*$estimacion = $semestre + '-' + $AñoProyecto;
-       $fecha = new \DateTime();
-
-       $this->validate($request,[ 
-            'nombre' => $request->$nombreAlumno,
-            'apellido_paterno' => $request->$APaternoAlumno,
-            'apellido_materno' => $request->$AMaternoAlumno,
-            'rut' => $request->$rutAlumno,
-            'direccion' => $request->$direccion,
-            'fono' => $request->$fono,
-            'anno_ingreso' => $request->$AñoCarrera,
-            'carrera' => $request->$carrera,
-            'estimacion_semestre' => $request->$estimacion ,
-            'f_solicitud' => $request->$fecha->format('d-m-Y H:i:s'), 
-        ]);
-        */
-        //return redirect()->route('perfil',['Usuario'])->with('success','Registro creado satisfactoriamente');
-
-         return redirect()->route('home2');
     }
 
     /**
@@ -83,7 +64,7 @@ class SolicitudController extends Controller
      */
     public function show($id)
     {
-
+        //
     }
 
     /**
@@ -94,7 +75,7 @@ class SolicitudController extends Controller
      */
     public function edit($id)
     {
-
+        //
     }
 
     /**
@@ -106,7 +87,7 @@ class SolicitudController extends Controller
      */
     public function update(Request $request, $id)
     {
-
+//
     }
 
     /**
@@ -117,7 +98,11 @@ class SolicitudController extends Controller
      */
     public function destroy($id)
     {
-        
+        //
+    }
+
+    public function descripcion(){
+        return view('solicitud');
     }
 
 }

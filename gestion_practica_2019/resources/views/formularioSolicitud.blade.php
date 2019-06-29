@@ -90,6 +90,8 @@
                         </div>
                     </div>
 
+                    <br>
+
                     {{-- Practica Profesional --}} 
                     <h6>2.- Si es alumno de Ingeniería Civil. ¿Ha realizado su primera <strong>Práctica Profesional</strong>?</h6>
 
@@ -104,6 +106,8 @@
                             </select>     
                         </div> 
                     </div>
+
+                    <br>
 
                     {{-- Avance Curricular --}}
                     <h6>3.- Según su avance curricular, cuando realizaria la asignatura <strong>Proyecto de Título</strong>?</h6>
@@ -128,10 +132,10 @@
 
                     <div class="row justify-content-end ">
                         <div class="col-md-6">
-                            <a href="{{route('home2')}} " class="btn btn-secondary btn-lg">Cancelar</a>
+                            <a href="{{route('home2')}} " class="btn btn-secondary">Cancelar</a>
                         </div>
                         <div class="col-md-6">
-                            <input class="btn btn-primary btn-lg" type="submit" value="Agregar">
+                            <input class="btn btn-primary" type="submit" value="Agregar">
                         </div>
                     </div>
                 </div>
