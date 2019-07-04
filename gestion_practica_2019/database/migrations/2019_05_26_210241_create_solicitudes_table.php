@@ -23,7 +23,8 @@ class CreateSolicitudesTable extends Migration
             $table->string('fono');
             $table->string('anno_ingreso');
             $table->string('carrera');
-            $table->string('estimacion_semestre');
+            $table->string('semestre_proyecto');
+            $table->string('anno_proyecto');
             $table->date('f_solicitud');
             $table->string('resolucion_solicitud')->nullable();
             $table->string('observacion_solicitud')->nullable();

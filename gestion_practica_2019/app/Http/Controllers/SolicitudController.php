@@ -35,19 +35,19 @@ class SolicitudController extends Controller
      */
     public function store(Request $request)
     {
-        $estimacion = $request->semestre . '-' . $request->AñoProyecto;
         $fecha= date("Y-m-d H:i:s");
 
         Solicitud::create([
             'nombre' => $request->nombreAlumno,
-            'apellido_paterno' => $request->APaternoAlumno,
-            'apellido_materno' => $request->AMaternoAlumno,
+            'apellido_paterno' => $request->aPaternoAlumno,
+            'apellido_materno' => $request->aMaternoAlumno,
             'rut' => $request->rutAlumno,
             'direccion' => $request->direccion,
             'fono' => $request->fono,
-            'anno_ingreso' => $request->AñoCarrera,
+            'anno_ingreso' => $request->añoCarrera,
             'carrera' => $request->carrera,
-            'estimacion_semestre' => $estimacion,
+            'semestre_proyecto' => $request->semestreProyecto,
+            'anno_proyecto' => $request->añoProyecto,
             'f_solicitud' => $fecha,
             'resolucion_solicitud' => null,
             'observacion_solicitud' => null
@@ -87,7 +87,7 @@ class SolicitudController extends Controller
      */
     public function update(Request $request, $id)
     {
-//
+        //
     }
 
     /**
@@ -103,6 +103,22 @@ class SolicitudController extends Controller
 
     public function descripcion(){
         return view('solicitud');
+    }
+
+    public function evaluacion(){
+        $solicitudes = Solicitud::orderBy('rut','DESC')->paginate(9);
+
+        return view('evaluacionSolicitud',[
+            'solicitudes'=>$solicitudes,
+        ]);
+    }
+
+    public function evaluarSolicitud(){
+        
+    }
+
+    public function modificarEvaluacion(){
+        
     }
 
 }

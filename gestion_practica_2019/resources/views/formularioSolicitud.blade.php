@@ -8,7 +8,7 @@
 
         {{-- Antecendentes Generales --}}
         
-         <form action="{{route('agregarSolicitud')}}" enctype="multipart/form-data" method="POST" role="form">
+        <form action="{{route('agregarSolicitud')}}" enctype="multipart/form-data" method="POST" role="form">
             <div class="card text">
                 <div class="card-body">  
                 {{ csrf_field() }} 
@@ -25,19 +25,19 @@
 
                     {{-- Apellido Paterno --}} 
                     <div class="form-group row">
-                        <label for="APaternoAlumno" class="col-md-3 col-form-label text-md-right">{{ __('Apellido Paterno') }}</label>
+                        <label for="aPaternoAlumno" class="col-md-3 col-form-label text-md-right">{{ __('Apellido Paterno') }}</label>
 
                         <div class="col-md-6">
-                            <input id="APaternoAlumno" type="text" class="form-control" name="APaternoAlumno" value="{{ old('APaternoAlumno') }}" required>
+                            <input id="aPaternoAlumno" type="text" class="form-control" name="aPaternoAlumno" value="{{ old('aPaternoAlumno') }}" required>
                         </div>
                     </div>
 
                     {{-- Apellido Materno --}}
                     <div class="form-group row">
-                        <label for="AMaternoAlumno" class="col-md-3 col-form-label text-md-right">{{ __('Apellido Materno') }}</label>
+                        <label for="aMaternoAlumno" class="col-md-3 col-form-label text-md-right">{{ __('Apellido Materno') }}</label>
 
                         <div class="col-md-6">
-                            <input id="AMaternoAlumno" type="text" class="form-control" name="AMaternoAlumno" value="{{ old('AMaternoAlumno') }}" required>
+                            <input id="aMaternoAlumno" type="text" class="form-control" name="aMaternoAlumno" value="{{ old('aMaternoAlumno') }}" required>
                         </div>
                     </div> 
 
@@ -70,10 +70,10 @@
 
                     {{-- Año de ingreso a la carrera --}}
                     <div class="form-group row">
-                        <label for="AñoCarrera" class="col-md-3 col-form-label text-md-right">{{ __('Año de Ingreso a la Carrera') }}</label>
+                        <label for="añoCarrera" class="col-md-3 col-form-label text-md-right">{{ __('Año de Ingreso a la Carrera') }}</label>
 
                         <div class="col-md-2">
-                            <input id="AñoCarrera" type="number" class="form-control" name="AñoCarrera" value="{{ old('AñoCarrera') }}" required>
+                            <input id="añoCarrera" type="number" class="form-control" name="añoCarrera" value="{{ old('añoCarrera') }}" required>
                         </div>
                     </div>    
 
@@ -114,19 +114,19 @@
 
                     {{-- Semestre --}} 
                     <div class="form-group row">
-                        <label for="semestre" class="col-md-3 col-form-label text-md-right">{{ __('Semestre') }}</label>
+                        <label for="semestreProyecto" class="col-md-3 col-form-label text-md-right">{{ __('Semestre') }}</label>
 
                         <div class="col-md-2">
-                            <input id="semestre" type="number" class="form-control" name="semestre" value="{{ old('semestre') }}" required>
+                            <input id="semestreProyecto" type="number" class="form-control" name="semestreProyecto" value="{{ old('semestreProyecto') }}" required>
                         </div>
                     </div>    
 
                     {{-- AñoProyecto --}}
                     <div class="form-group row">
-                        <label for="AñoProyecto" class="col-md-3 col-form-label text-md-right">{{ __('Año') }}</label>
+                        <label for="añoProyecto" class="col-md-3 col-form-label text-md-right">{{ __('Año') }}</label>
 
                         <div class="col-md-2">
-                            <input id="AñoProyecto" type="number" class="form-control" name="AñoProyecto" value="{{ old('AñoProyecto') }}" required>
+                            <input id="añoProyecto" type="number" class="form-control" name="añoProyecto" value="{{ old('añoProyecto') }}" required>
                         </div>
                     </div>
 
