@@ -52,6 +52,7 @@ class SolicitudController extends Controller
             'resolucion_solicitud' => null,
             'observacion_solicitud' => null
         ]);
+
         
         return redirect()->route('home2');
     }
@@ -103,6 +104,18 @@ class SolicitudController extends Controller
 
     public function descripcion(){
         return view('solicitud');
+    }
+
+    public function listaSolicitudEjecucion()
+    {
+        $solicitudes = Solicitud::all()->where('carrera', 'Ingeniería de Ejecución Informática');
+        return view('listaSolicitudEjecucion')->with('solicitudes', $solicitudes);
+    }
+
+    public function listaSolicitudCivil()
+    {
+        $solicitudes = Solicitud::all()->where('carrera', 'Ingeniería Civil Informática');
+        return view('listaSolicitudCivil')->with('solicitudes', $solicitudes);
     }
 
 }
