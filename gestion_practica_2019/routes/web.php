@@ -20,7 +20,16 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/home2', 'HomeTemplateController@index')->name('home2');
 
-//Solicitudes
+//----------------------Etapa Solicitud----------------------
+//formulario de solicitud
 Route::get('/formularioSolicitud', 'SolicitudController@index')->name('formularioSolicitud');
-Route::post('/agregarSolicitud', 'SolicitudController@create')->name('agregarSolicitud');
+Route::post('/agregarSolicitud', 'SolicitudController@store')->name('agregarSolicitud');
+
+//Descripcion de etapa solicitud
 Route::get('/descripcionSolicitud', 'SolicitudController@descripcion')->name('descripcionSolicitud');
+
+//Evaluacion de solicitudes
+Route::get('/evaluacionSolicitud', 'SolicitudController@evaluacion')->name('evaluacionSolicitud');
+//modals
+Route::post('/evaluacionSolicitud/agregarEvaluacion/{id}','SolicitudController@agregarEvaluacion')->name('agregarEvaluacion');
+Route::post('/evaluacionSolicitud/editarEvaluacion/{id}','SolicitudController@modificarEvaluacion')->name('modificarEvaluacion');

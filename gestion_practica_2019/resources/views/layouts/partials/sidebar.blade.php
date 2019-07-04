@@ -51,6 +51,8 @@
                     <a class="collapse-item" href="#">Supervisores</a>
 
                     <h6 class="collapse-header">Etapas</h6>
+                    <!-- Jefe de Docencia -->
+                    <a class="collapse-item" href="{{route('evaluacionSolicitud')}}">Solicitudes (Jefe Docencia)</a>
                     <a class="collapse-item" href="#">Solicitudes</a>
                     <a class="collapse-item" href="#">Inscripciones</a>
                     <a class="collapse-item" href="#">Autoevaluaciones</a>
@@ -99,7 +101,7 @@
 
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
-            <a class="nav-link collapsed" href="{{ route('descripcionSolicitud')}}">
+            <a class="nav-link collapsed" href="{{route('descripcionSolicitud')}}">
                 <i class="fas fa-arrow-right"></i><span>Solicita tu práctica aquí</span>
             </a>
         </li>
