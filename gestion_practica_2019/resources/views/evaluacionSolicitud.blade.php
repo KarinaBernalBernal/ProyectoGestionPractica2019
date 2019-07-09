@@ -32,6 +32,7 @@
 									<th style="vertical-align: middle" scope="col">Apellido Materno</th>
 									<th style="vertical-align: middle" scope="col">Año de Ingreso</th>
 									<th style="vertical-align: middle" scope="col">Carrera</th>
+									<th style="vertical-align: middle" scope="col">Segunda Práctica</th>
 									<th style="vertical-align: middle" scope="col">Proyecto de Titulo </th>
 									<th style="vertical-align: middle" scope="col"></th>
 								</tr>
@@ -45,6 +46,7 @@
 										<td>{{ $solicitud->apellido_materno }}</td>
 										<td>{{ $solicitud->anno_ingreso }}</td>
 										<td>{{ $solicitud->carrera }}</td>
+										<td>{{ $solicitud->practica }}</td>
 										<td><strong>Semestre:</strong> {{ $solicitud->semestre_proyecto }} <br>
 											<strong>Año:</strong>	{{ $solicitud->anno_proyecto }}</td>
 
@@ -126,7 +128,7 @@
         	});
     	});
 	   	$('.evaluarSolicitud-form').on('submit', function () {
-	         $.ajax({
+	        $.ajax({
 	            type: $(this).attr('method'),
 	            url: $(this).attr('action'),
 	            data: $(this).serialize(),
@@ -134,9 +136,9 @@
 	            success: function (data, status) {
 	               $('#modal-evaluarSolicitud').html(data);
 	            }
-	         });
-	      });
-
+	        });
+	    });
+	    
      	$('#modal-evaluarSolicitud').on('hidden.bs.modal', function (e) {
 	        $(this).find('.modal-content').empty();
 	    });

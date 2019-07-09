@@ -48,7 +48,22 @@
                         <div class="col-md-6">
                             <input id="rutAlumno" type="text" class="form-control" name="rutAlumno" value="{{ old('rutAlumno') }}" required>
                         </div>
-                    </div>   
+                    </div>
+
+                    {{-- Correo Electronico --}}
+                    <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }} row">
+                        <label for="email" class="col-md-3 col-form-label text-md-right control-label">Correo electronico</label>
+
+                        <div class="col-md-6">
+                            <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
+
+                            @if ($errors->has('email'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('email') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+                    </div>  
 
                      {{-- Direccion --}}
                     <div class="form-group row">
@@ -130,11 +145,13 @@
                         </div>
                     </div>
 
+                    <br>
+                    
                     <div class="row justify-content-end ">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <a href="{{route('home2')}} " class="btn btn-secondary">Cancelar</a>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <input class="btn btn-primary" type="submit" value="Agregar">
                         </div>
                     </div>

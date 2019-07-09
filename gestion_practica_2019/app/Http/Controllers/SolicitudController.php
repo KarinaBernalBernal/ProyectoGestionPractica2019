@@ -42,10 +42,12 @@ class SolicitudController extends Controller
             'apellido_paterno' => $request->aPaternoAlumno,
             'apellido_materno' => $request->aMaternoAlumno,
             'rut' => $request->rutAlumno,
+            'email' => $request->email,
             'direccion' => $request->direccion,
             'fono' => $request->fono,
             'anno_ingreso' => $request->añoCarrera,
             'carrera' => $request->carrera,
+            'practica' => $request->practica,
             'semestre_proyecto' => $request->semestreProyecto,
             'anno_proyecto' => $request->añoProyecto,
             'f_solicitud' => $fecha,
@@ -53,8 +55,7 @@ class SolicitudController extends Controller
             'observacion_solicitud' => null
         ]);
 
-        
-        return redirect()->route('home2');
+        return redirect()->route('descripcionSolicitud');
     }
 
     /**
@@ -109,6 +110,7 @@ class SolicitudController extends Controller
     {
         $solicitudes = Solicitud::find($id);
         $solicitudes->estado = 1;
+
         $solicitudes->save();
 
         return redirect()->route('home');
@@ -118,8 +120,12 @@ class SolicitudController extends Controller
         return view('solicitud');
     }
 
+    //Evaluacion de una Solicitud
     public function evaluacion(){
-        $solicitudes = Solicitud::orderBy('rut','DESC')->paginate(9);
+        $solicitudes = Solicitud::orderBy('rut','DESC')
+            ->where('carrera', 'Ingeniería Civil Informática')
+            ->where("estado",1) 
+            ->paginate(9);
 
         return view('evaluacionSolicitud',[
             'solicitudes'=>$solicitudes
@@ -150,16 +156,17 @@ class SolicitudController extends Controller
         return view('listaSolicitudCivil')->with('solicitudes', $solicitudes);
     }
 
-    /* ----------- Funciones modales ------->  */
+    /* ----------- Funciones modales ----------  */
     
     public function evaluarSolicitud(Request $request, $id){
 
         $solicitud = Solicitud::find($id);
         if(!isset($solicitud))
-    
             return redirect()->route('home2');
+        
         $solicitud->resolucion_solicitud = $request->resolucion;
         $solicitud->observacion_solicitud = $request->observacion;
+        $solicitud->estado = 2;
 
         $solicitud->save();
         

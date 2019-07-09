@@ -90,6 +90,19 @@
                             </div>
                         </div>
 
+                        {{-- Segunda Practica --}}
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <label class="col-form-label text-md-right" >{{ __('Segunda Práctica') }}</label>
+                            </div>
+                            <div class="col-md-1">
+                                <label class="col-form-label text-md-right" >:</label>
+                            </div>
+                            <div class="col-md-8">
+                                <label class="col-form-label text-md-right">{{$solicitud->practica}}</label>
+                            </div>
+                        </div>
+
                         {{-- Proyecto de Titulo --}}
                         <div class="form-group row">
                             <div class="col-md-3">
