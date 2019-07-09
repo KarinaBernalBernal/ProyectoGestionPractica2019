@@ -53,9 +53,12 @@
                     <a class="collapse-item" href="#">Supervisores</a>
 
                     <h6 class="collapse-header">Etapas</h6>
+                    <a class="collapse-item" href="#">Solicitudes</a>
                     <!-- Jefe de Docencia -->
                     <a class="collapse-item" href="{{route('evaluacionSolicitud')}}">Solicitudes (Jefe Docencia)</a>
                     <a class="collapse-item" href="#">Solicitudes</a>
+                    <!-- Secretaria -->
+                    <a class="collapse-item" href="{{ route('listaSolicitudCivil')}}">Solicitudes (Secretaria)</a>
                     <a class="collapse-item" href="#">Inscripciones</a>
                     <a class="collapse-item" href="#">Autoevaluaciones</a>
                     <a class="collapse-item" href="#">Evaluaciones de empresas</a>
@@ -78,7 +81,7 @@
                     <a class="collapse-item" href="#">Supervisores</a>
 
                     <h6 class="collapse-header">Etapas</h6>
-                    <a class="collapse-item" href="#">Solicitudes</a>
+                    <a class="collapse-item" href="{{ route('listaSolicitudEjecucion')}}">Solicitudes</a>
                     <a class="collapse-item" href="#">Inscripciones</a>
                     <a class="collapse-item" href="#">Autoevaluaciones</a>
                     <a class="collapse-item" href="#">Evaluaciones de empresas</a>

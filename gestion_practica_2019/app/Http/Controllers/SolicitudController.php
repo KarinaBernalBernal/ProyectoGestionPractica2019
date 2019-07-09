@@ -52,6 +52,7 @@ class SolicitudController extends Controller
             'resolucion_solicitud' => null,
             'observacion_solicitud' => null
         ]);
+
         
         return redirect()->route('home2');
     }
@@ -98,7 +99,19 @@ class SolicitudController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $solicitudes = Solicitud::find($id);
+        $solicitudes->delete();
+
+        return redirect()->route('home');
+    }
+
+    public function estado($id)
+    {
+        $solicitudes = Solicitud::find($id);
+        $solicitudes->estado = 1;
+        $solicitudes->save();
+
+        return redirect()->route('home');
     }
 
     public function verDescripcion(){
@@ -125,19 +138,31 @@ class SolicitudController extends Controller
         
     }
 
+    public function listaSolicitudEjecucion()
+    {
+        $solicitudes = Solicitud::all()->where('carrera', 'Ingeniería de Ejecución Informática')->where("estado",0);
+        return view('listaSolicitudEjecucion')->with('solicitudes', $solicitudes);
+    }
+
+    public function listaSolicitudCivil()
+    {
+        $solicitudes = Solicitud::all()->where('carrera', 'Ingeniería Civil Informática')->where("estado",0);
+        return view('listaSolicitudCivil')->with('solicitudes', $solicitudes);
+    }
+
     /* ----------- Funciones modales ------->  */
     
     public function evaluarSolicitud(Request $request, $id){
 
         $solicitud = Solicitud::find($id);
         if(!isset($solicitud))
-            return redirect()->route('home2');
     
+            return redirect()->route('home2');
         $solicitud->resolucion_solicitud = $request->resolucion;
         $solicitud->observacion_solicitud = $request->observacion;
 
         $solicitud->save();
         
-        return redirect()->route('evaluacionSolicitud')->with('success','Registro creado satisfactoriamente');
     }
+        return redirect()->route('evaluacionSolicitud')->with('success','Registro creado satisfactoriamente');
 }
