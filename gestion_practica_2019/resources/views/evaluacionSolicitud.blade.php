@@ -23,17 +23,17 @@
 					<br>
 
 					<div class="row d-flex justify-content-center">	
-						<table class="table table-sm table-hover">
-							<thead class="thead-dark">
+						<table class="table table-bordered bg-light table-hover">
+        					<thead class="bg-dark" style="color: white">							
 								<tr class='text-center'>
-									<th scope="col">Rut</th>
-									<th scope="col">Nombre</th>
-									<th scope="col">Apellido Paterno</th>
-									<th scope="col">Apellido Materno</th>
-									<th scope="col">Año de Ingreso</th>
-									<th scope="col">Carrera</th>
-									<th scope="col">Proyecto de Titulo </th>
-									<th scope="col"></th>
+									<th style="vertical-align: middle" scope="col">Rut</th>
+									<th style="vertical-align: middle" scope="col">Nombre</th>
+									<th style="vertical-align: middle" scope="col">Apellido Paterno</th>
+									<th style="vertical-align: middle" scope="col">Apellido Materno</th>
+									<th style="vertical-align: middle" scope="col">Año de Ingreso</th>
+									<th style="vertical-align: middle" scope="col">Carrera</th>
+									<th style="vertical-align: middle" scope="col">Proyecto de Titulo </th>
+									<th style="vertical-align: middle" scope="col"></th>
 								</tr>
 							</thead>
 							<tbody>
@@ -47,6 +47,8 @@
 										<td>{{ $solicitud->carrera }}</td>
 										<td><strong>Semestre:</strong> {{ $solicitud->semestre_proyecto }} <br>
 											<strong>Año:</strong>	{{ $solicitud->anno_proyecto }}</td>
+
+										<td><a class='botonModalEvaluarSolicitud btn btn-primary btn-sm' href="" data-toggle="modal" data-form="{{ route('evaluarSolicitudModal',['id'=>$solicitud->id_solicitud])}}" data-target="#modal-evaluarSolicitud">Evaluar</a></td>
 
 									</tr>
 								@endforeach
@@ -64,19 +66,19 @@
 					<br>
 
 					<div class="row d-flex justify-content-center">	
-						<table class="table table-sm table-hover">
-							<thead class="thead-dark">
+						<table class="table table-bordered bg-light table-hover">
+        					<thead class="bg-dark" style="color: white">
 								<tr class='text-center'>
-									<th scope="col">Rut</th>
-									<th scope="col">Nombre</th>
-									<th scope="col">Apellido Paterno</th>
-									<th scope="col">Apellido Materno</th>
-									<th scope="col">Año de Ingreso</th>
-									<th scope="col">Carrera</th>
-									<th scope="col">Proyecto de Titulo </th>
-									<th scope="col">Resolución</th>
-									<th scope="col">Observación</th>
-									<th scope="col"></th>
+									<th style="vertical-align: middle" scope="col">Rut</th>
+									<th style="vertical-align: middle" scope="col">Nombre</th>
+									<th style="vertical-align: middle" scope="col">Apellido Paterno</th>
+									<th style="vertical-align: middle" scope="col">Apellido Materno</th>
+									<th style="vertical-align: middle" scope="col">Año de Ingreso</th>
+									<th style="vertical-align: middle" scope="col">Carrera</th>
+									<th style="vertical-align: middle" scope="col">Proyecto de Titulo </th>
+									<th style="vertical-align: middle" scope="col">Resolución</th>
+									<th style="vertical-align: middle" scope="col">Observación</th>
+									<th style="vertical-align: middle" scope="col"></th>
 								</tr>
 							</thead>
 							<tbody>
@@ -93,8 +95,9 @@
 												<strong>Año:</strong>	{{ $solicitud->anno_proyecto }}</td>
 											<td>{{ $solicitud->resolucion_solicitud }}</td>
 											<td>{{ $solicitud->observacion_solicitud }}</td>
-              
 
+											<td><a href="" class="botonModalmodificarEvaluacionSolicitud" data-toggle="modal" data-form="{{route('modificarEvaluacionSolicitud',['id'=>$solicitud->id_solicitud])}}" data-target="#modal-modificarEvaluacionSolicitud"><span><i class="fas fa-edit"></i></span></a>
+              
 										</tr>
 									@endif
 								@endforeach
@@ -107,6 +110,39 @@
    </div>
 
    <div class="modal" id="modal-evaluarSolicitud"></div>
-   <div class="modal" id="modal-modificarSolicitud"></div>
+   <div class="modal" id="modal-modificarEvaluacionSolicitud"></div>
+
+   <script>
+    
+   $(document).ready(function () {
+
+    	//modal-evaluarSolicitud
+    	$(".botonModalEvaluarSolicitud").click(function (ev) { // for each edit contact url
+        	ev.preventDefault(); // prevent navigation
+        	var url = $(this).data("form"); // get the contact form url
+        	console.log(url);
+        	$("#modal-evaluarSolicitud").load(url, function () { // load the url into the modal
+            $(this).modal('show'); // display the modal on url load
+        	});
+    	});
+	   	$('.evaluarSolicitud-form').on('submit', function () {
+	         $.ajax({
+	            type: $(this).attr('method'),
+	            url: $(this).attr('action'),
+	            data: $(this).serialize(),
+	            context: this,
+	            success: function (data, status) {
+	               $('#modal-evaluarSolicitud').html(data);
+	            }
+	         });
+	      });
+
+     	$('#modal-evaluarSolicitud').on('hidden.bs.modal', function (e) {
+	        $(this).find('.modal-content').empty();
+	    });
+	});
+
+
+	</script>
 
 @endsection

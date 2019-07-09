@@ -101,7 +101,7 @@ class SolicitudController extends Controller
         //
     }
 
-    public function descripcion(){
+    public function verDescripcion(){
         return view('solicitud');
     }
 
@@ -109,16 +109,35 @@ class SolicitudController extends Controller
         $solicitudes = Solicitud::orderBy('rut','DESC')->paginate(9);
 
         return view('evaluacionSolicitud',[
-            'solicitudes'=>$solicitudes,
+            'solicitudes'=>$solicitudes
         ]);
     }
 
-    public function evaluarSolicitud(){
+    public function evaluarSolicitudModal($id){
         
+        $solicitud=Solicitud::find($id);
+        return view('modales/modalEvaluarSolicitud',[
+            'solicitud'=>$solicitud
+        ]);
     }
 
     public function modificarEvaluacion(){
         
     }
 
+    /* ----------- Funciones modales ------->  */
+    
+    public function evaluarSolicitud(Request $request, $id){
+
+        $solicitud = Solicitud::find($id);
+        if(!isset($solicitud))
+            return redirect()->route('home2');
+    
+        $solicitud->resolucion_solicitud = $request->resolucion;
+        $solicitud->observacion_solicitud = $request->observacion;
+
+        $solicitud->save();
+        
+        return redirect()->route('evaluacionSolicitud')->with('success','Registro creado satisfactoriamente');
+    }
 }

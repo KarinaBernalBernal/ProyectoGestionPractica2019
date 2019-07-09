@@ -26,10 +26,13 @@ Route::get('/formularioSolicitud', 'SolicitudController@index')->name('formulari
 Route::post('/agregarSolicitud', 'SolicitudController@store')->name('agregarSolicitud');
 
 //Descripcion de etapa solicitud
-Route::get('/descripcionSolicitud', 'SolicitudController@descripcion')->name('descripcionSolicitud');
+Route::get('/descripcionSolicitud', 'SolicitudController@verDescripcion')->name('descripcionSolicitud');
 
 //Evaluacion de solicitudes
 Route::get('/evaluacionSolicitud', 'SolicitudController@evaluacion')->name('evaluacionSolicitud');
+
 //modals
-Route::post('/evaluacionSolicitud/agregarEvaluacion/{id}','SolicitudController@agregarEvaluacion')->name('agregarEvaluacion');
-Route::post('/evaluacionSolicitud/editarEvaluacion/{id}','SolicitudController@modificarEvaluacion')->name('modificarEvaluacion');
+Route::get('/modal/evaluarSolicitudModal/{id}','SolicitudController@evaluarSolicitudModal')->name('evaluarSolicitudModal');
+Route::post('/evaluacionSolicitud/evaluarSolicitud/{id}','SolicitudController@evaluarSolicitud')->name('evaluarSolicitud');
+
+Route::get('/modal/modificarEvaluacionSolicitud/{id}','SolicitudController@modificarEvaluacionSolicitud')->name('modificarEvaluacionSolicitud');
