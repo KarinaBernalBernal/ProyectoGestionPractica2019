@@ -163,6 +163,6 @@ class SolicitudController extends Controller
 
         $solicitud->save();
         
-    }
         return redirect()->route('evaluacionSolicitud')->with('success','Registro creado satisfactoriamente');
+    }
 }
