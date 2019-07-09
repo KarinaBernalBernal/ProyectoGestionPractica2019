@@ -36,13 +36,16 @@
                                         <td class="text-truncate text-center">{{ $solicitud->anno_ingreso }}</td>
                                         <td class="text-truncate text-center">{{ $solicitud->estimacion_semestre }}</td>
 
+
                                         <td class="text-center">
-                                            <button type="submit" class="btn btn-danger btn-xs">
-                                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                            </button>
-                                            <a href="" class="btn btn-info btn-xs">
-                                                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-                                            </a>
+                                            <div class="btn-group">
+                                                <form method="get" action='{{ route('aceptarSolicitud', $solicitud->id_solicitud) }}'>
+                                                    <button type="submit" class="btn btn-success btn-sm btn-block">Aceptar</button>
+                                                </form>
+                                                <form method="get" action='{{ route('borrarSolicitud', $solicitud->id_solicitud) }}'>
+                                                    <button type="submit" class="btn btn-danger btn-sm">Denegar</button>
+                                                </form>
+                                            </div>
                                         </td>
 
                                     </tr>
@@ -63,7 +66,7 @@
                                 </tr>
                                 </tfoot>
                             </table>
-
+                        </div>
                     </div>
                 </div>
             </div>
