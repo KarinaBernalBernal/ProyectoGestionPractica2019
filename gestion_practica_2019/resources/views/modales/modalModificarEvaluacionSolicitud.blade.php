@@ -137,8 +137,8 @@
                             </div>
                             <div class="col-md-8"> 
                                 <select id="resolucion" name="resolucion" class="custom-select">
-                                    <option selected value="">{{ $solicitud->resolucion_solicitud}}</option>
-                                    @if( $solicitud->resolucion_solicitud === 'Aprobado')
+                                    <option selected value="{{ $solicitud->resolucion_solicitud}}">{{ $solicitud->resolucion_solicitud}}</option>
+                                    @if( $solicitud->resolucion_solicitud == 'Aprobado')
                                         <option>Rechazado</option>
                                     @else
                                         <option>Aprobado</option>

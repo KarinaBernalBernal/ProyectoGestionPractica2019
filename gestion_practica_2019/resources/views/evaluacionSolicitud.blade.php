@@ -56,12 +56,13 @@
 								@endforeach
 							</tbody>
 						</table>
+						<div class="row d-flex justify-content-center">	
+							{{ $solicitudesP->links() }}
+						</div>	
 					</div>
 				</div>
 			</div>
-			<div class="row d-flex justify-content-center">	
-				{{ $solicitudesP->links() }}
-			</div>	
+			
 			<div class="tab-pane fade" id="evaluadas" role="tabpanel" aria-labelledby="evaluadas-tab">
 				<div class="container-fluid">
 				  	<div class="row">
@@ -106,12 +107,13 @@
 
 							</tbody>
 						</table>
+						<div class="row d-flex justify-content-center">	
+							{{ $solicitudesE->links() }}
+						</div>	
 					</div>
 				</div>
 			</div>
-			<div class="row d-flex justify-content-center">	
-				{{ $solicitudesE->links() }}
-			</div>		
+			
 		</div>
    	</div>
 	

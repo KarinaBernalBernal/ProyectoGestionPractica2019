@@ -79,7 +79,11 @@
                     <a class="collapse-item" href="#">Supervisores</a>
 
                     <h6 class="collapse-header">Etapas</h6>
-                    <a class="collapse-item" href="{{ route('listaSolicitudEjecucion')}}">Solicitudes</a>
+                    <!-- Secretaria -->
+                    <a class="collapse-item" href="{{ route('listaSolicitudEjecucion')}}">Solicitudes (Secretaria)</a>
+                    <!-- Jefe de Docencia -->
+                    <a class="collapse-item" href="{{route('evaluacionSolicitudEjecucion')}}">Solicitudes (Jefe Docencia)</a>
+
                     <a class="collapse-item" href="#">Inscripciones</a>
                     <a class="collapse-item" href="#">Autoevaluaciones</a>
                     <a class="collapse-item" href="#">Evaluaciones de empresas</a>
