@@ -20,24 +20,25 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/home2', 'HomeTemplateController@index')->name('home2');
 
-//----------------------Etapa Solicitud----------------------
-//formulario de solicitud
+/*--------------------- Etapa Solicitud ---------------------*/
+//-------formulario de solicitud
 Route::get('/formularioSolicitud', 'SolicitudController@index')->name('formularioSolicitud');
 Route::post('/agregarSolicitud', 'SolicitudController@store')->name('agregarSolicitud');
 
-//Descripcion de etapa solicitud
+//--------Descripcion de etapa solicitud
 Route::get('/descripcionSolicitud', 'SolicitudController@verDescripcion')->name('descripcionSolicitud');
 
-//Evaluacion de solicitudes
+//--------Evaluacion de solicitudes
 Route::get('/evaluacionSolicitud', 'SolicitudController@evaluacion')->name('evaluacionSolicitud');
 
 //modals
 Route::get('/modal/evaluarSolicitudModal/{id}','SolicitudController@evaluarSolicitudModal')->name('evaluarSolicitudModal');
 Route::post('/evaluacionSolicitud/evaluarSolicitud/{id}','SolicitudController@evaluarSolicitud')->name('evaluarSolicitud');
 
-Route::get('/modal/modificarEvaluacionSolicitud/{id}','SolicitudController@modificarEvaluacionSolicitud')->name('modificarEvaluacionSolicitud');
+Route::get('/modal/modificarEvaluacionSolicitudModal/{id}','SolicitudController@modificarEvaluacionSolicitudModal')->name('modificarEvaluacionSolicitudModal');
+Route::post('/evaluacionSolicitud/modificarEvaluacionSolicitud/{id}','SolicitudController@modificarEvaluacionSolicitud')->name('modificarEvaluacionSolicitud');
 
-//Validacion de solicitudes
+//---------Validacion de solicitudes
 Route::get('/listaSolicitudEjecucion', 'SolicitudController@listaSolicitudEjecucion')->name('listaSolicitudEjecucion');
 Route::get('/listaSolicitudCivil', 'SolicitudController@listaSolicitudCivil')->name('listaSolicitudCivil');
 

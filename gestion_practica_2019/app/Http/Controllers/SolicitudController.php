@@ -31,7 +31,7 @@ class SolicitudController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\m_responsekeys(conn, identifier)
      */
     public function store(Request $request)
     {
@@ -116,19 +116,28 @@ class SolicitudController extends Controller
         return redirect()->route('home');
     }
 
+    /* ----------- Descripcion de Etapa ----------  */
+
     public function verDescripcion(){
         return view('solicitud');
     }
 
-    //Evaluacion de una Solicitud
+    /* ----------- Evaluacion de una Solicitud ----------  */
+
     public function evaluacion(){
-        $solicitudes = Solicitud::orderBy('rut','DESC')
+        $solicitudesP = Solicitud::orderBy('rut','DESC')
             ->where('carrera', 'Ingeniería Civil Informática')
-            ->where("estado",1) 
-            ->paginate(9);
+            ->where('estado',1)
+            ->paginate(5);
+
+        $solicitudesE = Solicitud::orderBy('rut','DESC')
+            ->where('carrera', 'Ingeniería Civil Informática')
+            ->where('estado',2)
+            ->paginate(5);
 
         return view('evaluacionSolicitud',[
-            'solicitudes'=>$solicitudes
+            'solicitudesP'=>$solicitudesP,
+            'solicitudesE'=>$solicitudesE
         ]);
     }
 
@@ -139,10 +148,46 @@ class SolicitudController extends Controller
             'solicitud'=>$solicitud
         ]);
     }
-
-    public function modificarEvaluacion(){
+    public function modificarEvaluacionSolicitudModal($id){
         
+        $solicitud=Solicitud::find($id);
+        return view('modales/modalModificarEvaluacionSolicitud',[
+            'solicitud'=>$solicitud
+        ]);
     }
+
+    /* Funciones modales */
+    
+    public function evaluarSolicitud(Request $request, $id){
+
+        $solicitud = Solicitud::find($id);
+        if(!isset($solicitud))
+            return redirect()->route('evaluacionSolicitud');
+        
+        $solicitud->resolucion_solicitud = $request->resolucion;
+        $solicitud->observacion_solicitud = $request->observacion;
+        $solicitud->estado = 2;
+
+        $solicitud->save();
+        
+        return redirect()->route('evaluacionSolicitud')->with('success','Registro creado satisfactoriamente');
+    }
+
+    public function modificarEvaluacionSolicitud(Request $request, $id){
+
+        $solicitud = Solicitud::find($id);
+        if(!isset($solicitud))
+            return redirect()->route('evaluacionSolicitud');
+        
+        $solicitud->resolucion_solicitud = $request->resolucion;
+        $solicitud->observacion_solicitud = $request->observacion;
+
+        $solicitud->save();
+        
+        return redirect()->route('evaluacionSolicitud')->with('success','Registro creado satisfactoriamente');
+    }
+
+    /* ----------- Validar una solicitud ----------  */
 
     public function listaSolicitudEjecucion()
     {
@@ -155,21 +200,5 @@ class SolicitudController extends Controller
         $solicitudes = Solicitud::all()->where('carrera', 'Ingeniería Civil Informática')->where("estado",0);
         return view('listaSolicitudCivil')->with('solicitudes', $solicitudes);
     }
-
-    /* ----------- Funciones modales ----------  */
     
-    public function evaluarSolicitud(Request $request, $id){
-
-        $solicitud = Solicitud::find($id);
-        if(!isset($solicitud))
-            return redirect()->route('home2');
-        
-        $solicitud->resolucion_solicitud = $request->resolucion;
-        $solicitud->observacion_solicitud = $request->observacion;
-        $solicitud->estado = 2;
-
-        $solicitud->save();
-        
-        return redirect()->route('evaluacionSolicitud')->with('success','Registro creado satisfactoriamente');
-    }
 }

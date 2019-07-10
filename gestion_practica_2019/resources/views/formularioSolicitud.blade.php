@@ -149,7 +149,7 @@
                     
                     <div class="row justify-content-end ">
                         <div class="col-md-4">
-                            <a href="{{route('home2')}} " class="btn btn-secondary">Cancelar</a>
+                            <a href="{{route('descripcionSolicitud')}} " class="btn btn-secondary">Cancelar</a>
                         </div>
                         <div class="col-md-4">
                             <input class="btn btn-primary" type="submit" value="Agregar">

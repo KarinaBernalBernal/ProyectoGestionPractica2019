@@ -38,19 +38,19 @@
 								</tr>
 							</thead>
 							<tbody>
-								@foreach($solicitudes as $solicitud)
+								@foreach($solicitudesP as $solicitudP)
 									<tr>
-										<td>{{ $solicitud->rut }} </td>
-										<td>{{ $solicitud->nombre }}</td>
-										<td>{{ $solicitud->apellido_paterno }}</td>
-										<td>{{ $solicitud->apellido_materno }}</td>
-										<td>{{ $solicitud->anno_ingreso }}</td>
-										<td>{{ $solicitud->carrera }}</td>
-										<td>{{ $solicitud->practica }}</td>
-										<td><strong>Semestre:</strong> {{ $solicitud->semestre_proyecto }} <br>
-											<strong>Año:</strong>	{{ $solicitud->anno_proyecto }}</td>
+										<td>{{ $solicitudP->rut }} </td>
+										<td>{{ $solicitudP->nombre }}</td>
+										<td>{{ $solicitudP->apellido_paterno }}</td>
+										<td>{{ $solicitudP->apellido_materno }}</td>
+										<td>{{ $solicitudP->anno_ingreso }}</td>
+										<td>{{ $solicitudP->carrera }}</td>
+										<td>{{ $solicitudP->practica }}</td>
+										<td><strong>Semestre:</strong> {{ $solicitudP->semestre_proyecto }} <br>
+											<strong>Año:</strong>	{{ $solicitudP->anno_proyecto }}</td>
 
-										<td><a class='botonModalEvaluarSolicitud btn btn-primary btn-sm' href="" data-toggle="modal" data-form="{{ route('evaluarSolicitudModal',['id'=>$solicitud->id_solicitud])}}" data-target="#modal-evaluarSolicitud">Evaluar</a></td>
+										<td><a class='botonModalEvaluarSolicitud btn btn-primary btn-sm' href="" data-toggle="modal" data-form="{{ route('evaluarSolicitudModal',['id'=>$solicitudP->id_solicitud])}}" data-target="#modal-evaluarSolicitud">Evaluar</a></td>
 
 									</tr>
 								@endforeach
@@ -59,6 +59,9 @@
 					</div>
 				</div>
 			</div>
+			<div class="row d-flex justify-content-center">	
+				{{ $solicitudesP->links() }}
+			</div>	
 			<div class="tab-pane fade" id="evaluadas" role="tabpanel" aria-labelledby="evaluadas-tab">
 				<div class="container-fluid">
 				  	<div class="row">
@@ -84,33 +87,34 @@
 								</tr>
 							</thead>
 							<tbody>
-								@foreach($solicitudes as $solicitud)
-									@if($solicitud->resolucion_solicitud != null)
-										<tr>
-											<td>{{ $solicitud->rut }} </td>
-											<td>{{ $solicitud->nombre }}</td>
-											<td>{{ $solicitud->apellido_paterno }}</td>
-											<td>{{ $solicitud->apellido_materno }}</td>
-											<td>{{ $solicitud->anno_ingreso }}</td>
-											<td>{{ $solicitud->carrera }}</td>
-											<td><strong>Semestre:</strong> {{ $solicitud->semestre_proyecto }} <br>
-												<strong>Año:</strong>	{{ $solicitud->anno_proyecto }}</td>
-											<td>{{ $solicitud->resolucion_solicitud }}</td>
-											<td>{{ $solicitud->observacion_solicitud }}</td>
-
-											<td><a href="" class="botonModalmodificarEvaluacionSolicitud" data-toggle="modal" data-form="{{route('modificarEvaluacionSolicitud',['id'=>$solicitud->id_solicitud])}}" data-target="#modal-modificarEvaluacionSolicitud"><span><i class="fas fa-edit"></i></span></a>
+								@foreach($solicitudesE as $solicitudE)
+									<tr>
+										<td>{{ $solicitudE->rut }} </td>
+										<td>{{ $solicitudE->nombre }}</td>
+										<td>{{ $solicitudE->apellido_paterno }}</td>
+										<td>{{ $solicitudE->apellido_materno }}</td>
+										<td>{{ $solicitudE->anno_ingreso }}</td>
+										<td>{{ $solicitudE->carrera }}</td>
+										<td><strong>Semestre:</strong> {{ $solicitudE->semestre_proyecto }} <br>
+											<strong>Año:</strong>	{{ $solicitudE->anno_proyecto }}</td>
+										<td>{{ $solicitudE->resolucion_solicitud }}</td>
+										<td>{{ $solicitudE->observacion_solicitud }}</td>
+										<td><a href="" class="botonModalmodificarEvaluacionSolicitud" data-toggle="modal" data-form="{{route('modificarEvaluacionSolicitudModal',['id'=>$solicitudE->id_solicitud])}}" data-target="#modal-modificarEvaluacionSolicitud"><span><i class="fas fa-edit"></i></span></a>
               
-										</tr>
-									@endif
+									</tr>
 								@endforeach
+
 							</tbody>
 						</table>
 					</div>
 				</div>
 			</div>
+			<div class="row d-flex justify-content-center">	
+				{{ $solicitudesE->links() }}
+			</div>		
 		</div>
-   </div>
-
+   	</div>
+	
    <div class="modal" id="modal-evaluarSolicitud"></div>
    <div class="modal" id="modal-modificarEvaluacionSolicitud"></div>
 
@@ -139,7 +143,32 @@
 	        });
 	    });
 	    
+	    //modal-modificarEvaluacionSolicitud
+	   	$(".botonModalmodificarEvaluacionSolicitud").click(function (ev) { // for each edit contact url
+	        	ev.preventDefault(); // prevent navigation
+	        	var url = $(this).data("form"); // get the contact form url
+	        	console.log(url);
+	        	$("#modal-modificarEvaluacionSolicitud").load(url, function () { // load the url into the modal
+	            $(this).modal('show'); // display the modal on url load
+	        	});
+	    	});
+	   	$('.modificarEvaluacionSolicitud-form').on('submit', function () {
+	        $.ajax({
+	            type: $(this).attr('method'),
+	            url: $(this).attr('action'),
+	            data: $(this).serialize(),
+	            context: this,
+	            success: function (data, status) {
+	               $('#modal-modificarEvaluacionSolicitud').html(data);
+	            }
+	        });
+	    });
+
      	$('#modal-evaluarSolicitud').on('hidden.bs.modal', function (e) {
+	        $(this).find('.modal-content').empty();
+	    });
+
+	    $('#modal-modificarEvaluacionSolicitud').on('hidden.bs.modal', function (e) {
 	        $(this).find('.modal-content').empty();
 	    });
 	});
