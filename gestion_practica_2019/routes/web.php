@@ -58,3 +58,15 @@ Route::get('/Recursos/editar/{id_elemento}', 'RecursoController@editar')->name('
 Route::post('/Recursos/agregar', 'RecursoController@crearRecurso')->name('agregar_recurso');
 Route::post('/Recursos/actualizar/{id_elemento}', 'RecursoController@editarRecurso')->name('actualizar_recurso');
 Route::post('/Recursos/eliminar/{id_elemento}','RecursoController@borrarRecurso')->name('borrar_recurso');
+
+
+/* Rutas mantenedor alumnos */
+// Rutas tipo GET
+Route::get('/Alumnos/lista', 'AlumnoController@lista')->name('lista_alumnos');
+Route::get('/Alumnos/crear', 'AlumnoController@crear')->name('crear_alumno');
+Route::get('/Alumnos/editar/{id_elemento}', 'AlumnoController@editar')->name('editar_alumno');
+
+//Rutas tipo POST
+Route::post('/Alumnos/agregar', 'AlumnoController@crearAlumno')->name('agregar_alumno');
+Route::post('/Alumnos/actualizar/{id_elemento}', 'AlumnoController@editarAlumno')->name('actualizar_alumno');
+Route::post('/Alumnos/eliminar/{id_elemento}','AlumnoController@borrarAlumno')->name('borrar_alumno');

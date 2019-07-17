@@ -10,13 +10,13 @@
                         <form class="form-horizontal" action="{{route('agregar_recurso')}}" method="post">
                             {{ csrf_field() }}
 
-                            <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                                <label for="name" class="col-md-4 control-label">Nombre del recurso</label>
+                            <div class="form-group{{ $errors->has('n_recurso') ? ' has-error' : '' }}">
+                                <label for="n_recurso" class="col-md-4 control-label">Nombre del recurso</label>
 
                                 <div class="col-md-6">
                                     <input id="n_recurso" type="text" class="form-control" name="n_recurso" required autofocus>
 
-                                    @if ($errors->has('name'))
+                                    @if ($errors->has('n_recurso'))
                                         <span class="help-block">
                                             <strong>{{ $errors->first('n_recurso') }}</strong>
                                         </span>
@@ -27,7 +27,7 @@
                                 <div class="col-md-6">
                                     <input id="url" type="text" class="form-control" name="url" required autofocus>
 
-                                    @if ($errors->has('name'))
+                                    @if ($errors->has('url'))
                                         <span class="help-block">
                                             <strong>{{ $errors->first('url') }}</strong>
                                         </span>
