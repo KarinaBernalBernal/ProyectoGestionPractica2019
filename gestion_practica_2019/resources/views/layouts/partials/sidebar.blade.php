@@ -119,7 +119,7 @@
             </a>
             <div id="collapseInscripcion" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="register.html">Solicitar documentos</a>
+                    <a class="collapse-item" href="{{route('formularioSolicitarDocumentos')}}">Solicitar documentos</a>
                     <a class="collapse-item" href="404.html">Inscribir práctica</a>
                 </div>
             </div>
