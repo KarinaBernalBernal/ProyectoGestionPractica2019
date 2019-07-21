@@ -1,15 +1,20 @@
 @extends('layouts.mainlayout')
 
 @section('content')
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="col col-md-offset">
-                <div class="card">
-                    <h4 class="card-header">Solicitudes</h4>
-                    <div class="card-body">
+                <div class="tab-content" id="myTabContent">
+                    <div class="row">
+                        <h2>Nuevas Solicitudes</h2>
+                    </div>
+
+                    <br>
+
+                    <div class="row d-flex justify-content-center">
                         <div class="table-responsive">
                             <table class="table table-bordered" id="MyTable">
-                                <thead>
+                                <thead class="bg-dark" style="color: white">
                                 <tr>
                                     <th class="text-truncate text-center">Rut</th>
                                     <th class="text-truncate text-center">Nombres</th>
@@ -34,7 +39,8 @@
                                         <td class="text-truncate text-center">{{ $solicitud->direccion }}</td>
                                         <td class="text-truncate text-center">{{ $solicitud->fono }}</td>
                                         <td class="text-truncate text-center">{{ $solicitud->anno_ingreso }}</td>
-                                        <td class="text-truncate text-center">{{ $solicitud->estimacion_semestre }}</td>
+                                        <td class="text-truncate text-center"><strong>Semestre:</strong> {{ $solicitud->semestre_proyecto }} <br>
+                                            <strong>Año:</strong>	{{ $solicitud->anno_proyecto }}</td>
 
 
                                         <td class="text-center">
@@ -47,29 +53,17 @@
                                                 </form>
                                             </div>
                                         </td>
-
                                     </tr>
                                 @endforeach
                                 </tbody>
-                                <tfoot>
-                                <tr>
-                                    <th class="text-truncate text-center">Rut</th>
-                                    <th class="text-truncate text-center">Nombres</th>
-                                    <th class="text-truncate text-center">Apellido paterno</th>
-                                    <th class="text-truncate text-center">Apellido materno</th>
-                                    <th class="text-truncate text-center">Fecha</th>
-                                    <th class="text-truncate text-center">Direccion</th>
-                                    <th class="text-truncate text-center">Fono</th>
-                                    <th class="text-truncate text-center">Año Ingreso</th>
-                                    <th class="text-truncate text-center">Estimación</th>
-                                    <th class="text-truncate text-center">Acciones</th>
-                                </tr>
-                                </tfoot>
                             </table>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+    <div class="row d-flex justify-content-center">
+        {{ $solicitudes->links() }}
     </div>
 @endsection
