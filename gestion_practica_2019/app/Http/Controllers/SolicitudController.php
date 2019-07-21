@@ -122,7 +122,27 @@ class SolicitudController extends Controller
         return view('solicitud');
     }
 
+    /*---------------------------------------------------------------------------*/
+
+    /* ----------- Validar una solicitud ----------  */
+
+    ppublic function listaSolicitudEjecucion()
+    {
+        $solicitudes = Solicitud::orderBy('rut','DESC')->where('carrera', 'Ingeniería de Ejecución Informática')->where("estado",0)->paginate(7);
+        return view('listaSolicitudEjecucion')->with('solicitudes', $solicitudes);
+    }
+
+    public function listaSolicitudCivil()
+    {
+        $solicitudes = Solicitud::orderBy('rut','DESC')->where('carrera', 'Ingeniería Civil Informática')->where("estado",0)->paginate(7);
+        return view('listaSolicitudCivil')->with('solicitudes', $solicitudes);
+    }
+
+    /*----------------------------------------------------------------------------*/
+
     /* ----------- Evaluacion de una Solicitud ----------  */
+
+    // Civil
 
     public function evaluacion(){
         $solicitudesP = Solicitud::orderBy('rut','DESC')
@@ -132,6 +152,23 @@ class SolicitudController extends Controller
 
         $solicitudesE = Solicitud::orderBy('rut','DESC')
             ->where('carrera', 'Ingeniería Civil Informática')
+            ->where('estado',2)
+            ->paginate(5);
+
+        return view('evaluacionSolicitud',[
+            'solicitudesP'=>$solicitudesP,
+            'solicitudesE'=>$solicitudesE
+        ]);
+    }
+
+     public function evaluacionEjecucion(){
+        $solicitudesP = Solicitud::orderBy('rut','DESC')
+            ->where('carrera', 'Ingeniería de Ejecución Informática')
+            ->where('estado',1)
+            ->paginate(5);
+
+        $solicitudesE = Solicitud::orderBy('rut','DESC')
+            ->where('carrera', 'Ingeniería de Ejecución Informática')
             ->where('estado',2)
             ->paginate(5);
 
@@ -157,48 +194,45 @@ class SolicitudController extends Controller
     }
 
     /* Funciones modales */
-    
+
     public function evaluarSolicitud(Request $request, $id){
 
         $solicitud = Solicitud::find($id);
         if(!isset($solicitud))
-            return redirect()->route('evaluacionSolicitud');
+            return redirect()->route('home');
         
         $solicitud->resolucion_solicitud = $request->resolucion;
         $solicitud->observacion_solicitud = $request->observacion;
         $solicitud->estado = 2;
 
         $solicitud->save();
-        
-        return redirect()->route('evaluacionSolicitud')->with('success','Registro creado satisfactoriamente');
+
+        if($solicitud->carrera == "Ingeniería Civil Informática"){
+            return redirect()->route('evaluacionSolicitud')->with('success','Registro creado satisfactoriamente');
+        }
+        else{
+            return redirect()->route('evaluacionSolicitudEjecucion')->with('success','Registro creado satisfactoriamente');
+        }
     }
 
     public function modificarEvaluacionSolicitud(Request $request, $id){
 
-        $solicitud = Solicitud::find($id);
+       $solicitud = Solicitud::find($id);
         if(!isset($solicitud))
-            return redirect()->route('evaluacionSolicitud');
+            return redirect()->route('home');
         
         $solicitud->resolucion_solicitud = $request->resolucion;
         $solicitud->observacion_solicitud = $request->observacion;
 
         $solicitud->save();
         
-        return redirect()->route('evaluacionSolicitud')->with('success','Registro creado satisfactoriamente');
-    }
-
-    /* ----------- Validar una solicitud ----------  */
-
-    public function listaSolicitudEjecucion()
-    {
-        $solicitudes = Solicitud::orderBy('rut','DESC')->where('carrera', 'Ingeniería de Ejecución Informática')->where("estado",0)->paginate(7);
-        return view('listaSolicitudEjecucion')->with('solicitudes', $solicitudes);
-    }
-
-    public function listaSolicitudCivil()
-    {
-        $solicitudes = Solicitud::orderBy('rut','DESC')->where('carrera', 'Ingeniería Civil Informática')->where("estado",0)->paginate(7);
-        return view('listaSolicitudCivil')->with('solicitudes', $solicitudes);
-    }
-    
+    if($solicitud->carrera == "Ingeniería Civil Informática"){
+            return redirect()->route('evaluacionSolicitud')->with('success','Registro creado satisfactoriamente');
+        }
+        else{
+            return redirect()->route('evaluacionSolicitudEjecucion')->with('success','Registro creado satisfactoriamente');
+        }
+     
+        
+    }    
 }

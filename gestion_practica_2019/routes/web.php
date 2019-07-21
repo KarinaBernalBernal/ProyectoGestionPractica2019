@@ -21,6 +21,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/home2', 'HomeTemplateController@index')->name('home2');
 
 /*--------------------- Etapa Solicitud ---------------------*/
+
 //-------formulario de solicitud
 Route::get('/formularioSolicitud', 'SolicitudController@index')->name('formularioSolicitud');
 Route::post('/agregarSolicitud', 'SolicitudController@store')->name('agregarSolicitud');
@@ -29,9 +30,12 @@ Route::post('/agregarSolicitud', 'SolicitudController@store')->name('agregarSoli
 Route::get('/descripcionSolicitud', 'SolicitudController@verDescripcion')->name('descripcionSolicitud');
 
 //--------Evaluacion de solicitudes
-Route::get('/evaluacionSolicitud', 'SolicitudController@evaluacion')->name('evaluacionSolicitud');
+//Civil
+Route::get('/evaluacionSolicitudCivil', 'SolicitudController@evaluacion')->name('evaluacionSolicitud');
+//Ejecucion
+Route::get('/evaluacionSolicitudEjecucion', 'SolicitudController@evaluacionEjecucion')->name('evaluacionSolicitudEjecucion');
 
-//modals
+//modals 
 Route::get('/modal/evaluarSolicitudModal/{id}','SolicitudController@evaluarSolicitudModal')->name('evaluarSolicitudModal');
 Route::post('/evaluacionSolicitud/evaluarSolicitud/{id}','SolicitudController@evaluarSolicitud')->name('evaluarSolicitud');
 
@@ -46,3 +50,10 @@ Route::get('/borrarSolicitud/{id_solicitud}', 'SolicitudController@destroy')->na
 Route::resource('solicitudes', 'SolicitudController');
 
 Route::get('/aceptarSolicitud/{id_solicitud}', 'SolicitudController@estado')->name('aceptarSolicitud');
+
+
+/*--------------------- Etapa Inscrpcion ---------------------*/
+
+//-------formulario de solicitud de documentos
+Route::get('/formularioSolicitudDocumentos', 'InscripcionController@indexSolicitarDocumentos')->name('formularioSolicitarDocumentos');
+Route::post('/agregarSolicitudDocumentos', 'SolicitudController@storeSolicitarDocumentos')->name('agregarSolicitudDocumentos');
