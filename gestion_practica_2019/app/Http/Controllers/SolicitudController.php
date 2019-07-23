@@ -143,7 +143,7 @@ class SolicitudController extends Controller
     /* ----------- Evaluacion de una Solicitud ----------  */
 
     // Civil
-
+    /*
     public function evaluacion(){
         $solicitudesP = Solicitud::orderBy('rut','DESC')
             ->where('carrera', 'Ingeniería Civil Informática')
@@ -160,18 +160,48 @@ class SolicitudController extends Controller
             'solicitudesE'=>$solicitudesE
         ]);
     }
-
+    
      public function evaluacionEjecucion(){
         $solicitudesP = Solicitud::orderBy('rut','DESC')
             ->where('carrera', 'Ingeniería de Ejecución Informática')
-            ->where('estado',1)
-            ->paginate(5);
+            ->where('estado',1);
 
         $solicitudesE = Solicitud::orderBy('rut','DESC')
             ->where('carrera', 'Ingeniería de Ejecución Informática')
-            ->where('estado',2)
-            ->paginate(5);
+            ->where('estado',2);
 
+        return view('evaluacionSolicitud',[
+            'solicitudesP'=>$solicitudesP,
+            'solicitudesE'=>$solicitudesE
+        ]);
+    }
+    */
+    public function evaluacion(){
+
+        $solicitudesP = Solicitud::all()
+            ->where('carrera', 'Ingeniería Civil Informática')
+            ->where("estado",1);
+
+        $solicitudesE = Solicitud::all()
+            ->where('carrera', 'Ingeniería Civil Informática')
+            ->where("estado",2);
+
+        return view('evaluacionSolicitud',[
+            'solicitudesP'=>$solicitudesP,
+            'solicitudesE'=>$solicitudesE
+        ]);
+    }
+    
+     public function evaluacionEjecucion(){
+
+        $solicitudesP = Solicitud::all()
+            ->where('carrera', 'Ingeniería de Ejecución Informática')
+            ->where("estado",1);
+
+        $solicitudesE = Solicitud::all()
+            ->where('carrera', 'Ingeniería de Ejecución Informática')
+            ->where("estado",2);
+    
         return view('evaluacionSolicitud',[
             'solicitudesP'=>$solicitudesP,
             'solicitudesE'=>$solicitudesE
@@ -227,6 +257,7 @@ class SolicitudController extends Controller
         $solicitud->save();
         
        if($solicitud->carrera == "Ingeniería Civil Informática"){
+
             return redirect()->route('evaluacionSolicitud')->with('success','Registro creado satisfactoriamente');
         }
         else{
@@ -236,3 +267,4 @@ class SolicitudController extends Controller
         
     }    
 }
+?>
