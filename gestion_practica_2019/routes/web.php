@@ -33,8 +33,6 @@ Route::get('/Usuarios/crear', 'RegisterController@showRegistrationForm');
 Route::post('/Usuarios/actualizar/{id_elemento}', 'UsuarioController@editarUsuario')->name('actualizar_usuario');
 Route::post('/Usuarios/eliminar/{id_elemento}','UsuarioController@borrarUsuario')->name('borrar_usuario');
 
-
-
 /* Rutas mantenedor perfiles */
 // Rutas tipo GET
 Route::get('/Perfiles/lista', 'PerfilController@lista')->name('lista_perfiles');
@@ -126,3 +124,30 @@ Route::get('/Supervisores/editar/{id_elemento}', 'SupervisorController@editar')-
 Route::post('/Supervisores/agregar', 'SupervisorController@crearSupervisor')->name('agregar_supervisor');
 Route::post('/Supervisores/actualizar/{id_elemento}', 'SupervisorController@editarSupervisor')->name('actualizar_supervisor');
 Route::post('/Supervisores/eliminar/{id_elemento}','SupervisorController@borrarSupervisor')->name('borrar_supervisor');
+
+/*--------------------- Etapa Solicitud ---------------------*/
+//-------formulario de solicitud
+Route::get('/formularioSolicitud', 'SolicitudController@index')->name('formularioSolicitud');
+Route::post('/agregarSolicitud', 'SolicitudController@store')->name('agregarSolicitud');
+
+//--------Descripcion de etapa solicitud
+Route::get('/descripcionSolicitud', 'SolicitudController@verDescripcion')->name('descripcionSolicitud');
+
+//--------Evaluacion de solicitudes
+Route::get('/evaluacionSolicitud', 'SolicitudController@evaluacion')->name('evaluacionSolicitud');
+
+//modals
+Route::get('/modal/evaluarSolicitudModal/{id}','SolicitudController@evaluarSolicitudModal')->name('evaluarSolicitudModal');
+Route::post('/evaluacionSolicitud/evaluarSolicitud/{id}','SolicitudController@evaluarSolicitud')->name('evaluarSolicitud');
+
+Route::get('/modal/modificarEvaluacionSolicitudModal/{id}','SolicitudController@modificarEvaluacionSolicitudModal')->name('modificarEvaluacionSolicitudModal');
+Route::post('/evaluacionSolicitud/modificarEvaluacionSolicitud/{id}','SolicitudController@modificarEvaluacionSolicitud')->name('modificarEvaluacionSolicitud');
+
+//---------Validacion de solicitudes
+Route::get('/listaSolicitudEjecucion', 'SolicitudController@listaSolicitudEjecucion')->name('listaSolicitudEjecucion');
+Route::get('/listaSolicitudCivil', 'SolicitudController@listaSolicitudCivil')->name('listaSolicitudCivil');
+
+Route::get('/borrarSolicitud/{id_solicitud}', 'SolicitudController@destroy')->name('borrarSolicitud');
+Route::resource('solicitudes', 'SolicitudController');
+
+Route::get('/aceptarSolicitud/{id_solicitud}', 'SolicitudController@estado')->name('aceptarSolicitud');
