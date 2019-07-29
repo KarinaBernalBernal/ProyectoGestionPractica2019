@@ -59,9 +59,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="row d-flex justify-content-center">	
-				{{ $solicitudesP->links() }}
-			</div>	
+			
 			<div class="tab-pane fade" id="evaluadas" role="tabpanel" aria-labelledby="evaluadas-tab">
 				<div class="container-fluid">
 				  	<div class="row">
@@ -89,7 +87,7 @@
 							<tbody>
 								@foreach($solicitudesE as $solicitudE)
 									<tr>
-										<td>{{ $solicitudE->rut }} </td>
+										<td>{{ $solicitudE->rut }}</td>
 										<td>{{ $solicitudE->nombre }}</td>
 										<td>{{ $solicitudE->apellido_paterno }}</td>
 										<td>{{ $solicitudE->apellido_materno }}</td>
@@ -109,9 +107,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="row d-flex justify-content-center">	
-				{{ $solicitudesE->links() }}
-			</div>		
+			
 		</div>
    	</div>
 	
