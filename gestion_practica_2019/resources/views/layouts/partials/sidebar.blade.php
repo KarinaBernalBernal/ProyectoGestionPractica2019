@@ -36,6 +36,14 @@
                     <a class="collapse-item" href="{{route('lista_usuarios')}}">Gestion de usuarios</a>
                     <a class="collapse-item" href="{{route('lista_recursos')}}">Gestión de recursos</a>
                     <a class="collapse-item" href="{{route('lista_perfiles')}}">Gestión de perfiles</a>
+                    <a class="collapse-item" href="{{route('lista_alumnos')}}">Gestión de alumnos</a>
+                    <a class="collapse-item" href="{{route('lista_supervisores')}}">Gestión de supervisores</a>
+                    <a class="collapse-item" href="{{route('lista_practicas')}}">Gestión de practicas</a>
+                    <a class="collapse-item" href="{{route('lista_evaluaciones_supervisor')}}">Gestión de evaluaciones supervisor</a>
+                    <a class="collapse-item" href="{{route('lista_empresas')}}">Gestión de empresas</a>
+                    <a class="collapse-item" href="{{route('lista_auto_evaluaciones')}}">Gestión de auto evaluaciones</a>
+
+
                 </div>
             </div>
         </li>

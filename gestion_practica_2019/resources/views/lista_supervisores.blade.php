@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container-fluid">
-        <h3>Mantenedor de Alumnos</h3>
+        <h3>Mantenedor de Supervisores</h3>
         <br>
     </div>
     <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
@@ -29,98 +29,87 @@
                                         Apellido materno
                                     </th>
                                     <th>
-                                        RUT
+                                        Cargo
+                                    </th>
+                                    <th>
+                                        Departamento
                                     </th>
                                     <th>
                                         Email
                                     </th>
                                     <th>
-                                        Dirección
-                                    </th>
-                                    <th>
                                         Fono
                                     </th>
                                     <th>
-                                        Año ingreso
+                                        Id user
                                     </th>
                                     <th>
-                                        Carrera
+                                        Id empresa
                                     </th>
-                                    <th>
-                                        Estimación semestres
-                                    </th>
-                                    <th>
-                                        id usuario
-                                    </th>
+
                                 </tr >
                                 </thead>
                                 <tbody>
-                                    @foreach ($lista as $alumno)
-                                        <tr id="{{$alumno->id_alumno}}">
-                                            <td>{{$alumno->id_alumno}}</td>
-                                            <td>{{$alumno->nombre}}</td>
-                                            <td>{{$alumno->apellido_paterno}}</td>
-                                            <td>{{$alumno->apellido_materno}}</td>
-                                            <td>{{$alumno->rut}}</td>
-                                            <td>{{$alumno->email}}</td>
-                                            <td>{{$alumno->direccion}}</td>
-                                            <td>{{$alumno->fono}}</td>
-                                            <td>{{$alumno->anno_ingreso}}</td>
-                                            <td>{{$alumno->carrera}}</td>
-                                            <td>{{$alumno->estimacion_semestre}}</td>
-                                            <td>{{$alumno->id_user}}</td>
+                                    @foreach ($lista as $supervisor)
+                                        <tr id="{{$supervisor->id_supervisor}}">
+                                            <td>{{$supervisor->id_supervisor}}</td>
+                                            <td>{{$supervisor->nombre}}</td>
+                                            <td>{{$supervisor->apellido_paterno}}</td>
+                                            <td>{{$supervisor->apellido_materno}}</td>
+                                            <td>{{$supervisor->cargo}}</td>
+                                            <td>{{$supervisor->departamento}}</td>
+                                            <td>{{$supervisor->email}}</td>
+                                            <td>{{$supervisor->fono}}</td>
+                                            <td>{{$supervisor->id_user}}</td>
+                                            <td>{{$supervisor->id_empresa}}</td>
+
                                             <td>
-                                                <a href="{{route('editar_alumno',[$alumno->id_alumno])}} "><button id="{{$alumno->id_alumno}}" class="btn btn-warning">Editar</button></a>
-                                                <a href="#"><button id="{{$alumno->id_alumno}}" class="btn btn-danger" onclick="borrar('{{$alumno->id_alumno}}', '{{$alumno->nombre}}', '{{route('borrar_alumno',[$alumno->id_alumno])}}')">Borrar</button></a>
+                                                <a href="{{route('editar_supervisor',[$supervisor->id_supervisor])}} "><button id="{{$supervisor->id_supervisor}}" class="btn btn-warning">Editar</button></a>
+                                                <a href="#"><button id="{{$supervisor->id_supervisor}}" class="btn btn-danger" onclick="borrar('{{$supervisor->id_supervisor}}', '{{$supervisor->nombre}}', '{{route('borrar_supervisor',[$supervisor->id_supervisor])}}')">Borrar</button></a>
                                             </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
                                 <tfoot>
                                 <tr >
-                                    <th>
+                                     <th>
                                         Id
                                     </th>
                                     <th>
                                         Nombre
                                     </th>
-                                     <th>
+                                    <th>
                                         Apellido paterno
                                     </th>
                                     <th>
                                         Apellido materno
                                     </th>
                                     <th>
-                                        RUT
+                                        Cargo
+                                    </th>
+                                    <th>
+                                        Departamento
                                     </th>
                                     <th>
                                         Email
                                     </th>
                                     <th>
-                                        Dirección
-                                    </th>
-                                    <th>
                                         Fono
                                     </th>
                                     <th>
-                                        Año ingreso
+                                        Id user
                                     </th>
                                     <th>
-                                        Carrera
+                                        Id empresa
                                     </th>
-                                    <th>
-                                        Estimación semestres
-                                    </th>
-                                    <th>
-                                        id usuario
-                                    </th>
+
                                 </tr>
                                 </tfoot>
                             </table>
                         </div>
                     </div>
                 @else
-                    <p>No existen alumnos en este momento</p>
+                    <p>No existen supervisores en este momento</p>
                 @endif
                 <!-- FIN DATA TABLES -->
             </div>
@@ -134,7 +123,7 @@
                     <a href="/"><button class="btn btn-primary btn-lg">Atras</button></a>
             </div>
             <div class='ml-auto'>
-                <a href="{{route ('crear_alumno')}}"><button id="boton_agregar" class="btn btn-primary btn-lg">Agregar</button></a>
+                <a href="{{route ('crear_supervisor')}}"><button id="boton_agregar" class="btn btn-primary btn-lg">Agregar</button></a>
             </div>
         </div>
 
@@ -145,7 +134,7 @@
     {
 
         Swal({
-              title: 'Estas seguro de querer eliminar el alumno '+name+'?',
+              title: 'Estas seguro de querer eliminar el supervisor '+name+'?',
               text: "No sera posible revertir este cambio!",
               type: 'warning',
               showCancelButton: true,
@@ -168,7 +157,7 @@
                         success: function(response){
                             Swal(
                               'Eliminado!',
-                              'El alumno ha sido eliminado.',
+                              'El supervisor ha sido eliminado.',
                               'success'
                             )
                             $('#'+id_elemento).remove();

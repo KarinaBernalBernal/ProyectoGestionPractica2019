@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Autoevalucion extends Model
 {
     protected $primaryKey = 'id_autoeval';
+    protected $table = 'auto_evaluaciones';
 
     protected $fillable = [
        	'f_entrega','id_practica'

@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container-fluid">
-        <h3>Mantenedor de Alumnos</h3>
+        <h3>Mantenedor de Practicas</h3>
         <br>
     </div>
     <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
@@ -20,58 +20,50 @@
                                         Id
                                     </th>
                                     <th>
-                                        Nombre
+                                        f_solicitud
                                     </th>
                                     <th>
-                                        Apellido paterno
+                                        f_inscripcion
                                     </th>
                                     <th>
-                                        Apellido materno
+                                        f_desde
                                     </th>
                                     <th>
-                                        RUT
+                                        f_hasta
                                     </th>
                                     <th>
-                                        Email
+                                        asist_ch_post_pract
                                     </th>
                                     <th>
-                                        Dirección
+                                        asist_ch_pre_pract
                                     </th>
                                     <th>
-                                        Fono
+                                        id_alumno
                                     </th>
                                     <th>
-                                        Año ingreso
+                                         id_supervisor
                                     </th>
-                                    <th>
-                                        Carrera
-                                    </th>
-                                    <th>
-                                        Estimación semestres
-                                    </th>
-                                    <th>
-                                        id usuario
-                                    </th>
+
+
                                 </tr >
                                 </thead>
                                 <tbody>
-                                    @foreach ($lista as $alumno)
-                                        <tr id="{{$alumno->id_alumno}}">
-                                            <td>{{$alumno->id_alumno}}</td>
-                                            <td>{{$alumno->nombre}}</td>
-                                            <td>{{$alumno->apellido_paterno}}</td>
-                                            <td>{{$alumno->apellido_materno}}</td>
-                                            <td>{{$alumno->rut}}</td>
-                                            <td>{{$alumno->email}}</td>
-                                            <td>{{$alumno->direccion}}</td>
-                                            <td>{{$alumno->fono}}</td>
-                                            <td>{{$alumno->anno_ingreso}}</td>
-                                            <td>{{$alumno->carrera}}</td>
-                                            <td>{{$alumno->estimacion_semestre}}</td>
-                                            <td>{{$alumno->id_user}}</td>
+                                    @foreach ($lista as $practica)
+                                        <tr id="{{$practica->id_practica}}">
+                                            <td>{{$practica->id_practica}}</td>
+                                            <td>{{$practica->f_solicitud}}</td>
+                                            <td>{{$practica->f_inscripcion}}</td>
+                                            <td>{{$practica->f_desde}}</td>
+                                            <td>{{$practica->f_hasta}}</td>
+                                            <td>{{$practica->asist_ch_post_pract}}</td>
+                                            <td>{{$practica->asist_ch_pre_pract}}</td>
+                                            <td>{{$practica->id_alumno}}</td>
+                                            <td>{{$practica->id_supervisor}}</td>
+
+
                                             <td>
-                                                <a href="{{route('editar_alumno',[$alumno->id_alumno])}} "><button id="{{$alumno->id_alumno}}" class="btn btn-warning">Editar</button></a>
-                                                <a href="#"><button id="{{$alumno->id_alumno}}" class="btn btn-danger" onclick="borrar('{{$alumno->id_alumno}}', '{{$alumno->nombre}}', '{{route('borrar_alumno',[$alumno->id_alumno])}}')">Borrar</button></a>
+                                                <a href="{{route('editar_practica',[$practica->id_practica])}} "><button id="{{$practica->id_practica}}" class="btn btn-warning">Editar</button></a>
+                                                <a href="#"><button id="{{$practica->id_practica}}" class="btn btn-danger" onclick="borrar('{{$practica->id_practica}}', '{{$practica->id_practica}}', '{{route('borrar_practica',[$practica->id_practica])}}')">Borrar</button></a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -82,37 +74,28 @@
                                         Id
                                     </th>
                                     <th>
-                                        Nombre
-                                    </th>
-                                     <th>
-                                        Apellido paterno
+                                        f_solicitud
                                     </th>
                                     <th>
-                                        Apellido materno
+                                        f_inscripcion
                                     </th>
                                     <th>
-                                        RUT
+                                        f_desde
                                     </th>
                                     <th>
-                                        Email
+                                        f_hasta
                                     </th>
                                     <th>
-                                        Dirección
+                                        asist_ch_post_pract
                                     </th>
                                     <th>
-                                        Fono
+                                        asist_ch_pre_pract
                                     </th>
                                     <th>
-                                        Año ingreso
+                                        id_alumno
                                     </th>
                                     <th>
-                                        Carrera
-                                    </th>
-                                    <th>
-                                        Estimación semestres
-                                    </th>
-                                    <th>
-                                        id usuario
+                                         id_supervisor
                                     </th>
                                 </tr>
                                 </tfoot>
@@ -120,7 +103,7 @@
                         </div>
                     </div>
                 @else
-                    <p>No existen alumnos en este momento</p>
+                    <p>No existen practicas  en este momento</p>
                 @endif
                 <!-- FIN DATA TABLES -->
             </div>
@@ -134,7 +117,7 @@
                     <a href="/"><button class="btn btn-primary btn-lg">Atras</button></a>
             </div>
             <div class='ml-auto'>
-                <a href="{{route ('crear_alumno')}}"><button id="boton_agregar" class="btn btn-primary btn-lg">Agregar</button></a>
+                <a href="{{route ('crear_practica')}}"><button id="boton_agregar" class="btn btn-primary btn-lg">Agregar</button></a>
             </div>
         </div>
 
@@ -145,7 +128,7 @@
     {
 
         Swal({
-              title: 'Estas seguro de querer eliminar el alumno '+name+'?',
+              title: 'Estas seguro de querer eliminar la practica '+name+'?',
               text: "No sera posible revertir este cambio!",
               type: 'warning',
               showCancelButton: true,
@@ -168,7 +151,7 @@
                         success: function(response){
                             Swal(
                               'Eliminado!',
-                              'El alumno ha sido eliminado.',
+                              'La practica ha sido eliminada.',
                               'success'
                             )
                             $('#'+id_elemento).remove();

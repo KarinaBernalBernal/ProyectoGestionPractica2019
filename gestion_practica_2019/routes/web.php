@@ -47,7 +47,6 @@ Route::post('/Perfiles/actualizar/{id_elemento}', 'PerfilController@editarPerfil
 Route::post('/Perfiles/eliminar/{id_elemento}','PerfilController@borrarPerfil')->name('borrar_perfil');
 
 
-
 /* Rutas mantenedor recursos */
 // Rutas tipo GET
 Route::get('/Recursos/lista', 'RecursoController@lista')->name('lista_recursos');
@@ -70,3 +69,60 @@ Route::get('/Alumnos/editar/{id_elemento}', 'AlumnoController@editar')->name('ed
 Route::post('/Alumnos/agregar', 'AlumnoController@crearAlumno')->name('agregar_alumno');
 Route::post('/Alumnos/actualizar/{id_elemento}', 'AlumnoController@editarAlumno')->name('actualizar_alumno');
 Route::post('/Alumnos/eliminar/{id_elemento}','AlumnoController@borrarAlumno')->name('borrar_alumno');
+
+
+/* Rutas mantenedor recursos */
+// Rutas tipo GET
+Route::get('/Practicas/lista', 'PracticaController@lista')->name('lista_practicas');
+Route::get('/Practicas/crear', 'PracticaController@crear')->name('crear_practica');
+Route::get('/Practicas/editar/{id_elemento}', 'PracticaController@editar')->name('editar_practica');
+
+//Rutas tipo POST
+Route::post('/Practicas/agregar', 'PracticaController@crearPractica')->name('agregar_practica');
+Route::post('/Practicas/actualizar/{id_elemento}', 'PracticaController@editarPractica')->name('actualizar_practica');
+Route::post('/Practicas/eliminar/{id_elemento}','PracticaController@borrarPractica')->name('borrar_practica');
+
+
+/* Rutas mantenedor evaluacion de supervisor */
+// Rutas tipo GET
+Route::get('/EvaluacionesSupervisor/lista', 'EvaluacionSupervisorController@lista')->name('lista_evaluaciones_supervisor');
+Route::get('/EvaluacionesSupervisor/crear', 'EvaluacionSupervisorController@crear')->name('crear_evaluacion_supervisor');
+Route::get('/EvaluacionesSupervisor/editar/{id_elemento}', 'EvaluacionSupervisorController@editar')->name('editar_evaluacion_supervisor');
+
+//Rutas tipo POST
+Route::post('/EvaluacionesSupervisor/agregar', 'EvaluacionSupervisorController@crearEvaluacionSupervisor')->name('agregar_evaluacion_supervisor');
+Route::post('/EvaluacionesSupervisor/actualizar/{id_elemento}', 'EvaluacionSupervisorController@editarEvaluacionSupervisor')->name('actualizar_evaluacion_supervisor');
+Route::post('/EvaluacionesSupervisor/eliminar/{id_elemento}','EvaluacionSupervisorController@borrarEvaluacionSupervisor')->name('borrar_evaluacion_supervisor');
+
+/* Rutas mantenedor de autoevaluacion */
+// Rutas tipo GET
+Route::get('/AutoEvaluaciones/lista', 'AutoEvaluacionController@lista')->name('lista_auto_evaluaciones');
+Route::get('/AutoEvaluaciones/crear', 'AutoEvaluacionController@crear')->name('crear_auto_evaluacion');
+Route::get('/AutoEvaluaciones/editar/{id_elemento}', 'AutoEvaluacionController@editar')->name('editar_auto_evaluacion');
+
+//Rutas tipo POST
+Route::post('/AutoEvaluaciones/agregar', 'AutoEvaluacionController@crearAutoEvaluacion')->name('agregar_auto_evaluacion');
+Route::post('/AutoEvaluaciones/actualizar/{id_elemento}', 'AutoEvaluacionController@editarAutoEvaluacion')->name('actualizar_auto_evaluacion');
+Route::post('/AutoEvaluaciones/eliminar/{id_elemento}','AutoEvaluacionController@borrarAutoEvaluacion')->name('borrar_auto_evaluacion');
+
+/* Rutas mantenedor empresa */
+// Rutas tipo GET
+Route::get('/Empresas/lista', 'EmpresaController@lista')->name('lista_empresas');
+Route::get('/Empresas/crear', 'EmpresaController@crear')->name('crear_empresa');
+Route::get('/Empresas/editar/{id_elemento}', 'EmpresaController@editar')->name('editar_empresa');
+
+//Rutas tipo POST
+Route::post('/Empresas/agregar', 'EmpresaController@crearEmpresa')->name('agregar_empresa');
+Route::post('/Empresas/actualizar/{id_elemento}', 'EmpresaController@editarEmpresa')->name('actualizar_empresa');
+Route::post('/Empresas/eliminar/{id_elemento}','EmpresaController@borrarEmpresa')->name('borrar_empresa');
+
+/* Rutas mantenedor empresa */
+// Rutas tipo GET
+Route::get('/Supervisores/lista', 'SupervisorController@lista')->name('lista_supervisores');
+Route::get('/Supervisores/crear', 'SupervisorController@crear')->name('crear_supervisor');
+Route::get('/Supervisores/editar/{id_elemento}', 'SupervisorController@editar')->name('editar_supervisor');
+
+//Rutas tipo POST
+Route::post('/Supervisores/agregar', 'SupervisorController@crearSupervisor')->name('agregar_supervisor');
+Route::post('/Supervisores/actualizar/{id_elemento}', 'SupervisorController@editarSupervisor')->name('actualizar_supervisor');
+Route::post('/Supervisores/eliminar/{id_elemento}','SupervisorController@borrarSupervisor')->name('borrar_supervisor');
