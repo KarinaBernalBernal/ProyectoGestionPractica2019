@@ -33,6 +33,17 @@
                                         </span>
                                     @endif
                                 </div>
+                                <div class="col-md-6">
+                                <label for="perfil" class="col-md-4 control-label">Perfiles</label>
+
+                                    <select id="type_element" class="browser-default">
+
+                                        @foreach($perfiles as $perfil)
+                                            <option value="{{ $perfil->id_perfil }}" >{{ $perfil->n_perfil }}</option>
+                                        @endforeach
+                                    </select>
+
+                                </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-4">

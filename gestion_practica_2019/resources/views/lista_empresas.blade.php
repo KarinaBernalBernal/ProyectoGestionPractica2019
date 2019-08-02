@@ -11,10 +11,10 @@
             <div class="text-center">
                 @if (count($lista)>0)
                     <!-- DATA TABLES -->
-                    <div class="row">
-                        <div class="col s12">
-                            <table id="tabla" class="table">
-                                <thead>
+                    <div class="row d-flex justify-content-center">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="MyTable">
+                                <thead class="bg-dark" style="color: white">
                                 <tr >
 
                                     <th>

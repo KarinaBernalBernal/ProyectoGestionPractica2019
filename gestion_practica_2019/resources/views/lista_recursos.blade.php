@@ -11,10 +11,10 @@
             <div class="text-center">
                 @if (count($lista)>0)
                     <!-- DATA TABLES -->
-                    <div class="row">
-                        <div class="col s12">
-                            <table id="tabla" class="table">
-                                <thead>
+                    <div class="row d-flex justify-content-center">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="MyTable">
+                                <thead class="bg-dark" style="color: white">
                                 <tr >
                                     <th>
                                         Id
@@ -34,7 +34,6 @@
                                             <td>{{$recurso->id_recurso}}</td>
                                             <td>{{$recurso->n_recurso}}</td>
                                             <td>{{$recurso->url}}</td>
-
                                             <td>
                                                 <a href="{{route('editar_recurso',[$recurso->id_recurso])}} "><button id="{{$recurso->id_recurso}}" class="btn btn-warning">Editar</button></a>
                                                 <a href="#"><button id="{{$recurso->id_recurso}}" class="btn btn-danger" onclick="borrar('{{$recurso->id_recurso}}', '{{$recurso->n_recurso}}', '{{route('borrar_recurso',[$recurso->id_recurso])}}')">Borrar</button></a>

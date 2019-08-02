@@ -3,14 +3,14 @@
 namespace SGPP\Http\Controllers;
 
 use Illuminate\Http\Request;
-use SGPP\Autoevalucion;
+use SGPP\Autoevaluacion;
 
 class AutoEvaluacionController extends Controller
 {
      //vista principal de un elemento en especifico
     public function lista()
     {
-        $lista= Autoevalucion::all();
+        $lista= Autoevaluacion::all();
         return view('lista_auto_evaluaciones',[
                 'lista'=>$lista,
             ]);
@@ -22,17 +22,17 @@ class AutoEvaluacionController extends Controller
 
     public function editar($id_elemento)
     {
-        $elemento= Autoevalucion::find($id_elemento);
+        $elemento= Autoevaluacion::find($id_elemento);
         return view('editar_auto_evaluacion',[
                 'elemento'=>$elemento,
             ]);
     }
 
-    public function crearAutoEvalucion (Request $request)
+    public function crearAutoEvaluacion (Request $request)
     {
         $data = $request->all();
 
-        $nuevo = new Autoevalucion;
+        $nuevo = new Autoevaluacion;
         $nuevo->f_entrega = $data['f_entrega'];
 		$nuevo->id_practica = $data['id_practica'];
 
@@ -41,9 +41,9 @@ class AutoEvaluacionController extends Controller
         return redirect()->route('lista_auto_evaluaciones');
     }
 
-    public function editarAutoEvalucion(Request $request, $id_elemento)
+    public function editarAutoEvaluacion(Request $request, $id_elemento)
     {
-        $elemento_editar=Autoevalucion::find($id_elemento);
+        $elemento_editar=Autoevaluacion::find($id_elemento);
         if(isset($elemento_editar))
         {
             $elemento_editar->f_entrega=$request->f_entrega;
@@ -53,8 +53,8 @@ class AutoEvaluacionController extends Controller
             return redirect()->route('lista_auto_evaluaciones');
         }
     }
-    public function borrarAutoEvalucion($id_elemento){
-        $elemento_eliminar =  Autoevalucion::find($id_elemento);
+    public function borrarAutoEvaluacion($id_elemento){
+        $elemento_eliminar =  Autoevaluacion::find($id_elemento);
         $elemento_eliminar->delete();
         return redirect()->route('lista_auto_evaluaciones');
     }

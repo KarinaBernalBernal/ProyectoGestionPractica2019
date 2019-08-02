@@ -11,10 +11,11 @@
             <div class="text-center">
                 @if (count($lista)>0)
                     <!-- DATA TABLES -->
-                    <div class="row">
-                        <div class="col s12">
-                            <table id="tabla" class="table">
-                                <thead>
+                    <div class="row d-flex justify-content-center">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="MyTable">
+                                <thead class="bg-dark" style="color: white">
+
                                 <tr >
                                     <th>
                                         Id
@@ -23,22 +24,10 @@
                                         Nombre
                                     </th>
                                     <th>
-                                        Apellido paterno
-                                    </th>
-                                    <th>
-                                        Apellido materno
-                                    </th>
-                                    <th>
                                         RUT
                                     </th>
                                     <th>
-                                        Email
-                                    </th>
-                                    <th>
-                                        Dirección
-                                    </th>
-                                    <th>
-                                        Fono
+                                       Datos de contacto
                                     </th>
                                     <th>
                                         Año ingreso
@@ -58,13 +47,17 @@
                                     @foreach ($lista as $alumno)
                                         <tr id="{{$alumno->id_alumno}}">
                                             <td>{{$alumno->id_alumno}}</td>
-                                            <td>{{$alumno->nombre}}</td>
-                                            <td>{{$alumno->apellido_paterno}}</td>
-                                            <td>{{$alumno->apellido_materno}}</td>
+                                            <td>
+                                                {{$alumno->nombre}}<br>
+                                                {{$alumno->apellido_paterno}}<br>
+                                                {{$alumno->apellido_materno}}
+                                            </td>
                                             <td>{{$alumno->rut}}</td>
-                                            <td>{{$alumno->email}}</td>
-                                            <td>{{$alumno->direccion}}</td>
-                                            <td>{{$alumno->fono}}</td>
+                                            <td>
+                                                Email : {{$alumno->email}}<br>
+                                                Dirección : {{$alumno->direccion}}<br>
+                                                Fono : {{$alumno->fono}}
+                                            </td>
                                             <td>{{$alumno->anno_ingreso}}</td>
                                             <td>{{$alumno->carrera}}</td>
                                             <td>{{$alumno->estimacion_semestre}}</td>
@@ -84,23 +77,11 @@
                                     <th>
                                         Nombre
                                     </th>
-                                     <th>
-                                        Apellido paterno
-                                    </th>
-                                    <th>
-                                        Apellido materno
-                                    </th>
                                     <th>
                                         RUT
                                     </th>
                                     <th>
-                                        Email
-                                    </th>
-                                    <th>
-                                        Dirección
-                                    </th>
-                                    <th>
-                                        Fono
+                                        Datos de contacto
                                     </th>
                                     <th>
                                         Año ingreso

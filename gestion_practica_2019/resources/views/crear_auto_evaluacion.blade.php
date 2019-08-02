@@ -10,7 +10,7 @@
                         <form class="form-horizontal" action="{{route('agregar_auto_evaluacion')}}" method="post">
                             {{ csrf_field() }}
                             <div class="form-group{{ $errors->has('f_entrega') ? ' has-error' : '' }}">
-                                <label for="f_entrega" class="col-md-4 control-label">Name</label>
+                                <label for="f_entrega" class="col-md-4 control-label">Fecha entrega</label>
 
                                 <div class="col-md-6">
                                     <input id="f_entrega" type="text" class="form-control" name="f_entrega" required autofocus>
@@ -23,7 +23,7 @@
                                 </div>
                             </div>
                             <div class="form-group{{ $errors->has('id_practica') ? ' has-error' : '' }}">
-                                <label for="id_practica" class="col-md-4 control-label">Name</label>
+                                <label for="id_practica" class="col-md-4 control-label">Id Practica</label>
 
                                 <div class="col-md-6">
                                     <input id="id_practica" type="text" class="form-control" name="id_practica" required autofocus>

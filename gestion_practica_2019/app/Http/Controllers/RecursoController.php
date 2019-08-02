@@ -4,6 +4,7 @@ namespace SGPP\Http\Controllers;
 
 use Illuminate\Http\Request;
 use SGPP\Recurso;
+use SGPP\Perfil;
 
 class RecursoController extends Controller
 {
@@ -17,7 +18,8 @@ class RecursoController extends Controller
     }
      public function crear()
     {
-        return view('crear_recurso');
+        $perfiles= Perfil::all()->pluck('id_perfil','n_perfil');
+        return view('crear_recurso')->with('perfiles', $perfiles);
     }
 
     public function editar($id_elemento)
@@ -35,8 +37,12 @@ class RecursoController extends Controller
         $nuevo = new Recurso;
         $nuevo->n_recurso = $data['n_recurso'];
         $nuevo->url = $data['url'];
-
+        $perfil = $data['perfil'];
         $nuevo->save();
+        $nueva_instancia = new PerfilRecurso;
+        $nueva_instancia->id_perfil;
+        $nueva_instancia->id_recurso;
+        $nueva_instancia->save();
 
         return redirect()->route('lista_recursos');
     }
@@ -48,6 +54,8 @@ class RecursoController extends Controller
         {
             $elemento_editar->n_recurso=$request->n_recurso;
             $elemento_editar->url=$request->url;
+            $elemento_editar->url=$request->url;
+
 
             $elemento_editar->save();
 
