@@ -36,7 +36,7 @@
                                 <div class="col-md-6">
                                 <label for="perfil" class="col-md-4 control-label">Perfiles</label>
 
-                                    <select id="type_element" class="browser-default">
+                                    <select id="type_element" name="perfil" class="browser-default">
 
                                         @foreach($perfiles as $perfil)
                                             <option value="{{ $perfil->id_perfil }}" >{{ $perfil->n_perfil }}</option>

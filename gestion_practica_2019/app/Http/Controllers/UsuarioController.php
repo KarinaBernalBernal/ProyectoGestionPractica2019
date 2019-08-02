@@ -52,15 +52,15 @@ class UsuarioController extends Controller
 
     }
 
-    // public function get_permissions(Request $request){
-    //     $user = $request->$user->id;
-    //     $profile = None;
-    //     if (isset($user->$profile))
-    //     {
-    //         $profile = $user->$profile;
-    //         $permissions = Recurso::all()->where('profile', 'profile')
-    //     }
-    //     return view('get_permissions')->with('permissions', $permissions);
-    // }
+    public function get_permissions(Request $request){
+        $user = $request->$user->id;
+        $profile = None;
+        if (isset($user->$profile))
+        {
+            $profile = $user->$profile;
+            $permissions = Recurso::all()->where('profile', 'profile')
+        }
+        return view('get_permissions')->with('permissions', $permissions);
+    }
 
 }
