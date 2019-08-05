@@ -19,14 +19,18 @@ class CreateSolicitudesTable extends Migration
             $table->string('apellido_paterno');
             $table->string('apellido_materno');
             $table->string('rut');
+            $table->string('email');
             $table->string('direccion');
             $table->string('fono');
             $table->string('anno_ingreso');
+            $table->string('practica')->nullable();
             $table->string('carrera');
-            $table->string('estimacion_semestre');
+            $table->string('semestre_proyecto');
+            $table->string('anno_proyecto');
             $table->date('f_solicitud');
-            $table->string('resolucion_solicitud');
-            $table->string('observacion_solicitud');
+            $table->string('resolucion_solicitud')->nullable();
+            $table->string('observacion_solicitud')->nullable();
+            $table->integer('estado')->default(0);
 
             $table->integer('id_alumno')->unsigned()->nullable();
             $table->timestamps();

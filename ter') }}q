@@ -1,0 +1,330 @@
+[33mcommit a9cec51670861c1960065a537ffa0f513a20959c[m
+Author: karinabernal <karina.bernalb2015@gmail.com>
+Date:   Sun Jun 9 21:05:16 2019 -0400
+
+    working mantenedor usuario
+
+[33mcommit acd82cb6057540c6e7e93410babb90e865124956[m
+Author: karinabernal <karina.bernalb2015@gmail.com>
+Date:   Sun Jun 9 02:16:08 2019 -0400
+
+    fix:error mantenedor usuario
+
+[33mcommit 9725c72915653ee5bd2576c2a0d300a86d950d79[m
+Author: karinabernal <karina.bernalb2015@gmail.com>
+Date:   Tue Jun 4 03:45:59 2019 -0400
+
+    inicio mantenedor usuario{
+
+[33mcommit 4c5431a2dd15ce864f06f573016c1a03b28cf789[m
+Merge: 8861db7 8345a16
+Author: karinabernal <karina.bernalb2015@gmail.com>
+Date:   Tue Jun 4 01:18:12 2019 -0400
+
+    Merge branch 'EricBranch' of https://github.com/KarinaBernalBernal/ProyectoGestionPractica2019 into EricBranch
+
+[33mcommit 8345a163383f15ebe1d7efe8a7cbb784f927fad9[m
+Author: Eric Felipe Riveros Novoa <eric.thno@gmail.com>
+Date:   Sun Jun 2 22:25:33 2019 -0400
+
+    Delete
+    
+    Vistas de borrador
+
+[33mcommit 70e4b3cf740d1e13cbbf0903d4821dedcf2d9f3e[m
+Author: Eric Felipe Riveros Novoa <eric.thno@gmail.com>
+Date:   Sun Jun 2 22:22:44 2019 -0400
+
+    Template semi listo
+    
+    pd: redireccionar boton inicio
+
+[33mcommit 145efbe552d24dc13055deb1cbf367e1eaa6422e[m
+Author: Eric Felipe Riveros Novoa <eric.thno@gmail.com>
+Date:   Sun Jun 2 02:11:26 2019 -0400
+
+    Integrando Template
+    
+    Pd: no listo
+
+[33mcommit 8861db75ca706ad1a8044ceaea60d59bd9fd3ec9[m
+Merge: 85805ae c058285
+Author: Eric Felipe Riveros Novoa <eric.thno@gmail.com>
+Date:   Wed May 29 01:32:21 2019 -0400
+
+    Merge branch 'EricBranch'
+
+[33mcommit c058285354490081f1ad25833aea96ed60e40535[m
+Author: Eric Felipe Riveros Novoa <eric.thno@gmail.com>
+Date:   Wed May 29 01:31:58 2019 -0400
+
+    Models
+    
+    - Administrador
+    - Autoevalucion
+    - Desempenno
+    - DocSolicitado
+    - Practica
+    - Solicitud
+
+[33mcommit 7450b751669af07f4f16e63923770f94a8219c65[m
+Author: Eric Felipe Riveros Novoa <eric.thno@gmail.com>
+Date:   Wed May 29 01:25:02 2019 -0400
+
+    Models
+    
+    - Alumno
+    - Supervisor
+
+[33mcommit b2cc025e267f62b5f810f234c655fdd4cd9cd350[m
+Merge: 9425e52 85805ae
+Author: Eric Felipe Riveros Novoa <eric.thno@gmail.com>
+Date:   Wed May 29 01:23:46 2019 -0400
+
+    Merge branch 'master' into EricBranch
+
+[33mcommit 85805ae7528f8e40eea07eefbe677c0a042effc0[m
+Merge: 9e26171 7f84ae7
+Author: karinabernal <karina.bernalb2015@gmail.com>
+Date:   Wed May 29 01:15:47 2019 -0400
+
+    Merge branch 'master' of https://github.com/KarinaBernalBernal/ProyectoGestionPractica2019
+
+[33mcommit 9e26171efc1574ebce4db4d9913adb73e39d9db8[m
+Author: karinabernal <karina.bernalb2015@gmail.com>
+Date:   Wed May 29 01:14:29 2019 -0400
+
+    modelos
+
+[33mcommit 9425e52b8896145f0ed02c11380aa1cd2bf92044[m
+Merge: de0631d 7f84ae7
+Author: Eric Felipe Riveros Novoa <eric.thno@gmail.com>
+Date:   Wed May 29 01:04:25 2019 -0400
+
+    Merge branch 'master' into EricBranch
+
+[33mcommit 7f84ae7265e6da09ea6cb445df2eb280d651c75a[m
+Author: Eric Felipe Riveros Novoa <eric.thno@gmail.com>
+Date:   Wed May 29 00:45:33 2019 -0400
+
+    Revert "Merge branch 'EricBranch'"
+    
+    This reverts commit 646612aaedcc5c00f6511fdf1808c20ba43b44a8.
+
+[33mcommit de0631d58e4155034ae8bf3f49037ffb555da784[m
+Merge: ce4a655 76946e4
+Author: Eric Felipe Riveros Novoa <eric.thno@gmail.com>
+Date:   Wed May 29 00:57:05 2019 -0400
+
+    Merge remote-tracking branch 'origin/EricBranch' into EricBranch
+
+[33mcommit ce4a655eb76f9f5e993cce31c632f0b74daa38c0[m
+Author: Eric Felipe Riveros Novoa <eric.thno@gmail.com>
+Date:   Tue May 28 20:09:42 2019 -0400
+
+    Migrations V.0.5
+    
+    Se eliminaron migraciones, definiendo las tablas intermediarias dentro su categoría.
+    
+    Además se especifico los campos 'email' y 'rut' como únicos en su tabla correspondiente.
+
+[33mcommit 646612aaedcc5c00f6511fdf1808c20ba43b44a8[m
+Merge: 5782c70 76946e4
+Author: Eric Felipe Riveros Novoa <eric.thno@gmail.com>
+Date:   Wed May 29 00:45:33 2019 -0400
+
+    Merge branch 'EricBranch'
+
+[33mcommit da665d3ff46214db69631e38f5b1546dab8ab708[m
+Merge: be92129 5782c70
+Author: karinabernal <karina.bernalb2015@gmail.com>
+Date:   Wed May 29 00:14:38 2019 -0400
+
+    cambios en migraciones
+
+[33mcommit 76946e4c9cdf9c1a7fbb6ef502b8384db93c1663[m
+Author: Eric Felipe Riveros Novoa <eric.thno@gmail.com>
+Date:   Tue May 28 20:09:42 2019 -0400
+
+    Migrations V.0.5
+    
+    Se eliminaron migraciones, definiendo las tablas intermediarias dentro su categoría.
+    
+    Además se especifico los campos 'email' y 'rut' como únicos en su tabla correspondiente.
+
+[33mcommit c5c3d8aa487185b7c4a6f35dd16072c25370fdbf[m
+Merge: 18b70cc 5782c70
+Author: Eric Felipe Riveros Novoa <eric.thno@gmail.com>
+Date:   Tue May 28 14:53:37 2019 -0400
+
+    Merge branch 'master' into EricBranch
+
+[33mcommit 5782c703ded7edf4b4c8dde5223c5b4c113ddd8d[m
+Author: Eric Felipe Riveros Novoa <eric.thno@gmail.com>
+Date:   Tue May 28 14:53:16 2019 -0400
+
+    Migrations V.0.4
+
+[33mcommit be921296394dded8121b5e6f01dcbf0bf0797434[m
+Author: karinabernal <karina.bernalb2015@gmail.com>
+Date:   Tue May 28 03:15:01 2019 -0400
+
+    asdasd
+
+[33mcommit 795c5b7e676972d6fbe030b62b3ad13c7efca4f6[m
+Author: karinabernal <karinabernal.b2015@gmail.com>
+Date:   Tue May 28 02:48:09 2019 -0400
+
+    cambios en modelos
+
+[33mcommit 67d52ac345ea6ffcf976dbd2375055519de49810[m
+Author: karinabernal <karinabernal.b2015@gmail.com>
+Date:   Tue May 28 02:43:20 2019 -0400
+
+    cambios en modelos
+
+[33mcommit eabcd16b0bb08ed5b61374c2bb411d893e46032b[m
+Author: karinabernal <karinabernal.b2015@gmail.com>
+Date:   Tue May 28 02:08:13 2019 -0400
+
+    migraciones
+
+[33mcommit 819783e6ceca2815a4246ac5af37949bb341b38d[m
+Merge: c2bc744 18b70cc
+Author: Eric Felipe Riveros Novoa <eric.thno@gmail.com>
+Date:   Mon May 27 19:42:59 2019 -0400
+
+    Merge branch 'EricBranch'
+
+[33mcommit 18b70cc58d6413f0c458cbb341ba6ffc629b13b7[m
+Author: Eric Felipe Riveros Novoa <eric.thno@gmail.com>
+Date:   Mon May 27 19:42:27 2019 -0400
+
+    Migrations
+    
+    New Tables:
+    - herramientas
+    - herramientas_practica
+
+[33mcommit c2bc744297fec5da72ddffc1d3af9b2f2c948f4c[m
+Merge: 936acf2 86eee9a
+Author: Eric Felipe Riveros Novoa <eric.thno@gmail.com>
+Date:   Mon May 27 00:28:02 2019 -0400
+
+    Merge branch 'EricBranch'
+
+[33mcommit 86eee9a136caffcba76b046b9342856986ba6bde[m
+Author: Eric Felipe Riveros Novoa <eric.thno@gmail.com>
+Date:   Mon May 27 00:27:44 2019 -0400
+
+    Migrations
+    
+    Mod Tables:
+    - Practicas
+    New Tables:
+    - eval_actitudinales
+    - eval_act_practicas
+    - eval_conocimientos
+    - eval_con_practicas
+
+[33mcommit 936acf2a0c2fe61e40f5f203e453245099c1f204[m
+Merge: 06547bc ef9d0ea
+Author: Eric Felipe Riveros Novoa <eric.thno@gmail.com>
+Date:   Mon May 27 00:04:43 2019 -0400
+
+    Merge branch 'EricBranch'
+
+[33mcommit ef9d0ea0bd82bae21abbbf070fc256a86f67deaa[m
+Author: Eric Felipe Riveros Novoa <eric.thno@gmail.com>
+Date:   Mon May 27 00:04:23 2019 -0400
+
+    Migrations
+    
+    MOD tables:
+    - desempennos, tareas, habilidades y conocimientos.
+    New tables:
+    - herramientas, areas, areas autoeval
+
+[33mcommit 06547bc3153738836921f8885e2ddb7e11d4942b[m
+Merge: 03cf65e c41b1cb
+Author: Eric Felipe Riveros Novoa <eric.thno@gmail.com>
+Date:   Sun May 26 23:10:19 2019 -0400
+
+    Merge branch 'EricBranch'
+
+[33mcommit c41b1cbaf8681eff9ea99b14cc21cc8985e93854[m
+Author: Eric Felipe Riveros Novoa <eric.thno@gmail.com>
+Date:   Sun May 26 23:09:56 2019 -0400
+
+    Migrations
+    
+    Tablas:Tareas, habilidades y conocimientos.
+
+[33mcommit 03cf65e1747d4c45703c6ee2ad3c89fc30eb7048[m
+Merge: ca70712 4b91301
+Author: Eric Felipe Riveros Novoa <eric.thno@gmail.com>
+Date:   Sun May 26 22:59:24 2019 -0400
+
+    Merge branch 'EricBranch'
+
+[33mcommit 4b9130191828a515574b364059215135ae27c9e6[m
+Author: Eric Felipe Riveros Novoa <eric.thno@gmail.com>
+Date:   Sun May 26 22:59:00 2019 -0400
+
+    Migrations
+    
+    Autoevaluaciones_table - desempenno_table
+
+[33mcommit ca707125def7fdf682e8e52563eb5a5950eac5b2[m
+Merge: 2f700b5 26a9cc6
+Author: Eric Felipe Riveros Novoa <eric.thno@gmail.com>
+Date:   Sun May 26 22:50:34 2019 -0400
+
+    Merge branch 'EricBranch'
+
+[33mcommit 26a9cc6eb27f60800f5132c9b3d0311f26b6f62e[m
+Author: Eric Felipe Riveros Novoa <eric.thno@gmail.com>
+Date:   Sun May 26 22:50:14 2019 -0400
+
+    Migrations
+    
+    Solicitudes_table - documentos_solicitados_table
+
+[33mcommit 2f700b51dbc42445cf67f22a64e1e447de397ea7[m
+Merge: 4efa39e 09624b4
+Author: Eric Felipe Riveros Novoa <eric.thno@gmail.com>
+Date:   Sun May 26 20:42:40 2019 -0400
+
+    Merge branch 'EricBranch'
+
+[33mcommit 09624b458c9ac89b75334a8091b674fa8a71311b[m
+Author: Eric Felipe Riveros Novoa <eric.thno@gmail.com>
+Date:   Sun May 26 20:23:40 2019 -0400
+
+    Migrations
+    
+    Alumnos - Supervisores - Administradores - Practicas
+
+[33mcommit 4efa39e8d37b3194c52dd0e4e87d0951fafa3d52[m
+Author: karinabernal <karinabernal.b2015@gmail.com>
+Date:   Sun May 26 20:10:43 2019 -0400
+
+    cambios en migraciones
+
+[33mcommit d0cc7eb651bc56298ca1404c7fc638d8d355cffd[m
+Author: karinabernal <karinabernal.b2015@gmail.com>
+Date:   Sun May 26 03:38:45 2019 -0400
+
+    modelos
+
+[33mcommit c662cd2877526c16f0f9c59373400c4166486f43[m
+Author: karinabernal <karinabernal.b2015@gmail.com>
+Date:   Sat May 25 23:53:21 2019 -0400
+
+    inicio
+
+[33mcommit f3bc72bf0e246f6d90f440876e1e58917788aafe[m
+Author: Karina Bernal <karinabernal.b2015@gmail.com>
+Date:   Tue May 7 01:47:13 2019 -0400
+
+    Creación del proyecto

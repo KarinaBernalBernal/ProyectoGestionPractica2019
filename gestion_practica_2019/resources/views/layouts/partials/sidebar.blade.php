@@ -2,10 +2,13 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-        <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-laugh-wink"></i></div>
-        <div class="sidebar-brand-text mx-3">INF PUCV </div>
-    </a>
+    <li class="nav-item">
+        <div class="sidebar-brand d-flex align-items-center justify-content-center">
+            <img class="img-responsive" src="\images\logo_escuela.png" alt="Escuela de Informatica" height="60" width="172" data-atf="1">
+                <!--<div class="sidebar-brand-icon rotate-n-15">
+                <div class="sidebar-brand-text mx-3"></div>-->
+        </div>
+    </li>
 
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
@@ -33,8 +36,17 @@
             </a>
             <div id="collapseGestionCuentas" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="#">Gestion de usuarios</a>
-                    <a class="collapse-item" href="#">Gestión de perfiles</a>                
+                    <a class="collapse-item" href="{{route('lista_usuarios')}}">Gestion de usuarios</a>
+                    <a class="collapse-item" href="{{route('lista_recursos')}}">Gestión de recursos</a>
+                    <a class="collapse-item" href="{{route('lista_perfiles')}}">Gestión de perfiles</a>
+                    <a class="collapse-item" href="{{route('lista_alumnos')}}">Gestión de alumnos</a>
+                    <a class="collapse-item" href="{{route('lista_supervisores')}}">Gestión de supervisores</a>
+                    <a class="collapse-item" href="{{route('lista_practicas')}}">Gestión de practicas</a>
+                    <a class="collapse-item" href="{{route('lista_evaluaciones_supervisor')}}">Gestión de evaluaciones supervisor</a>
+                    <a class="collapse-item" href="{{route('lista_empresas')}}">Gestión de empresas</a>
+                    <a class="collapse-item" href="{{route('lista_auto_evaluaciones')}}">Gestión de auto evaluaciones</a>
+
+
                 </div>
             </div>
         </li>
@@ -50,7 +62,10 @@
                     <a class="collapse-item" href="#">Supervisores</a>
 
                     <h6 class="collapse-header">Etapas</h6>
-                    <a class="collapse-item" href="#">Solicitudes</a>
+                    <!-- Jefe de Docencia -->
+                    <a class="collapse-item" href="{{route('evaluacionSolicitud')}}">Solicitudes (Jefe Docencia)</a>
+                    <!-- Secretaria -->
+                    <a class="collapse-item" href="{{ route('listaSolicitudCivil')}}">Solicitudes (Secretaria)</a>
                     <a class="collapse-item" href="#">Inscripciones</a>
                     <a class="collapse-item" href="#">Autoevaluaciones</a>
                     <a class="collapse-item" href="#">Evaluaciones de empresas</a>
@@ -73,7 +88,11 @@
                     <a class="collapse-item" href="#">Supervisores</a>
 
                     <h6 class="collapse-header">Etapas</h6>
-                    <a class="collapse-item" href="#">Solicitudes</a>
+                    <!-- Secretaria -->
+                    <a class="collapse-item" href="{{ route('listaSolicitudEjecucion')}}">Solicitudes (Secretaria)</a>
+                    <!-- Jefe de Docencia -->
+                    <a class="collapse-item" href="{{route('evaluacionSolicitudEjecucion')}}">Solicitudes (Jefe Docencia)</a>
+
                     <a class="collapse-item" href="#">Inscripciones</a>
                     <a class="collapse-item" href="#">Autoevaluaciones</a>
                     <a class="collapse-item" href="#">Evaluaciones de empresas</a>
@@ -85,7 +104,6 @@
             </div>
         </li>
 
-    <!-- -- -->
 
     <!--Alumnos-->
         <!-- Divider -->
@@ -98,7 +116,7 @@
 
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
-            <a class="nav-link collapsed">
+            <a class="nav-link collapsed" href="{{route('descripcionSolicitud')}}">
                 <i class="fas fa-arrow-right"></i><span>Solicita tu práctica aquí</span>
             </a>
         </li>
@@ -109,7 +127,7 @@
             </a>
             <div id="collapseInscripcion" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="register.html">Solicitar documentos</a>
+                    <a class="collapse-item" href="{{route('formularioSolicitarDocumentos')}}">Solicitar documentos</a>
                     <a class="collapse-item" href="404.html">Inscribir práctica</a>
                 </div>
             </div>
@@ -125,7 +143,6 @@
                 </div>
             </div>
         </li>
-    <!-- -- -->
 
     <!--Supervisor-->
         <!-- Divider -->
@@ -138,11 +155,10 @@
 
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
-            <a class="nav-link collapsed">
+            <a class="nav-link collapsed" href="#">
                 <i class="fas fa-arrow-right"></i><span>Evalúa a tu practicante</span>
             </a>
         </li>
-    <!-- -- -->
 
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
@@ -151,6 +167,6 @@
     <div class="text-center d-none d-md-inline">
         <button class="rounded-circle border-0" id="sidebarToggle"></button>
     </div>
-    
+
 </ul>
 <!-- End of Sidebar -->

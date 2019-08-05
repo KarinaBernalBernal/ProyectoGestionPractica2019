@@ -1,32 +1,61 @@
 @extends('layouts.mainlayout')
 
 @section('content')
-        <!-- Begin Page Content -->
-        <div class="container-fluid">
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
 
-            <!-- Page Heading -->
-            <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                <h1 class="h3 mb-0 text-gray-800">REGLAMENTO INTERNO PRÁCTICAS</h1>
-                <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+        <!-- Page Heading -->
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">REGLAMENTO INTERNO PRÁCTICAS</h1>
+            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+        </div>
+
+        <!-- Content Row -->
+        <div class="card text">
+            <!-- Card Header -->
+            <div class="card-header">
+                <h4><strong>Objetivo de la Práctica</strong></h4>
             </div>
+            <!-- Card Body -->
 
-            <!-- Content Row -->
-            <div class="card text">
-                <!-- Card Header -->
-                <div class="card-header">
-                        <h4><strong>Objetivo de la Práctica</strong></h4>
-                </div>
-                <!-- Card Body -->
+            <div class="card-body">
+                @if (session('status'))
+                    <div class="alert alert-success">
+                        {{ session('status') }}
+                    </div>
+                @endif
 
+
+                <h5><strong>Para el Alumno:</strong> </h5>
+                <p>
+                <ul>
+                    <li class="col-8">
+                        Articular  el  conocimiento  académico  con  los  conocimientos  prácticos  que  emergen  de  los diversos contextos del que hacer profesional.
+                    </li>
+                </ul>
+                </p>
+
+                <h5><strong>Para el Escuela:</strong> </h5>
+                <p>
+                <ul>
+                    <li>
+                        Evaluar las competencias de egreso en contextos de Prácticas Profesionales, como un medio de aseguramiento de la calidad de la formación de pregrado.
+                    </li>
+                    <li>
+                        Retroalimentar  el  currículo  de  formación  del  programa  de  pregrado  a  partir  de  las evidencias del desempeño de los estudiantes en las Prácticas Profesionales.
+                    </li>
+                </ul>
+                </p>
                 <div class="card-body">
                     @if (session('status'))
                         <div class="alert alert-success">
                             {{ session('status') }}
                         </div>
                     @endif
-                    
-                    
-                    <h5><strong>Para el Alumno:</strong> </h5>
+
+
+
+                    <h5><strong>Para el Alumno</strong> </h5>
                     <p>
                         <ul>
                             <li class="col-8">
@@ -34,19 +63,19 @@
                             </li>
                         </ul>
                     </p>
-                    
-                    <h5><strong>Para el Escuela:</strong> </h5>
+
+                    <h5><strong>Para el Escuela</strong> </h5>
                     <p>
                         <ul>
                             <li>
-                                    Evaluar las competencias de egreso en contextos de Prácticas Profesionales, como un medio de aseguramiento de la calidad de la formación de pregrado. 
+                                    Evaluar las competencias de egreso en contextos de Prácticas Profesionales, como un medio de aseguramiento de la calidad de la formación de pregrado.
                             </li>
                             <li>
                                     Retroalimentar  el  currículo  de  formación  del  programa  de  pregrado  a  partir  de  las evidencias del desempeño de los estudiantes en las Prácticas Profesionales.
                             </li>
                         </ul>
                     </p>
-                    
+
                     <h5><strong>Lugares y Duración de la práctica</strong></h5>
                     <p>
                         <ol>
@@ -79,9 +108,12 @@
                                 <li>No se realizan labores acordes a los objetivos señalados. </li>
                             </ul>
                         </ol>
-                    </p> 
+                    </p>
                 </div>
+
             </div>
         </div>
-        <!-- /.container-fluid -->   
+
+    </div>
+    <!-- /.container-fluid -->
 @endsection
