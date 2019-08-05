@@ -58,7 +58,7 @@ class UsuarioController extends Controller
         if (isset($user->$profile))
         {
             $profile = $user->$profile;
-            $permissions = Recurso::all()->where('profile', 'profile')
+            $permissions = Recurso::all()->where('profile', 'profile');
         }
         return view('get_permissions')->with('permissions', $permissions);
     }
