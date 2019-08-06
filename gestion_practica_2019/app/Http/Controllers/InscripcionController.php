@@ -17,7 +17,7 @@ class InscripcionController extends Controller
      */
     public function indexSolicitarDocumentos()
     {
-        return view('formularioSolicitarDocumentos');
+        return view('2 Inscripcion/formularioSolicitarDocumentos');
     }
 
     /**
@@ -107,6 +107,9 @@ class InscripcionController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function verDescripcion(){
+        return view('2 Inscripcion/solicitudDocumentos');
     }
 }
 

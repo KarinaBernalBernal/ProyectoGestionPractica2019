@@ -20,6 +20,10 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/home2', 'HomeTemplateController@index')->name('home2');
 
+
+
+
+
 /*--------------------- Etapa Solicitud ---------------------*/
 
 //-------formulario de solicitud
@@ -52,7 +56,14 @@ Route::resource('solicitudes', 'SolicitudController');
 Route::get('/aceptarSolicitud/{id_solicitud}', 'SolicitudController@estado')->name('aceptarSolicitud');
 
 
+
+
+
+
 /*--------------------- Etapa Inscrpcion ---------------------*/
+
+//--------Descripcion de etapa Inscripcion
+Route::get('/descripcionSolicitudDocumentos', 'InscripcionController@verDescripcion')->name('descripcionSolicitudDocumentos');
 
 //-------formulario de solicitud de documentos
 Route::get('/formularioSolicitudDocumentos', 'InscripcionController@indexSolicitarDocumentos')->name('formularioSolicitarDocumentos');
