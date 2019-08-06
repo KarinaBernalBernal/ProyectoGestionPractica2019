@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container-fluid">
-        <h3>Mantenedor de Perfiles</h3>
+        <h3>Mantenedor de Empresas</h3>
         <br>
     </div>
     <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
@@ -15,43 +15,54 @@
                         <div class="table-responsive">
                             <table class="table table-bordered" id="MyTable">
                                 <thead class="bg-dark" style="color: white">
-                                <tr >
-                                    <th>
-                                        Id
-                                    </th>
-                                    <th>
-                                        Nombre
-                                    </th>
-
+                                <tr>
+                                    <th>Id</th>
+                                    <th>n_empresa</th>
+                                    <th>rut</th>
+                                    <th>ciudad</th>
+                                    <th>direccion</th>
+                                    <th>fono</th>
+                                    <th>casilla</th>
+                                    <th>email</th>
+                                    <th>Opción</th>
                                 </tr >
                                 </thead>
                                 <tbody>
-                                    @foreach ($lista as $perfil)
-                                        <tr id="{{$perfil->id_perfil}}">
-                                            <td>{{$perfil->id_perfil}}</td>
-                                            <td>{{$perfil->n_perfil}}</td>
+                                    @foreach ($lista as $empresa)
+                                        <tr id="{{$empresa->id_empresa}}">
+                                            <td>{{$empresa->id_empresa}}</td>
+                                            <td>{{$empresa->n_empresa}}</td>
+                                            <td>{{$empresa->rut}}</td>
+                                            <td>{{$empresa->ciudad}}</td>
+                                            <td>{{$empresa->direccion}}</td>
+                                            <td>{{$empresa->fono}}</td>
+                                            <td>{{$empresa->casilla}}</td>
+                                            <td>{{$empresa->email}}</td>
                                             <td>
-                                                <a href="{{route('editar_perfil',[$perfil->id_perfil])}} "><button id="{{$perfil->id_perfil}}" class="btn btn-warning">Editar</button></a>
-                                                <a href="#"><button id="{{$perfil->id_perfil}}" class="btn btn-danger" onclick="borrar('{{$perfil->id_perfil}}', '{{$perfil->n_perfil}}', '{{route('borrar_perfil',[$perfil->id_perfil])}}')">Borrar</button></a>
+                                                <a href="{{route('editar_empresa',[$empresa->id_empresa])}} "><button id="{{$empresa->id_empresa}}" class="btn btn-warning">Editar</button></a>
+                                                <a href="#"><button id="{{$empresa->id_empresa}}" class="btn btn-danger" onclick="borrar('{{$empresa->id_empresa}}', '{{$empresa->nombre}}', '{{route('borrar_empresa',[$empresa->id_empresa])}}')">Borrar</button></a>
                                             </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
                                 <tfoot>
                                 <tr >
-                                    <th>
-                                        Id
-                                    </th>
-                                    <th>
-                                        Nombre
-                                    </th>
+                                    <th>Id</th>
+                                    <th>n_empresa</th>
+                                    <th>rut</th>
+                                    <th>ciudad</th>
+                                    <th>direccion</th>
+                                    <th>fono</th>
+                                    <th>casilla</th>
+                                    <th>email</th>
+                                    <th>Opción</th>
                                 </tr>
                                 </tfoot>
                             </table>
                         </div>
                     </div>
                 @else
-                    <p>No existen Perfiles en este momento</p>
+                    <p>No existen empresas en este momento</p>
                 @endif
                 <!-- FIN DATA TABLES -->
             </div>
@@ -65,7 +76,7 @@
                     <a href="/"><button class="btn btn-primary btn-lg">Atras</button></a>
             </div>
             <div class='ml-auto'>
-                <a href="{{route ('crear_perfil')}}"><button id="boton_agregar" class="btn btn-primary btn-lg">Agregar</button></a>
+                <a href="{{route ('crear_empresa')}}"><button id="boton_agregar" class="btn btn-primary btn-lg">Agregar</button></a>
             </div>
         </div>
 
@@ -76,7 +87,7 @@
     {
 
         Swal({
-              title: 'Estas seguro de querer eliminar el perfil '+name+'?',
+              title: 'Estas seguro de querer eliminar la empresa '+name+'?',
               text: "No sera posible revertir este cambio!",
               type: 'warning',
               showCancelButton: true,
@@ -99,7 +110,7 @@
                         success: function(response){
                             Swal(
                               'Eliminado!',
-                              'El perfil ha sido eliminado.',
+                              'La empresa ha sido eliminada.',
                               'success'
                             )
                             $('#'+id_elemento).remove();

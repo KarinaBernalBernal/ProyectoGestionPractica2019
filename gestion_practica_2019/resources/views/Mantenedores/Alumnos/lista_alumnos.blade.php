@@ -17,30 +17,15 @@
                                 <thead class="bg-dark" style="color: white">
 
                                 <tr >
-                                    <th>
-                                        Id
-                                    </th>
-                                    <th>
-                                        Nombre
-                                    </th>
-                                    <th>
-                                        RUT
-                                    </th>
-                                    <th>
-                                       Datos de contacto
-                                    </th>
-                                    <th>
-                                        Año ingreso
-                                    </th>
-                                    <th>
-                                        Carrera
-                                    </th>
-                                    <th>
-                                        Estimación semestres
-                                    </th>
-                                    <th>
-                                        id usuario
-                                    </th>
+                                    <th>Id</th>
+                                    <th>Nombre</th>
+                                    <th>RUT</th>
+                                    <th>Datos de contacto</th>
+                                    <th>Año ingreso</th>
+                                    <th>Carrera</th>
+                                    <th>Estimación semestres</th>
+                                    <th>id usuario</th>
+                                    <th>Opción</th>
                                 </tr >
                                 </thead>
                                 <tbody>
@@ -71,30 +56,15 @@
                                 </tbody>
                                 <tfoot>
                                 <tr >
-                                    <th>
-                                        Id
-                                    </th>
-                                    <th>
-                                        Nombre
-                                    </th>
-                                    <th>
-                                        RUT
-                                    </th>
-                                    <th>
-                                        Datos de contacto
-                                    </th>
-                                    <th>
-                                        Año ingreso
-                                    </th>
-                                    <th>
-                                        Carrera
-                                    </th>
-                                    <th>
-                                        Estimación semestres
-                                    </th>
-                                    <th>
-                                        id usuario
-                                    </th>
+                                    <th>Id</th>
+                                    <th>Nombre</th>
+                                    <th>RUT</th>
+                                    <th>Datos de contacto</th>
+                                    <th>Año ingreso</th>
+                                    <th>Carrera</th>
+                                    <th>Estimación semestres</th>
+                                    <th>Id usuario</th>
+                                    <th>Opción</th>
                                 </tr>
                                 </tfoot>
                             </table>

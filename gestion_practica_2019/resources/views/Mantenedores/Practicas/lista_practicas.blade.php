@@ -16,33 +16,16 @@
                             <table class="table table-bordered" id="MyTable">
                                 <thead class="bg-dark" style="color: white">
                                 <tr >
-                                    <th>
-                                        Id
-                                    </th>
-                                    <th>
-                                        f_solicitud
-                                    </th>
-                                    <th>
-                                        f_inscripcion
-                                    </th>
-                                    <th>
-                                        f_desde
-                                    </th>
-                                    <th>
-                                        f_hasta
-                                    </th>
-                                    <th>
-                                        asist_ch_post_pract
-                                    </th>
-                                    <th>
-                                        asist_ch_pre_pract
-                                    </th>
-                                    <th>
-                                        id_alumno
-                                    </th>
-                                    <th>
-                                         id_supervisor
-                                    </th>
+                                    <th>Id</th>
+                                    <th>f_solicitud</th>
+                                    <th>f_inscripcion</th>
+                                    <th>f_desde</th>
+                                    <th>f_hasta</th>
+                                    <th>asist_ch_post_pract</th>
+                                    <th>asist_ch_pre_pract</th>
+                                    <th>id_alumno</th>
+                                    <th>id_supervisor</th>
+                                    <th>Opción</th>
                                 </tr >
                                 </thead>
                                 <tbody>
@@ -68,33 +51,16 @@
                                 </tbody>
                                 <tfoot>
                                 <tr >
-                                    <th>
-                                        Id
-                                    </th>
-                                    <th>
-                                        f_solicitud
-                                    </th>
-                                    <th>
-                                        f_inscripcion
-                                    </th>
-                                    <th>
-                                        f_desde
-                                    </th>
-                                    <th>
-                                        f_hasta
-                                    </th>
-                                    <th>
-                                        asist_ch_post_pract
-                                    </th>
-                                    <th>
-                                        asist_ch_pre_pract
-                                    </th>
-                                    <th>
-                                        id_alumno
-                                    </th>
-                                    <th>
-                                         id_supervisor
-                                    </th>
+                                    <th>Id</th>
+                                    <th>f_solicitud</th>
+                                    <th>f_inscripcion</th>
+                                    <th>f_desde</th>
+                                    <th>f_hasta</th>
+                                    <th>asist_ch_post_pract</th>
+                                    <th>asist_ch_pre_pract</th>
+                                    <th>id_alumno</th>
+                                    <th>id_supervisor</th>
+                                    <th>Opción</th>
                                 </tr>
                                 </tfoot>
                             </table>
@@ -157,7 +123,6 @@
                     });
                 }
             })
-
     }
 </script>
 @endsection

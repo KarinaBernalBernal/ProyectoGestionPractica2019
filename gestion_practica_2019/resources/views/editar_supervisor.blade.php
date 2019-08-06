@@ -4,9 +4,9 @@
         <div class="container-fluid">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
-                <div class="panel panel-default">
-                <h1>Modificar {{$elemento->nombre}}</h1>
-                    <div class="panel-body">
+                <div class="card">
+                    <div class="card-header"><h1>Modificar {{$elemento->nombre}}</h1></div>
+                    <div class="card-body">
                         <form class="form-horizontal" action="{{route('actualizar_supervisor',[$elemento->id_supervisor])}}" method="post">
                             {{ csrf_field() }}
                             <div class="form-group{{ $errors->has('nombre') ? ' has-error' : '' }}">
@@ -113,10 +113,10 @@
                                     <button type="submit" class="btn btn-primary">
                                         Guardar
                                     </button>
+                                    <a href="{{route('lista_supervisores')}}"><button class="btn btn-secondary">Cancelar</button></a>
                                 </div>
                             </div>
                         </form>
-                        <a href="{{route('lista_supervisores')}}"><button class="btn btn-lg btn-block">Cancelar</button></a>
                     </div>
                 </div>
             </div>

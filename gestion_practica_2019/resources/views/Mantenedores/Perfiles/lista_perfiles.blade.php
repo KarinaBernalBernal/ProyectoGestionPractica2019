@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container-fluid">
-        <h3>Mantenedor de Usuarios</h3>
+        <h3>Mantenedor de Perfiles</h3>
         <br>
     </div>
     <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
@@ -16,49 +16,35 @@
                             <table class="table table-bordered" id="MyTable">
                                 <thead class="bg-dark" style="color: white">
                                 <tr >
-                                    <th>
-                                        Id
-                                    </th>
-                                    <th>
-                                        Nombre
-                                    </th>
-                                    <th>
-                                        Email
-                                    </th>
-
+                                    <th>Id</th>
+                                    <th>Nombre</th>
+                                    <th>Opción</th>
                                 </tr >
                                 </thead>
                                 <tbody>
-                                    @foreach ($lista as $usuario)
-                                        <tr id="{{$usuario->id_user}}">
-                                            <td>{{$usuario->id_user}}</td>
-                                            <td>{{$usuario->name}}</td>
-                                            <td>{{$usuario->email}}</td>
+                                    @foreach ($lista as $perfil)
+                                        <tr id="{{$perfil->id_perfil}}">
+                                            <td>{{$perfil->id_perfil}}</td>
+                                            <td>{{$perfil->n_perfil}}</td>
                                             <td>
-                                                <a href="{{route('editar_usuario',[$usuario->id_user])}} "><button id="{{$usuario->id_user}}" class="btn btn-warning">Editar</button></a>
-                                                <a href="#"><button id="{{$usuario->id_user}}" class="btn btn-danger" onclick="borrar('{{$usuario->id_user}}', '{{$usuario->name}}', '{{route('borrar_usuario',[$usuario->id_user])}}')">Borrar</button></a>
+                                                <a href="{{route('editar_perfil',[$perfil->id_perfil])}} "><button id="{{$perfil->id_perfil}}" class="btn btn-warning">Editar</button></a>
+                                                <a href="#"><button id="{{$perfil->id_perfil}}" class="btn btn-danger" onclick="borrar('{{$perfil->id_perfil}}', '{{$perfil->n_perfil}}', '{{route('borrar_perfil',[$perfil->id_perfil])}}')">Borrar</button></a>
                                             </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
                                 <tfoot>
                                 <tr >
-                                    <th>
-                                        Id
-                                    </th>
-                                    <th>
-                                        Nombre
-                                    </th>
-                                    <th>
-                                        Email
-                                    </th>
+                                    <th>Id</th>
+                                    <th>Nombre</th>
+                                    <th>Opción</th>
                                 </tr>
                                 </tfoot>
                             </table>
                         </div>
                     </div>
                 @else
-                    <p>No existen Usuarios en este momento</p>
+                    <p>No existen Perfiles en este momento</p>
                 @endif
                 <!-- FIN DATA TABLES -->
             </div>
@@ -72,7 +58,7 @@
                     <a href="/"><button class="btn btn-primary btn-lg">Atras</button></a>
             </div>
             <div class='ml-auto'>
-                <a href="{{route ('register')}}"><button id="boton_agregar" class="btn btn-primary btn-lg">Agregar</button></a>
+                <a href="{{route ('crear_perfil')}}"><button id="boton_agregar" class="btn btn-primary btn-lg">Agregar</button></a>
             </div>
         </div>
 
@@ -83,7 +69,7 @@
     {
 
         Swal({
-              title: 'Estas seguro de querer eliminar el usuario '+name+'?',
+              title: 'Estas seguro de querer eliminar el perfil '+name+'?',
               text: "No sera posible revertir este cambio!",
               type: 'warning',
               showCancelButton: true,
@@ -96,7 +82,7 @@
 
                     parametros={
                         'id_elemento': id_elemento,
-                        "_token": $('#token').val()
+                        "_token": $("#token").val()
                     }
 
                     $.ajax({
@@ -106,7 +92,7 @@
                         success: function(response){
                             Swal(
                               'Eliminado!',
-                              'El usuario ha sido eliminado.',
+                              'El perfil ha sido eliminado.',
                               'success'
                             )
                             $('#'+id_elemento).remove();
@@ -114,7 +100,6 @@
                     });
                 }
             })
-
     }
 </script>
 @endsection

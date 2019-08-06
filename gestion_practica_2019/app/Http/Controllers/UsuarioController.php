@@ -15,7 +15,7 @@ class UsuarioController extends Controller
     public function lista()
     {
         $lista=User::all();
-        return view('lista_usuarios',[
+        return view('Mantenedores/Usuarios/lista_usuarios',[
                 'lista'=>$lista,
             ]);
     }
@@ -25,7 +25,7 @@ class UsuarioController extends Controller
         // dd($id_elemento);
 
         $elemento= User::find($id_elemento);
-        return view('editar_usuario',[
+        return view('Mantenedores/Usuarios/editar_usuario',[
                 'elemento'=>$elemento,
         	]);
 

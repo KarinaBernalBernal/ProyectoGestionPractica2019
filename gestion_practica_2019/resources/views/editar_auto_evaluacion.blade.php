@@ -41,10 +41,10 @@
                                     <button type="submit" class="btn btn-primary">
                                         Guardar
                                     </button>
+                                    <a href="{{route('lista_auto_evaluaciones')}}"><button class="btn btn-secondary">Cancelar</button></a>
                                 </div>
                             </div>
                         </form>
-                        <a href="{{route('lista_auto_evaluaciones')}}"><button class="btn btn-lg btn-block">Cancelar</button></a>
                     </div>
                 </div>
             </div>

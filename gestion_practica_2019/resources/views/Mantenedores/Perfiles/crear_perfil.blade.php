@@ -3,10 +3,10 @@
 @section('content')
         <div class="container-fluid">
         <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <div class="panel panel-default">
-                <h1>Agregar perfil</h1>
-                    <div class="panel-body">
+            <div class="col-md col-md-offset-2">
+                <div class="card">
+                    <div class="card-header"><h1>Agregar perfil</h1></div>
+                    <div class="card-body">
                         <form class="form-horizontal" action="{{route('agregar_perfil')}}" method="post">
                             {{ csrf_field() }}
 
@@ -28,10 +28,10 @@
                                     <button type="submit" class="btn btn-primary">
                                         Guardar
                                     </button>
+                                    <a href="{{route('lista_perfiles')}}"><button class="btn btn-secondary">Cancelar</button></a>
                                 </div>
                             </div>
                         </form>
-                        <a href="{{route('lista_perfiles')}}"><button class="btn btn-lg btn-block">Cancelar</button></a>
                     </div>
                 </div>
             </div>
