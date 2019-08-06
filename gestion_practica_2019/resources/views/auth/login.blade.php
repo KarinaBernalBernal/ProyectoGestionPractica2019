@@ -2,13 +2,11 @@
 
 @section('content')
     <div class="container">
-        
         <!-- Outer Row -->
         <div class="row justify-content-center">
             <div class="col-xl-10 col-lg-12 col-md-9">
                 <div class="card o-hidden border-0 shadow-lg my-5">
                     <div class="card-body p-0">
-                        
                         <!-- Nested Row within Card Body -->
                         <div class="row">
                             <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
@@ -28,7 +26,7 @@
                                             @endif
                                             <input class="form-control form-control-user" id="email"
                                                 type="email" aria-describedby="emailHelp"
-                                                name="email" placeholder="Ingresa tu email"
+                                                name="email" placeholder="Correo electrónico"
                                                 value="{{ old('email') }}" required autofocus>
                                         </div>
 
@@ -47,19 +45,22 @@
                                                 <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }} class="custom-control-input" id="customCheck">
                                                 <label class="custom-control-label" for="customCheck">Recordar</label>
                                             </div>
+                                        </div>    
+                                        
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-primary btn-user btn-block">
+                                                    Iniciar Sesión
+                                            </button>
+                                        </div>
+                                        <hr>
+                                        <div class="text-center">
+                                            <a class="small" href="{{ route('password.request') }}">¿Haz olvidado tu contraseña?</a>
                                         </div>
 
-                                        <button type="submit" class="btn btn-primary btn-user btn-block">
-                                                Iniciar Sesión
-                                        </button>
+                                        <div class="text-center">
+                                            <a class="small" href="{{ route('register')}}">¡Crea una Cuenta!</a>
+                                        </div>
                                     </form>
-                                    <hr>
-                                    <div class="text-center">
-                                        <a class="small" href="{{ route('password.request') }}">¿Haz olvidado tu contraseña?</a>
-                                    </div>
-                                    <div class="text-center">
-                                        <a class="small" href="{{ route('register')}}">¡Crea una Cuenta!</a>
-                                    </div>
                                 </div>
                             </div>
                         </div>
