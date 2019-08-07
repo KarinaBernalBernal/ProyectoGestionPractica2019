@@ -3,7 +3,7 @@
 namespace SGPP\Http\Controllers;
 
 use Illuminate\Http\Request;
-use SGPP\DocSolicitados;
+use SGPP\Solicitud;
 
 class InscripcionController extends Controller
 {
@@ -17,14 +17,9 @@ class InscripcionController extends Controller
      */
     public function indexSolicitarDocumentos()
     {
-        return view('2 Inscripcion/formularioSolicitarDocumentos');
+        return view('formularioSolicitarDocumentos');
     }
 
-     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function indexInscripcion()
     {
         return view('2 Inscripcion/formularioInscripcion');
