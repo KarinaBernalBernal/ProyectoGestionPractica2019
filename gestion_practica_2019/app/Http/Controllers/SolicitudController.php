@@ -1,3 +1,4 @@
+    
 <?php
 namespace SGPP\Http\Controllers;
 use Illuminate\Http\Request;
