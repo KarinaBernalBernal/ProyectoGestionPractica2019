@@ -25,6 +25,7 @@
                             </div>
                             <div class="form-group{{ $errors->has('url') ? ' has-error' : '' }}">
 
+
                                 <label for="url" class="col-md-4 control-label">Url</label>
 
                                 <div class="col-md-6">
@@ -41,6 +42,7 @@
                                 <div class="col-md-6">
                                     <label for="perfil" class="col-md-4 control-label">Perfiles</label>
                                     <select id="type_element" name="perfil" class="form-control">
+
                                         @foreach($perfiles as $perfil)
                                             <option value="{{ $perfil->id_perfil }}" >{{ $perfil->n_perfil }}</option>
                                         @endforeach

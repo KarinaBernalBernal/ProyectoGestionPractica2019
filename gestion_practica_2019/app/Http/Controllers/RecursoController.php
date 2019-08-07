@@ -31,6 +31,7 @@ class RecursoController extends Controller
         return view('Mantenedores/Recursos/editar_recurso',[
                 'elemento'=>$elemento,
                 'perfiles' => $perfiles,
+
             ]);
     }
 
@@ -41,6 +42,7 @@ class RecursoController extends Controller
         $nuevo->n_recurso = $data['n_recurso'];
         $nuevo->url = $data['url'];
         $nuevo->modulo = $data['modulo'];
+
 
         $perfil = $data['perfil'];
         $nuevo->save();
@@ -69,6 +71,7 @@ class RecursoController extends Controller
             $nueva_instancia->id_perfil = $perfil;
             $nueva_instancia->id_recurso = $elemento_editar->id_recurso;
             $nueva_instancia->save();
+
 
 
             return redirect()->route('lista_recursos');

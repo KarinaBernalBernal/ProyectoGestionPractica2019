@@ -39,9 +39,7 @@
             </a>
             <div id="collapseGestionCuentas" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    @foreach(Auth::user()->get_permissions() as $recurso)
-                        <a class="collapse-item" href="{{$recurso->url}}">{{$recurso->n_recurso}}</a>
-                    @endforeach
+
                     <a class="collapse-item" href="{{route('lista_usuarios')}}">Gestion de usuarios</a>
                     <a class="collapse-item" href="{{route('lista_recursos')}}">Gestión de recursos</a>
                     <a class="collapse-item" href="{{route('lista_perfiles')}}">Gestión de perfiles</a>

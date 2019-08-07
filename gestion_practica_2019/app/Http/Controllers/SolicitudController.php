@@ -25,6 +25,7 @@ class SolicitudController extends Controller
     public function create(Request $request)
     {
         //
+
     }
 
     /**

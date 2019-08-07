@@ -28,6 +28,7 @@
                                     <input id="url" type="text" class="form-control" name="url" value="{{ old('url', $elemento->url) }}" required autofocus>
 
                                     @if ($errors->has('url'))
+
                                         <span class="help-block">
                                             <strong>{{ $errors->first('url') }}</strong>
                                         </span>
@@ -54,6 +55,7 @@
                                         </span>
                                     @endif
                                 </div>
+
                             </div>
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-4">

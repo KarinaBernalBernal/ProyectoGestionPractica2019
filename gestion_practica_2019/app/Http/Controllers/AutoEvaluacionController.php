@@ -3,7 +3,7 @@
 namespace SGPP\Http\Controllers;
 
 use Illuminate\Http\Request;
-<<<<<<< HEAD
+
 use SGPP\Autoevaluacion;
 
 class AutoEvaluacionController extends Controller
@@ -59,86 +59,10 @@ class AutoEvaluacionController extends Controller
         $elemento_eliminar->delete();
         return redirect()->route('lista_auto_evaluaciones');
     }
-=======
 
-class AutoEvaluacionController extends Controller
-{
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         return view('formularioAutoEvaluacion');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\m_responsekeys(conn, identifier)
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
-
-
->>>>>>> 34becd23578d02821dc863e7e7fd89ce1ee9e781
 }
