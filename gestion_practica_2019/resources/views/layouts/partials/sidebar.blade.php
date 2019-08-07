@@ -147,7 +147,7 @@
             </a>
             <div id="collapseEvaluacion" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="blank.html">Realizar autoevaluación</a>
+                    <a class="collapse-item" href="{{route('formularioAutoEvaluacion')}}">Realizar autoevaluación</a>
                 </div>
             </div>
         </li>
