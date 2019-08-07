@@ -16,37 +16,17 @@
                             <table class="table table-bordered" id="MyTable">
                                 <thead class="bg-dark" style="color: white">
                                 <tr >
-                                    <th>
-                                        Id
-                                    </th>
-                                    <th>
-                                        Nombre
-                                    </th>
-                                    <th>
-                                        Apellido paterno
-                                    </th>
-                                    <th>
-                                        Apellido materno
-                                    </th>
-                                    <th>
-                                        Cargo
-                                    </th>
-                                    <th>
-                                        Departamento
-                                    </th>
-                                    <th>
-                                        Email
-                                    </th>
-                                    <th>
-                                        Fono
-                                    </th>
-                                    <th>
-                                        Id user
-                                    </th>
-                                    <th>
-                                        Id empresa
-                                    </th>
-
+                                    <th>Id</th>
+                                    <th>Nombre</th>
+                                    <th>Apellido paterno</th>
+                                    <th>Apellido materno</th>
+                                    <th>Cargo</th>
+                                    <th>Departamento</th>
+                                    <th>Email</th>
+                                    <th>Fono</th>
+                                    <th>Id user</th>
+                                    <th>Id empresa</th>
+                                    <th>Opción</th>
                                 </tr >
                                 </thead>
                                 <tbody>
@@ -72,37 +52,18 @@
                                 </tbody>
                                 <tfoot>
                                 <tr >
-                                     <th>
-                                        Id
-                                    </th>
-                                    <th>
-                                        Nombre
-                                    </th>
-                                    <th>
-                                        Apellido paterno
-                                    </th>
-                                    <th>
-                                        Apellido materno
-                                    </th>
-                                    <th>
-                                        Cargo
-                                    </th>
-                                    <th>
-                                        Departamento
-                                    </th>
-                                    <th>
-                                        Email
-                                    </th>
-                                    <th>
-                                        Fono
-                                    </th>
-                                    <th>
-                                        Id user
-                                    </th>
-                                    <th>
-                                        Id empresa
-                                    </th>
-
+                                     <th>Id
+                                /th>
+                                    <th>Nombre</th>
+                                    <th>Apellido paterno</th>
+                                    <th>Apellido materno</th>
+                                    <th>Cargo</th>
+                                    <th>Departamento</th>
+                                    <th>Email</th>
+                                    <th>Fono</th>
+                                    <th>Id user</th>
+                                    <th>Id empresa</th>
+                                    <th>Opción</th>
                                 </tr>
                                 </tfoot>
                             </table>
@@ -165,7 +126,6 @@
                     });
                 }
             })
-
     }
 </script>
 @endsection

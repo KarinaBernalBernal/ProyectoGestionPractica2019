@@ -3,7 +3,7 @@
 @section('content')
         <div class="container-fluid">
         <div class="row">
-            <div class="col-md-8 col-md-offset-2">
+            <div class="col-md col-md-offset-2">
                 <div class="card card-default">
                     <div class="card-header"><h1>Modificar {{$elemento->n_recurso}}</h1></div>
                     <div class="card-body">

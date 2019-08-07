@@ -3,10 +3,10 @@
 @section('content')
         <div class="container-fluid">
         <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <div class="panel panel-default">
-                <h1>Modificar {{$elemento->id_autoeval}}</h1>
-                    <div class="panel-body">
+            <div class="col-md col-md-offset-2">
+                <div class="card">
+                    <div class="card-header"><h1>Modificar {{$elemento->id_autoeval}}</h1></div>
+                    <div class="card-body">
                         <form class="form-horizontal" action="{{route('actualizar_perfil',[$elemento->id_autoeval])}}" method="post">
                             {{ csrf_field() }}
 

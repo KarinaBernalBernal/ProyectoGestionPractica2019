@@ -13,20 +13,20 @@ class RecursoController extends Controller
     public function lista()
     {
         $lista= Recurso::all();
-        return view('lista_recursos',[
+        return view('Mantenedores/Recursos/lista_recursos',[
                 'lista'=>$lista,
             ]);
     }
      public function crear()
     {
         $perfiles= Perfil::all();
-        return view('crear_recurso')->with('perfiles', $perfiles);
+        return view('Mantenedores/Recursos/crear_recurso')->with('perfiles', $perfiles);
     }
 
     public function editar($id_elemento)
     {
         $elemento= Recurso::find($id_elemento);
-        return view('editar_recurso',[
+        return view('Mantenedores/Recursos/editar_recurso',[
                 'elemento'=>$elemento,
             ]);
     }

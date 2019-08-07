@@ -15,23 +15,13 @@
                         <div class="table-responsive">
                             <table class="table table-bordered" id="MyTable">
                                 <thead class="bg-dark" style="color: white">
-                                <tr >
-                                    <th>
-                                        id_eval_supervisor
-                                    </th>
-                                    <th>
-                                        porcent_tareas_realizadas
-                                    </th>
-                                    <th>
-                                        resultado_eval
-                                    </th>
-                                    <th>
-                                        f_entrega_eval
-                                    </th>
-                                    <th>
-                                        id_practica
-                                    </th>
-                                </tr >
+                                    <tr>
+                                        <th>id_eval_supervisor</th>
+                                        <th>porcent_tareas_realizadas</th>
+                                        <th>resultado_eval</th>
+                                        <th>f_entrega_eval</th>
+                                        <th>id_practica</th>
+                                    </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($lista as $evaluacion)
@@ -49,24 +39,14 @@
                                     @endforeach
                                 </tbody>
                                 <tfoot>
-                                <tr >
-                                    <th>
-                                        id_eval_supervisor
-                                    </th>
-                                    <th>
-                                        porcent_tareas_realizadas
-                                    </th>
-                                     <th>
-                                        resultado_eval
-                                    </th>
-                                    <th>
-                                        f_entrega_eval
-                                    </th>
-                                    <th>
-                                        id_practica
-                                    </th>
+                                    <tr >
+                                        <th>id_eval_supervisor</th>
+                                        <th>porcent_tareas_realizadas</th>
+                                        <th>resultado_eval</th>
+                                        <th>f_entrega_eval</th>
+                                        <th>id_practica</th>
 
-                                </tr>
+                                    </tr>
                                 </tfoot>
                             </table>
                         </div>
@@ -128,7 +108,6 @@
                     });
                 }
             })
-
     }
 </script>
 @endsection

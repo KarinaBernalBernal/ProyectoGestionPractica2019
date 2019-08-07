@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container-fluid">
-        <h3>Mantenedor de Auto evaluaciones</h3>
+        <h3>Mantenedor de Recursos</h3>
         <br>
     </div>
     <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
@@ -16,48 +16,44 @@
                             <table class="table table-bordered" id="MyTable">
                                 <thead class="bg-dark" style="color: white">
                                 <tr >
-                                    <th>
-                                        Id
-                                    </th>
-                                    <th>
-                                        Fecha entrega
-                                    </th>
-                                    <th>
-                                        Id practica
-                                    </th>
+                                    <th>Id</th>
+                                    <th>Nombre</th>
+                                    <th>Url</th>
+                                    <th>Opción</th>
                                 </tr >
                                 </thead>
                                 <tbody>
-                                    @foreach ($lista as $auto_evaluacion)
-                                        <tr id="{{$auto_evaluacion->id_autoeval}}">
-                                            <td>{{$auto_evaluacion->id_autoeval}}</td>
-                                            <td>{{$auto_evaluacion->f_entrega}}</td>
-                                            <td>{{$auto_evaluacion->id_practica}}</td>
+                                    @foreach ($lista as $recurso)
+                                        <tr id="{{$recurso->id_recurso}}">
+                                            <td>{{$recurso->id_recurso}}</td>
+                                            <td>{{$recurso->n_recurso}}</td>
+                                            <td>{{$recurso->url}}</td>
                                             <td>
-                                                <a href="{{route('editar_auto_evaluacion',[$auto_evaluacion->id_autoeval])}} "><button id="{{$auto_evaluacion->id_autoeval}}" class="btn btn-warning">Editar</button></a>
-                                                <a href="#"><button id="{{$auto_evaluacion->id_autoeval}}" class="btn btn-danger" onclick="borrar('{{$auto_evaluacion->id_autoeval}}', '{{$auto_evaluacion->id_autoeval}}', '{{route('borrar_auto_evaluacion',[$auto_evaluacion->id_autoeval])}}')">Borrar</button></a>
+                                                <a href="{{route('editar_recurso',[$recurso->id_recurso])}} "><button id="{{$recurso->id_recurso}}" class="btn btn-warning">Editar</button></a>
+                                                <a href="#"><button id="{{$recurso->id_recurso}}" class="btn btn-danger" onclick="borrar('{{$recurso->id_recurso}}', '{{$recurso->n_recurso}}', '{{route('borrar_recurso',[$recurso->id_recurso])}}')">Borrar</button></a>
                                             </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
                                 <tfoot>
                                 <tr >
-                                     <th>
+                                    <th>
                                         Id
                                     </th>
                                     <th>
-                                        Fecha entrega
+                                        Nombre
                                     </th>
                                     <th>
-                                        Id practica
+                                        Url
                                     </th>
+                                    <th>Opción</th>
                                 </tr>
                                 </tfoot>
                             </table>
                         </div>
                     </div>
                 @else
-                    <p>No existen Auto evaluaciones en este momento</p>
+                    <p>No existen Recursos en este momento</p>
                 @endif
                 <!-- FIN DATA TABLES -->
             </div>
@@ -71,7 +67,7 @@
                     <a href="/"><button class="btn btn-primary btn-lg">Atras</button></a>
             </div>
             <div class='ml-auto'>
-                <a href="{{route ('crear_auto_evaluacion')}}"><button id="boton_agregar" class="btn btn-primary btn-lg">Agregar</button></a>
+                <a href="{{route ('crear_recurso')}}"><button id="boton_agregar" class="btn btn-primary btn-lg">Agregar</button></a>
             </div>
         </div>
 
@@ -82,7 +78,7 @@
     {
 
         Swal({
-              title: 'Estas seguro de querer eliminar la auto evaluación '+name+'?',
+              title: 'Estas seguro de querer eliminar el recurso '+name+'?',
               text: "No sera posible revertir este cambio!",
               type: 'warning',
               showCancelButton: true,
@@ -105,7 +101,7 @@
                         success: function(response){
                             Swal(
                               'Eliminado!',
-                              'La auto evaluación ha sido eliminado.',
+                              'El recurso ha sido eliminado.',
                               'success'
                             )
                             $('#'+id_elemento).remove();
@@ -113,7 +109,6 @@
                     });
                 }
             })
-
     }
 </script>
 @endsection

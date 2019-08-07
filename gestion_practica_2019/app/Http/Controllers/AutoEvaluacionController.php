@@ -11,19 +11,19 @@ class AutoEvaluacionController extends Controller
     public function lista()
     {
         $lista= Autoevaluacion::all();
-        return view('lista_auto_evaluaciones',[
+        return view('Mantenedores/Evaluaciones/Alumno/lista_auto_evaluaciones',[
                 'lista'=>$lista,
             ]);
     }
     public function crear()
     {
-        return view('crear_auto_evaluacion');
+        return view('Mantenedores/Evaluaciones/Alumno/crear_auto_evaluacion');
     }
 
     public function editar($id_elemento)
     {
         $elemento= Autoevaluacion::find($id_elemento);
-        return view('editar_auto_evaluacion',[
+        return view('Mantenedores/Evaluaciones/Alumno/editar_auto_evaluacion',[
                 'elemento'=>$elemento,
             ]);
     }

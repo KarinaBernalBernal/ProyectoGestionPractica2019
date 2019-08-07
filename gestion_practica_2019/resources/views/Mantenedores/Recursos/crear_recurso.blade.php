@@ -3,10 +3,10 @@
 @section('content')
         <div class="container-fluid">
         <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <div class="panel panel-default">
-                <h1>Mantenedor recurso</h1>
-                    <div class="panel-body">
+            <div class="col-md col-md-offset-2">
+                <div class="card">
+                    <div class="card-header"><h1>Mantenedor recurso</h1></div>
+                    <div class="card-body">
                         <form class="form-horizontal" action="{{route('agregar_recurso')}}" method="post">
                             {{ csrf_field() }}
 
@@ -34,7 +34,7 @@
                                     @endif
                                 </div>
                                 <div class="col-md-6">
-                                <label for="perfil" class="col-md-4 control-label">Perfiles</label>
+                                    <label for="perfil" class="col-md-4 control-label">Perfiles</label>
 
                                     <select id="type_element" name="perfil" class="browser-default">
 
@@ -42,7 +42,6 @@
                                             <option value="{{ $perfil->id_perfil }}" >{{ $perfil->n_perfil }}</option>
                                         @endforeach
                                     </select>
-
                                 </div>
                             </div>
                             <div class="form-group">

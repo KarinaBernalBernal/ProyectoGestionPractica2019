@@ -12,19 +12,19 @@ class EmpresaController extends Controller
     public function lista()
     {
         $lista= Empresa::all();
-        return view('Mantenedores/Empresa/lista_empresas',[
+        return view('Mantenedores/Empresas/lista_empresas',[
                 'lista'=>$lista,
             ]);
     }
     public function crear()
     {
-        return view('Mantenedores/Empresa/crear_empresa');
+        return view('Mantenedores/Empresas/crear_empresa');
     }
 
     public function editar($id_elemento)
     {
         $elemento= Empresa::find($id_elemento);
-        return view('Mantenedores/Empresa/editar_empresa',[
+        return view('Mantenedores/Empresas/editar_empresa',[
                 'elemento'=>$elemento,
             ]);
     }
