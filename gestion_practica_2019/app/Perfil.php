@@ -7,9 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class Perfil extends Model
 {
     protected $primaryKey = 'id_perfil';
+    protected $table = 'perfiles';
 
     protected $fillable = [
-       	'n_perfil','id_user'
+       	'n_perfil'
+       	// ,'id_user'
     ];
 
     public function user(){
