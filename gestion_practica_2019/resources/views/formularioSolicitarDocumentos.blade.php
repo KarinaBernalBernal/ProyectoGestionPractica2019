@@ -13,7 +13,7 @@
 
             <div class="card text">
                  <div class="card-header">
-                    <h5>Documentos y periodo de práctica</h5>    
+                    <h6>Documentos y periodo de práctica</h6>    
                 </div>
                 
                 <div class="card-body">
@@ -49,52 +49,52 @@
 
             <div class="card text">
                 <div class="card-header"> 
-                    <h5>Datos de la empresa</h5> 
+                    <h6>Datos de la empresa</h6> 
                 </div>
                 <div class="card-body"> 
                     
                     {{-- Nombre --}}   
                     <div class="form-group row">
-                        <label for="n_destinatario" class="col-md-3 col-form-label text-md-right">{{ __('Nombre a quien se dirige la carta') }}</label>
+                        <label for="nombreAlumno" class="col-md-3 col-form-label text-md-right">{{ __('Nombre a quien se dirige la carta') }}</label>
                         
-                        <div class="col-md-7">
-                            <input id="n_destinatario" type="text" class="form-control" name="n_destinatario" value="{{ old('n_destinatario') }}" required>
+                        <div class="col-md-6">
+                            <input id="nombreAlumno" type="text" class="form-control" name="nombreAlumno" value="{{ old('nombreAlumno') }}" required>
                         </div>
                     </div>
 
                     {{-- Cargo --}}   
                     <div class="form-group row">
-                        <label for="cargo" class="col-md-3 col-form-label text-md-right">{{ __('Cargo') }}</label>
+                        <label for="nombreAlumno" class="col-md-3 col-form-label text-md-right">{{ __('Cargo') }}</label>
                         
-                        <div class="col-md-7">
-                            <input id="cargo" type="text" class="form-control" name="cargo" value="{{ old('cargo') }}" required>
+                        <div class="col-md-6">
+                            <input id="nombreAlumno" type="text" class="form-control" name="nombreAlumno" value="{{ old('nombreAlumno') }}" required>
                         </div>
                     </div>
 
                     {{-- Departamento --}}   
                     <div class="form-group row">
-                        <label for="departamento" class="col-md-3 col-form-label text-md-right">{{ __('Departamento') }}</label>
+                        <label for="nombreAlumno" class="col-md-3 col-form-label text-md-right">{{ __('Departamento') }}</label>
                         
-                        <div class="col-md-7">
-                            <input id="departamento" type="text" class="form-control" name="departamento" value="{{ old('departamento') }}" required>
+                        <div class="col-md-6">
+                            <input id="nombreAlumno" type="text" class="form-control" name="nombreAlumno" value="{{ old('nombreAlumno') }}" required>
                         </div>
                     </div>
 
                     {{-- Empresa --}}   
                     <div class="form-group row">
-                        <label for="empresa" class="col-md-3 col-form-label text-md-right">{{ __('Empresa') }}</label>
+                        <label for="nombreAlumno" class="col-md-3 col-form-label text-md-right">{{ __('Empresa') }}</label>
                         
-                        <div class="col-md-7">
-                            <input id="empresa" type="text" class="form-control" name="empresa" value="{{ old('empresa') }}" required>
+                        <div class="col-md-6">
+                            <input id="nombreAlumno" type="text" class="form-control" name="nombreAlumno" value="{{ old('nombreAlumno') }}" required>
                         </div>
                     </div>
 
                      {{-- Ciudad --}}
                     <div class="form-group row">
-                        <label for="ciudad" class="col-md-3 col-form-label text-md-right">{{ __('Ciudad') }}</label>
+                        <label for="direccion" class="col-md-3 col-form-label text-md-right">{{ __('Ciudad') }}</label>
 
-                        <div class="col-md-7">
-                            <input id="ciudad" type="text" class="form-control" name="ciudad" value="{{ old('ciudad') }}" required>
+                        <div class="col-md-6">
+                            <input id="direccion" type="text" class="form-control" name="direccion" value="{{ old('direccion') }}" required>
                         </div>
                     </div>  
 
@@ -112,4 +112,4 @@
             </div>
         </form>
     </div>
-@endsection 
+@endsection
