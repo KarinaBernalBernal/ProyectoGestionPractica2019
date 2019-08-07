@@ -20,6 +20,16 @@ class InscripcionController extends Controller
         return view('2 Inscripcion/formularioSolicitarDocumentos');
     }
 
+     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function indexInscripcion()
+    {
+        return view('2 Inscripcion/formularioInscripcion');
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -46,6 +56,8 @@ class InscripcionController extends Controller
             'empresa' => $request->empresa,
             'id_alumno' => 
         ]);
+
+        *falta guardar la fecha en practica
         */
 
         return redirect()->route('descripcionSolicitud');
@@ -128,8 +140,12 @@ class InscripcionController extends Controller
     {
         //
     }
-    public function verDescripcion(){
+    public function verDescripcionSolicitudDoc(){
         return view('2 Inscripcion/solicitudDocumentos');
+    }
+
+    public function verDescripcionInscripcion(){
+        return view('2 Inscripcion/inscripcion');
     }
 }
 

@@ -11,12 +11,13 @@
 
             {{-- Documentos solicitados --}}
 
-            <div class="card text">
-                 <div class="card-header">
-                    <h5>Documentos y periodo de práctica</h5>    
-                </div>
-                
+            <div class="card text">                
                 <div class="card-body">
+
+                    <h5>Documentos y periodo de práctica</h5>   
+
+                    <hr>
+
                     <div class="form-group row">
                         <div class="col-md-5">
                             <label for="cartaPresentacion" class="col-md-5 col-form-label">{{ __('Carta presentación') }}</label>
@@ -48,11 +49,12 @@
             {{-- Datos de la empresa --}}
 
             <div class="card text">
-                <div class="card-header"> 
-                    <h5>Datos de la empresa</h5> 
-                </div>
                 <div class="card-body"> 
-                    
+
+                    <h5>Datos de la empresa</h5> 
+
+                    <hr>
+
                     {{-- Nombre --}}   
                     <div class="form-group row">
                         <label for="n_destinatario" class="col-md-3 col-form-label text-md-right">{{ __('Nombre a quien se dirige la carta') }}</label>

@@ -18,16 +18,6 @@ class SolicitudController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create(Request $request)
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -56,40 +46,6 @@ class SolicitudController extends Controller
         ]);
 
         return redirect()->route('descripcionSolicitud');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
     }
 
     /**
@@ -140,42 +96,8 @@ class SolicitudController extends Controller
 
     /*---------------------------------------------------------------------------*/
 
-    /* ----------- Evaluacion de una Solicitud con paginacion ----------  */
-
-    // Civil
-    /*
-    public function evaluacion(){
-        $solicitudesP = Solicitud::orderBy('rut','DESC')
-            ->where('carrera', 'Ingeniería Civil Informática')
-            ->where('estado',1)
-            ->paginate(5);
-
-        $solicitudesE = Solicitud::orderBy('rut','DESC')
-            ->where('carrera', 'Ingeniería Civil Informática')
-            ->where('estado',2)
-            ->paginate(5);
-
-        return view('evaluacionSolicitud',[
-            'solicitudesP'=>$solicitudesP,
-            'solicitudesE'=>$solicitudesE
-        ]);
-    }
+    /* ----------- Evaluacion de una Solicitud  ----------  */
     
-     public function evaluacionEjecucion(){
-        $solicitudesP = Solicitud::orderBy('rut','DESC')
-            ->where('carrera', 'Ingeniería de Ejecución Informática')
-            ->where('estado',1);
-
-        $solicitudesE = Solicitud::orderBy('rut','DESC')
-            ->where('carrera', 'Ingeniería de Ejecución Informática')
-            ->where('estado',2);
-
-        return view('evaluacionSolicitud',[
-            'solicitudesP'=>$solicitudesP,
-            'solicitudesE'=>$solicitudesE
-        ]);
-    }
-    */
     public function evaluacion(){
 
         $solicitudesP = Solicitud::all()
