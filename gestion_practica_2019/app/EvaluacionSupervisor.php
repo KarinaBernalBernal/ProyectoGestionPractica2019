@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class EvaluacionSupervisor extends Model
 {
     protected $primaryKey = 'id_eval_supervisor';
+    protected $table = 'evaluaciones_supervisor';
 
     protected $fillable = [
        	'porcent_tareas_realizadas','resultado_eval','f_entrega_eval','id_practica'
