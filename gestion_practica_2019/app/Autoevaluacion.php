@@ -4,9 +4,10 @@ namespace SGPP;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Autoevalucion extends Model
+class Autoevaluacion extends Model
 {
     protected $primaryKey = 'id_autoeval';
+    protected $table = 'autoevaluaciones';
 
     protected $fillable = [
        	'f_entrega','id_practica'

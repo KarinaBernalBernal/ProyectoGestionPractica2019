@@ -56,9 +56,6 @@
 								@endforeach
 							</tbody>
 						</table>
-						<div class="row d-flex justify-content-center">	
-							{{ $solicitudesP->links() }}
-						</div>	
 					</div>
 				</div>
 			</div>
@@ -90,7 +87,7 @@
 							<tbody>
 								@foreach($solicitudesE as $solicitudE)
 									<tr>
-										<td>{{ $solicitudE->rut }} </td>
+										<td>{{ $solicitudE->rut }}</td>
 										<td>{{ $solicitudE->nombre }}</td>
 										<td>{{ $solicitudE->apellido_paterno }}</td>
 										<td>{{ $solicitudE->apellido_materno }}</td>
@@ -107,9 +104,6 @@
 
 							</tbody>
 						</table>
-						<div class="row d-flex justify-content-center">	
-							{{ $solicitudesE->links() }}
-						</div>	
 					</div>
 				</div>
 			</div>

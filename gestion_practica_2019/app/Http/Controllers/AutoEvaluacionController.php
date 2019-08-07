@@ -3,84 +3,59 @@
 namespace SGPP\Http\Controllers;
 
 use Illuminate\Http\Request;
+use SGPP\Autoevaluacion;
 
 class AutoEvaluacionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+     //vista principal de un elemento en especifico
+    public function lista()
     {
-        return view('formularioAutoEvaluacion');
+        $lista= Autoevaluacion::all();
+        return view('Mantenedores/Evaluaciones/Alumno/lista_auto_evaluaciones',[
+                'lista'=>$lista,
+            ]);
+    }
+    public function crear()
+    {
+        return view('Mantenedores/Evaluaciones/Alumno/crear_auto_evaluacion');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create(Request $request)
+    public function editar($id_elemento)
     {
-        //
+        $elemento= Autoevaluacion::find($id_elemento);
+        return view('Mantenedores/Evaluaciones/Alumno/editar_auto_evaluacion',[
+                'elemento'=>$elemento,
+            ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\m_responsekeys(conn, identifier)
-     */
-    public function store(Request $request)
+    public function crearAutoEvaluacion (Request $request)
     {
-        //
+        $data = $request->all();
+
+        $nuevo = new Autoevaluacion;
+        $nuevo->f_entrega = $data['f_entrega'];
+		$nuevo->id_practica = $data['id_practica'];
+
+        $nuevo->save();
+
+        return redirect()->route('lista_auto_evaluaciones');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function editarAutoEvaluacion(Request $request, $id_elemento)
     {
-        //
+        $elemento_editar=Autoevaluacion::find($id_elemento);
+        if(isset($elemento_editar))
+        {
+            $elemento_editar->f_entrega=$request->f_entrega;
+			$elemento_editar->id_practica=$request->id_practica;
+            $elemento_editar->save();
+
+            return redirect()->route('lista_auto_evaluaciones');
+        }
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+    public function borrarAutoEvaluacion($id_elemento){
+        $elemento_eliminar =  Autoevaluacion::find($id_elemento);
+        $elemento_eliminar->delete();
+        return redirect()->route('lista_auto_evaluaciones');
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
-
-
 }
