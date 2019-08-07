@@ -24,7 +24,7 @@
 
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-4">
-                                    <a href="" class="btn btn-secondary"> <span>Acceder al formulario</span></a>
+                                    <a href="{{route('formularioEvaluacionEmpresa')}}" class="btn btn-secondary"> <span>Acceder al formulario</span></a>
                                 </div>
                             </div>
                     </div>

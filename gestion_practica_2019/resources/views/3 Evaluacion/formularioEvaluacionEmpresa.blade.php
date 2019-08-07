@@ -149,6 +149,42 @@
                             <input id="email" type="text" class="form-control" name="email" value="{{ old('email') }}" required>
                         </div>
                     </div>
+
+                    <br>
+                    <div class="col-md-auto">
+                        <h6><strong>Tareas realizadas por alumno en Período de Práctica</strong></h6>
+                    </div>
+                    <br>
+
+                    {{-- Tareas realizadas por alumno en practica --}}
+                    <div class="form-group row">
+                        <div class="col-md-6">
+                            <label for="programacion" class="col-md-5 col-form-label">{{ __('Programación') }}</label>
+                            <input type="checkbox" name="programacion">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="analisisDiseño" class="col-md-4 col-form-label">{{ __('Análisis / Diseño') }}</label>
+                            <input type="checkbox" name="analisisDiseño">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="mantencionSw" class="col-md-5 col-form-label">{{ __('Mantención Sw') }}</label>
+                            <input type="checkbox" name="seguroEscolar">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="documentar" class="col-md-4 col-form-label">{{ __('Documentación') }}</label>
+                            <input type="checkbox" name="documentar">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="testing" class="col-md-5 col-form-label">{{ __('Testing') }}</label>
+                            <input type="checkbox" name="testing">
+                        </div>
+                        <div class="col-md-4">
+                            <label for="otros" class="col-md-3 col-form-label">{{ __('Otros') }}</label>
+                            <input id="otros" type="text" class="" name="otros" value="{{ old('otros') }}" required>
+                        </div>
+                    </div>
+
+                    <br>
                 </div>
             </div>
 
@@ -157,188 +193,13 @@
             {{-- Autoevaluacion del Alumno --}}
             <div class="card text">
                 <div class="card-header">
-                    <h6>I. Autoevaluación del Alumno</h6>
+                    <h6>II. Evaluación</h6>
                 </div>
                 <div class="card-body">
 
                     <br>
-                    <div class="col-md-4">
-                        <h6><strong>1.- ¿En qué área(s) clasificaría su práctica?</strong></h6>
-                    </div>
-                    <br>
-
-                    {{-- Areas --}}
-                    <div class="form-group row">
-                        <div class="col-md-6">
-                            <label for="codificacion" class="col-md-5 col-form-label">{{ __('Codificación') }}</label>
-                            <input type="checkbox" name="codificacion">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="analisisDiseño" class="col-md-7 col-form-label">{{ __('Análisis / Diseño') }}</label>
-                            <input type="checkbox" name="analisisDiseño">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="mantencionSw" class="col-md-5 col-form-label">{{ __('Mantención Sw') }}</label>
-                            <input type="checkbox" name="seguroEscolar">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="documentar" class="col-md-7 col-form-label">{{ __('Documentar') }}</label>
-                            <input type="checkbox" name="documentar">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="testingSqa" class="col-md-5 col-form-label">{{ __('Testing - SQA') }}</label>
-                            <input type="checkbox" name="testingSqa">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="soporteHw" class="col-md-7 col-form-label">{{ __('Soporte HW') }}</label>
-                            <input type="checkbox" name="soporteHw">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="administracionSo" class="col-md-5 col-form-label">{{ __('Administración S.O.') }}</label>
-                            <input type="checkbox" name="administracionSo">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="instalacionAdministracion" class="col-md-7 col-form-label">{{ __('Instalacion / Administración redes') }}</label>
-                            <input type="checkbox" name="seguroEscolar">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="modeladoProcesos" class="col-md-5 col-form-label">{{ __('Modelado de Procesos') }}</label>
-                            <input type="checkbox" name="modeladoProcesos">
-                        </div>
-                        <div class="col-md-4">
-                            <label for="otros" class="col-md-3 col-form-label">{{ __('Otros') }}</label>
-                            <input id="otros" type="text" class="" name="otros" value="{{ old('otros') }}" required>
-                        </div>
-                    </div>
-
-                    <br>
                     <div class="col-md-auto">
-                        <h6><strong>2.- Descripción de Tareas Realizadas</strong></h6>
-                    </div>
-                    <br>
-
-                    {{-- Descripcion de tareas realizadas --}}
-                    <div class="form-group row">
-                        <label for="dpTarea" class="col-md-3 col-form-label text-md-right"></label>
-                        <div class="col-md-6">
-                            <textarea id="dpTarea" name="dpTarea" class="form-control" rows="10" cols="40">Escribe aquí tu comentario</textarea>
-                        </div>
-                    </div>
-
-                    <br>
-                    <div class="col-md-auto">
-                        <h6><strong>3.- Indique las herramientas de SW utilizadas en la práctica</strong></h6>
-                    </div>
-                    <br>
-
-                    {{-- Herramientas utilizadas --}}
-                    <div class="form-group row">
-                        <div class="col-md-6">
-                            <label for="eclipceId" class="col-md-5 col-form-label">{{ __('Eclipce IDE') }}</label>
-                            <input type="checkbox" name="eclipceId">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="codeblocks" class="col-md-7 col-form-label">{{ __('CodeBlocks IDE') }}</label>
-                            <input type="checkbox" name="codeblocks">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="trello" class="col-md-5 col-form-label">{{ __('Trello') }}</label>
-                            <input type="checkbox" name="trello">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="xampp" class="col-md-7 col-form-label">{{ __('Xampp') }}</label>
-                            <input type="checkbox" name="xampp">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="mySql" class="col-md-5 col-form-label">{{ __('MySql') }}</label>
-                            <input type="checkbox" name="mySql">
-                        </div>
-                        <div class="col-md-4">
-                            <label for="otros" class="col-md-3 col-form-label">{{ __('Otros') }}</label>
-                            <input id="otros" type="text" class="" name="otros" value="{{ old('otros') }}" required>
-                        </div>
-                    </div>
-
-                    <br>
-                    <div class="col-md-auto">
-                        <h6><strong>4.- ¿Qué Conocimientos / Habilidades aprendidas en la carrera fueron importantes para el desarrollo de su práctica? (comente):</strong></h6>
-                    </div>
-                    <br>
-
-                    {{-- Conocimientos/habilidades aprendidas más importantes --}}
-                    <div class="form-group row">
-                        <label for="dpHabilidadImportante" class="col-md-3 col-form-label text-md-right"></label>
-                        <div class="col-md-6">
-                            <textarea id="dpHabilidadImportante" name="dpHabilidadImportante" class="form-control" rows="10" cols="40">Escribe aquí tu comentario</textarea>
-                        </div>
-                    </div>
-
-                    <br>
-                    <div class="col-md-auto">
-                        <h6><strong>5.- ¿Qué Conocimientos / Habilidades piensa que le faltaron para un buen desempeño en su práctica? (comente):</strong></h6>
-                    </div>
-                    <br>
-
-                    {{-- Conocimientos/habilidades faltantes --}}
-                    <div class="form-group row">
-                        <label for="dpHabilidadFaltante" class="col-md-3 col-form-label text-md-right"></label>
-                        <div class="col-md-6">
-                            <textarea id="dpHabilidadFaltante" name="dpHabilidadFaltante" class="form-control" rows="10" cols="40">Escribe aquí tu comentario</textarea>
-                        </div>
-                    </div>
-
-                    <br>
-                    <div class="col-md-auto">
-                        <h6><strong>7.- ¿Qué conocimientos adquirió durante su práctica?</strong></h6>
-                    </div>
-                    <br>
-
-                    {{-- Conocimientos/habilidades adquiridas --}}
-                    <div class="form-group row">
-                        <label for="dpHabilidadAdquirida" class="col-md-3 col-form-label text-md-right"></label>
-                        <div class="col-md-6">
-                            <textarea id="dpHabilidadAdquirida" name="dpHabilidadAdquirida" class="form-control" rows="10" cols="40">Escribe aquí tu comentario</textarea>
-                        </div>
-                    </div>
-
-                    <br>
-                    <div class="col-md-auto">
-                        <h6><strong>8.- ¿Cómo calificaría su desempeño durante el período de práctica?</strong></h6>
-                    </div>
-                    <br>
-
-                    {{-- Calificación desempeño --}}
-                    <div class="form-group row">
-                        <label for="desempeño" class="col-md-3 col-form-label text-md-right"></label>
-
-                        <div class="col-md-6">
-                            <select id="desempeño" name="desempeño" class="custom-select">
-                                <option selected value="">Selecciona...</option>
-                                <option>Malo</option>
-                                <option>Regular</option>
-                                <option>Bueno</option>
-                                <option>Muy bueno</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <br>
-                    <div class="col-md-auto" style="padding-left: 5%">
-                        <h6><strong>¿Por qué? (Fundamente su autoevaluación):</strong></h6>
-                    </div>
-                    <br>
-
-                    {{-- Explicación del por qué --}}
-                    <div class="form-group row">
-                        <label for="dpDesempeño" class="col-md-3 col-form-label text-md-right"></label>
-                        <div class="col-md-6">
-                            <textarea id="dpDesempeño" name="dpDesempeño" class="form-control" rows="10" cols="40">Escribe aquí tu comentario</textarea>
-                        </div>
-                    </div>
-
-                    <br>
-                    <div class="col-md-auto">
-                        <h6><strong>9.- De acuerdo a su experiencia en la práctica, realice una autoevaluación para evaluar su desempeño, utilizando una escala de 1 a 4, donde 1 representa criterio débilmente logrado y 4 criterio totalmente logrado. Además si considera necesario puede considerar evaluar con NA: No Aplica o NL: No Logrado.</strong></h6>
+                        <h6><strong>Para los siguientes criterios, evalúe desempeño percibido por el alumno donde con una escala de 1 a 4, donde 1 representa criterio debilmente logrado y 4 criterio totalmente logrado. Además si considera necesario puede considerar evaluar con NA: No Aplica y NL: No Logrado</strong></h6>
                     </div>
                     <br>
                     {{-- Evaluacion con "dea acuerdo", "muy de acuerdo", etc. --}}
@@ -450,12 +311,12 @@
                         <tr>
                             <td>Aplica adecuadamente conocimientos teóricos para diseñar soluciones.</td>
                             <form>
-                            <td><input type="radio" name="criterio7" value="1"><br></td>
-                            <td><input type="radio" name="criterio7" value="2"><br></td>
-                            <td><input type="radio" name="criterio7" value="3"><br></td>
-                            <td><input type="radio" name="criterio7" value="4"><br></td>
-                            <td><input type="radio" name="criterio7" value="NA"><br></td>
-                            <td><input type="radio" name="criterio7" value="NL"><br></td>
+                                <td><input type="radio" name="criterio7" value="1"><br></td>
+                                <td><input type="radio" name="criterio7" value="2"><br></td>
+                                <td><input type="radio" name="criterio7" value="3"><br></td>
+                                <td><input type="radio" name="criterio7" value="4"><br></td>
+                                <td><input type="radio" name="criterio7" value="NA"><br></td>
+                                <td><input type="radio" name="criterio7" value="NL"><br></td>
                             </form>
                         </tr>
                         <tr>
@@ -492,8 +353,66 @@
                             </form>
                         </tr>
                     </table>
-                </div>
+                    <div class="col-md-auto">
+                        <h6><strong>3.- ¿De las tareas asignadas cúal fue el porcentaje de tareas efectivamente realziado?</strong></h6>
+                    </div>
+                    <br>
 
+                    {{-- Descripcion de tareas realizadas --}}
+                    <div class="form-group row">
+                        <div class="col-md-1">
+                            <input id="porcentaje" type="text" class="form-control" name="porcentaje" value="{{ old('porcentaje') }}" required>
+                        </div>
+                        <label for="porcentaje" class="col-form-label text-md-left">{{ __('%') }}</label>
+                    </div>
+
+                    <br>
+                    <div class="col-md-auto">
+                        <h6><strong>4.- A su Juicio, ¿Cuáles son las mayores fortalezas presentadas por el alumno?</strong></h6>
+                    </div>
+                    <br>
+
+                    {{-- Conocimientos/habilidades aprendidas más importantes --}}
+                    <div class="form-group row">
+                        <label for="fortalezas" class="col-md-3 col-form-label text-md-right"></label>
+                        <div class="col-md-6">
+                            <textarea id="fortalezas" name="fortalezas" class="form-control" rows="10" cols="40">Escribe aquí tu comentario</textarea>
+                        </div>
+                    </div>
+
+                    <br>
+                    <div class="col-md-auto">
+                        <h6><strong>5.- A su Juicio, ¿Cuáles son las mayores debilidades presentadas por el alumno?</strong></h6>
+                    </div>
+                    <br>
+
+                    {{-- Conocimientos/habilidades faltantes --}}
+                    <div class="form-group row">
+                        <label for="debilidades" class="col-md-3 col-form-label text-md-right"></label>
+                        <div class="col-md-6">
+                            <textarea id="debilidades" name="debilidades" class="form-control" rows="10" cols="40">Escribe aquí tu comentario</textarea>
+                        </div>
+                    </div>
+
+                    <br>
+                    <div class="col-md-auto">
+                        <h6><strong>7.- De acuerdo al desempeño del alumno, usted recomendaría que la práctica sea </strong></h6>
+                    </div>
+                    <br>
+
+                    {{-- Conocimientos/habilidades adquiridas --}}
+                    <div class="form-group row">
+                        <label for="recomendacion" class="col-md-3 col-form-label text-md-right">{{ __('Recomiendo que sea:') }}</label>
+                        <div class="col-md-4">
+                            <select id="recomendacion" name="recomendacion" class="custom-select">
+                                <option selected value="">Selecciona...</option>
+                                <option>Aprobada</option>
+                                <option>Rechazada</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <br>
                 <div class="row justify-content-end ">
                     <div class="col-md-4">
                         <a href="" class="btn btn-secondary">Cancelar</a>

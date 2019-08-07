@@ -139,7 +139,7 @@
             </a>
             <div id="collapseEvaluacion" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="{{route('formularioAutoEvaluacion')}}">Realizar autoevaluación</a>
+                    <a class="collapse-item" href="{{route('descripcionAutoEvaluacion')}}">Realizar autoevaluación</a>
                 </div>
             </div>
         </li>
@@ -155,7 +155,7 @@
 
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
-            <a class="nav-link collapsed" href="#">
+            <a class="nav-link collapsed" href="{{route('descripcionEvaluacionEmpresa')}}">
                 <i class="fas fa-arrow-right"></i><span>Evalúa a tu practicante</span>
             </a>
         </li>
