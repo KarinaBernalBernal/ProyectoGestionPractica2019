@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Supervisor extends Model
 {
     protected $primaryKey = 'id_supervisor';
-    protected $table = 'supervisores';
 
     protected $fillable = [
         'nombre','apellido_paterno','apellido_materno','cargo','departamento','email','fono','id_user','id_empresa'
