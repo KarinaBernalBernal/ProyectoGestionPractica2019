@@ -36,17 +36,8 @@
             </a>
             <div id="collapseGestionCuentas" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="{{route('lista_usuarios')}}">Gestion de usuarios</a>
-                    <a class="collapse-item" href="{{route('lista_recursos')}}">Gestión de recursos</a>
-                    <a class="collapse-item" href="{{route('lista_perfiles')}}">Gestión de perfiles</a>
-                    <a class="collapse-item" href="{{route('lista_alumnos')}}">Gestión de alumnos</a>
-                    <a class="collapse-item" href="{{route('lista_supervisores')}}">Gestión de supervisores</a>
-                    <a class="collapse-item" href="{{route('lista_practicas')}}">Gestión de practicas</a>
-                    <a class="collapse-item" href="{{route('lista_evaluaciones_supervisor')}}">Gestión de evaluaciones supervisor</a>
-                    <a class="collapse-item" href="{{route('lista_empresas')}}">Gestión de empresas</a>
-                    <a class="collapse-item" href="{{route('lista_auto_evaluaciones')}}">Gestión de auto evaluaciones</a>
-
-
+                    <a class="collapse-item" href="#">Gestion de usuarios</a>
+                    <a class="collapse-item" href="#">Gestión de perfiles</a>                
                 </div>
             </div>
         </li>
@@ -104,6 +95,7 @@
             </div>
         </li>
 
+    <!-- -- -->
 
     <!--Alumnos-->
         <!-- Divider -->
@@ -127,8 +119,8 @@
             </a>
             <div id="collapseInscripcion" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="{{route('formularioSolicitarDocumentos')}}">Solicitar documentos</a>
-                    <a class="collapse-item" href="404.html">Inscribir práctica</a>
+                    <a class="collapse-item" href="{{route('descripcionSolicitudDocumentos')}}">Solicitar documentos</a>
+                    <a class="collapse-item" href="{{route('descripcionInscripcion')}}">Inscribir práctica</a>
                 </div>
             </div>
         </li>
@@ -143,6 +135,7 @@
                 </div>
             </div>
         </li>
+    <!-- -- -->
 
     <!--Supervisor-->
         <!-- Divider -->
@@ -159,6 +152,7 @@
                 <i class="fas fa-arrow-right"></i><span>Evalúa a tu practicante</span>
             </a>
         </li>
+    <!-- -- -->
 
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
@@ -167,6 +161,6 @@
     <div class="text-center d-none d-md-inline">
         <button class="rounded-circle border-0" id="sidebarToggle"></button>
     </div>
-
+    
 </ul>
 <!-- End of Sidebar -->
