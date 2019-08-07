@@ -96,12 +96,12 @@
                     <div class="form-group row">
                         <label for="carrera" class="col-md-3 col-form-label text-md-right">{{ __('Carrera') }}</label>
 
-                        <div class="col-md-6"> 
+                        <div class="col-md-6">
                             <select id="carrera" name="carrera" class="custom-select">
                                 <option selected value="">Selecciona...</option>
                                 <option>Ingeniería Civil Informática</option>
                                 <option>Ingeniería de Ejecución Informática</option>
-                            </select>      
+                            </select>
                         </div>
                     </div>
 

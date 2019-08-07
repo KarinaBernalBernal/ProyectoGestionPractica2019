@@ -57,3 +57,10 @@ Route::get('/aceptarSolicitud/{id_solicitud}', 'SolicitudController@estado')->na
 //-------formulario de solicitud de documentos
 Route::get('/formularioSolicitudDocumentos', 'InscripcionController@indexSolicitarDocumentos')->name('formularioSolicitarDocumentos');
 Route::post('/agregarSolicitudDocumentos', 'SolicitudController@storeSolicitarDocumentos')->name('agregarSolicitudDocumentos');
+
+
+/*--------------------- Etapa Evaluación ---------------------*/
+
+Route::get('/formularioAutoEvaluacion', 'AutoEvaluacionController@index')->name('formularioAutoEvaluacion');
+
+

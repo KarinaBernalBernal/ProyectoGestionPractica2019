@@ -126,7 +126,7 @@ class SolicitudController extends Controller
 
     /* ----------- Validar una solicitud ----------  */
 
-    ppublic function listaSolicitudEjecucion()
+    public function listaSolicitudEjecucion()
     {
         $solicitudes = Solicitud::orderBy('rut','DESC')->where('carrera', 'Ingeniería de Ejecución Informática')->where("estado",0)->paginate(7);
         return view('listaSolicitudEjecucion')->with('solicitudes', $solicitudes);
