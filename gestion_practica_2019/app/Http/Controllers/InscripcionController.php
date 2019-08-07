@@ -3,7 +3,7 @@
 namespace SGPP\Http\Controllers;
 
 use Illuminate\Http\Request;
-use SGPP\Solicitud;
+use SGPP\DocSolicitados;
 
 class InscripcionController extends Controller
 {
@@ -17,7 +17,17 @@ class InscripcionController extends Controller
      */
     public function indexSolicitarDocumentos()
     {
-        return view('formularioSolicitarDocumentos');
+        return view('2 Inscripcion/formularioSolicitarDocumentos');
+    }
+
+     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function indexInscripcion()
+    {
+        return view('2 Inscripcion/formularioInscripcion');
     }
 
     /**
@@ -28,7 +38,29 @@ class InscripcionController extends Controller
      */
     public function storeSolicitarDocumentos(Request $request)
     {
-        //
+        /*
+        $fecha = date("Y-m-d H:i:s");
+        $alumno =
+
+        DocSolicitados::create(
+
+            'f_solicitud' => $fecha,
+            'carta_presentacion' => $request->cartaPresentacion,
+            'seguro_escolar' => $request->seguroEscolar,
+            'f_desde' => $request->fechaDesde,
+            'f_hasta' => $request->fechaHasta,
+            'n_destinatario' => $request->n_destinatario,
+            'cargo' => $request->cargo,
+            'departamento' => $request->departamento,
+            'cuidad' => $request->ciudad,
+            'empresa' => $request->empresa,
+            'id_alumno' => 
+        ]);
+
+        *falta guardar la fecha en practica
+        */
+
+        return redirect()->route('descripcionSolicitud');
     }
 
     /* ----- Inscripcion practica ----*/
@@ -107,6 +139,13 @@ class InscripcionController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function verDescripcionSolicitudDoc(){
+        return view('2 Inscripcion/solicitudDocumentos');
+    }
+
+    public function verDescripcionInscripcion(){
+        return view('2 Inscripcion/inscripcion');
     }
 }
 
