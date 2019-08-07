@@ -26,8 +26,11 @@ class RecursoController extends Controller
     public function editar($id_elemento)
     {
         $elemento= Recurso::find($id_elemento);
+        $perfiles= Perfil::all();
+
         return view('editar_recurso',[
                 'elemento'=>$elemento,
+                'perfiles' => $perfiles,
             ]);
     }
 
@@ -37,6 +40,8 @@ class RecursoController extends Controller
         $nuevo = new Recurso;
         $nuevo->n_recurso = $data['n_recurso'];
         $nuevo->url = $data['url'];
+        $nuevo->modulo = $data['modulo'];
+
         $perfil = $data['perfil'];
         $nuevo->save();
 
@@ -55,10 +60,16 @@ class RecursoController extends Controller
         {
             $elemento_editar->n_recurso=$request->n_recurso;
             $elemento_editar->url=$request->url;
-            $elemento_editar->url=$request->url;
+            $elemento_editar->modulo = $request->modulo;
 
-
+            $perfil = $request->perfil;
             $elemento_editar->save();
+
+            $nueva_instancia = new PerfilRecurso;
+            $nueva_instancia->id_perfil = $perfil;
+            $nueva_instancia->id_recurso = $elemento_editar->id_recurso;
+            $nueva_instancia->save();
+
 
             return redirect()->route('lista_recursos');
         }

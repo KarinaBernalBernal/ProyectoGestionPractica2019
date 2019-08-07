@@ -38,6 +38,8 @@ class UsuarioController extends Controller
         {
             $elemento_editar->name=$request->name;
             $elemento_editar->email=$request->email;
+            $elemento_editar->email=$request->perfil;
+
             $elemento_editar->save();
 
 
@@ -51,16 +53,4 @@ class UsuarioController extends Controller
             return redirect()->route('lista_usuarios');
 
     }
-
-    public function get_permissions(Request $request){
-        $user = $request->$user->id;
-        $profile = None;
-        if (isset($user->$profile))
-        {
-            $profile = $user->$profile;
-            $permissions = Recurso::all()->where('profile', 'profile')
-        }
-        return view('get_permissions')->with('permissions', $permissions);
-    }
-
 }

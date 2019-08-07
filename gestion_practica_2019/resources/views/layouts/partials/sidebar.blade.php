@@ -31,11 +31,17 @@
 
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
+
+            @auth
+
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseGestionCuentas" aria-expanded="true" aria-controls="collapseGestionCuentas"><i class="fas fa-users"></i>
             <span>Gestionar cuentas</span>
             </a>
             <div id="collapseGestionCuentas" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
+                    @foreach(Auth::user()->get_permissions() as $recurso)
+                        <a class="collapse-item" href="{{$recurso->url}}">{{$recurso->n_recurso}}</a>
+                    @endforeach
                     <a class="collapse-item" href="{{route('lista_usuarios')}}">Gestion de usuarios</a>
                     <a class="collapse-item" href="{{route('lista_recursos')}}">Gestión de recursos</a>
                     <a class="collapse-item" href="{{route('lista_perfiles')}}">Gestión de perfiles</a>
@@ -49,6 +55,8 @@
 
                 </div>
             </div>
+            @endauth
+
         </li>
 
         <li class="nav-item">

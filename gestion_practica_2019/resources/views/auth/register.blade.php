@@ -71,6 +71,17 @@
                             </select>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label for="type" class="col-md-4 control-label"> Perfil de usuario</label>
+                            <div class="col-md-6">
+                                <select id="type_element" name="perfil" class="form-control">
+
+                                    @foreach($perfiles as $perfil)
+                                        <option value="{{ $perfil->id_perfil }}" >{{ $perfil->n_perfil }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
