@@ -17,7 +17,7 @@ class InscripcionController extends Controller
      */
     public function indexSolicitarDocumentos()
     {
-        return view('formularioSolicitarDocumentos');
+        return view('2 Inscripcion/formularioSolicitarDocumentos');
     }
 
     public function indexInscripcion()
