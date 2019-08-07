@@ -11,19 +11,19 @@ class PerfilController extends Controller
     public function lista()
     {
         $lista= Perfil::all();
-        return view('lista_perfiles',[
+        return view('Mantenedores/Perfiles/lista_perfiles',[
                 'lista'=>$lista,
             ]);
     }
     public function crear()
     {
-        return view('crear_perfil');
+        return view('Mantenedores/Perfiles/crear_perfil');
     }
 
     public function editar($id_elemento)
     {
         $elemento= Perfil::find($id_elemento);
-        return view('editar_perfil',[
+        return view('Mantenedores/Perfiles/editar_perfil',[
                 'elemento'=>$elemento,
             ]);
     }

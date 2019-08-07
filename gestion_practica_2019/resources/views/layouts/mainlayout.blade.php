@@ -15,8 +15,6 @@
                         <!-- Topbar -->
                         @include('layouts.partials.topbar')
                         @yield('content')
-
-
                 </div>
                 <!-- End of Main Content -->
                 @include('layouts.partials.footer')

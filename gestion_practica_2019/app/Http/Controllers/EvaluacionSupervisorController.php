@@ -11,19 +11,19 @@ class EvaluacionSupervisorController extends Controller
     public function lista()
     {
         $lista= EvaluacionSupervisor::all();
-        return view('lista_evaluaciones_supervisor',[
+        return view('Mantenedores/Evaluaciones/Supervisor/lista_evaluaciones_supervisor',[
                 'lista'=>$lista,
             ]);
     }
     public function crear()
     {
-        return view('crear_evaluacion_supervisor');
+        return view('Mantenedores/Evaluaciones/Supervisor/crear_evaluacion_supervisor');
     }
 
     public function editar($id_elemento)
     {
         $elemento= EvaluacionSupervisor::find($id_elemento);
-        return view('editar_evaluacion_supervisor',[
+        return view('Mantenedores/Evaluaciones/Supervisor/editar_evaluacion_supervisor',[
                 'elemento'=>$elemento,
             ]);
     }

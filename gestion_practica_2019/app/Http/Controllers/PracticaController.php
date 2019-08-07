@@ -11,19 +11,19 @@ class PracticaController extends Controller
     public function lista()
     {
         $lista= Practica::all();
-        return view('lista_practicas',[
+        return view('Mantenedores/Practicas/lista_practicas',[
                 'lista'=>$lista,
             ]);
     }
      public function crear()
     {
-        return view('crear_practica');
+        return view('Mantenedores/Practicas/crear_practica');
     }
 
     public function editar($id_elemento)
     {
         $elemento= Practica::find($id_elemento);
-        return view('editar_practica',[
+        return view('Mantenedores/Practicas/editar_practica',[
                 'elemento'=>$elemento,
             ]);
     }

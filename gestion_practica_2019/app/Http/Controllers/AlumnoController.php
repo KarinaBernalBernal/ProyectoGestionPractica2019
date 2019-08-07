@@ -12,19 +12,19 @@ class AlumnoController extends Controller
     public function lista()
     {
         $lista= Alumno::all();
-        return view('lista_alumnos',[
+        return view('Mantenedores/Alumnos/lista_alumnos',[
                 'lista'=>$lista,
             ]);
     }
     public function crear()
     {
-        return view('crear_alumno');
+        return view('Mantenedores/Alumnos/crear_alumno');
     }
 
     public function editar($id_elemento)
     {
         $elemento= Alumno::find($id_elemento);
-        return view('editar_alumno',[
+        return view('Mantenedores/Alumnos/editar_alumno',[
                 'elemento'=>$elemento,
             ]);
     }
@@ -80,5 +80,4 @@ class AlumnoController extends Controller
         $elemento_eliminar->delete();
         return redirect()->route('lista_alumnos');
     }
-
 }

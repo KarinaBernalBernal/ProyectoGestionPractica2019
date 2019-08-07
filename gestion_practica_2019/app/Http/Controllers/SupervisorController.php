@@ -12,19 +12,19 @@ class SupervisorController extends Controller
     public function lista()
     {
         $lista= Supervisor::all();
-        return view('lista_supervisores',[
+        return view('Mantenedores/Supervisores/lista_supervisores',[
                 'lista'=>$lista,
             ]);
     }
     public function crear()
     {
-        return view('crear_supervisor');
+        return view('Mantenedores/Supervisores/crear_supervisor');
     }
 
     public function editar($id_elemento)
     {
         $elemento= Supervisor::find($id_elemento);
-        return view('editar_supervisor',[
+        return view('Mantenedores/Supervisores/editar_supervisor',[
                 'elemento'=>$elemento,
             ]);
     }
