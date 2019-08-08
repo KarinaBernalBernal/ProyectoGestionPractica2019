@@ -170,8 +170,11 @@ Route::get('/descripcionInscripcion', 'InscripcionController@verDescripcionInscr
 
 //-------formulario de solicitud de documentos
 Route::get('/formularioSolicitudDocumentos', 'InscripcionController@indexSolicitarDocumentos')->name('formularioSolicitarDocumentos');
+Route::post('/agregarSolicitudDocumentos', 'SolicitudController@storeSolicitarDocumentos')->name('agregarSolicitudDocumentos');
 
-Route::post('/agregarSolicitudDocumentos', 'InscripcionController@storeSolicitarDocumentos')->name('agregarSolicitudDocumentos');
+/*--------------------- Etapa Evaluación ---------------------*/
+
+Route::get('/formularioAutoEvaluacion', 'AutoEvaluacionController@index')->name('formularioAutoEvaluacion');
 
 //-------formularioInscripcion
 Route::get('/formularioInscripcion', 'InscripcionController@indexInscripcion')->name('formularioInscripcion');
