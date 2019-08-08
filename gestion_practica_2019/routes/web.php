@@ -19,9 +19,12 @@ Route::get('/home2', 'HomeTemplateController@index')->name('home2');
 // Rutas tipo GET
 Route::get('/Usuarios/lista', 'UsuarioController@lista')->name('lista_usuarios');
 Route::get('/Usuarios/editar/{id_elemento}', 'UsuarioController@editar')->name('editar_usuario');
+Route::get('/Usuarios/crear_usuario', 'UsuarioController@crear')->name('crear_usuario_mantenedor');
+
 Route::get('/Usuarios/crear', 'RegisterController@showRegistrationForm');
 //Rutas tipo POST
-// Route::post('/Usuarios/crear', 'Auth\RegisterController@create')->name('crear_usuario');
+Route::post('/Usuarios/crear', 'Auth\RegisterController@create')->name('crear_usuario');
+Route::post('/Usuarios/agregar', 'UsuarioController@crearUsuario')->name('agregar_usuario_mantenedor');
 Route::post('/Usuarios/actualizar/{id_elemento}', 'UsuarioController@editarUsuario')->name('actualizar_usuario');
 Route::post('/Usuarios/eliminar/{id_elemento}','UsuarioController@borrarUsuario')->name('borrar_usuario');
 /* Rutas mantenedor perfiles */
@@ -107,7 +110,9 @@ Route::get('/descripcionSolicitud', 'SolicitudController@verDescripcion')->name(
 Route::get('/evaluacionSolicitudCivil', 'SolicitudController@evaluacion')->name('evaluacionSolicitud');
 //Ejecucion
 Route::get('/evaluacionSolicitudEjecucion', 'SolicitudController@evaluacionEjecucion')->name('evaluacionSolicitudEjecucion');
-//modals 
+
+//modals
+
 Route::get('/modal/evaluarSolicitudModal/{id}','SolicitudController@evaluarSolicitudModal')->name('evaluarSolicitudModal');
 Route::post('/evaluacionSolicitud/evaluarSolicitud/{id}','SolicitudController@evaluarSolicitud')->name('evaluarSolicitud');
 Route::get('/modal/modificarEvaluacionSolicitudModal/{id}','SolicitudController@modificarEvaluacionSolicitudModal')->name('modificarEvaluacionSolicitudModal');
@@ -126,6 +131,7 @@ Route::get('/descripcionSolicitudDocumentos', 'InscripcionController@verDescripc
 Route::get('/descripcionInscripcion', 'InscripcionController@verDescripcionInscripcion')->name('descripcionInscripcion');
 //-------formulario de solicitud de documentos
 Route::get('/formularioSolicitudDocumentos', 'InscripcionController@indexSolicitarDocumentos')->name('formularioSolicitarDocumentos');
+
 Route::post('/agregarSolicitudDocumentos', 'InscripcionController@storeSolicitarDocumentos')->name('agregarSolicitudDocumentos');
 //-------formularioInscripcion
 Route::get('/formularioInscripcion', 'InscripcionController@indexInscripcion')->name('formularioInscripcion');

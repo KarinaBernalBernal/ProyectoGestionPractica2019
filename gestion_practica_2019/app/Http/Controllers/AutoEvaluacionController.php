@@ -3,6 +3,7 @@
 namespace SGPP\Http\Controllers;
 
 use Illuminate\Http\Request;
+
 use SGPP\Autoevaluacion;
 
 class AutoEvaluacionController extends Controller
@@ -65,4 +66,10 @@ class AutoEvaluacionController extends Controller
         $elemento_eliminar->delete();
         return redirect()->route('lista_auto_evaluaciones');
     }
+
+    public function index()
+    {
+        return view('formularioAutoEvaluacion');
+    }
+
 }

@@ -5,9 +5,9 @@
     <div class="row">
         <div class="col col-md-offset">
             <div class="card">
-                <h4 class="card-header">Registro de nuevo usuario</h4>
+                <h4 class="card-header">Crear nuevo usuario</h4>
                 <div class="card-body">
-                    <form class="form-horizontal" method="POST" action="{{ route('register') }}">
+                    <form class="form-horizontal" method="POST" action="{{ route('agregar_usuario_mantenedor') }}">
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
@@ -60,10 +60,23 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label for="type" class="col-md-4 control-label"> Tipo de usuario</label>
+                            <div class="col-md-6">
+                            <select name="type" class="form-control">
+                                <option value="" disabled selected>Elige una opcion...</option>
+                                <option value="administrador">Administrador</option>
+                                <option value="alumno">Alumno</option>
+                                <option value="supervisor">Supervisor</option>
+                            </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
                                     Guardar
                                 </button>
+                                <a href="{{route('lista_usuarios')}}"><button class="btn btn-secondary">Cancelar</button></a>
+
                             </div>
                         </div>
                     </form>

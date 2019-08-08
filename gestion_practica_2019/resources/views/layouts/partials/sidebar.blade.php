@@ -28,28 +28,39 @@
         <div class="sidebar-heading">
             Gestión Practicas Profesionales
         </div>
+        @if (Route::has('login'))
+            @auth
+            <?php if (Auth::user()->type == 'administrador'): ?>
 
-        <!-- Nav Item - Pages Collapse Menu -->
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseGestionCuentas" aria-expanded="true" aria-controls="collapseGestionCuentas"><i class="fas fa-users"></i>
-            <span>Gestionar cuentas</span>
-            </a>
-            <div id="collapseGestionCuentas" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="{{route('lista_usuarios')}}">Gestion de usuarios</a>
-                    <a class="collapse-item" href="{{route('lista_recursos')}}">Gestión de recursos</a>
-                    <a class="collapse-item" href="{{route('lista_perfiles')}}">Gestión de perfiles</a>
-                    <a class="collapse-item" href="{{route('lista_alumnos')}}">Gestión de alumnos</a>
-                    <a class="collapse-item" href="{{route('lista_supervisores')}}">Gestión de supervisores</a>
-                    <a class="collapse-item" href="{{route('lista_practicas')}}">Gestión de practicas</a>
-                    <a class="collapse-item" href="{{route('lista_evaluaciones_supervisor')}}">Gestión de evaluaciones supervisor</a>
-                    <a class="collapse-item" href="{{route('lista_empresas')}}">Gestión de empresas</a>
-                    <a class="collapse-item" href="{{route('lista_auto_evaluaciones')}}">Gestión de auto evaluaciones</a>
+                <!-- Nav Item - Pages Collapse Menu -->
+                <li class="nav-item">
+
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseGestionCuentas" aria-expanded="true" aria-controls="collapseGestionCuentas"><i class="fas fa-users"></i>
+                    <span>Gestionar cuentas</span>
+                    </a>
+                    <div id="collapseGestionCuentas" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+
+                            <a class="collapse-item" href="{{route('lista_usuarios')}}">Gestion de usuarios</a>
+                            <!--<a class="collapse-item" href="{{route('lista_recursos')}}">Gestión de recursos</a>-->
+                            <!--<a class="collapse-item" href="{{route('lista_perfiles')}}">Gestión de perfiles</a>-->
+                            <a class="collapse-item" href="{{route('lista_alumnos')}}">Gestión de alumnos</a>
+                            <a class="collapse-item" href="{{route('lista_supervisores')}}">Gestión de supervisores</a>
+                            <a class="collapse-item" href="{{route('lista_practicas')}}">Gestión de practicas</a>
+                            <a class="collapse-item" href="{{route('lista_evaluaciones_supervisor')}}">Gestión de evaluaciones supervisor</a>
+                            <a class="collapse-item" href="{{route('lista_empresas')}}">Gestión de empresas</a>
+                            <a class="collapse-item" href="{{route('lista_auto_evaluaciones')}}">Gestión de auto evaluaciones</a>
 
 
-                </div>
-            </div>
-        </li>
+                        </div>
+                    </div>
+
+                </li>
+            <?php endif ?>
+            @endauth
+        @endif
+
+
 
         <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseIngCivilInf" aria-expanded="true" aria-controls="collapseIngCivilInf"><i class="fas fa-users"></i>
@@ -58,6 +69,8 @@
             <div id="collapseIngCivilInf" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Gestión general</h6>
+                    <a class="collapse-item" href="{{route('lista_usuarios')}}">Gestion de usuarios</a>
+
                     <a class="collapse-item" href="#">Alumnos en práctica</a>
                     <a class="collapse-item" href="#">Supervisores</a>
 

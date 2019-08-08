@@ -14,7 +14,7 @@ class UpdateSupervisoresEmpresas extends Migration
     public function up()
     {
         Schema::table('supervisores', function (Blueprint $table) {
-            $table->unsignedInteger('id_empresa');
+            $table->integer('id_empresa')->unsigned();
             $table->foreign('id_empresa')->references('id_empresa')
                     ->on('empresas')->onDelete('cascade');
         });
@@ -28,7 +28,7 @@ class UpdateSupervisoresEmpresas extends Migration
     public function down()
     {
         Schema::table('supervisores', function (Blueprint $table) {
-            //
+            $table->dropColumn('id_empresa');
         });
     }
 }

@@ -17,12 +17,12 @@ class CreatePerfilesTable extends Migration
             $table->increments('id_perfil');
             $table->string('n_perfil');
 
-            $table->integer('id_user')->unsigned();
+            // $table->integer('id_user')->unsigned();
             $table->timestamps();
-            
-            $table->foreign('id_user')->references('id_user')
-                    ->on('users')->onDelete('cascade');
-    
+
+            // $table->foreign('id_user')->references('id_user')
+            //         ->on('users')->onDelete('cascade');
+
         });
     }
 

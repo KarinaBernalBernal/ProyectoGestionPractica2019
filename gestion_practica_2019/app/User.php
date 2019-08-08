@@ -5,6 +5,8 @@ namespace SGPP;
 use Illuminate\Notifications\Notifiable;
 use SGPP\Notifications\ResetPasswordNotification;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use SGPP\Recurso;
+use SGPP\Perfil;
 
 class User extends Authenticatable
 {
@@ -20,7 +22,7 @@ class User extends Authenticatable
     ];
     protected $primaryKey = 'id_user';
 
-    
+
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -52,5 +54,23 @@ class User extends Authenticatable
     }
     public function alumno(){
         return $this->hasOne('App\Alumno');
+    }
+    public function get_permissions(){
+        $user = $this->id;
+        $profile = null;
+        if (isset($user->$profile))
+        {
+            $profile = $user->$profile;
+            $permissions = Recurso::all()->where('profile', 'profile');
+        }
+
+        // View::composer('partials.sidebar', function($view){
+        $permissions = Recurso::all()->where('profile', 'profile');
+        //   $view->with('permissions', $permissions) ;
+
+        // }) ;
+        // $view('partials.sidebar', [ 'permissions' => $permissions]) ;
+      return $permissions;
+
     }
 }
