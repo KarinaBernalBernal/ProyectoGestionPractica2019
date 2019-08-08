@@ -13,12 +13,12 @@ class AddColumnTableUser extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->integer('id_perfil')->unsigned()->nullable();
+        // Schema::table('users', function (Blueprint $table) {
+        //     $table->integer('id_perfil')->unsigned()->nullable();
 
-            $table->foreign('id_perfil')->references('id_perfil')
-                    ->on('perfiles')->onDelete('cascade');
-        });
+        //     $table->foreign('id_perfil')->references('id_perfil')
+        //             ->on('perfiles')->onDelete('cascade');
+        // });
     }
 
     /**

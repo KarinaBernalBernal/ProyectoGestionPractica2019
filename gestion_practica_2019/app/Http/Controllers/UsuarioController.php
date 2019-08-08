@@ -20,6 +20,27 @@ class UsuarioController extends Controller
             ]);
     }
 
+    public function crear()
+    {
+        return view('Mantenedores/Usuarios/crear_usuario_mantenedor');
+    }
+
+    public function crearUsuario (Request $request)
+    {
+        $data = $request->all();
+
+        $nuevo = new User;
+
+        $nuevo->name = $data['name'];
+        $nuevo->email = $data['email'];
+        $nuevo->password = bcrypt($data['password']);
+        $nuevo->type = $data['type'];
+
+        $nuevo->save();
+
+        return redirect()->route('lista_usuarios');
+    }
+
     public function editar($id_elemento)
     {
         // dd($id_elemento);
@@ -38,7 +59,7 @@ class UsuarioController extends Controller
         {
             $elemento_editar->name=$request->name;
             $elemento_editar->email=$request->email;
-            $elemento_editar->email=$request->perfil;
+            $elemento_editar->type=$request->type;
 
 
             $elemento_editar->save();
