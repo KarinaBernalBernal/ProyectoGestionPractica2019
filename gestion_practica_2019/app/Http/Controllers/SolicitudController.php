@@ -14,7 +14,7 @@ class SolicitudController extends Controller
      */
     public function index()
     {
-        return view('formularioSolicitud');
+        return view('1 Solicitud/formularioSolicitud');
     }
 
     /**
@@ -89,24 +89,6 @@ class SolicitudController extends Controller
     public function verDescripcion(){
         return view('1 Solicitud/solicitud');
     }
-
-    /*---------------------------------------------------------------------------*/
-
-    /* ----------- Validar una solicitud ----------  */
-
-    public function listaSolicitudEjecucion()
-    {
-        $solicitudes = Solicitud::orderBy('rut','DESC')->where('carrera', 'Ingeniería de Ejecución Informática')->where("estado",0)->paginate(7);
-        return view('listaSolicitudEjecucion')->with('solicitudes', $solicitudes);
-    }
-
-    public function listaSolicitudCivil()
-    {
-        $solicitudes = Solicitud::orderBy('rut','DESC')->where('carrera', 'Ingeniería Civil Informática')->where("estado",0)->paginate(7);
-        return view('listaSolicitudCivil')->with('solicitudes', $solicitudes);
-    }
-
-    /*----------------------------------------------------------------------------*/
 
     /* ----------- Evaluacion de una Solicitud ----------  */
 

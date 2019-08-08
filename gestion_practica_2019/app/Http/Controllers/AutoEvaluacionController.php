@@ -66,10 +66,4 @@ class AutoEvaluacionController extends Controller
         $elemento_eliminar->delete();
         return redirect()->route('lista_auto_evaluaciones');
     }
-
-    public function index()
-    {
-        return view('formularioAutoEvaluacion');
-    }
-
 }
