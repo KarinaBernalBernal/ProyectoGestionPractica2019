@@ -7,6 +7,14 @@ use SGPP\EvaluacionSupervisor;
 
 class EvaluacionSupervisorController extends Controller
 {
+
+    public function index()
+    {
+        return view('3 Evaluacion/formularioEvaluacionEmpresa');
+    }
+    public function verDescripcionEvaluacionEmpresa(){
+        return view('3 Evaluacion/evaluacionEmpresa');
+    }
     //vista principal de un elemento en especifico
     public function lista()
     {
