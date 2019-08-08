@@ -62,13 +62,5 @@
             </div>
         </div>
     </div>
-<script>
-    $("#type").on('click change', function() {
-
-        $("#provincia option[value="+ $(this).val() +"]").attr("selected",true);
-
-    });
-
-</script>
 @endsection
 
