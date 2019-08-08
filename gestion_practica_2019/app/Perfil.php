@@ -11,10 +11,7 @@ class Perfil extends Model
 
     protected $fillable = [
        	'n_perfil'
-<<<<<<< HEAD
-=======
-       	// ,'id_user'
->>>>>>> b774f165a643d6c5b1158d1f0611698e4aa9f89e
+
     ];
 
     public function perfilRecurso(){
