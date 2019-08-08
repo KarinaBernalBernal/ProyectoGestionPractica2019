@@ -14,7 +14,7 @@ class SolicitudController extends Controller
      */
     public function index()
     {
-        return view('formularioSolicitud');
+        return view('1 Solicitud/formularioSolicitud');
     }
 
     /**
