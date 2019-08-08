@@ -6,7 +6,7 @@
             <h1 class="h3 mb-0 text-gray-800">INSCRIPCION PRÁCTICA PROFESIONAL</h1>
         </div>
         
-        <form action="{{route('agregarSolicitudDocumentos')}}" enctype="multipart/form-data" method="POST" role="form">
+        <form action="{{route('agregarInscripcion')}}" enctype="multipart/form-data" method="POST" role="form">
             {{ csrf_field() }} 
 
             {{-- Documentos solicitados --}}
@@ -44,9 +44,6 @@
                     {{-- Nombre Empresa--}}   
                     <div class="form-group row">
                         <label for="nombreEmpresa" class="col-md-3 col-form-label text-md-right">{{ __('Nombre a quien se dirige la carta') }}</label>
-                        <div class="col-md-1">
-                            <label class="col-form-label text-md-right">:</label>
-                        </div>
                         
                         <div class="col-md-6">
                             <input id="nombreEmpresa" type="text" class="form-control" name="nombreEmpresa" value="{{ old('nombreEmpresa') }}" required>
@@ -58,7 +55,7 @@
                         <label for="rutEmpresa" class="col-md-3 col-form-label text-md-right">{{ __('RUT') }}</label>
 
                         <div class="col-md-6">
-                            <input id="rutEmpresa" type="text" class="form-control" name="rutEmpresa" value="{{ old('rutEmpresa') }}" required>
+                            <input id="rutEmpresa" type="number" class="form-control" name="rutEmpresa" value="{{ old('rutEmpresa') }}" required>
                         </div>
                     </div>
 
@@ -76,7 +73,7 @@
                         <label for="fono" class="col-md-3 col-form-label text-md-right">{{ __('Fono') }}</label>
 
                         <div class="col-md-6">
-                            <input id="fono" type="text" class="form-control" name="fono" value="{{ old('fono') }}" required>
+                            <input id="fono" type="number" class="form-control" name="fono" value="{{ old('fono') }}" required>
                         </div>
                     </div>
 
