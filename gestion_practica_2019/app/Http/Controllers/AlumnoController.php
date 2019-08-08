@@ -78,7 +78,6 @@ class AlumnoController extends Controller
 			$elemento_editar->anno_ingreso=$request->anno_ingreso;
             $elemento_editar->carrera=$request->carrera;
             $elemento_editar->estimacion_semestre=$request->estimacion_semestre;
-			$elemento_editar->id_user=$request->id_user;
 
 
             $user_editar=User::find($elemento_editar->id_user);
@@ -88,6 +87,7 @@ class AlumnoController extends Controller
                 $user_editar->email=$request->email;
                 $user_editar->type=$user_editar->type;
             }
+			$elemento_editar->id_user=$user_editar->id_user;
             $elemento_editar->save();
 
             $user_editar->save();
