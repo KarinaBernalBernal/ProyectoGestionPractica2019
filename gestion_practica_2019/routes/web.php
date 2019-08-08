@@ -171,3 +171,4 @@ Route::post('/agregarSolicitudDocumentos', 'InscripcionController@storeSolicitar
 
 //-------formularioInscripcion
 Route::get('/formularioInscripcion', 'InscripcionController@indexInscripcion')->name('formularioInscripcion');
+Route::post('/agregarInscripcion', 'InscripcionController@storeInscripcion')->name('agregarInscripcion');
