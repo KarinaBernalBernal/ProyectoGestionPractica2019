@@ -26,6 +26,7 @@ class SolicitudController extends Controller
     {
         //
 
+
     }
 
     /**
@@ -88,7 +89,6 @@ class SolicitudController extends Controller
     public function verDescripcion(){
         return view('1 Solicitud/solicitud');
     }
-
 
     /*---------------------------------------------------------------------------*/
 

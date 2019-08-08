@@ -8,6 +8,13 @@ use SGPP\Autoevaluacion;
 
 class AutoEvaluacionController extends Controller
 {
+    public function index()
+    {
+        return view('3 Evaluacion/formularioAutoEvaluacion');
+    }
+    public function verDescripcionAutoEvaluacion(){
+        return view('3 Evaluacion/autoEvaluacion');
+    }
      //vista principal de un elemento en especifico
     public function lista()
     {
