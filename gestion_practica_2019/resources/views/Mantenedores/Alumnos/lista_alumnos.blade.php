@@ -24,7 +24,6 @@
                                     <th>Año ingreso</th>
                                     <th>Carrera</th>
                                     <th>Estimación semestres</th>
-                                    <th>id usuario</th>
                                     <th>Opción</th>
                                 </tr >
                                 </thead>
@@ -46,7 +45,6 @@
                                             <td>{{$alumno->anno_ingreso}}</td>
                                             <td>{{$alumno->carrera}}</td>
                                             <td>{{$alumno->estimacion_semestre}}</td>
-                                            <td>{{$alumno->id_user}}</td>
                                             <td>
                                                 <a href="{{route('editar_alumno',[$alumno->id_alumno])}} "><button id="{{$alumno->id_alumno}}" class="btn btn-warning">Editar</button></a>
                                                 <a href="#"><button id="{{$alumno->id_alumno}}" class="btn btn-danger" onclick="borrar('{{$alumno->id_alumno}}', '{{$alumno->nombre}}', '{{route('borrar_alumno',[$alumno->id_alumno])}}')">Borrar</button></a>
@@ -63,7 +61,6 @@
                                     <th>Año ingreso</th>
                                     <th>Carrera</th>
                                     <th>Estimación semestres</th>
-                                    <th>Id usuario</th>
                                     <th>Opción</th>
                                 </tr>
                                 </tfoot>

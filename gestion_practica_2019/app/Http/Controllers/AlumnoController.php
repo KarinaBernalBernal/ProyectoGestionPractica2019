@@ -4,6 +4,7 @@ namespace SGPP\Http\Controllers;
 
 use Illuminate\Http\Request;
 use SGPP\Alumno;
+use SGPP\User;
 
 class AlumnoController extends Controller
 {
@@ -45,7 +46,16 @@ class AlumnoController extends Controller
 		$nuevo->anno_ingreso = $data['anno_ingreso'];
         $nuevo->carrera = $data['carrera'];
         $nuevo->estimacion_semestre = $data['estimacion_semestre'];
-		$nuevo->id_user = $data['id_user'];
+
+        $nueva_instancia = new User;
+        $nueva_instancia->name = $nuevo->nombre;
+        $nueva_instancia->email = $nuevo->email;
+        $nueva_instancia->password = bcrypt($data['rut']);
+        $nueva_instancia->type = 'alumno';
+
+        $nueva_instancia->save();
+
+		$nuevo->id_user = $nueva_instancia->id_user;
 
 
         $nuevo->save();
@@ -70,7 +80,17 @@ class AlumnoController extends Controller
             $elemento_editar->estimacion_semestre=$request->estimacion_semestre;
 			$elemento_editar->id_user=$request->id_user;
 
+
+            $user_editar=User::find($elemento_editar->id_user);
+            if(isset($user_editar))
+            {
+                $user_editar->name=$request->nombre;
+                $user_editar->email=$request->email;
+                $user_editar->type=$user_editar->type;
+            }
             $elemento_editar->save();
+
+            $user_editar->save();
 
             return redirect()->route('lista_alumnos');
         }
