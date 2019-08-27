@@ -123,17 +123,7 @@
                                     @endif
                                 </div>
                             </div>
-                             <div class="form-group{{ $errors->has('id_user') ? ' has-error' : '' }}">
-                                <label for="id_user" class="col-md-4 control-label">id user</label>
-                                <div class="col-md-6">
-                                    <input id="id_user" type="text" class="form-control" name="id_user" value="{{ old('id_user', $elemento->id_user) }}"  required autofocus>
-                                    @if ($errors->has('id_user'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('id_user') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
-                            </div>
+
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-4">
                                     <button type="submit" class="btn btn-primary">

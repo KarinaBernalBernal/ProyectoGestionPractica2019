@@ -24,8 +24,6 @@
                                     <th>Departamento</th>
                                     <th>Email</th>
                                     <th>Fono</th>
-                                    <th>Id user</th>
-                                    <th>Id empresa</th>
                                     <th>Opción</th>
                                 </tr >
                                 </thead>
@@ -40,8 +38,6 @@
                                             <td>{{$supervisor->departamento}}</td>
                                             <td>{{$supervisor->email}}</td>
                                             <td>{{$supervisor->fono}}</td>
-                                            <td>{{$supervisor->id_user}}</td>
-                                            <td>{{$supervisor->id_empresa}}</td>
 
                                             <td>
                                                 <a href="{{route('editar_supervisor',[$supervisor->id_supervisor])}} "><button id="{{$supervisor->id_supervisor}}" class="btn btn-warning">Editar</button></a>
@@ -53,7 +49,7 @@
                                 <tfoot>
                                 <tr >
                                      <th>Id
-                                /th>
+                                </th>
                                     <th>Nombre</th>
                                     <th>Apellido paterno</th>
                                     <th>Apellido materno</th>
@@ -61,8 +57,6 @@
                                     <th>Departamento</th>
                                     <th>Email</th>
                                     <th>Fono</th>
-                                    <th>Id user</th>
-                                    <th>Id empresa</th>
                                     <th>Opción</th>
                                 </tr>
                                 </tfoot>
