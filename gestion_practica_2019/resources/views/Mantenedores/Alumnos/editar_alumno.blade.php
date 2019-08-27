@@ -100,7 +100,11 @@
                              <div class="form-group{{ $errors->has('carrera') ? ' has-error' : '' }}">
                                 <label for="carrera" class="col-md-4 control-label">Carrera</label>
                                 <div class="col-md-6">
-                                    <input id="carrera" type="text" class="form-control" name="carrera" value="{{ old('carrera', $elemento->carrera) }}"  required autofocus>
+                                    <select name="carrera" id="carrera" class="form-control" required autofocus>
+                                        <option value="Ingeniería de Ejecución en Informatica">Ingeniería de Ejecución en Informatica</option>
+                                        <option value="Ingeniería Civil en Informatica">Ingeniería Civil en Informatica</option>
+                                    </select>
+                                    
                                     @if ($errors->has('carrera'))
                                         <span class="help-block">
                                             <strong>{{ $errors->first('carrera') }}</strong>

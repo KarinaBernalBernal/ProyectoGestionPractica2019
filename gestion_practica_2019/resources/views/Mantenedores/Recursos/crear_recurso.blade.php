@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-md col-md-offset-2">
                 <div class="card">
-                    <div class="card-header"><h1>Mantenedor recurso</h1></div>
+                    <div class="card-header"><h1>Agregar recurso</h1></div>
                     <div class="card-body">
                         <form class="form-horizontal" action="{{route('agregar_recurso')}}" method="post">
                             {{ csrf_field() }}
