@@ -4,6 +4,9 @@ namespace SGPP\Http\Controllers;
 
 use Illuminate\Http\Request;
 use SGPP\Solicitud;
+use SGPP\Alumno;
+use SGPP\User;
+
 
 class SolicitudController extends Controller
 {
@@ -178,6 +181,32 @@ class SolicitudController extends Controller
         $solicitud->observacion_solicitud = $request->observacion;
         $solicitud->estado = 2;
 
+        // si la solicitud es aprobada , se crea el alumno y usuario del mismo
+        if($solicitud->resolucion_solicitud == 'Aprobado')
+            $nuevo = new Alumno;
+
+            $nuevo->nombre = $solicitud->nombre;
+            $nuevo->apellido_paterno = $solicitud->apellido_paterno;
+            $nuevo->apellido_materno = $solicitud->apellido_materno;
+            $nuevo->rut = $solicitud->rut;
+            $nuevo->email = $solicitud->email;
+            $nuevo->direccion = $solicitud->direccion;
+            $nuevo->fono = $solicitud->fono;
+            $nuevo->anno_ingreso = $solicitud->anno_ingreso;
+            $nuevo->carrera = $solicitud->carrera;
+            $nuevo->estimacion_semestre = 0;
+
+            $nueva_instancia = new User;
+            $nueva_instancia->name = $nuevo->nombre;
+            $nueva_instancia->email = $nuevo->email;
+            $nueva_instancia->password = bcrypt($nuevo->rut);
+            $nueva_instancia->type = 'alumno';
+
+            $nueva_instancia->save();
+
+            $nuevo->id_user = $nueva_instancia->id_user;
+            $nuevo->save();
+
         $solicitud->save();
 
         if($solicitud->carrera == "Ingeniería Civil Informática"){
@@ -196,6 +225,32 @@ class SolicitudController extends Controller
 
         $solicitud->resolucion_solicitud = $request->resolucion;
         $solicitud->observacion_solicitud = $request->observacion;
+        // si la solicitud al ser modificada es aprobada , se crea el alumno y usuario del mismo
+        if($solicitud->resolucion_solicitud == 'Aprobado')
+            $nuevo = new Alumno;
+
+            $nuevo->nombre = $solicitud->nombre;
+            $nuevo->apellido_paterno = $solicitud->apellido_paterno;
+            $nuevo->apellido_materno = $solicitud->apellido_materno;
+            $nuevo->rut = $solicitud->rut;
+            $nuevo->email = $solicitud->email;
+            $nuevo->direccion = $solicitud->direccion;
+            $nuevo->fono = $solicitud->fono;
+            $nuevo->anno_ingreso = $solicitud->anno_ingreso;
+            $nuevo->carrera = $solicitud->carrera;
+            $nuevo->estimacion_semestre = 0;
+
+            $nueva_instancia = new User;
+            $nueva_instancia->name = $nuevo->nombre;
+            $nueva_instancia->email = $nuevo->email;
+            $nueva_instancia->password = bcrypt($nuevo->rut);
+            $nueva_instancia->type = 'alumno';
+
+            $nueva_instancia->save();
+
+            $nuevo->id_user = $nueva_instancia->id_user;
+            $nuevo->save();
+
 
         $solicitud->save();
 
