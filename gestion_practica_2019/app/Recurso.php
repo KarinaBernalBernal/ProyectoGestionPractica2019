@@ -9,7 +9,7 @@ class Recurso extends Model
     protected $primaryKey = 'id_recurso';
 
     protected $fillable = [
-        'n_recurso','url'
+        'n_recurso','url','modulo'
     ];
 
     public function perfilRecurso(){

@@ -16,7 +16,9 @@ class InscripcionController extends Controller
      */
     public function indexSolicitarDocumentos()
     {
+
         return view('2 Inscripcion/formularioSolicitarDocumentos');
+
     }
 
     public function indexInscripcion()
@@ -48,7 +50,7 @@ class InscripcionController extends Controller
             'departamento' => $request->departamento,
             'cuidad' => $request->ciudad,
             'empresa' => $request->empresa,
-            'id_alumno' => 
+            'id_alumno' =>
         ]);
 
         *falta guardar la fecha en practica

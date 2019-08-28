@@ -17,13 +17,13 @@
                                 <thead class="bg-dark" style="color: white">
                                 <tr>
                                     <th>Id</th>
-                                    <th>n_empresa</th>
-                                    <th>rut</th>
-                                    <th>ciudad</th>
-                                    <th>direccion</th>
-                                    <th>fono</th>
-                                    <th>casilla</th>
-                                    <th>email</th>
+                                    <th>Nombre</th>
+                                    <th>RUT</th>
+                                    <th>Ciudad</th>
+                                    <th>Direccion</th>
+                                    <th>Telefono</th>
+                                    <th>Casilla</th>
+                                    <th>Email</th>
                                     <th>Opción</th>
                                 </tr >
                                 </thead>
@@ -48,13 +48,13 @@
                                 <tfoot>
                                 <tr >
                                     <th>Id</th>
-                                    <th>n_empresa</th>
-                                    <th>rut</th>
-                                    <th>ciudad</th>
-                                    <th>direccion</th>
-                                    <th>fono</th>
-                                    <th>casilla</th>
-                                    <th>email</th>
+                                    <th>Nombre</th>
+                                    <th>RUT</th>
+                                    <th>Ciudad</th>
+                                    <th>Direccion</th>
+                                    <th>Telefono</th>
+                                    <th>Casilla</th>
+                                    <th>Email</th>
                                     <th>Opción</th>
                                 </tr>
                                 </tfoot>

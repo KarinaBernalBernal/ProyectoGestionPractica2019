@@ -27,12 +27,35 @@
                                 <div class="col-md-6">
                                     <input id="url" type="text" class="form-control" name="url" value="{{ old('url', $elemento->url) }}" required autofocus>
 
-                                    @if ($errors->has('name'))
+                                    @if ($errors->has('url'))
+
                                         <span class="help-block">
                                             <strong>{{ $errors->first('url') }}</strong>
                                         </span>
                                     @endif
                                 </div>
+                                <div class="col-md-6">
+                                    <label for="perfil" class="col-md-4 control-label">Perfiles</label>
+
+                                        <select id="type_element" name="perfil" class="form-control">
+
+                                            @foreach($perfiles as $perfil)
+                                                <option value="{{ old('id_perfil', $perfil->id_perfil) }}" >{{ $perfil->n_perfil }}</option>
+                                            @endforeach
+                                        </select>
+
+                                </div>
+
+                                <div class="col-md-6">
+                                    <input id="modulo" type="text" class="form-control" name="modulo" value="{{ old('modulo', $elemento->modulo) }}" required autofocus>
+
+                                    @if ($errors->has('modulo'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('modulo') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+
                             </div>
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-4">

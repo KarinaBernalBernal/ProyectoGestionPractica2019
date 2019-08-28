@@ -5,13 +5,13 @@
         <div class="row">
             <div class="col-md col-md-offset-2">
                 <div class="card">
-                    <div class="card-header"><h1>Agregar alumno</h1></div>
+                    <div class="card-header"><h1>Agregar empresa</h1></div>
                     <div class="card-body">
                         <form class="form-horizontal" action="{{route('agregar_empresa')}}" method="post">
                             {{ csrf_field() }}
 
                             <div class="form-group{{ $errors->has('n_empresa') ? ' has-error' : '' }}">
-                                <label for="n_empresa" class="col-md-4 control-label">n_empresa</label>
+                                <label for="n_empresa" class="col-md-4 control-label">Nombre</label>
                                 <div class="col-md-6">
                                     <input id="n_empresa" type="text" class="form-control" name="n_empresa" required autofocus>
                                     @if ($errors->has('n_empresa'))
@@ -22,7 +22,7 @@
                                 </div>
                             </div>
                              <div class="form-group{{ $errors->has('rut') ? ' has-error' : '' }}">
-                                <label for="rut" class="col-md-4 control-label">rut</label>
+                                <label for="rut" class="col-md-4 control-label">RUT</label>
                                 <div class="col-md-6">
                                     <input id="rut" type="text" class="form-control" name="rut" required autofocus>
                                     @if ($errors->has('rut'))
@@ -33,7 +33,7 @@
                                 </div>
                             </div>
                              <div class="form-group{{ $errors->has('ciudad') ? ' has-error' : '' }}">
-                                <label for="ciudad" class="col-md-4 control-label">ciudad</label>
+                                <label for="ciudad" class="col-md-4 control-label">Ciudad</label>
                                 <div class="col-md-6">
                                     <input id="ciudad" type="text" class="form-control" name="ciudad" required autofocus>
                                     @if ($errors->has('ciudad'))
@@ -65,7 +65,7 @@
                                 </div>
                             </div>
                              <div class="form-group{{ $errors->has('casilla') ? ' has-error' : '' }}">
-                                <label for="casilla" class="col-md-4 control-label">casilla de ingreso</label>
+                                <label for="casilla" class="col-md-4 control-label">Casilla de ingreso</label>
                                 <div class="col-md-6">
                                     <input id="casilla" type="text" class="form-control" name="casilla" required autofocus>
                                     @if ($errors->has('casilla'))
@@ -76,7 +76,7 @@
                                 </div>
                             </div>
                              <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                                <label for="email" class="col-md-4 control-label">email</label>
+                                <label for="email" class="col-md-4 control-label">Email</label>
                                 <div class="col-md-6">
                                     <input id="email" type="text" class="form-control" name="email" required autofocus>
                                     @if ($errors->has('email'))

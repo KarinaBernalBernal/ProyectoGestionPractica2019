@@ -4,6 +4,9 @@ namespace SGPP\Http\Controllers;
 
 use Illuminate\Http\Request;
 use SGPP\Supervisor;
+use SGPP\User;
+use SGPP\Empresa;
+
 
 class SupervisorController extends Controller
 {
@@ -18,14 +21,19 @@ class SupervisorController extends Controller
     }
     public function crear()
     {
-        return view('Mantenedores/Supervisores/crear_supervisor');
+        $empresas= Empresa::all();
+
+        return view('Mantenedores/Supervisores/crear_supervisor')->with('empresas', $empresas);
     }
 
     public function editar($id_elemento)
     {
         $elemento= Supervisor::find($id_elemento);
+        $empresas= Empresa::all();
+
         return view('Mantenedores/Supervisores/editar_supervisor',[
                 'elemento'=>$elemento,
+                'empresas' => $empresas,
             ]);
     }
 
@@ -40,8 +48,18 @@ class SupervisorController extends Controller
         $nuevo->departamento = $data['departamento'];
         $nuevo->email = $data['email'];
         $nuevo->fono = $data['fono'];
-        $nuevo->id_user = $data['id_user'];
-        $nuevo->id_empresa = $data['id_empresa'];
+        $empresa = $data['id_empresa'];
+
+        $nuevo->id_empresa = $empresa;
+
+        $nueva_instancia = new User;
+        $nueva_instancia->name = $nuevo->nombre;
+        $nueva_instancia->email = $nuevo->email;
+        $nueva_instancia->password = bcrypt($data['nombre']);
+        $nueva_instancia->type = 'supervisor';
+        $nueva_instancia->save();
+
+        $nuevo->id_user = $nueva_instancia->id_user;
 
         $nuevo->save();
 
@@ -60,11 +78,19 @@ class SupervisorController extends Controller
             $elemento_editar->departamento=$request->departamento;
             $elemento_editar->email=$request->email;
             $elemento_editar->fono=$request->fono;
-            $elemento_editar->id_user=$request->id_user;
             $elemento_editar->id_empresa=$request->id_empresa;
 
+            $user_editar=User::find($elemento_editar->id_user);
+            if(isset($user_editar))
+            {
+                $user_editar->name=$request->nombre;
+                $user_editar->email=$request->email;
+                $user_editar->type=$user_editar->type;
+            }
+            $elemento_editar->id_user=$user_editar->id_user;
             $elemento_editar->save();
 
+            $user_editar->save();
             return redirect()->route('lista_supervisores');
         }
     }

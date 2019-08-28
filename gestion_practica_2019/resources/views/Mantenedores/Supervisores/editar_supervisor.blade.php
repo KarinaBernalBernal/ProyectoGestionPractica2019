@@ -76,7 +76,7 @@
                                 </div>
                             </div>
                             <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                                <label for="email" class="col-md-4 control-label">email</label>
+                                <label for="email" class="col-md-4 control-label">Email</label>
                                 <div class="col-md-6">
                                     <input id="email" type="text" class="form-control" name="email" value="{{ old('email', $elemento->email) }}"  required autofocus>
                                     @if ($errors->has('email'))
@@ -86,27 +86,17 @@
                                     @endif
                                 </div>
                             </div>
-                             <div class="form-group{{ $errors->has('id_user') ? ' has-error' : '' }}">
-                                <label for="id_user" class="col-md-4 control-label">id user</label>
-                                <div class="col-md-6">
-                                    <input id="id_user" type="text" class="form-control" name="id_user" value="{{ old('id_user', $elemento->id_user) }}"  required autofocus>
-                                    @if ($errors->has('id_user'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('id_user') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
-                            </div>
-                             <div class="form-group{{ $errors->has('id_empresa') ? ' has-error' : '' }}">
-                                <label for="id_empresa" class="col-md-4 control-label">id_empresa</label>
-                                <div class="col-md-6">
-                                    <input id="id_empresa" type="text" class="form-control" name="id_empresa" value="{{ old('id_empresa', $elemento->id_empresa) }}"  required autofocus>
-                                    @if ($errors->has('id_empresa'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('id_empresa') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
+                            <div class="col-md-6">
+                                <label for="id_empresa" class="col-md-4 control-label">Empresas</label>
+
+                                    <select id="id_empresa" name="id_empresa" class="form-control">
+
+                                        @foreach($empresas as $id_empresa)
+                                            <option value="{{ old('id_empresa', $id_empresa->id_empresa) }}" >{{ $id_empresa->n_empresa }}</option>
+                                        @endforeach
+                                    </select>
+
+
                             </div>
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-4">
