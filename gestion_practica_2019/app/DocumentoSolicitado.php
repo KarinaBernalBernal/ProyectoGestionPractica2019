@@ -4,9 +4,10 @@ namespace SGPP;
 
 use Illuminate\Database\Eloquent\Model;
 
-class DocSolicitado extends Model
+class DocumentoSolicitado extends Model
 {
     protected $primaryKey = 'id_doc_solicitado';
+    protected $table = 'documentos_solicitados';
 
     protected $fillable = [
         'f_solicitud','carta_presentacion','seguro_escolar','f_desde','f_hasta','n_destinatario','cargo','departamento','cuidad','empresa','id_alumno'

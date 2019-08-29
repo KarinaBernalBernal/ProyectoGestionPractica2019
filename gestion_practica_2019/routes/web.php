@@ -127,6 +127,7 @@ Route::get('/aceptarSolicitud/{id_solicitud}', 'SolicitudController@estado')->na
 //--------Descripcion de etapa Inscripcion
 //solicitudDocumentos
 Route::get('/descripcionSolicitudDocumentos', 'InscripcionController@verDescripcionSolicitudDoc')->name('descripcionSolicitudDocumentos');
+Route::get('/lista_solicitudes_documentos', 'InscripcionController@lista')->name('lista_solicitudes_documentos');
 //formularioInscripcion
 Route::get('/descripcionInscripcion', 'InscripcionController@verDescripcionInscripcion')->name('descripcionInscripcion');
 //-------formulario de solicitud de documentos

@@ -4,6 +4,10 @@ namespace SGPP\Http\Controllers;
 
 use Illuminate\Http\Request;
 use SGPP\Solicitud;
+use SGPP\DocumentoSolicitado;
+use SGPP\Alumno;
+use Auth;
+
 
 class InscripcionController extends Controller
 {
@@ -34,33 +38,54 @@ class InscripcionController extends Controller
      */
     public function storeSolicitarDocumentos(Request $request)
     {
-        /*
+
         $fecha = date("Y-m-d H:i:s");
-        $alumno =
+        $user_id = Auth::user()->id_user;
+        $alumno = Alumno::where('id_user', $user_id)->first();
+        $data = $request->all();
 
-        DocSolicitados::create(
+        $nuevo = new DocumentoSolicitado;
 
-            'f_solicitud' => $fecha,
-            'carta_presentacion' => $request->cartaPresentacion,
-            'seguro_escolar' => $request->seguroEscolar,
-            'f_desde' => $request->fechaDesde,
-            'f_hasta' => $request->fechaHasta,
-            'n_destinatario' => $request->n_destinatario,
-            'cargo' => $request->cargo,
-            'departamento' => $request->departamento,
-            'cuidad' => $request->ciudad,
-            'empresa' => $request->empresa,
-            'id_alumno' =>
-        ]);
+        $nuevo->f_solicitud = $fecha;
+        if(isset($data['cartaPresentacion'])){
+            $nuevo->carta_presentacion = true;
+        }
+        else{
+            $nuevo->carta_presentacion = false;
+        }
 
-        *falta guardar la fecha en practica
-        */
+        if(isset($data['seguroEscolar'])){
+            $nuevo->seguro_escolar = true;
+        }
+        else{
+            $nuevo->seguro_escolar = false;
+        }
+        $nuevo->f_desde = $data['fechaDesde'];
+        $nuevo->f_hasta = $data['fechaHasta'];
+        $nuevo->n_destinatario = $data['n_destinatario'];
+        $nuevo->cargo = $data['cargo'];
+        $nuevo->departamento = $data['departamento'];
+        $nuevo->cuidad = $data['ciudad'];
+        $nuevo->empresa = $data['empresa'];
+        $nuevo->id_alumno = $alumno->id_alumno;
+        $nuevo->save();
+
+        // *falta guardar la fecha en practica
+
 
         return redirect()->route('descripcionSolicitudDocumentos');
     }
     public function storeInscripcion(Request $request)
     {
         return redirect()->route('descripcionInscripcion');
+    }
+
+    public function lista()
+    {
+        $lista=DocumentoSolicitado::all();
+        return view('2 Inscripcion/lista_solicitudes_documentos',[
+                'lista'=>$lista,
+            ]);
     }
 
     /* ----- Inscripcion practica ----*/
@@ -73,7 +98,7 @@ class InscripcionController extends Controller
         return view('2 Inscripcion/inscripcion');
     }
 
-    
+
 }
 
 ?>
