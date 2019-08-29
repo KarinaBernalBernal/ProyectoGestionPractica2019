@@ -1,7 +1,7 @@
 <?php
 
 namespace SGPP\Http\Controllers;
-
+use Illuminate\Routing\Route;
 use Illuminate\Http\Request;
 use SGPP\Solicitud;
 use SGPP\Alumno;
@@ -210,7 +210,11 @@ class SolicitudController extends Controller
             $nueva_instancia->save();
 
             $nuevo->id_user = $nueva_instancia->id_user;
+
+
             $nuevo->save();
+            return redirect()->route('enviar');
+        $solicitud->save();
 
             $nueva_instancia = new Practica;
             $nueva_instancia->f_solicitud = $fecha;
@@ -261,7 +265,7 @@ class SolicitudController extends Controller
             $nuevo->id_user = $nueva_instancia->id_user;
             $nuevo->save();
 
-
+            return redirect()->route('enviar');
         $solicitud->save();
 
        if($solicitud->carrera == "Ingeniería Civil Informática"){

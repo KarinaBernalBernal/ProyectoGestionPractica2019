@@ -123,7 +123,7 @@ Route::get('/listaSolicitudCivil', 'SolicitudController@listaSolicitudCivil')->n
 Route::get('/borrarSolicitud/{id_solicitud}', 'SolicitudController@destroy')->name('borrarSolicitud');
 Route::resource('solicitudes', 'SolicitudController');
 Route::get('/aceptarSolicitud/{id_solicitud}', 'SolicitudController@estado')->name('aceptarSolicitud');
-/*--------------------- Etapa Inscrpcion ---------------------*/
+/*--------------------- Etapa Inscripcion ---------------------*/
 //--------Descripcion de etapa Inscripcion
 //solicitudDocumentos
 Route::get('/descripcionSolicitudDocumentos', 'InscripcionController@verDescripcionSolicitudDoc')->name('descripcionSolicitudDocumentos');
@@ -144,3 +144,24 @@ Route::post('/agregarAutoEvaluacion', 'AutoEvaluacionController@store')->name('a
 Route::get('/descripcionEvaluacionEmpresa', 'EvaluacionSupervisorController@verDescripcionEvaluacionEmpresa')->name('descripcionEvaluacionEmpresa');
 Route::get('/formularioEvaluacionEmpresa', 'EvaluacionSupervisorController@index')->name('formularioEvaluacionEmpresa');
 Route::post('/agregarEvaluacionEmpresa', 'EvaluacionSupervisorController@store')->name('agregarEvaluacionEmpresa');
+
+/*--------------------- Reportes ---------------------*/
+/* Rutas Reportes alumnos */
+// Rutas tipo GET
+Route::get('/Reportes/alumnos', 'AlumnosReporteController@index')->name('reporte_alumnos');
+
+Route::get('Notificar/Usuario', ['as' => 'enviar', function () {
+
+                $data = ['link' => 'http://styde.net'];
+
+                \Mail::send('Emails.notificacion', $data, function ($message) {
+
+                    $message->from('Sistema_gestion@styde.net', 'Styde.Net');
+
+                    $message->to('usuario_prueba@gmail.com')->subject('Notificación');
+
+                });
+
+                return redirect()->route('home');
+            }]);
+
