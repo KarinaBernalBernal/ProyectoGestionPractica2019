@@ -99,6 +99,7 @@
             <tr>
               <td class="bodycopy">
                 Te informamos que tu solicitud de practica ha sido aprobada, la información de los pasos a seguir se encuentran en la pagina de Sistema de gestión de practica profesional.
+                Puedes acceder al sistema con tu correo y contraseña , siendo este ultimo tu rut.
               </td>
             </tr>
           </table>
