@@ -28,7 +28,6 @@
         <div class="sidebar-heading">
             Gestión Practicas Profesionales
         </div>
-
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseGestionCuentas" aria-expanded="true" aria-controls="collapseGestionCuentas"><i class="fas fa-users"></i>
@@ -50,7 +49,6 @@
                 </div>
             </div>
         </li>
-
         <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseIngCivilInf" aria-expanded="true" aria-controls="collapseIngCivilInf"><i class="fas fa-users"></i>
             <span>Ing. Civil Informatica:</span>
