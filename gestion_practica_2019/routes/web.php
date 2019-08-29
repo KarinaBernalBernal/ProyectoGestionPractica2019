@@ -147,3 +147,18 @@ Route::get('/formularioEvaluacionEmpresa', 'EvaluacionSupervisorController@index
 /* Rutas Reportes alumnos */
 // Rutas tipo GET
 Route::get('/Reportes/alumnos', 'AlumnosReporteController@index')->name('reporte_alumnos');
+
+Route::get('Notificar/Usuario', ['as' => 'enviar', function () {
+
+                $data = ['link' => 'http://styde.net'];
+
+                \Mail::send('Emails.notificacion', $data, function ($message) {
+
+                    $message->from('Sistema_gestion@styde.net', 'Styde.Net');
+
+                    $message->to('usuario_prueba@gmail.com')->subject('Notificación');
+
+                });
+
+                return redirect()->route('home');
+            }]);
