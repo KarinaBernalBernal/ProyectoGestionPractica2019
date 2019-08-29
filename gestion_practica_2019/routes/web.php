@@ -142,8 +142,3 @@ Route::get('/descripcionAutoEvaluacion', 'AutoEvaluacionController@verDescripcio
 Route::get('/formularioAutoEvaluacion', 'AutoEvaluacionController@index')->name('formularioAutoEvaluacion');
 Route::get('/descripcionEvaluacionEmpresa', 'EvaluacionSupervisorController@verDescripcionEvaluacionEmpresa')->name('descripcionEvaluacionEmpresa');
 Route::get('/formularioEvaluacionEmpresa', 'EvaluacionSupervisorController@index')->name('formularioEvaluacionEmpresa');
-
-/*--------------------- Reportes ---------------------*/
-/* Rutas Reportes alumnos */
-// Rutas tipo GET
-Route::get('/Reportes/alumnos', 'AlumnosReporteController@index')->name('reporte_alumnos');

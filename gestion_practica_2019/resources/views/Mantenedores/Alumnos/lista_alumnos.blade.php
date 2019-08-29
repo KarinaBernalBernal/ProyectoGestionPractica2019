@@ -7,6 +7,38 @@
     </div>
     <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
     <div class="container">
+            <h4>Filtros</h4>
+    
+            <form class="form-horizontal" action="{{route('lista_alumnos')}}" method="get">
+                <div class="row">
+                    <div class="col-3 mb-2">
+                            <input id="nombre" type="text" class="form-control" name="nombre" placeholder="Ingrese nombre...">
+                    </div>
+    
+                    <div class="col-3 mb-2">
+                            <input id="apellido_paterno" type="text" class="form-control" name="apellido_paterno" placeholder="Ingrese Apellido Paterno...">
+                    </div>
+                    <div class="col-3 mb-2">
+                            <input id="apellido_materno" type="text" class="form-control" name="apellido_materno" placeholder="Ingrese Apellido Materno...">
+                    </div>
+                    <div class="col-3 mb-2">
+                            <input id="email" type="text" class="form-control" name="email" placeholder="Ingrese email...">
+                    </div>
+                    <div class="col-3 mb-2">
+                            <input id="anno_ingreso" type="text" class="form-control" name="anno_ingreso" placeholder="Ingrese año de ingreso...">
+                    </div>
+                    <div class="col-3 mb-2">
+                        <select id="carrera" type="text" class="form-control" name="carrera" placeholder="Ingrese año de ingreso">
+                            <option value="Ingeniería Civil en Informatica">Ingeniería Civil en Informatica</option>
+                            <option value="Ingeniería de Ejecución en Informatica">Ingeniería de Ejecución en Informatica</option>
+                        </select>
+                    </div>
+                </div>
+    
+                <div class="form-group">
+                    <button type="submit" class="btn btn-info">buscar</button>
+                </div>
+            </form>
         <div class="row justify-content-center">
             <div class="text-center">
                 @if (count($lista)>0)
