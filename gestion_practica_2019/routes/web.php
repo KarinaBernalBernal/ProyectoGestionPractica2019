@@ -123,7 +123,7 @@ Route::get('/listaSolicitudCivil', 'SolicitudController@listaSolicitudCivil')->n
 Route::get('/borrarSolicitud/{id_solicitud}', 'SolicitudController@destroy')->name('borrarSolicitud');
 Route::resource('solicitudes', 'SolicitudController');
 Route::get('/aceptarSolicitud/{id_solicitud}', 'SolicitudController@estado')->name('aceptarSolicitud');
-/*--------------------- Etapa Inscrpcion ---------------------*/
+/*--------------------- Etapa Inscripcion ---------------------*/
 //--------Descripcion de etapa Inscripcion
 //solicitudDocumentos
 Route::get('/descripcionSolicitudDocumentos', 'InscripcionController@verDescripcionSolicitudDoc')->name('descripcionSolicitudDocumentos');
@@ -142,3 +142,8 @@ Route::get('/descripcionAutoEvaluacion', 'AutoEvaluacionController@verDescripcio
 Route::get('/formularioAutoEvaluacion', 'AutoEvaluacionController@index')->name('formularioAutoEvaluacion');
 Route::get('/descripcionEvaluacionEmpresa', 'EvaluacionSupervisorController@verDescripcionEvaluacionEmpresa')->name('descripcionEvaluacionEmpresa');
 Route::get('/formularioEvaluacionEmpresa', 'EvaluacionSupervisorController@index')->name('formularioEvaluacionEmpresa');
+
+/*--------------------- Reportes ---------------------*/
+/* Rutas Reportes alumnos */
+// Rutas tipo GET
+Route::get('/Reportes/alumnos', 'AlumnosReporteController@index')->name('reporte_alumnos');
