@@ -43,7 +43,7 @@
                             <button class="btn btn-primary btn-user btn-block col-md-auto">Ingresar</button>
                         </a>
                         <!-- Esto esta aca para crear usuario XD-->
-                        <!-- <a class="btn btn-primary btn-user" href="{{ route('register') }}">Register</a>-->
+                        <a class="btn btn-primary btn-user" href="{{ route('register') }}">Register</a>
                     @endauth
                 </div>
             @endif

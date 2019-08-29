@@ -67,10 +67,12 @@
                         <a class="collapse-item" href="#">Supervisores</a>
 
                         <h6 class="collapse-header">Etapas</h6>
-                        <!-- Jefe de Docencia -->
-                        <a class="collapse-item" href="{{route('evaluacionSolicitud')}}">Solicitudes (Jefe Docencia)</a>
-                        <!-- Secretaria -->
-                        <a class="collapse-item" href="{{ route('listaSolicitudCivil')}}">Solicitudes (Secretaria)</a>
+                        @if(Auth::user()->name == 'Jefe de docencia')
+                            <a class="collapse-item" href="{{route('evaluacionSolicitud')}}">Solicitudes</a>
+                        @endif
+                        @if(Auth::user()->name == 'Gestionador')
+                            <a class="collapse-item" href="{{ route('listaSolicitudCivil')}}">Solicitudes</a>
+                        @endif
                         <a class="collapse-item" href="#">Inscripciones</a>
                         <a class="collapse-item" href="#">Autoevaluaciones</a>
                         <a class="collapse-item" href="#">Evaluaciones de empresas</a>
@@ -93,11 +95,13 @@
                         <a class="collapse-item" href="#">Supervisores</a>
 
                         <h6 class="collapse-header">Etapas</h6>
-                        <!-- Secretaria -->
-                        <a class="collapse-item" href="{{ route('listaSolicitudEjecucion')}}">Solicitudes (Secretaria)</a>
-                        <!-- Jefe de Docencia -->
-                        <a class="collapse-item" href="{{route('evaluacionSolicitudEjecucion')}}">Solicitudes (Jefe Docencia)</a>
-
+                        @if(Auth::user()->name == 'Jefe de docencia') 
+                            <a class="collapse-item" href="{{route('evaluacionSolicitudEjecucion')}}">
+                            Solicitudes</a>
+                        @endif
+                        @if(Auth::user()->name == 'Gestionador') 
+                            <a class="collapse-item" href="{{ route('listaSolicitudEjecucion')}}">Solicitudes</a>
+                        @endif
                         <a class="collapse-item" href="#">Inscripciones</a>
                         <a class="collapse-item" href="#">Autoevaluaciones</a>
                         <a class="collapse-item" href="#">Evaluaciones de empresas</a>
@@ -108,9 +112,7 @@
                     </div>
                 </div>
             </li>
-
         <?php endif ?>
-
         @endauth
     @endif
     @if (Route::has('login'))
@@ -129,7 +131,7 @@
                 <!-- Nav Item - Pages Collapse Menu -->
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="{{route('descripcionSolicitud')}}">
-                        <i class="fas fa-arrow-right"></i><span>Solicita tu práctica aquí</span>
+                        <i class="fas fa-arrow-right"></i><span>Solicitud enviada</span>
                     </a>
                 </li>
 

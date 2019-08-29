@@ -9,8 +9,6 @@
         <form action="{{route('agregarSolicitudDocumentos')}}" enctype="multipart/form-data" method="POST" role="form">
             {{ csrf_field() }} 
 
-            {{-- Documentos solicitados --}}
-
             <div class="card text">                
                 <div class="card-body">
 
@@ -91,20 +89,20 @@
                         </div>
                     </div>
 
-                     {{-- Ciudad --}}
+                    {{-- Ciudad --}}  
                     <div class="form-group row">
                         <label for="ciudad" class="col-md-3 col-form-label text-md-right">{{ __('Ciudad') }}</label>
-
+                        
                         <div class="col-md-7">
                             <input id="ciudad" type="text" class="form-control" name="ciudad" value="{{ old('ciudad') }}" required>
                         </div>
-                    </div>  
+                    </div>
 
                     <br>
                     
                     <div class="row justify-content-end ">
                         <div class="col-md-4">
-                            <a href="{{route('descripcionSolicitud')}} " class="btn btn-secondary">Cancelar</a>
+                            <a href="{{route('descripcionSolicitudDocumentos')}} " class="btn btn-secondary">Cancelar</a>
                         </div>
                         <div class="col-md-4">
                             <input class="btn btn-primary" type="submit" value="Agregar">

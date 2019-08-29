@@ -3,7 +3,8 @@
 namespace SGPP\Http\Controllers;
 
 use Illuminate\Http\Request;
-use SGPP\Solicitud;
+use Illuminate\Support\Facades\Auth;
+use SGPP\DocSolicitado;
 
 class InscripcionController extends Controller
 {
@@ -34,12 +35,22 @@ class InscripcionController extends Controller
      */
     public function storeSolicitarDocumentos(Request $request)
     {
-        /*
-        $fecha = date("Y-m-d H:i:s");
-        $alumno =
+        $fecha = date("Y-m-d");
 
-        DocSolicitados::create(
+        if($request->cartaPresentacion == 'on')
+            $request->cartaPresentacion = true;
+        else 
+            $request->cartaPresentacion = false;
 
+
+        if($request->seguroEscolar == 'on')
+            $request->seguroEscolar = true;
+        else 
+            $request->seguroEscolar = false;
+
+
+        DocSolicitado::create([
+            
             'f_solicitud' => $fecha,
             'carta_presentacion' => $request->cartaPresentacion,
             'seguro_escolar' => $request->seguroEscolar,
@@ -48,13 +59,11 @@ class InscripcionController extends Controller
             'n_destinatario' => $request->n_destinatario,
             'cargo' => $request->cargo,
             'departamento' => $request->departamento,
-            'cuidad' => $request->ciudad,
+            'ciudad' => $request->ciudad,
             'empresa' => $request->empresa,
-            'id_alumno' =>
+            
+            'id_alumno' => Auth::id()
         ]);
-
-        *falta guardar la fecha en practica
-        */
 
         return redirect()->route('descripcionSolicitudDocumentos');
     }

@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use SGPP\Solicitud;
 use SGPP\Alumno;
 use SGPP\User;
+use SGPP\Practica;
+use SGPP\Supervisor;
 
 
 class SolicitudController extends Controller
@@ -40,7 +42,7 @@ class SolicitudController extends Controller
      */
     public function store(Request $request)
     {
-        $fecha= date("Y-m-d H:i:s");
+        $fecha = date("Y-m-d H:i:s");
 
         Solicitud::create([
             'nombre' => $request->nombreAlumno,
@@ -180,11 +182,14 @@ class SolicitudController extends Controller
         $solicitud->resolucion_solicitud = $request->resolucion;
         $solicitud->observacion_solicitud = $request->observacion;
         $solicitud->estado = 2;
+        $solicitud->save();
 
         // si la solicitud es aprobada , se crea el alumno y usuario del mismo
-        if($solicitud->resolucion_solicitud == 'Aprobado')
-            $nuevo = new Alumno;
+        if($solicitud->resolucion_solicitud == 'Aprobado'){
 
+            $fecha= date("Y-m-d H:i:s");
+            
+            $nuevo = new Alumno;
             $nuevo->nombre = $solicitud->nombre;
             $nuevo->apellido_paterno = $solicitud->apellido_paterno;
             $nuevo->apellido_materno = $solicitud->apellido_materno;
@@ -200,14 +205,19 @@ class SolicitudController extends Controller
             $nueva_instancia->name = $nuevo->nombre;
             $nueva_instancia->email = $nuevo->email;
             $nueva_instancia->password = bcrypt($nuevo->rut);
-            $nueva_instancia->type = 'alumno';
+            $nueva_instancia->type = 'Alumno';
 
             $nueva_instancia->save();
 
             $nuevo->id_user = $nueva_instancia->id_user;
             $nuevo->save();
 
-        $solicitud->save();
+            $nueva_instancia = new Practica;
+            $nueva_instancia->f_solicitud = $fecha;
+
+            $nueva_instancia->id_alumno = $nuevo->id_alumno;
+            $nueva_instancia->save();
+        }
 
         if($solicitud->carrera == "Ingeniería Civil Informática"){
             return redirect()->route('evaluacionSolicitud')->with('success','Registro creado satisfactoriamente');
