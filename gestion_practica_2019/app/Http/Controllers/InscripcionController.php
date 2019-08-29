@@ -134,7 +134,7 @@ class InscripcionController extends Controller
 
     public function lista()
     {
-        $lista=DocumentoSolicitado::all();
+        $lista=DocSolicitado::all();
         return view('2 Inscripcion/lista_solicitudes_documentos',[
                 'lista'=>$lista,
             ]);

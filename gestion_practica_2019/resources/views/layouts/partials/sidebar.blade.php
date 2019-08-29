@@ -65,9 +65,12 @@
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="{{route('lista_solicitudes_documentos')}}">
-                    <i class="fas fa-arrow-right"></i><span>Solicitudes documentos (Secretaria)</span>
-                </a>
+                @if(Auth::user()->name == 'Gestionador') 
+                    <a class="nav-link collapsed" href="{{route('lista_solicitudes_documentos')}}">
+                        <i class="fas fa-arrow-right"></i><span>Solicitudes documentos</span>
+                    </a>        
+                @endif
+                
             </li>
 
             <li class="nav-item">
@@ -91,9 +94,9 @@
                         <a class="collapse-item" href="#">Autoevaluaciones</a>
                         <a class="collapse-item" href="#">Evaluaciones de empresas</a>
 
-                        <h7 class="collapse-header">Asistencia a charlas</h7>
+                        <!--<h7 class="collapse-header">Asistencia a charlas</h7>
                         <a class="collapse-item" href="#">Explicación introductoria</a>
-                        <a class="collapse-item" href="#">Presentaciones de práctica</a>
+                        <a class="collapse-item" href="#">Presentaciones de práctica</a>-->
                     </div>
                 </div>
             </li>
@@ -120,9 +123,9 @@
                         <a class="collapse-item" href="#">Autoevaluaciones</a>
                         <a class="collapse-item" href="#">Evaluaciones de empresas</a>
 
-                        <h7 class="collapse-header">Asistencia a charlas</h7>
+                        <!--<h7 class="collapse-header">Asistencia a charlas</h7>
                         <a class="collapse-item" href="#">Explicación introductoria</a>
-                        <a class="collapse-item" href="#">Presentaciones de práctica</a>
+                        <a class="collapse-item" href="#">Presentaciones de práctica</a>-->
                     </div>
                 </div>
             </li>

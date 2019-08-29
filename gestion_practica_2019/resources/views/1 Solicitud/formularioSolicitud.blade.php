@@ -108,13 +108,13 @@
                     <br>
 
                     {{-- Practica Profesional --}} 
-                    <h6>2.- Si es alumno de Ingeniería Civil. ¿Ha realizado su primera <strong>Práctica Profesional</strong>?</h6>
+                    <h6>2.- Si es alumno de Ingeniería Civil. ¿Ha realizado su primera <strong>Práctica Profesional</strong>? (Solo Ing. Civil Informática)</h6>
 
                     <div class="form-group row">
                         <label for="practica" class="col-md-3 col-form-label text-md-right">{{ __('') }}</label>
 
                         <div class="col-md-2">
-                            <select id="practica" name="practica" class="custom-select" disabled>
+                            <select id="practica" name="practica" class="custom-select">
                                 <option selected value="">Selecciona...</option>
                                 <option>Si</option>
                                 <option>No</option>
@@ -132,7 +132,7 @@
                         <label for="semestreProyecto" class="col-md-3 col-form-label text-md-right">{{ __('Semestre') }}</label>
 
                         <div class="col-md-2">
-                            <input id="semestreProyecto" type="number" class="form-control" name="semestreProyecto" value="{{ old('semestreProyecto') }}" placeholder="Ej. 6"maxlength="1" minlength="2" max="12" min="1"required>
+                            <input id="semestreProyecto" type="number" class="form-control" name="semestreProyecto" value="{{ old('semestreProyecto') }}" placeholder="Ej. 2"maxlength="1" minlength="1" max="2" min="1"required>
                         </div>
                     </div>    
 
