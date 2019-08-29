@@ -24,4 +24,54 @@ class Alumno extends Model
     public function practica(){
         return $this->belongsTo('App\Practica');    
     }
+
+    public static function filtrarYPaginar($nombre, $apellido_paterno, $apellido_materno, $email, $anno_ingreso){
+        return Alumno::Nombre($nombre)
+                    ->ApellidoPaterno($apellido_paterno)
+                    ->ApellidoMaterno($apellido_materno)
+                    ->Email($email)
+                    ->AnnoIngreso($anno_ingreso)
+                    ->orderBy('id_alumno', 'ASC')
+                    ->paginate();
+    }
+
+    public function scopeNombre($query, $nombre){
+
+        if (  trim($nombre !== '') ) {
+			$query->where('nombre', 'LIKE', '%'. $nombre . '%');
+		}
+		return $query;
+    }
+
+    public function scopeApellidoPaterno($query, $apellido_paterno){
+
+        if (  trim($apellido_paterno !== '') ) {
+			$query->where('apellido_paterno', 'LIKE', '%'. $apellido_paterno . '%');
+		}
+		return $query;
+    }
+
+    public function scopeApellidoMaterno($query, $apellido_materno){
+
+        if (  trim($apellido_materno !== '') ) {
+			$query->where('apellido_materno', 'LIKE', '%'. $apellido_materno . '%');
+		}
+		return $query;
+    }
+
+    public function scopeEmail($query, $email){
+
+        if (  trim($email !== '') ) {
+			$query->where('email', 'LIKE', '%'. $email . '%');
+		}
+		return $query;
+    }
+
+    public function scopeAnnoIngreso($query, $anno_ingreso){
+
+        if (  trim($anno_ingreso !== '') ) {
+			$query->where('anno_ingreso', 'LIKE', '%'. $anno_ingreso . '%');
+		}
+		return $query;
+    }
 }
