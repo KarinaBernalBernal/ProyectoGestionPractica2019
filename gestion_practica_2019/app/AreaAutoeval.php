@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class AreaAutoeval extends Model
 {
+    protected $table = 'areas_autoeval';
     protected $fillable = [
        	'id_autoeval','id_area'
     ];
