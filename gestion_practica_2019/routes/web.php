@@ -136,7 +136,9 @@ Route::post('/agregarSolicitudDocumentos', 'InscripcionController@storeSolicitar
 //-------formularioInscripcion
 Route::get('/formularioInscripcion', 'InscripcionController@indexInscripcion')->name('formularioInscripcion');
 Route::post('/agregarInscripcion', 'InscripcionController@storeInscripcion')->name('agregarInscripcion');
-
+//---------listas
+Route::get('/listaInscripcionEjecucion', 'InscripcionController@listaInscripcionEjecucion')->name('listaInscripcionEjecucion');
+Route::get('/listaInscripcionCivil', 'InscripcionController@listaInscripcionCivil')->name('listaInscripcionCivil');
 /*--------------------- Etapa Evaluación ---------------------*/
 Route::get('/descripcionAutoEvaluacion', 'AutoEvaluacionController@verDescripcionAutoEvaluacion')->name('descripcionAutoEvaluacion');
 Route::get('/formularioAutoEvaluacion', 'AutoEvaluacionController@index')->name('formularioAutoEvaluacion');

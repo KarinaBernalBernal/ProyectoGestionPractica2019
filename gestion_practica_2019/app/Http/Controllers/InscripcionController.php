@@ -137,7 +137,19 @@ class InscripcionController extends Controller
         return view('2 Inscripcion/inscripcion');
     }
 
-    
+    /* -------Listas de inscripcion -----*/
+    public function listaInscripcionCivil(){
+        $practicas = Practica::orderBy('id_alumno','DESC')->paginate(7);
+        $alumnos = Alumno::orderBy('id_alumno','DESC')->where('carrera', 'Ingeniería Civil Informática')->paginate(7);
+
+        return view('2 Inscripcion/listaInscripcion')->with('practicas', $practicas)->with('alumnos',$alumnos);
+    }   
+    public function listaInscripcionEjecucion(){
+        $practicas = Practica::orderBy('id_alumno','DESC')->paginate(7);
+        $alumnos = Alumno::orderBy('id_alumno','DESC')->where('carrera', 'Ingeniería de Ejecución Informática')->paginate(7);
+
+        return view('2 Inscripcion/listaInscripcion')->with('practicas', $practicas)->with('alumnos',$alumnos);
+    }   
 }
 
 ?>

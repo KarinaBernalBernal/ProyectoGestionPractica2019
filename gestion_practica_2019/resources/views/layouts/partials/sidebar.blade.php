@@ -73,7 +73,7 @@
                         @if(Auth::user()->name == 'Gestionador')
                             <a class="collapse-item" href="{{ route('listaSolicitudCivil')}}">Solicitudes</a>
                         @endif
-                        <a class="collapse-item" href="#">Inscripciones</a>
+                        <a class="collapse-item" href="{{route('listaInscripcionCivil')}}">Inscripciones</a>
                         <a class="collapse-item" href="#">Autoevaluaciones</a>
                         <a class="collapse-item" href="#">Evaluaciones de empresas</a>
 
@@ -102,7 +102,7 @@
                         @if(Auth::user()->name == 'Gestionador') 
                             <a class="collapse-item" href="{{ route('listaSolicitudEjecucion')}}">Solicitudes</a>
                         @endif
-                        <a class="collapse-item" href="#">Inscripciones</a>
+                        <a class="collapse-item" href="{{route('listaInscripcionEjecucion')}}">Inscripciones</a>
                         <a class="collapse-item" href="#">Autoevaluaciones</a>
                         <a class="collapse-item" href="#">Evaluaciones de empresas</a>
 

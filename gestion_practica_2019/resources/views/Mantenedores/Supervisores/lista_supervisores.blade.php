@@ -46,20 +46,6 @@
                                         </tr>
                                     @endforeach
                                 </tbody>
-                                <tfoot>
-                                <tr >
-                                     <th>Id
-                                </th>
-                                    <th>Nombre</th>
-                                    <th>Apellido paterno</th>
-                                    <th>Apellido materno</th>
-                                    <th>Cargo</th>
-                                    <th>Departamento</th>
-                                    <th>Email</th>
-                                    <th>Fono</th>
-                                    <th>Opción</th>
-                                </tr>
-                                </tfoot>
                             </table>
                         </div>
                     </div>
@@ -70,6 +56,7 @@
             </div>
         </div>
     </div>
+    
     <br>
 
     <div class="container">
