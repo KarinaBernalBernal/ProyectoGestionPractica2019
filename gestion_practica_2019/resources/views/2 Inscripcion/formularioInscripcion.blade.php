@@ -40,13 +40,13 @@
                     <h4>Datos de la empresa</h4> 
 
                     <hr>
-
-                    {{-- Nombre Empresa--}}   
+    
+                    {{-- Nombre Empresa --}}   
                     <div class="form-group row">
-                        <label for="nombreEmpresa" class="col-md-3 col-form-label text-md-right">{{ __('Nombre a quien se dirige la carta') }}</label>
+                        <label for="empresa" class="col-md-3 col-form-label text-md-right">{{ __('Nombre Empresa') }}</label>
                         
                         <div class="col-md-6">
-                            <input id="nombreEmpresa" type="text" class="form-control" name="nombreEmpresa" value="{{ old('nombreEmpresa') }}" required>
+                            <input id="empresa" type="text" class="form-control" name="empresa" value="{{ old('empresa') }}" required>
                         </div>
                     </div>
 
@@ -56,6 +56,15 @@
 
                         <div class="col-md-6">
                             <input id="rutEmpresa" type="number" class="form-control" name="rutEmpresa" value="{{ old('rutEmpresa') }}" required>
+                        </div>
+                    </div>
+
+                     {{-- Ciudad --}}  
+                    <div class="form-group row">
+                        <label for="ciudad" class="col-md-3 col-form-label text-md-right">{{ __('Ciudad') }}</label>
+                        
+                        <div class="col-md-7">
+                            <input id="ciudad" type="text" class="form-control" name="ciudad" value="{{ old('ciudad') }}" required>
                         </div>
                     </div>
 
@@ -77,6 +86,15 @@
                         </div>
                     </div>
 
+                    {{-- Casilla --}}
+                    <div class="form-group row">
+                        <label for="casilla" class="col-md-3 col-form-label text-md-right">{{ __('Casilla') }}</label>
+
+                        <div class="col-md-6">
+                            <input id="casilla" type="number" class="form-control" name="casilla" value="{{ old('casilla') }}" required>
+                        </div>
+                    </div>
+
                     {{-- Correo Electronico Empresa--}}
                     <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }} row">
                         <label for="email" class="col-md-3 col-form-label text-md-right control-label">Email empresa</label>
@@ -91,13 +109,33 @@
                             @endif
                         </div>
                     </div>  
+                </div>
+            </div>
 
-                    {{-- Nombre Supervisor --}}   
+            <br>
+
+            <div class="card text"> 
+
+                <div class="card-body"> 
+                    <h4>Datos Supervisor</h4> 
+
+                    <hr>
+
+                     {{-- Nombre Supervisor--}}   
                     <div class="form-group row">
-                        <label for="nombreSupervisor" class="col-md-3 col-form-label text-md-right">{{ __('Nombre a quien se dirige la carta') }}</label>
+                        <label for="nombreSupervisor" class="col-md-3 col-form-label text-md-right">{{ __('Nombre') }}</label>
                         
                         <div class="col-md-6">
                             <input id="nombreSupervisor" type="text" class="form-control" name="nombreSupervisor" value="{{ old('nombreSupervisor') }}" required>
+                        </div>
+                    </div>
+
+                    {{-- Apellido Paterno --}} 
+                    <div class="form-group row">
+                        <label for="aPaternoSupervisor" class="col-md-3 col-form-label text-md-right">{{ __('Apellido Paterno') }}</label>
+
+                        <div class="col-md-6">
+                            <input id="aPaternoSupervisor" type="text" class="form-control" name="aPaternoSupervisor" value="{{ old('aPaternoSupervisor') }}" required>
                         </div>
                     </div>
 
@@ -119,25 +157,25 @@
                         </div>
                     </div>
 
-                    {{-- Empresa --}}   
+                     {{-- Fono --}}
                     <div class="form-group row">
-                        <label for="empresa" class="col-md-3 col-form-label text-md-right">{{ __('Empresa') }}</label>
-                        
+                        <label for="fonoSupervisor" class="col-md-3 col-form-label text-md-right">{{ __('Fono') }}</label>
+
                         <div class="col-md-6">
-                            <input id="empresa" type="text" class="form-control" name="empresa" value="{{ old('empresa') }}" required>
+                            <input id="fonoSupervisor" type="number" class="form-control" name="fonoSupervisor" value="{{ old('fonoSupervisor') }}" required>
                         </div>
                     </div>
 
                     {{-- Correo Electronico Supervisor--}}
-                    <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }} row">
-                        <label for="email" class="col-md-3 col-form-label text-md-right control-label">Email supervisor</label>
+                    <div class="form-group{{ $errors->has('emailSupervisor') ? ' has-error' : '' }} row">
+                        <label for="emailSupervisor" class="col-md-3 col-form-label text-md-right control-label">Email supervisor</label>
 
                         <div class="col-md-6">
-                            <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
+                            <input id="emailSupervisor" type="emailSupervisor" class="form-control" name="emailSupervisor" value="{{ old('emailSupervisor') }}" required>
 
-                            @if ($errors->has('email'))
+                            @if ($errors->has('emailSupervisor'))
                                 <span class="help-block">
-                                    <strong>{{ $errors->first('email') }}</strong>
+                                    <strong>{{ $errors->first('emailSupervisor') }}</strong>
                                 </span>
                             @endif
                         </div>
@@ -147,7 +185,7 @@
                     
                     <div class="row justify-content-end ">
                         <div class="col-md-4">
-                            <a href="{{route('descripcionSolicitud')}} " class="btn btn-secondary">Cancelar</a>
+                            <a href="{{route('descripcionInscripcion')}} " class="btn btn-secondary">Cancelar</a>
                         </div>
                         <div class="col-md-4">
                             <input class="btn btn-primary" type="submit" value="Agregar">
