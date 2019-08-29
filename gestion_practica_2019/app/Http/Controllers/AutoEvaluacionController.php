@@ -99,7 +99,7 @@ class AutoEvaluacionController extends Controller
             'valor' => $request->desempenno,
             'dp_tarea' => $request->dpDesempenno
         ]);
-        
+
         for($i = 0; $i<count($request->tarea,1); $i++)
         {
             Tarea::create([

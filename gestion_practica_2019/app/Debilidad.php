@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Debilidad extends Model
 {
+    protected $table = 'debilidades';
     protected $primaryKey = 'id_debilidad';
 
     protected $fillable = [

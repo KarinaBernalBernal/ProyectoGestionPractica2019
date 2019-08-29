@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class EvalActEmpPractica extends Model
 {
+    protected $table = 'eval_act_emp_practica';
     protected $fillable = [
         'valor_act_emp_practica','id_eval_supervisor','id_actitudinal'
     ];
