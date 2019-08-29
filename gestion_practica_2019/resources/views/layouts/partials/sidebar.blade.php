@@ -129,11 +129,11 @@
                 </div>
 
                 <!-- Nav Item - Pages Collapse Menu -->
-                <li class="nav-item">
+                <!--<li class="nav-item">
                     <a class="nav-link collapsed" href="{{route('descripcionSolicitud')}}">
                         <i class="fas fa-arrow-right"></i><span>Solicitud enviada</span>
                     </a>
-                </li>
+                </li>-->
 
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseInscripcion" aria-expanded="true" aria-controls="collapseInscripcion"><i class="fas fa-fw fa-folder"></i>

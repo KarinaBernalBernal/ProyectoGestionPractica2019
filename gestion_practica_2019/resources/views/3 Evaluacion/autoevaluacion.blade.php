@@ -25,8 +25,8 @@
                         </ul>
                         </p>
 
-                            <div class="form-group">
-                                <div class="col-md-6 col-md-offset-4">
+                        <div class="form-group">
+                            <div class="row d-flex justify-content-center"> 
                                     <a href="{{route('formularioAutoEvaluacion')}}" class="btn btn-secondary"> <span>Acceder al formulario</span></a>
                                 </div>
                             </div>
