@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class EvalActitudinal extends Model
 {
+    protected $table = 'eval_actitudinales';
     protected $primaryKey = 'id_actitudinal';
 
     protected $fillable = [

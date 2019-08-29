@@ -111,6 +111,7 @@
 
         <?php endif ?>
 
+
         @endauth
     @endif
     @if (Route::has('login'))
@@ -124,6 +125,7 @@
                 <!-- Heading -->
                 <div class="sidebar-heading">
                         Tú Práctica
+
                 </div>
 
                 <!-- Nav Item - Pages Collapse Menu -->
