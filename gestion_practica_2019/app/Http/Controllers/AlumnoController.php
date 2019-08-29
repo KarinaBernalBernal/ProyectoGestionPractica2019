@@ -10,13 +10,19 @@ class AlumnoController extends Controller
 {
 
     //vista principal de un elemento en especifico
-    public function lista()
+    public function lista(Request $request)
     {
-        $lista= Alumno::all();
-        return view('Mantenedores/Alumnos/lista_alumnos',[
-                'lista'=>$lista,
-            ]);
+        $lista= Alumno::filtrarYPaginar($request->get('nombre'), 
+                                        $request->get('apellido_paterno'),
+                                        $request->get('apellido_materno'),
+                                        $request->get('email'),
+                                        $request->get('anno_ingreso'),
+                                        $request->get('carrera')
+                                    );
+
+        return view('Mantenedores.Alumnos.lista_alumnos')->with("lista", $lista);
     }
+
     public function crear()
     {
         return view('Mantenedores/Alumnos/crear_alumno');

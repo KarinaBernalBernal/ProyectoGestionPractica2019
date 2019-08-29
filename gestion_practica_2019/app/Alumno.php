@@ -25,12 +25,13 @@ class Alumno extends Model
         return $this->belongsTo('App\Practica');    
     }
 
-    public static function filtrarYPaginar($nombre, $apellido_paterno, $apellido_materno, $email, $anno_ingreso){
+    public static function filtrarYPaginar($nombre, $apellido_paterno, $apellido_materno, $email, $anno_ingreso, $carrera){
         return Alumno::Nombre($nombre)
                     ->ApellidoPaterno($apellido_paterno)
                     ->ApellidoMaterno($apellido_materno)
                     ->Email($email)
                     ->AnnoIngreso($anno_ingreso)
+                    ->Carrera($carrera)
                     ->orderBy('id_alumno', 'ASC')
                     ->paginate();
     }
@@ -71,6 +72,14 @@ class Alumno extends Model
 
         if (  trim($anno_ingreso !== '') ) {
 			$query->where('anno_ingreso', 'LIKE', '%'. $anno_ingreso . '%');
+		}
+		return $query;
+    }
+
+    public function scopeCarrera($query, $carrera){
+
+        if (  trim($carrera !== '') ) {
+			$query->where('carrera', 'LIKE', '%'. $carrera . '%');
 		}
 		return $query;
     }

@@ -162,3 +162,4 @@ Route::get('Notificar/Usuario', ['as' => 'enviar', function () {
 
                 return redirect()->route('home');
             }]);
+
