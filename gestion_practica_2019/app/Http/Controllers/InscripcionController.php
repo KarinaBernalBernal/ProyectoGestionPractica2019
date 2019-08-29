@@ -9,6 +9,8 @@ use SGPP\Practica;
 use SGPP\User;
 use SGPP\Supervisor;
 use SGPP\Empresa;
+use SGPP\Solicitud;
+
 
 
 class InscripcionController extends Controller
@@ -71,6 +73,9 @@ class InscripcionController extends Controller
             'id_alumno' => $alumno->id_alumno
         ]);
 
+        *falta guardar la fecha en practica
+        */
+
         return redirect()->route('descripcionSolicitudDocumentos');
     }
     public function storeInscripcion(Request $request)
@@ -125,6 +130,14 @@ class InscripcionController extends Controller
         $practica->save();
 
         return redirect()->route('descripcionInscripcion');
+    }
+
+    public function lista()
+    {
+        $lista=DocumentoSolicitado::all();
+        return view('2 Inscripcion/lista_solicitudes_documentos',[
+                'lista'=>$lista,
+            ]);
     }
 
     /* ----- Inscripcion practica ----*/

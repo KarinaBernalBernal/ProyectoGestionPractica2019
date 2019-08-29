@@ -56,6 +56,20 @@
                     </div>
 
                 </li>
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                    Documentos
+            </div>
+
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{route('lista_solicitudes_documentos')}}">
+                    <i class="fas fa-arrow-right"></i><span>Solicitudes documentos (Secretaria)</span>
+                </a>
+            </li>
+
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseIngCivilInf" aria-expanded="true" aria-controls="collapseIngCivilInf"><i class="fas fa-users"></i>
                 <span>Ing. Civil Informatica:</span>
