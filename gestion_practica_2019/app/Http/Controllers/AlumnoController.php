@@ -4,18 +4,25 @@ namespace SGPP\Http\Controllers;
 
 use Illuminate\Http\Request;
 use SGPP\Alumno;
+use SGPP\User;
 
 class AlumnoController extends Controller
 {
 
     //vista principal de un elemento en especifico
-    public function lista()
+    public function lista(Request $request)
     {
-        $lista= Alumno::all();
-        return view('Mantenedores/Alumnos/lista_alumnos',[
-                'lista'=>$lista,
-            ]);
+        $lista= Alumno::filtrarYPaginar($request->get('nombre'), 
+                                        $request->get('apellido_paterno'),
+                                        $request->get('apellido_materno'),
+                                        $request->get('email'),
+                                        $request->get('anno_ingreso'),
+                                        $request->get('carrera')
+                                    );
+
+        return view('Mantenedores.Alumnos.lista_alumnos')->with("lista", $lista);
     }
+
     public function crear()
     {
         return view('Mantenedores/Alumnos/crear_alumno');
@@ -45,7 +52,16 @@ class AlumnoController extends Controller
 		$nuevo->anno_ingreso = $data['anno_ingreso'];
         $nuevo->carrera = $data['carrera'];
         $nuevo->estimacion_semestre = $data['estimacion_semestre'];
-		$nuevo->id_user = $data['id_user'];
+
+        $nueva_instancia = new User;
+        $nueva_instancia->name = $nuevo->nombre;
+        $nueva_instancia->email = $nuevo->email;
+        $nueva_instancia->password = bcrypt($data['rut']);
+        $nueva_instancia->type = 'alumno';
+
+        $nueva_instancia->save();
+
+		$nuevo->id_user = $nueva_instancia->id_user;
 
 
         $nuevo->save();
@@ -68,9 +84,19 @@ class AlumnoController extends Controller
 			$elemento_editar->anno_ingreso=$request->anno_ingreso;
             $elemento_editar->carrera=$request->carrera;
             $elemento_editar->estimacion_semestre=$request->estimacion_semestre;
-			$elemento_editar->id_user=$request->id_user;
 
+
+            $user_editar=User::find($elemento_editar->id_user);
+            if(isset($user_editar))
+            {
+                $user_editar->name=$request->nombre;
+                $user_editar->email=$request->email;
+                $user_editar->type=$user_editar->type;
+            }
+			$elemento_editar->id_user=$user_editar->id_user;
             $elemento_editar->save();
+
+            $user_editar->save();
 
             return redirect()->route('lista_alumnos');
         }

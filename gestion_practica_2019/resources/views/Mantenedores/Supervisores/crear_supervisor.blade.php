@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-md col-md-offset-2">
                 <div class="card">
-                    <div class="card-header"><h1>Agregar supervisro</h1></div>
+                    <div class="card-header"><h1>Agregar supervisor</h1></div>
                     <div class="card-body">
                         <form class="form-horizontal" action="{{route('agregar_supervisor')}}" method="post">
                             {{ csrf_field() }}
@@ -86,28 +86,18 @@
                                     @endif
                                 </div>
                             </div>
-                             <div class="form-group{{ $errors->has('id_user') ? ' has-error' : '' }}">
-                                <label for="id_user" class="col-md-4 control-label">id user</label>
+                             <div>
                                 <div class="col-md-6">
-                                    <input id="id_user" type="text" class="form-control" name="id_user" required autofocus>
-                                    @if ($errors->has('id_user'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('id_user') }}</strong>
-                                        </span>
-                                    @endif
+                                    <label for="id_empresa" class="col-md-4 control-label">id_Empresas</label>
+                                    <select id="id_empresa" name="id_empresa" class="form-control">
+
+                                        @foreach($empresas as $id_empresa)
+                                            <option value="{{ $id_empresa->id_empresa }}" >{{ $id_empresa->n_empresa }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
-                             <div class="form-group{{ $errors->has('id_empresa') ? ' has-error' : '' }}">
-                                <label for="id_empresa" class="col-md-4 control-label">id_empresa</label>
-                                <div class="col-md-6">
-                                    <input id="id_empresa" type="text" class="form-control" name="id_empresa" required autofocus>
-                                    @if ($errors->has('id_empresa'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('id_empresa') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
-                            </div>
+                            <br>
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-4">
                                     <button type="submit" class="btn btn-primary">

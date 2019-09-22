@@ -24,6 +24,7 @@ class IsAdministrador
     public function handle($request, Closure $next)
     {
         if ($this->auth->user()->type != 'administrador')
+            // ($user = Auth::user()) instanceOf User && $user->is_admin)
         {
             $this->auth->logout();
             if ($request->ajax()) {
