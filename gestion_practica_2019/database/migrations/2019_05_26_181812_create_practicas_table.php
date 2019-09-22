@@ -16,14 +16,14 @@ class CreatePracticasTable extends Migration
         Schema::create('practicas', function (Blueprint $table) {
             $table->increments('id_practica');
             $table->date('f_solicitud');
-            $table->date('f_inscripcion');
-            $table->date('f_desde');
-            $table->date('f_hasta');
-            $table->string('asist_ch_post_pract', 10);
-            $table->string('asist_ch_pre_pract', 10);
+            $table->date('f_inscripcion')->nullable();
+            $table->date('f_desde')->nullable();
+            $table->date('f_hasta')->nullable();
+            $table->string('asist_ch_post_pract', 10)->nullable();
+            $table->string('asist_ch_pre_pract', 10)->nullable();
             
             $table->integer('id_alumno')->unsigned();
-            $table->integer('id_supervisor')->unsigned();
+            $table->integer('id_supervisor')->unsigned()->nullable();
             $table->timestamps();
 
             $table->foreign('id_supervisor')->references('id_supervisor')

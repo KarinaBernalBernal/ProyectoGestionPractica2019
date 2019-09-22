@@ -19,7 +19,6 @@ class AlumnoController extends Controller
                                         $request->get('anno_ingreso'),
                                         $request->get('carrera')
                                     );
-
         return view('Mantenedores.Alumnos.lista_alumnos')->with("lista", $lista);
     }
 

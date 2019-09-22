@@ -46,7 +46,7 @@
                         <label for="rutAlumno" class="col-md-3 col-form-label text-md-right">{{ __('RUT') }}</label>
 
                         <div class="col-md-6">
-                            <input id="rutAlumno" type="text" class="form-control" name="rutAlumno" value="{{ old('rutAlumno') }}" required>
+                            <input id="rutAlumno" type="text" class="form-control" name="rutAlumno" value="{{ old('rutAlumno') }}" placeholder="Ej. 12345678-9" maxlength="10" minlength="10" required pattern="[0-9]{8}-[A-Z0-9]{1}">
                         </div>
                     </div>
 
@@ -65,7 +65,7 @@
                         </div>
                     </div>  
 
-                     {{-- Direccion --}}
+                    {{-- Direccion --}}
                     <div class="form-group row">
                         <label for="direccion" class="col-md-3 col-form-label text-md-right">{{ __('Dirección') }}</label>
 
@@ -79,7 +79,7 @@
                         <label for="fono" class="col-md-3 col-form-label text-md-right">{{ __('Fono') }}</label>
 
                         <div class="col-md-6">
-                            <input id="fono" type="text" class="form-control" name="fono" value="{{ old('fono') }}" required>
+                            <input id="fono" type="number" class="form-control" name="fono" value="{{ old('fono') }}" placeholder="Ej. 9 87654321" maxlength="9" minlength="9">
                         </div>
                     </div>    
 
@@ -88,7 +88,7 @@
                         <label for="añoCarrera" class="col-md-3 col-form-label text-md-right">{{ __('Año de Ingreso a la Carrera') }}</label>
 
                         <div class="col-md-2">
-                            <input id="añoCarrera" type="number" class="form-control" name="añoCarrera" value="{{ old('añoCarrera') }}" required>
+                            <input id="añoCarrera" type="number" class="form-control" name="añoCarrera" value="{{ old('añoCarrera') }}" placeholder="Ej. 2019" maxlength="4" minlength="4" min="2000" required>
                         </div>
                     </div>    
 
@@ -108,7 +108,7 @@
                     <br>
 
                     {{-- Practica Profesional --}} 
-                    <h6>2.- Si es alumno de Ingeniería Civil. ¿Ha realizado su primera <strong>Práctica Profesional</strong>?</h6>
+                    <h6>2.- Si es alumno de Ingeniería Civil. ¿Ha realizado su primera <strong>Práctica Profesional</strong>? (Solo Ing. Civil Informática)</h6>
 
                     <div class="form-group row">
                         <label for="practica" class="col-md-3 col-form-label text-md-right">{{ __('') }}</label>
@@ -132,7 +132,7 @@
                         <label for="semestreProyecto" class="col-md-3 col-form-label text-md-right">{{ __('Semestre') }}</label>
 
                         <div class="col-md-2">
-                            <input id="semestreProyecto" type="number" class="form-control" name="semestreProyecto" value="{{ old('semestreProyecto') }}" required>
+                            <input id="semestreProyecto" type="number" class="form-control" name="semestreProyecto" value="{{ old('semestreProyecto') }}" placeholder="Ej. 2"maxlength="1" minlength="1" max="2" min="1"required>
                         </div>
                     </div>    
 
@@ -141,7 +141,7 @@
                         <label for="añoProyecto" class="col-md-3 col-form-label text-md-right">{{ __('Año') }}</label>
 
                         <div class="col-md-2">
-                            <input id="añoProyecto" type="number" class="form-control" name="añoProyecto" value="{{ old('añoProyecto') }}" required>
+                            <input id="añoProyecto" type="number" class="form-control" name="añoProyecto" value="{{ old('añoProyecto') }}" maxlength="4" minlength="4" placeholder="Ej. 2019" min="2000"required>
                         </div>
                     </div>
 
@@ -160,3 +160,13 @@
         </form>
     </div>
 @endsection
+
+<script>
+    $(document).ready(function () {
+        $("#carrera").change(function() {
+            if($("#carrera").val() == "Ingeniería Civil Informática"){
+                $('#practica').removeAttr('disabled');
+            }
+        });
+    });
+</script>

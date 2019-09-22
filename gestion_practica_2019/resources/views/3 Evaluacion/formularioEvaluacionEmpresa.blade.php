@@ -8,153 +8,11 @@
         
         <form action="{{route('agregarEvaluacionEmpresa')}}" enctype="multipart/form-data" method="POST" role="form">
             {{ csrf_field() }} 
-
-            {{-- Antecedentes generales --}}
-
             <div class="card text">
-                <div class="card-header">
-                    <h6>I. Antecedentes Generales</h6>
-                </div>
                 <div class="card-body">
-
-                    {{-- Nombre --}}
-                    <div class="form-group row">
-                        <label for="nombreAlumno" class="col-md-3 col-form-label text-md-right">{{ __('Nombre del Alumno') }}</label>
-
-                        <div class="col-md-6">
-                            <input id="nombreAlumno" type="text" class="form-control" name="nombreAlumno" value="{{ old('nombreAlumno') }}" required>
-                        </div>
-                    </div>
-                    {{-- Carrera --}}
-                    <div class="form-group row">
-                        <label for="carrera" class="col-md-3 col-form-label text-md-right">{{ __('Carrera') }}</label>
-
-                        <div class="col-md-6">
-                            <select id="carrera" name="carrera" class="custom-select">
-                                <option selected value="">Selecciona...</option>
-                                <option>Ingeniería Civil Informática</option>
-                                <option>Ingeniería de Ejecución Informática</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <br>
-                    {{-- Periodo de practica --}}
-                    <div class="form-group row">
-                            <label for="fechaDesde" class="col-md-3 col-form-label text-md-right">{{ __('Periodo de practica desde') }}</label>
-                            <input type="date" name="fechaDesde" required>
-                        <div class="col-md-4">
-                            <label for="fechaHasta" class="col-md-3 col-form-label text-md-right">{{ __('Hasta') }}</label>
-                            <input type="date" name="fechaHasta" required>
-                        </div>
-                    </div>
-
-                    <br>
-                    <div class="form-group row">
-                    <h6 class="col-md-3 col-form-label text-md-right"><strong>Datos Empresa</strong></h6>
-                    </div>
-                    <br>
-
-                    {{-- Nombre de la empresa --}}
-                    <div class="form-group row">
-                        <label for="nombreEmpresa" class="col-md-3 col-form-label text-md-right">{{ __('Nombre de la Empresa') }}</label>
-
-                        <div class="col-md-6">
-                            <input id="nombreEmpresa" type="text" class="form-control" name="nombreEmpresa" value="{{ old('nombreEmpresa') }}" required>
-                        </div>
-                    </div>
-
-                    {{-- direccion --}}
-                    <div class="form-group row">
-                        <label for="direccion" class="col-md-3 col-form-label text-md-right">{{ __('Dirección') }}</label>
-
-                        <div class="col-md-6">
-                            <input id="direccion" type="text" class="form-control" name="direccion" value="{{ old('direccion') }}" required>
-                        </div>
-                    </div>
-
-                    {{-- ciudad --}}
-                    <div class="form-group row">
-                        <label for="ciudad" class="col-md-3 col-form-label text-md-right">{{ __('Ciudad') }}</label>
-
-                        <div class="col-md-6">
-                            <input id="ciudad" type="text" class="form-control" name="ciudad" value="{{ old('ciudad') }}" required>
-                        </div>
-                    </div>
-
-                    {{-- casilla --}}
-                    <div class="form-group row">
-                        <label for="casilla" class="col-md-3 col-form-label text-md-right">{{ __('Casilla') }}</label>
-
-                        <div class="col-md-6">
-                            <input id="casilla" type="text" class="form-control" name="casilla" value="{{ old('casilla') }}" required>
-                        </div>
-                    </div>
-
-                    {{-- Fono --}}
-                    <div class="form-group row">
-                        <label for="fono" class="col-md-3 col-form-label text-md-right">{{ __('Fono') }}</label>
-
-                        <div class="col-md-6">
-                            <input id="fono" type="text" class="form-control" name="Fono" value="{{ old('fono') }}" required>
-                        </div>
-                    </div>
-
-                    {{-- Email --}}
-                    <div class="form-group row">
-                        <label for="email" class="col-md-3 col-form-label text-md-right">{{ __('Email') }}</label>
-
-                        <div class="col-md-6">
-                            <input id="email" type="text" class="form-control" name="email" value="{{ old('email') }}" required>
-                        </div>
-                    </div>
-
-                    <br>
-                    <div class="form-group row">
-                        <h6 class="col-md-3 col-form-label text-md-right"><strong>Datos Supervisor</strong></h6>
-                    </div>
-                    <br>
-                    {{-- Nombre del supervisor --}}
-                    <div class="form-group row">
-                        <label for="nombreSupervisor" class="col-md-3 col-form-label text-md-right">{{ __('Nombre') }}</label>
-
-                        <div class="col-md-6">
-                            <input id="nombreSupervisor" type="text" class="form-control" name="nombreSupervisor" value="{{ old('nombreSupervisor') }}" required>
-                        </div>
-                    </div>
-
-                    {{-- Cargo --}}
-                    <div class="form-group row">
-                        <label for="cargo" class="col-md-3 col-form-label text-md-right">{{ __('Cargo') }}</label>
-
-                        <div class="col-md-6">
-                            <input id="cargo" type="text" class="form-control" name="cargo" value="{{ old('cargo') }}" required>
-                        </div>
-                    </div>
-
-                    {{-- Fono --}}
-                    <div class="form-group row">
-                        <label for="fono" class="col-md-3 col-form-label text-md-right">{{ __('Fono') }}</label>
-
-                        <div class="col-md-6">
-                            <input id="fono" type="text" class="form-control" name="Fono" value="{{ old('fono') }}" required>
-                        </div>
-                    </div>
-
-                    {{-- Email --}}
-                    <div class="form-group row">
-                        <label for="email" class="col-md-3 col-form-label text-md-right">{{ __('Email') }}</label>
-
-                        <div class="col-md-6">
-                            <input id="email" type="text" class="form-control" name="email" value="{{ old('email') }}" required>
-                        </div>
-                    </div>
-
-                    <br>
-                    <div class="col-md-auto">
-                        <h6><strong>Tareas realizadas por alumno en Período de Práctica</strong></h6>
-                    </div>
-                    <br>
+                    <h4>Tareas realizadas por alumno en Período de Práctica</h4>
+                    <hr>
+            
 
                     {{-- Tareas realizadas por alumno en practica --}}
                     <div class="form-group row">
@@ -194,12 +52,9 @@
 
             {{-- Autoevaluacion del Alumno --}}
             <div class="card text">
-                <div class="card-header">
-                    <h6>II. Evaluación</h6>
-                </div>
                 <div class="card-body">
-
-                    <br>
+                    <h4>Evaluación</h4>
+                    <hr>
                     <div class="col-md-auto">
                         <h6><strong>Para los siguientes criterios, evalúe desempeño percibido por el alumno donde con una escala de 1 a 4, donde 1 representa criterio debilmente logrado y 4 criterio totalmente logrado. Además si considera necesario puede considerar evaluar con NA: No Aplica y NL: No Logrado</strong></h6>
                     </div>

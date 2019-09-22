@@ -23,7 +23,7 @@ class CreateDocumentosSolicitadosTable extends Migration
             $table->string('n_destinatario');
             $table->string('cargo');
             $table->string('departamento');
-            $table->string('cuidad');
+            $table->string('ciudad');
             $table->string('empresa');
 
             $table->integer('id_alumno')->unsigned();
