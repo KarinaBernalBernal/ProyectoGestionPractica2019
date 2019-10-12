@@ -19,9 +19,12 @@ Route::get('/home2', 'HomeTemplateController@index')->name('home2');
 // Rutas tipo GET
 Route::get('/Usuarios/lista', 'UsuarioController@lista')->name('lista_usuarios');
 Route::get('/Usuarios/editar/{id_elemento}', 'UsuarioController@editar')->name('editar_usuario');
+Route::get('/Usuarios/crear_usuario', 'UsuarioController@crear')->name('crear_usuario_mantenedor');
+
 Route::get('/Usuarios/crear', 'RegisterController@showRegistrationForm');
 //Rutas tipo POST
-// Route::post('/Usuarios/crear', 'Auth\RegisterController@create')->name('crear_usuario');
+Route::post('/Usuarios/crear', 'Auth\RegisterController@create')->name('crear_usuario');
+Route::post('/Usuarios/agregar', 'UsuarioController@crearUsuario')->name('agregar_usuario_mantenedor');
 Route::post('/Usuarios/actualizar/{id_elemento}', 'UsuarioController@editarUsuario')->name('actualizar_usuario');
 Route::post('/Usuarios/eliminar/{id_elemento}','UsuarioController@borrarUsuario')->name('borrar_usuario');
 /* Rutas mantenedor perfiles */
@@ -107,7 +110,9 @@ Route::get('/descripcionSolicitud', 'SolicitudController@verDescripcion')->name(
 Route::get('/evaluacionSolicitudCivil', 'SolicitudController@evaluacion')->name('evaluacionSolicitud');
 //Ejecucion
 Route::get('/evaluacionSolicitudEjecucion', 'SolicitudController@evaluacionEjecucion')->name('evaluacionSolicitudEjecucion');
-//modals 
+
+//modals
+
 Route::get('/modal/evaluarSolicitudModal/{id}','SolicitudController@evaluarSolicitudModal')->name('evaluarSolicitudModal');
 Route::post('/evaluacionSolicitud/evaluarSolicitud/{id}','SolicitudController@evaluarSolicitud')->name('evaluarSolicitud');
 Route::get('/modal/modificarEvaluacionSolicitudModal/{id}','SolicitudController@modificarEvaluacionSolicitudModal')->name('modificarEvaluacionSolicitudModal');
@@ -118,21 +123,48 @@ Route::get('/listaSolicitudCivil', 'SolicitudController@listaSolicitudCivil')->n
 Route::get('/borrarSolicitud/{id_solicitud}', 'SolicitudController@destroy')->name('borrarSolicitud');
 Route::resource('solicitudes', 'SolicitudController');
 Route::get('/aceptarSolicitud/{id_solicitud}', 'SolicitudController@estado')->name('aceptarSolicitud');
-/*--------------------- Etapa Inscrpcion ---------------------*/
+/*--------------------- Etapa Inscripcion ---------------------*/
 //--------Descripcion de etapa Inscripcion
 //solicitudDocumentos
 Route::get('/descripcionSolicitudDocumentos', 'InscripcionController@verDescripcionSolicitudDoc')->name('descripcionSolicitudDocumentos');
+Route::get('/lista_solicitudes_documentos', 'InscripcionController@lista')->name('lista_solicitudes_documentos');
 //formularioInscripcion
 Route::get('/descripcionInscripcion', 'InscripcionController@verDescripcionInscripcion')->name('descripcionInscripcion');
 //-------formulario de solicitud de documentos
 Route::get('/formularioSolicitudDocumentos', 'InscripcionController@indexSolicitarDocumentos')->name('formularioSolicitarDocumentos');
+
 Route::post('/agregarSolicitudDocumentos', 'InscripcionController@storeSolicitarDocumentos')->name('agregarSolicitudDocumentos');
 //-------formularioInscripcion
 Route::get('/formularioInscripcion', 'InscripcionController@indexInscripcion')->name('formularioInscripcion');
 Route::post('/agregarInscripcion', 'InscripcionController@storeInscripcion')->name('agregarInscripcion');
-
+//---------listas
+Route::get('/listaInscripcionEjecucion', 'InscripcionController@listaInscripcionEjecucion')->name('listaInscripcionEjecucion');
+Route::get('/listaInscripcionCivil', 'InscripcionController@listaInscripcionCivil')->name('listaInscripcionCivil');
 /*--------------------- Etapa Evaluación ---------------------*/
 Route::get('/descripcionAutoEvaluacion', 'AutoEvaluacionController@verDescripcionAutoEvaluacion')->name('descripcionAutoEvaluacion');
 Route::get('/formularioAutoEvaluacion', 'AutoEvaluacionController@index')->name('formularioAutoEvaluacion');
+Route::post('/agregarAutoEvaluacion', 'AutoEvaluacionController@store')->name('agregarAutoEvaluacion');
 Route::get('/descripcionEvaluacionEmpresa', 'EvaluacionSupervisorController@verDescripcionEvaluacionEmpresa')->name('descripcionEvaluacionEmpresa');
 Route::get('/formularioEvaluacionEmpresa', 'EvaluacionSupervisorController@index')->name('formularioEvaluacionEmpresa');
+Route::post('/agregarEvaluacionEmpresa', 'EvaluacionSupervisorController@store')->name('agregarEvaluacionEmpresa');
+
+/*--------------------- Reportes ---------------------*/
+/* Rutas Reportes alumnos */
+// Rutas tipo GET
+Route::get('/Reportes/alumnos', 'AlumnosReporteController@index')->name('reporte_alumnos');
+
+Route::get('Notificar/Usuario', ['as' => 'enviar', function () {
+
+                $data = ['link' => 'http://styde.net'];
+
+                \Mail::send('Emails.notificacion', $data, function ($message) {
+
+                    $message->from('Sistema_gestion@styde.net', 'Styde.Net');
+
+                    $message->to('usuario_prueba@gmail.com')->subject('Notificación');
+
+                });
+
+                return redirect()->route('home');
+            }]);
+

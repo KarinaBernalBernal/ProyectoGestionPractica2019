@@ -99,8 +99,11 @@
                             </div>
                              <div class="form-group{{ $errors->has('carrera') ? ' has-error' : '' }}">
                                 <label for="carrera" class="col-md-4 control-label">Carrera</label>
-                                <div class="col-md-6">
-                                    <input id="carrera" type="text" class="form-control" name="carrera" required autofocus>
+                                <div class="col-md-6">                                    
+                                    <select name="carrera" id="carrera" class="form-control" required autofocus>
+                                        <option value="Ingeniería de Ejecución en Informatica">Ingeniería de Ejecución en Informatica</option>
+                                        <option value="Ingeniería Civil en Informatica">Ingeniería Civil en Informatica</option>
+                                    </select>
                                     @if ($errors->has('carrera'))
                                         <span class="help-block">
                                             <strong>{{ $errors->first('carrera') }}</strong>
@@ -119,17 +122,7 @@
                                     @endif
                                 </div>
                             </div>
-                             <div class="form-group{{ $errors->has('id_user') ? ' has-error' : '' }}">
-                                <label for="id_user" class="col-md-4 control-label">id user</label>
-                                <div class="col-md-6">
-                                    <input id="id_user" type="text" class="form-control" name="id_user" required autofocus>
-                                    @if ($errors->has('id_user'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('id_user') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
-                            </div>
+
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-4">
                                     <button type="submit" class="btn btn-primary">

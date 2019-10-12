@@ -10,7 +10,7 @@ class Supervisor extends Model
     protected $table = 'supervisores';
 
     protected $fillable = [
-        'nombre','apellido_paterno','apellido_materno','cargo','departamento','email','fono','id_user','id_empresa'
+        'nombre','apellido_paterno','cargo','departamento','email','fono','id_user','id_empresa'
     ];
 
     public function user(){

@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container-fluid">
-        <h3>Mantenedor de Supervisores</h3>
+        <h3>Solicitudes de documentos</h3>
         <br>
     </div>
     <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
@@ -15,57 +15,57 @@
                         <div class="table-responsive">
                             <table class="table table-bordered" id="MyTable">
                                 <thead class="bg-dark" style="color: white">
-                                <tr >
+                                <tr>
                                     <th>Id</th>
-                                    <th>Nombre</th>
-                                    <th>Apellido paterno</th>
-                                    <th>Apellido materno</th>
+                                    <th>Fecha solicitud</th>
+                                    <th>Carta presentacion</th>
+                                    <th>Seguro escolar</th>
+                                    <th>Fecha desde</th>
+                                    <th>Fecha hasta</th>
+                                    <th>Nombre destinatario</th>
                                     <th>Cargo</th>
                                     <th>Departamento</th>
-                                    <th>Email</th>
-                                    <th>Fono</th>
-                                    <th>Opción</th>
+                                    <th>Cuidad</th>
+                                    <th>Empresa</th>
+                                    <th>Alumno</th>
                                 </tr >
                                 </thead>
                                 <tbody>
-                                    @foreach ($lista as $supervisor)
-                                        <tr id="{{$supervisor->id_supervisor}}">
-                                            <td>{{$supervisor->id_supervisor}}</td>
-                                            <td>{{$supervisor->nombre}}</td>
-                                            <td>{{$supervisor->apellido_paterno}}</td>
-                                            <td>{{$supervisor->apellido_materno}}</td>
-                                            <td>{{$supervisor->cargo}}</td>
-                                            <td>{{$supervisor->departamento}}</td>
-                                            <td>{{$supervisor->email}}</td>
-                                            <td>{{$supervisor->fono}}</td>
+                                    @foreach ($lista as $solicitud)
+                                        <tr id="{{$solicitud->id_doc_solicitado}}">
+                                            <td>{{$solicitud->id_doc_solicitado}}</td>
+                                            <td>{{$solicitud->f_solicitud}}</td>
+                                            <td>{{$solicitud->carta_presentacion}}</td>
+                                            <td>{{$solicitud->seguro_escolar}}</td>
+                                            <td>{{$solicitud->f_desde}}</td>
+                                            <td>{{$solicitud->f_hasta}}</td>
+                                            <td>{{$solicitud->n_destinatario}}</td>
+                                            <td>{{$solicitud->cargo}}</td>
+                                            <td>{{$solicitud->departamento}}</td>
+                                            <td>{{$solicitud->cuidad}}</td>
+                                            <td>{{$solicitud->empresa}}</td>
+                                            <td>{{$solicitud->id_alumno}}</td>
 
-                                            <td>
-                                                <a href="{{route('editar_supervisor',[$supervisor->id_supervisor])}} "><button id="{{$supervisor->id_supervisor}}" class="btn btn-warning">Editar</button></a>
-                                                <a href="#"><button id="{{$supervisor->id_supervisor}}" class="btn btn-danger" onclick="borrar('{{$supervisor->id_supervisor}}', '{{$supervisor->nombre}}', '{{route('borrar_supervisor',[$supervisor->id_supervisor])}}')">Borrar</button></a>
-                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
+
                             </table>
                         </div>
                     </div>
                 @else
-                    <p>No existen supervisores en este momento</p>
+                    <p>No existen solicitudes en este momento</p>
                 @endif
                 <!-- FIN DATA TABLES -->
             </div>
         </div>
     </div>
-    
     <br>
 
     <div class="container">
         <div class="row">
             <div class="col-md-2">
                     <a href="/"><button class="btn btn-primary btn-lg">Atras</button></a>
-            </div>
-            <div class='ml-auto'>
-                <a href="{{route ('crear_supervisor')}}"><button id="boton_agregar" class="btn btn-primary btn-lg">Agregar</button></a>
             </div>
         </div>
 
@@ -76,7 +76,7 @@
     {
 
         Swal({
-              title: 'Estas seguro de querer eliminar el supervisor '+name+'?',
+              title: 'Estas seguro de querer eliminar la solicitud '+name+'?',
               text: "No sera posible revertir este cambio!",
               type: 'warning',
               showCancelButton: true,
@@ -99,7 +99,7 @@
                         success: function(response){
                             Swal(
                               'Eliminado!',
-                              'El supervisor ha sido eliminado.',
+                              'La solicitud ha sido eliminada.',
                               'success'
                             )
                             $('#'+id_elemento).remove();
@@ -107,6 +107,7 @@
                     });
                 }
             })
+
     }
 </script>
 @endsection

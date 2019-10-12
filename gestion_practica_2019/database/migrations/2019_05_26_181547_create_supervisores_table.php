@@ -17,7 +17,6 @@ class CreateSupervisoresTable extends Migration
             $table->increments('id_supervisor');
             $table->string('nombre');
             $table->string('apellido_paterno');
-            $table->string('apellido_materno');
             $table->string('cargo');
             $table->string('departamento');
             $table->string('email');

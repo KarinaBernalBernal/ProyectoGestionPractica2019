@@ -46,7 +46,7 @@
                         <label for="rutAlumno" class="col-md-3 col-form-label text-md-right">{{ __('RUT') }}</label>
 
                         <div class="col-md-6">
-                            <input id="rutAlumno" type="text" class="form-control" name="rutAlumno" value="{{ old('rutAlumno') }}" required>
+                            <input id="rutAlumno" type="text" class="form-control" name="rutAlumno" value="{{ old('rutAlumno') }}" placeholder="Ej. 12345678-9" maxlength="10" minlength="10" required pattern="[0-9]{8}-[K-k0-9]{1}">
                         </div>
                     </div>
 
@@ -65,7 +65,7 @@
                         </div>
                     </div>  
 
-                     {{-- Direccion --}}
+                    {{-- Direccion --}}
                     <div class="form-group row">
                         <label for="direccion" class="col-md-3 col-form-label text-md-right">{{ __('Dirección') }}</label>
 
@@ -79,7 +79,7 @@
                         <label for="fono" class="col-md-3 col-form-label text-md-right">{{ __('Fono') }}</label>
 
                         <div class="col-md-6">
-                            <input id="fono" type="text" class="form-control" name="fono" value="{{ old('fono') }}" required>
+                            <input id="fono" type="number" class="form-control" name="fono" value="{{ old('fono') }}" placeholder="Ej. 9 87654321" maxlength="9" minlength="9">
                         </div>
                     </div>    
 
@@ -88,7 +88,7 @@
                         <label for="añoCarrera" class="col-md-3 col-form-label text-md-right">{{ __('Año de Ingreso a la Carrera') }}</label>
 
                         <div class="col-md-2">
-                            <input id="añoCarrera" type="number" class="form-control" name="añoCarrera" value="{{ old('añoCarrera') }}" required>
+                            <input id="añoCarrera" type="number" class="form-control" name="añoCarrera" value="{{ old('añoCarrera') }}" placeholder="Ej. 2019" maxlength="4" minlength="4" min="2000" required>
                         </div>
                     </div>    
 
@@ -97,29 +97,30 @@
                         <label for="carrera" class="col-md-3 col-form-label text-md-right">{{ __('Carrera') }}</label>
 
                         <div class="col-md-6">
-                            <select id="carrera" name="carrera" class="custom-select">
+                            <select id="carrera" name="carrera" class="custom-select" required>
                                 <option selected value="">Selecciona...</option>
-                                <option>Ingeniería Civil Informática</option>
-                                <option>Ingeniería de Ejecución Informática</option>
+                                <option value="Ingeniería Civil Informática">Ingeniería Civil Informática</option>
+                                <option value="Ingeniería de Ejecución Informática">Ingeniería de Ejecución Informática</option>
                             </select>
                         </div>
                     </div>
 
                     <br>
 
-                    {{-- Practica Profesional --}} 
-                    <h6>2.- Si es alumno de Ingeniería Civil. ¿Ha realizado su primera <strong>Práctica Profesional</strong>?</h6>
-
-                    <div class="form-group row">
+                    {{-- Practica Profesional --}}
+                    <div id="prueba">
+                    <h6>2.- Si es alumno de Ingeniería Civil. ¿Ha realizado su primera <strong>Práctica Profesional</strong>? (Solo Ing. Civil Informática)</h6>
+                        <div class="form-group row">
                         <label for="practica" class="col-md-3 col-form-label text-md-right">{{ __('') }}</label>
 
                         <div class="col-md-2">
                             <select id="practica" name="practica" class="custom-select">
                                 <option selected value="">Selecciona...</option>
-                                <option>Si</option>
-                                <option>No</option>
+                                <option value ="Si">Si</option>
+                                <option value ="No">No</option>
                             </select>     
                         </div> 
+                    </div>
                     </div>
 
                     <br>
@@ -127,21 +128,25 @@
                     {{-- Avance Curricular --}}
                     <h6>3.- Según su avance curricular, cuando realizaria la asignatura <strong>Proyecto de Título</strong>?</h6>
 
-                    {{-- Semestre --}} 
+                    {{-- Semestre --}}
+
                     <div class="form-group row">
-                        <label for="semestreProyecto" class="col-md-3 col-form-label text-md-right">{{ __('Semestre') }}</label>
+                        <label for="semestreProyecto" class="col-md-3 col-form-label text-md-right">{{ __('') }}</label>
 
                         <div class="col-md-2">
-                            <input id="semestreProyecto" type="number" class="form-control" name="semestreProyecto" value="{{ old('semestreProyecto') }}" required>
+                            <select id="semestreProyecto" name="semestreProyecto" class="custom-select" required>
+                                <option selected value="">Selecciona...</option>
+                                <option value ="1">1</option>
+                                <option value ="2">2</option>
+                            </select>
                         </div>
-                    </div>    
-
+                    </div>
                     {{-- AñoProyecto --}}
                     <div class="form-group row">
                         <label for="añoProyecto" class="col-md-3 col-form-label text-md-right">{{ __('Año') }}</label>
 
                         <div class="col-md-2">
-                            <input id="añoProyecto" type="number" class="form-control" name="añoProyecto" value="{{ old('añoProyecto') }}" required>
+                            <input id="añoProyecto" type="number" class="form-control" name="añoProyecto" value="{{ old('añoProyecto') }}" maxlength="4" minlength="4" placeholder="Ej. 2019" min="2000"required>
                         </div>
                     </div>
 
@@ -149,7 +154,7 @@
                     
                     <div class="row justify-content-end ">
                         <div class="col-md-4">
-                            <a href="{{route('descripcionSolicitud')}} " class="btn btn-secondary">Cancelar</a>
+                            <a href="{{route('descripcionSolicitud')}}" class="btn btn-secondary">Cancelar</a>
                         </div>
                         <div class="col-md-4">
                             <input class="btn btn-primary" type="submit" value="Agregar">
@@ -159,4 +164,21 @@
             </div>
         </form>
     </div>
+@endsection
+@section('scripts')
+    <script>
+        $(document).ready(function ()
+        {
+            $('#carrera').change(function()
+            {
+                if($("#carrera").val() != "Ingeniería Civil Informática"){
+                    $('#prueba').hide();
+                }
+                else{
+                    $('#prueba').show();
+                }
+
+            });
+        });
+    </script>
 @endsection

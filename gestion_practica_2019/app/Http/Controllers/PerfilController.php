@@ -34,9 +34,6 @@ class PerfilController extends Controller
 
         $nuevo = new Perfil;
         $nuevo->n_perfil = $data['n_perfil'];
-        // tengo problemas para realizar migraciones asi eliminar este campo y crear la tabla de la instancia
-        $nuevo->id_user = 1;
-
         $nuevo->save();
 
         return redirect()->route('lista_perfiles');
