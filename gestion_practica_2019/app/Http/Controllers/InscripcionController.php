@@ -73,7 +73,7 @@ class InscripcionController extends Controller
             'id_alumno' => $alumno->id_alumno
         ]);
 
-        *falta guardar la fecha en practica
+        /*falta guardar la fecha en practica
         */
 
         return redirect()->route('descripcionSolicitudDocumentos');
@@ -97,7 +97,7 @@ class InscripcionController extends Controller
                 'casilla' => $request->casilla,
                 'email' => $request->email
             ]);
-            $empresa = Empresa::where('rut',$request->rutSupervisor)->first();
+            $empresa = Empresa::where('rut',$request->rutEmpresa)->first();
         }
         
         $supervisor = Supervisor::where('email',$request->emailSupervisor)->first();
@@ -122,7 +122,7 @@ class InscripcionController extends Controller
             ]);
             $supervisor = Supervisor::where('email',$request->emailSupervisor)->first();
         }
-        
+
         $practica->f_inscripcion = $fecha;
         $practica->f_desde = $request->fechaDesde;
         $practica->f_hasta = $request->fechaHasta;
