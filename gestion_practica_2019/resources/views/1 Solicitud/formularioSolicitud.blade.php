@@ -46,7 +46,8 @@
                         <label for="rutAlumno" class="col-md-3 col-form-label text-md-right">{{ __('RUT') }}</label>
 
                         <div class="col-md-6">
-                            <input id="rutAlumno" type="text" class="form-control" name="rutAlumno" value="{{ old('rutAlumno') }}" placeholder="Ej. 12345678-9" maxlength="10" minlength="10" required pattern="[0-9]{8}-[K-k0-9]{1}">
+                            <input id="rutAlumno" type="text" class="form-control" name="rutAlumno" value="{{ old('rutAlumno') }}" maxlength="10" minlength="10" required pattern="[0-9]{8}-[K-k0-9]{1}">
+                            <label for="rutAlumno" class="font-italic">Ej. 12345678-9</label>
                         </div>
                     </div>
 
@@ -79,7 +80,8 @@
                         <label for="fono" class="col-md-3 col-form-label text-md-right">{{ __('Fono') }}</label>
 
                         <div class="col-md-6">
-                            <input id="fono" type="number" class="form-control" name="fono" value="{{ old('fono') }}" placeholder="Ej. 9 87654321" maxlength="9" minlength="9">
+                            <input id="fono" type="number" class="form-control" name="fono" value="{{ old('fono') }}"minlength="9">
+                            <label for="fono" class="font-italic">Ej. 9 87654321</label>
                         </div>
                     </div>    
 
@@ -88,7 +90,8 @@
                         <label for="añoCarrera" class="col-md-3 col-form-label text-md-right">{{ __('Año de Ingreso a la Carrera') }}</label>
 
                         <div class="col-md-2">
-                            <input id="añoCarrera" type="number" class="form-control" name="añoCarrera" value="{{ old('añoCarrera') }}" placeholder="Ej. 2019" maxlength="4" minlength="4" min="2000" required>
+                            <input id="añoCarrera" type="number" class="form-control" name="añoCarrera" value="{{ old('añoCarrera') }}" maxlength="4" minlength="4" min="2000" required>
+                            <label for="añoCarrera" class="font-italic">Ej. 2019</label>
                         </div>
                     </div>    
 
@@ -126,12 +129,12 @@
                     <br>
 
                     {{-- Avance Curricular --}}
-                    <h6>3.- Según su avance curricular, cuando realizaria la asignatura <strong>Proyecto de Título</strong>?</h6>
+                    <h6>3.- Según su avance curricular, en que semestre se realizaria la asignatura <strong>Proyecto de Título</strong>?</h6>
 
                     {{-- Semestre --}}
 
                     <div class="form-group row">
-                        <label for="semestreProyecto" class="col-md-3 col-form-label text-md-right">{{ __('') }}</label>
+                        <label for="semestreProyecto" class="col-md-3 col-form-label text-md-right">{{ __('Semestre') }}</label>
 
                         <div class="col-md-2">
                             <select id="semestreProyecto" name="semestreProyecto" class="custom-select" required>
@@ -146,15 +149,16 @@
                         <label for="añoProyecto" class="col-md-3 col-form-label text-md-right">{{ __('Año') }}</label>
 
                         <div class="col-md-2">
-                            <input id="añoProyecto" type="number" class="form-control" name="añoProyecto" value="{{ old('añoProyecto') }}" maxlength="4" minlength="4" placeholder="Ej. 2019" min="2000"required>
+                            <input id="añoProyecto" type="number" class="form-control" name="añoProyecto" value="{{ old('añoProyecto') }}" maxlength="4" minlength="4" min="2000"required>
+                            <label for="añoProyecto" class="font-italic">Ej. 2019</label>
                         </div>
                     </div>
 
                     <br>
-                    
+                    {{--Botones--}}
                     <div class="row justify-content-end ">
                         <div class="col-md-4">
-                            <a href="{{route('descripcionSolicitud')}}" class="btn btn-secondary">Cancelar</a>
+                            <button id="cancelar" class="btn btn-secondary" type="button">Cancelar</button>
                         </div>
                         <div class="col-md-4">
                             <input class="btn btn-primary" type="submit" value="Agregar">
@@ -163,9 +167,13 @@
                 </div>
             </div>
         </form>
+
     </div>
+
 @endsection
 @section('scripts')
+
+    {{--Metodo para esconder la opcion de "se ha realizado su primera practica profesional--}}
     <script>
         $(document).ready(function ()
         {
@@ -181,4 +189,29 @@
             });
         });
     </script>
+
+    {{--Metodo para mostrar pantalla para el boton "cancelar"--}}
+    <script>
+        $('#cancelar').click(function()
+        {
+            Swal({
+                title: 'Estas seguro de querer cancelar?',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                cancelButtonText: 'No!',
+                confirmButtonText:'Si!'
+
+            }).then((result) =>
+            {
+                if (result.value)
+                {
+                    window.location.href = "{{route('descripcionSolicitud')}}"
+                }
+            })
+        });
+    </script>
+
+
 @endsection
