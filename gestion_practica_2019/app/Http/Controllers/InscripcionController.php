@@ -3,6 +3,7 @@
 namespace SGPP\Http\Controllers;
 use Auth;
 use Illuminate\Http\Request;
+use PHPUnit\Framework\Warning;
 use SGPP\Alumno;
 use SGPP\DocSolicitado;
 use SGPP\Practica;
@@ -123,12 +124,19 @@ class InscripcionController extends Controller
             $supervisor = Supervisor::where('email',$request->emailSupervisor)->first();
         }
 
-        $practica->f_inscripcion = $fecha;
-        $practica->f_desde = $request->fechaDesde;
-        $practica->f_hasta = $request->fechaHasta;
-        $practica->id_supervisor = $supervisor->id_supervisor;
-        $practica->save();
-
+        $practica = Practica::where('id_alumno',$alumno->id_alumno)->first();
+        if($practica == null)
+        {
+            Practica::create([
+                'f_solicitud' => $fecha,
+                'f_inscripcion' => $fecha,
+                'f_desde' => $request->fechaDesde,
+                'f_hasta' => $request->fechaHasta,
+                'id_alumno' => $alumno->id_alumno,
+                'id_supervisor' => $supervisor->id_supervisor,
+            ]);
+            $practica = Practica::where('id_alumno',$alumno->id_alumno)->first();
+        }
         return redirect()->route('descripcionInscripcion');
     }
 
