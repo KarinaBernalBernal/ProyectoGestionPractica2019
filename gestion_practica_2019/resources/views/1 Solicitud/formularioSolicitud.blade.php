@@ -46,7 +46,7 @@
                         <label for="rutAlumno" class="col-md-3 col-form-label text-md-right">{{ __('RUT') }}</label>
 
                         <div class="col-md-6">
-                            <input id="rutAlumno" type="text" class="form-control" name="rutAlumno" value="{{ old('rutAlumno') }}" placeholder="Ej. 12345678-9" maxlength="10" minlength="10" required pattern="[0-9]{8}-[A-Z0-9]{1}">
+                            <input id="rutAlumno" type="text" class="form-control" name="rutAlumno" value="{{ old('rutAlumno') }}" placeholder="Ej. 12345678-9" maxlength="10" minlength="10" required pattern="[0-9]{8}-[K-k0-9]{1}">
                         </div>
                     </div>
 
@@ -97,29 +97,30 @@
                         <label for="carrera" class="col-md-3 col-form-label text-md-right">{{ __('Carrera') }}</label>
 
                         <div class="col-md-6">
-                            <select id="carrera" name="carrera" class="custom-select">
+                            <select id="carrera" name="carrera" class="custom-select" required>
                                 <option selected value="">Selecciona...</option>
-                                <option>Ingeniería Civil Informática</option>
-                                <option>Ingeniería de Ejecución Informática</option>
+                                <option value="Ingeniería Civil Informática">Ingeniería Civil Informática</option>
+                                <option value="Ingeniería de Ejecución Informática">Ingeniería de Ejecución Informática</option>
                             </select>
                         </div>
                     </div>
 
                     <br>
 
-                    {{-- Practica Profesional --}} 
+                    {{-- Practica Profesional --}}
+                    <div id="prueba">
                     <h6>2.- Si es alumno de Ingeniería Civil. ¿Ha realizado su primera <strong>Práctica Profesional</strong>? (Solo Ing. Civil Informática)</h6>
-
-                    <div class="form-group row">
+                        <div class="form-group row">
                         <label for="practica" class="col-md-3 col-form-label text-md-right">{{ __('') }}</label>
 
                         <div class="col-md-2">
                             <select id="practica" name="practica" class="custom-select">
                                 <option selected value="">Selecciona...</option>
-                                <option>Si</option>
-                                <option>No</option>
+                                <option value ="Si">Si</option>
+                                <option value ="No">No</option>
                             </select>     
                         </div> 
+                    </div>
                     </div>
 
                     <br>
@@ -127,15 +128,19 @@
                     {{-- Avance Curricular --}}
                     <h6>3.- Según su avance curricular, cuando realizaria la asignatura <strong>Proyecto de Título</strong>?</h6>
 
-                    {{-- Semestre --}} 
+                    {{-- Semestre --}}
+
                     <div class="form-group row">
-                        <label for="semestreProyecto" class="col-md-3 col-form-label text-md-right">{{ __('Semestre') }}</label>
+                        <label for="semestreProyecto" class="col-md-3 col-form-label text-md-right">{{ __('') }}</label>
 
                         <div class="col-md-2">
-                            <input id="semestreProyecto" type="number" class="form-control" name="semestreProyecto" value="{{ old('semestreProyecto') }}" placeholder="Ej. 2"maxlength="1" minlength="1" max="2" min="1"required>
+                            <select id="semestreProyecto" name="semestreProyecto" class="custom-select" required>
+                                <option selected value="">Selecciona...</option>
+                                <option value ="1">1</option>
+                                <option value ="2">2</option>
+                            </select>
                         </div>
-                    </div>    
-
+                    </div>
                     {{-- AñoProyecto --}}
                     <div class="form-group row">
                         <label for="añoProyecto" class="col-md-3 col-form-label text-md-right">{{ __('Año') }}</label>
@@ -160,13 +165,20 @@
         </form>
     </div>
 @endsection
+@section('scripts')
+    <script>
+        $(document).ready(function ()
+        {
+            $('#carrera').change(function()
+            {
+                if($("#carrera").val() != "Ingeniería Civil Informática"){
+                    $('#prueba').hide();
+                }
+                else{
+                    $('#prueba').show();
+                }
 
-<script>
-    $(document).ready(function () {
-        $("#carrera").change(function() {
-            if($("#carrera").val() == "Ingeniería Civil Informática"){
-                $('#practica').removeAttr('disabled');
-            }
+            });
         });
-    });
-</script>
+    </script>
+@endsection
