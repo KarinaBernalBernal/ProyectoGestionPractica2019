@@ -8,6 +8,7 @@ use SGPP\Alumno;
 use SGPP\User;
 use SGPP\Practica;
 use SGPP\Supervisor;
+use Mail;
 
 
 class SolicitudController extends Controller
@@ -275,6 +276,18 @@ class SolicitudController extends Controller
         else{
             return redirect()->route('evaluacionSolicitudEjecucion')->with('success','Registro creado satisfactoriamente');
         }
+    }
+
+    public function contact(Request $request){
+
+        $subject = "Formulario de solicitud práctica profesional";
+        $for = $request->emailSolicitud;
+        Mail::send('Emails.solicitud',$request->all(), function($msj) use($subject,$for){
+            $msj->from("practicaprofesionalpucv@gmail.com","Docencia Escuela de Ingeniería Informática");
+            $msj->subject($subject);
+            $msj->to($for);
+        });
+        return redirect()->route('descripcionSolicitud');
     }
 }
 
