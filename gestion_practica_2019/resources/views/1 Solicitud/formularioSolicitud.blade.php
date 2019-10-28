@@ -108,7 +108,7 @@
                     <br>
 
                     {{-- Practica Profesional --}}
-                    <div id="prueba">
+                    <div id="prueba" style="display:none">
                     <h6>2.- Si es alumno de Ingeniería Civil. ¿Ha realizado su primera <strong>Práctica Profesional</strong>? (Solo Ing. Civil Informática)</h6>
                         <div class="form-group row">
                         <label for="practica" class="col-md-3 col-form-label text-md-right">{{ __('') }}</label>
@@ -164,8 +164,7 @@
             </div>
         </form>
     </div>
-@endsection
-@section('scripts')
+
     <script>
         $(document).ready(function ()
         {
@@ -173,9 +172,11 @@
             {
                 if($("#carrera").val() != "Ingeniería Civil Informática"){
                     $('#prueba').hide();
+                    $('#practica').removeAttr('required');
                 }
                 else{
                     $('#prueba').show();
+                    $('#practica').attr('required', 'required');
                 }
 
             });
