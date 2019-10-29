@@ -1,5 +1,5 @@
 <!-- Sidebar -->
-<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">  <!-- style="position: fixed; z-index: 1;  -->
 
     <!-- Sidebar - Brand -->
     <li class="nav-item">
@@ -56,6 +56,23 @@
                     </div>
 
                 </li>
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                    Documentos
+            </div>
+
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                @if(Auth::user()->name == 'Gestionador') 
+                    <a class="nav-link collapsed" href="{{route('lista_solicitudes_documentos')}}">
+                        <i class="fas fa-arrow-right"></i><span>Solicitudes documentos</span>
+                    </a>        
+                @endif
+                
+            </li>
+
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseIngCivilInf" aria-expanded="true" aria-controls="collapseIngCivilInf"><i class="fas fa-users"></i>
                 <span>Ing. Civil Informatica:</span>
@@ -67,17 +84,19 @@
                         <a class="collapse-item" href="#">Supervisores</a>
 
                         <h6 class="collapse-header">Etapas</h6>
-                        <!-- Jefe de Docencia -->
-                        <a class="collapse-item" href="{{route('evaluacionSolicitud')}}">Solicitudes (Jefe Docencia)</a>
-                        <!-- Secretaria -->
-                        <a class="collapse-item" href="{{ route('listaSolicitudCivil')}}">Solicitudes (Secretaria)</a>
-                        <a class="collapse-item" href="#">Inscripciones</a>
+                        @if(Auth::user()->name == 'Jefe de docencia')
+                            <a class="collapse-item" href="{{route('evaluacionSolicitud')}}">Solicitudes</a>
+                        @endif
+                        @if(Auth::user()->name == 'Gestionador')
+                            <a class="collapse-item" href="{{ route('listaSolicitudCivil')}}">Solicitudes</a>
+                        @endif
+                        <a class="collapse-item" href="{{route('listaInscripcionCivil')}}">Inscripciones</a>
                         <a class="collapse-item" href="#">Autoevaluaciones</a>
                         <a class="collapse-item" href="#">Evaluaciones de empresas</a>
 
-                        <h7 class="collapse-header">Asistencia a charlas</h7>
+                        <!--<h7 class="collapse-header">Asistencia a charlas</h7>
                         <a class="collapse-item" href="#">Explicación introductoria</a>
-                        <a class="collapse-item" href="#">Presentaciones de práctica</a>
+                        <a class="collapse-item" href="#">Presentaciones de práctica</a>-->
                     </div>
                 </div>
             </li>
@@ -93,24 +112,24 @@
                         <a class="collapse-item" href="#">Supervisores</a>
 
                         <h6 class="collapse-header">Etapas</h6>
-                        <!-- Secretaria -->
-                        <a class="collapse-item" href="{{ route('listaSolicitudEjecucion')}}">Solicitudes (Secretaria)</a>
-                        <!-- Jefe de Docencia -->
-                        <a class="collapse-item" href="{{route('evaluacionSolicitudEjecucion')}}">Solicitudes (Jefe Docencia)</a>
-
-                        <a class="collapse-item" href="#">Inscripciones</a>
+                        @if(Auth::user()->name == 'Jefe de docencia') 
+                            <a class="collapse-item" href="{{route('evaluacionSolicitudEjecucion')}}">
+                            Solicitudes</a>
+                        @endif
+                        @if(Auth::user()->name == 'Gestionador') 
+                            <a class="collapse-item" href="{{ route('listaSolicitudEjecucion')}}">Solicitudes</a>
+                        @endif
+                        <a class="collapse-item" href="{{route('listaInscripcionEjecucion')}}">Inscripciones</a>
                         <a class="collapse-item" href="#">Autoevaluaciones</a>
                         <a class="collapse-item" href="#">Evaluaciones de empresas</a>
 
-                        <h7 class="collapse-header">Asistencia a charlas</h7>
+                        <!--<h7 class="collapse-header">Asistencia a charlas</h7>
                         <a class="collapse-item" href="#">Explicación introductoria</a>
-                        <a class="collapse-item" href="#">Presentaciones de práctica</a>
+                        <a class="collapse-item" href="#">Presentaciones de práctica</a>-->
                     </div>
                 </div>
             </li>
-
         <?php endif ?>
-
         @endauth
     @endif
     @if (Route::has('login'))
@@ -127,11 +146,11 @@
                 </div>
 
                 <!-- Nav Item - Pages Collapse Menu -->
-                <li class="nav-item">
+                <!--<li class="nav-item">
                     <a class="nav-link collapsed" href="{{route('descripcionSolicitud')}}">
-                        <i class="fas fa-arrow-right"></i><span>Solicita tu práctica aquí</span>
+                        <i class="fas fa-arrow-right"></i><span>Solicitud enviada</span>
                     </a>
-                </li>
+                </li>-->
 
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseInscripcion" aria-expanded="true" aria-controls="collapseInscripcion"><i class="fas fa-fw fa-folder"></i>

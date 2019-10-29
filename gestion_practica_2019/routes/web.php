@@ -127,6 +127,7 @@ Route::get('/aceptarSolicitud/{id_solicitud}', 'SolicitudController@estado')->na
 //--------Descripcion de etapa Inscripcion
 //solicitudDocumentos
 Route::get('/descripcionSolicitudDocumentos', 'InscripcionController@verDescripcionSolicitudDoc')->name('descripcionSolicitudDocumentos');
+Route::get('/lista_solicitudes_documentos', 'InscripcionController@lista')->name('lista_solicitudes_documentos');
 //formularioInscripcion
 Route::get('/descripcionInscripcion', 'InscripcionController@verDescripcionInscripcion')->name('descripcionInscripcion');
 //-------formulario de solicitud de documentos
@@ -136,9 +137,34 @@ Route::post('/agregarSolicitudDocumentos', 'InscripcionController@storeSolicitar
 //-------formularioInscripcion
 Route::get('/formularioInscripcion', 'InscripcionController@indexInscripcion')->name('formularioInscripcion');
 Route::post('/agregarInscripcion', 'InscripcionController@storeInscripcion')->name('agregarInscripcion');
-
+//---------listas
+Route::get('/listaInscripcionEjecucion', 'InscripcionController@listaInscripcionEjecucion')->name('listaInscripcionEjecucion');
+Route::get('/listaInscripcionCivil', 'InscripcionController@listaInscripcionCivil')->name('listaInscripcionCivil');
 /*--------------------- Etapa Evaluación ---------------------*/
 Route::get('/descripcionAutoEvaluacion', 'AutoEvaluacionController@verDescripcionAutoEvaluacion')->name('descripcionAutoEvaluacion');
 Route::get('/formularioAutoEvaluacion', 'AutoEvaluacionController@index')->name('formularioAutoEvaluacion');
+Route::post('/agregarAutoEvaluacion', 'AutoEvaluacionController@store')->name('agregarAutoEvaluacion');
 Route::get('/descripcionEvaluacionEmpresa', 'EvaluacionSupervisorController@verDescripcionEvaluacionEmpresa')->name('descripcionEvaluacionEmpresa');
 Route::get('/formularioEvaluacionEmpresa', 'EvaluacionSupervisorController@index')->name('formularioEvaluacionEmpresa');
+Route::post('/agregarEvaluacionEmpresa', 'EvaluacionSupervisorController@store')->name('agregarEvaluacionEmpresa');
+
+/*--------------------- Reportes ---------------------*/
+/* Rutas Reportes alumnos */
+// Rutas tipo GET
+Route::get('/Reportes/alumnos', 'AlumnosReporteController@index')->name('reporte_alumnos');
+
+Route::get('Notificar/Usuario', ['as' => 'enviar', function () {
+
+                $data = ['link' => 'http://styde.net'];
+
+                \Mail::send('Emails.notificacion', $data, function ($message) {
+
+                    $message->from('Sistema_gestion@styde.net', 'Styde.Net');
+
+                    $message->to('usuario_prueba@gmail.com')->subject('Notificación');
+
+                });
+
+                return redirect()->route('home');
+            }]);
+

@@ -5,7 +5,7 @@
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">INSCRIPCION PRÁCTICA PROFESIONAL</h1>
         </div>
-        
+
         <form action="{{route('agregarInscripcion')}}" enctype="multipart/form-data" method="POST" role="form">
             {{ csrf_field() }} 
 
@@ -15,38 +15,37 @@
                 <div class="card-body"> 
 
                     <h4>Documentos y periodo de práctica</h4> 
-
+            {{--Fechas--}}
                     <hr>
                     <div class="form-group row">
                         <div class="col-md-5">  
                             <label for="fechaDesde" class="col-md-3 col-form-label">{{ __('Desde') }}</label>
-                            <input type="date" name="fechaDesde" required>
+                            <input id="fechaDesde" type="date" name="fechaDesde" min="<?php echo date("Y-m-d");?>" required >
                         </div>
                         <div class="col-md-4">
                             <label for="fechaHasta" class="col-md-3 col-form-label">{{ __('Hasta') }}</label>
-                            <input type="date" name="fechaHasta" required>
-                        </div>
-                    </div>
-                </div>                
-            </div>
+                            <input id="fechaHasta" type="date" name="fechaHasta" required disabled>
+                         </div>
+                     </div>
+                 </div>
+             </div>
 
-            <br>
-            
-            {{-- Datos de la empresa --}}
+             <br>
+
+             {{-- Datos de la empresa --}}
 
             <div class="card text"> 
-
-                <div class="card-body"> 
+                <div class="card-body">
                     <h4>Datos de la empresa</h4> 
 
                     <hr>
-
-                    {{-- Nombre Empresa--}}   
+    
+                    {{-- Nombre Empresa --}}   
                     <div class="form-group row">
-                        <label for="nombreEmpresa" class="col-md-3 col-form-label text-md-right">{{ __('Nombre a quien se dirige la carta') }}</label>
+                        <label for="empresa" class="col-md-3 col-form-label text-md-right">{{ __('Nombre Empresa') }}</label>
                         
                         <div class="col-md-6">
-                            <input id="nombreEmpresa" type="text" class="form-control" name="nombreEmpresa" value="{{ old('nombreEmpresa') }}" required>
+                            <input id="empresa" type="text" class="form-control" name="empresa" value="{{ old('empresa') }}" required>
                         </div>
                     </div>
 
@@ -55,7 +54,17 @@
                         <label for="rutEmpresa" class="col-md-3 col-form-label text-md-right">{{ __('RUT') }}</label>
 
                         <div class="col-md-6">
-                            <input id="rutEmpresa" type="number" class="form-control" name="rutEmpresa" value="{{ old('rutEmpresa') }}" required>
+                            <input id="rutEmpresa" type="text" class="form-control" name="rutEmpresa" value="{{ old('rutEmpresa') }}" maxlength="10" minlength="10" required pattern="[0-9]{8}-[K-k0-9]{1}">
+                            <label for="rutEmpresa" class="font-italic">Ej. 12345678-9</label>
+                        </div>
+                    </div>
+
+                     {{-- Ciudad --}}  
+                    <div class="form-group row">
+                        <label for="ciudad" class="col-md-3 col-form-label text-md-right">{{ __('Ciudad') }}</label>
+                        
+                        <div class="col-md-6">
+                            <input id="ciudad" type="text" class="form-control" name="ciudad" value="{{ old('ciudad') }}" required>
                         </div>
                     </div>
 
@@ -77,6 +86,15 @@
                         </div>
                     </div>
 
+                    {{-- Casilla --}}
+                    <div class="form-group row">
+                        <label for="casilla" class="col-md-3 col-form-label text-md-right">{{ __('Casilla') }}</label>
+
+                        <div class="col-md-6">
+                            <input id="casilla" type="number" class="form-control" name="casilla" value="{{ old('casilla') }}" required>
+                        </div>
+                    </div>
+
                     {{-- Correo Electronico Empresa--}}
                     <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }} row">
                         <label for="email" class="col-md-3 col-form-label text-md-right control-label">Email empresa</label>
@@ -91,13 +109,32 @@
                             @endif
                         </div>
                     </div>  
+                </div>
+            </div>
 
-                    {{-- Nombre Supervisor --}}   
+            <br>
+
+            <div class="card text">
+                <div class="card-body"> 
+                    <h4>Datos Supervisor</h4> 
+
+                    <hr>
+
+                     {{-- Nombre Supervisor--}}   
                     <div class="form-group row">
-                        <label for="nombreSupervisor" class="col-md-3 col-form-label text-md-right">{{ __('Nombre a quien se dirige la carta') }}</label>
+                        <label for="nombreSupervisor" class="col-md-3 col-form-label text-md-right">{{ __('Nombre') }}</label>
                         
                         <div class="col-md-6">
                             <input id="nombreSupervisor" type="text" class="form-control" name="nombreSupervisor" value="{{ old('nombreSupervisor') }}" required>
+                        </div>
+                    </div>
+
+                    {{-- Apellido Paterno --}} 
+                    <div class="form-group row">
+                        <label for="aPaternoSupervisor" class="col-md-3 col-form-label text-md-right">{{ __('Apellido Paterno') }}</label>
+
+                        <div class="col-md-6">
+                            <input id="aPaternoSupervisor" type="text" class="form-control" name="aPaternoSupervisor" value="{{ old('aPaternoSupervisor') }}" required>
                         </div>
                     </div>
 
@@ -119,35 +156,36 @@
                         </div>
                     </div>
 
-                    {{-- Empresa --}}   
+                     {{-- Fono --}}
                     <div class="form-group row">
-                        <label for="empresa" class="col-md-3 col-form-label text-md-right">{{ __('Empresa') }}</label>
-                        
+                        <label for="fonoSupervisor" class="col-md-3 col-form-label text-md-right">{{ __('Fono') }}</label>
+
                         <div class="col-md-6">
-                            <input id="empresa" type="text" class="form-control" name="empresa" value="{{ old('empresa') }}" required>
+                            <input id="fonoSupervisor" type="number" class="form-control" name="fonoSupervisor" value="{{ old('fonoSupervisor') }}" required>
                         </div>
                     </div>
 
                     {{-- Correo Electronico Supervisor--}}
-                    <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }} row">
-                        <label for="email" class="col-md-3 col-form-label text-md-right control-label">Email supervisor</label>
+                    <div class="form-group{{ $errors->has('emailSupervisor') ? ' has-error' : '' }} row">
+                        <label for="emailSupervisor" class="col-md-3 col-form-label text-md-right control-label">Email supervisor</label>
 
                         <div class="col-md-6">
-                            <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
+                            <input id="emailSupervisor" type="email" class="form-control" name="emailSupervisor" value="{{ old('emailSupervisor') }}" required>
 
-                            @if ($errors->has('email'))
+                            @if ($errors->has('emailSupervisor'))
                                 <span class="help-block">
-                                    <strong>{{ $errors->first('email') }}</strong>
+                                    <strong>{{ $errors->first('emailSupervisor') }}</strong>
                                 </span>
                             @endif
                         </div>
                     </div>  
 
                     <br>
-                    
+
+                    {{-- Botones --}}
                     <div class="row justify-content-end ">
                         <div class="col-md-4">
-                            <a href="{{route('descripcionSolicitud')}} " class="btn btn-secondary">Cancelar</a>
+                            <button id="cancelar" class="btn btn-secondary" type="button">Cancelar</button>
                         </div>
                         <div class="col-md-4">
                             <input class="btn btn-primary" type="submit" value="Agregar">
@@ -157,4 +195,39 @@
             </div>
         </form>
     </div>
-@endsection 
+@endsection
+
+@section('scripts')
+
+    {{--Metodo para mostrar pantalla para el boton "cancelar"--}}
+    <script>
+        $('#cancelar').click(function()
+        {
+            Swal({
+                title: 'Estas seguro de querer cancelar?',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                cancelButtonText: 'No!',
+                confirmButtonText:'Si!'
+
+            }).then((result) =>
+            {
+                if (result.value)
+                {
+                    window.location.href = "{{route('descripcionInscripcion')}}"
+                }
+            })
+        });
+
+        {{--Metodo para validar el rango de las fechas--}}
+        $('#fechaDesde').change(function()
+        {
+            $('#fechaHasta').removeAttr('disabled');
+            $('#fechaHasta').attr('min', $('#fechaDesde').val());
+        });
+
+    </script>
+
+@endsection
