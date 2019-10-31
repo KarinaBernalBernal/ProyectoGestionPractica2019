@@ -100,6 +100,10 @@ Route::post('/Supervisores/agregar', 'SupervisorController@crearSupervisor')->na
 Route::post('/Supervisores/actualizar/{id_elemento}', 'SupervisorController@editarSupervisor')->name('actualizar_supervisor');
 Route::post('/Supervisores/eliminar/{id_elemento}','SupervisorController@borrarSupervisor')->name('borrar_supervisor');
 /*--------------------- Etapa Solicitud ---------------------*/
+
+//-------Envio de correo para estudiante
+Route::get('/contactar', 'SolicitudController@contact')->name('contact');
+
 //-------formulario de solicitud
 Route::get('/formularioSolicitud', 'SolicitudController@index')->name('formularioSolicitud');
 Route::post('/agregarSolicitud', 'SolicitudController@store')->name('agregarSolicitud');
@@ -159,9 +163,9 @@ Route::get('Notificar/Usuario', ['as' => 'enviar', function () {
 
                 \Mail::send('Emails.notificacion', $data, function ($message) {
 
-                    $message->from('Sistema_gestion@styde.net', 'Styde.Net');
+                    $message->from('practicaprofesionalpucv@gmail.com', 'Styde.Net');
 
-                    $message->to('usuario_prueba@gmail.com')->subject('Notificación');
+                    $message->to('pablo.cabello.alvarez@gmail.com')->subject('Notificación');
 
                 });
 

@@ -30,9 +30,9 @@
 
                         <br>
 
-                        <div class="form-group">
-                            <div class="row d-flex justify-content-center"> 
-                                <a href="{{route('formularioSolicitud')}}" class="btn btn-secondary"> <span>Acceder al formulario</span></a>
+                        <div class="form-group" id="formulario">
+                            <div class="row d-flex justify-content-center">
+                                <button class="btn btn-secondary" id="envioCorreo">Acceder al formulario</button>
                             </div>
                         </div>
                     </div>
@@ -40,4 +40,66 @@
             </div>
         </div>
     </div>
+    <script>
+        $('#envioCorreo').click(function() {
+
+            (async () => {
+
+                const pattern = /@mail.pucv.cl/;
+
+                const { value: email } = await Swal.fire({
+                    title: 'Ingrese su email de alumno',
+                    input: 'email',
+                    html:
+                        'Se debe ingresar un correo con la siguiente estructura: <b>ejemplo@mail.pucv.cl</b>',
+                    showCancelButton: true,
+                    cancelButtonColor: '#d33',
+                    cancelButtonText: 'Cancelar',
+                    validationMessage: 'Dirección de correo electrónico no válida',
+                    allowOutsideClick: false,
+                    inputValidator: (email) => {
+                        return new Promise((resolve) => {
+                            if (email.match(pattern)) {
+                                resolve()
+                            } else {
+                                resolve('No se ingresó un correo válido y/o perteneciente a la institución!')
+                            }
+                        })
+                    }
+                }).then((email) => {
+
+                    if (email.value) {
+
+                        window.swal({
+                            title: "enviando...",
+                            text: "Por favor espere",
+                            showConfirmButton: false,
+                            allowOutsideClick: false
+                        });
+                        $.ajax({
+                            url: '{{route('contact')}}',
+                            method: "GET",
+                            data: { emailSolicitud : email.value },
+                            success: function(){
+                                Swal(
+                                    'Listo!',
+                                    'Se te ha enviado un email.',
+                                    'success'
+                                )
+                            },
+                            error:function() {
+                                Swal.fire({
+                                    type: 'error',
+                                    title: 'Opps...!',
+                                    text: 'No se pudo enviar el correo electrónico',
+                                });
+                            }
+                        });
+                    }
+                });
+            })()
+        })
+    </script>
 @endsection
+
+
