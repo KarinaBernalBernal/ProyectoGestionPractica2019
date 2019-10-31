@@ -157,6 +157,7 @@ Route::post('/agregarEvaluacionEmpresa', 'EvaluacionSupervisorController@store')
 // Rutas tipo GET
 Route::get('/Reportes/alumnos', 'AlumnosReporteController@index')->name('reporte_alumnos');
 
+/* Verificar @Pablo y @Luis
 Route::get('Notificar/Usuario', ['as' => 'enviar', function () {
 
                 $data = ['link' => 'http://styde.net'];
@@ -171,4 +172,11 @@ Route::get('Notificar/Usuario', ['as' => 'enviar', function () {
 
                 return redirect()->route('home');
             }]);
+*/
 
+/* ---------------------------------------  Estadísticas  ---------------------------- */
+/* --------------  Estadisticas de alumno --------------- */
+Route::get('/estadisticaAlumno', 'EstadisticaController@buscarAlumno')->name('estadisticaAlumno');
+/* --------------  Estadisticas Generales --------------- */
+//Criterios
+Route::get('/estadisticaCriterios', 'EstadisticaController@verEstadisticaCriterios')->name('estadisticaCriterios');
