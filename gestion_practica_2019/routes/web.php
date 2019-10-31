@@ -171,4 +171,11 @@ Route::get('Notificar/Usuario', ['as' => 'enviar', function () {
 
                 return redirect()->route('home');
             }]);
+*/
 
+/* ---------------------------------------  Estadísticas  ---------------------------- */
+/* --------------  Estadisticas de alumno --------------- */
+Route::get('/estadisticaAlumno', 'EstadisticaController@buscarAlumno')->name('estadisticaAlumno');
+/* --------------  Estadisticas Generales --------------- */
+//Criterios
+Route::get('/estadisticaCriterios', 'EstadisticaController@verEstadisticaCriterios')->name('estadisticaCriterios');
