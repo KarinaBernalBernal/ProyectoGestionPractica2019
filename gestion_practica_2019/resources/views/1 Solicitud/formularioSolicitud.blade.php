@@ -8,7 +8,7 @@
 
         {{-- Antecendentes Generales --}}
         
-        <form action="{{route('agregarSolicitud')}}" enctype="multipart/form-data" method="POST" role="form">
+        <form action="{{route('agregarSolicitud')}}" enctype="multipart/form-data" method="POST" role="form" id="formularioSolicitud">
             <div class="card text">
                 <div class="card-body">  
                 {{ csrf_field() }} 
@@ -46,8 +46,8 @@
                         <label for="rutAlumno" class="col-md-3 col-form-label text-md-right">{{ __('RUT') }}</label>
 
                         <div class="col-md-6">
-                            <input id="rutAlumno" type="text" class="form-control" name="rutAlumno" value="{{ old('rutAlumno') }}" maxlength="10" minlength="10" required pattern="[0-9]{8}-[K-k0-9]{1}">
-                            <label for="rutAlumno" class="font-italic">Ej. 12345678-9</label>
+                            <input id="rutAlumno" type="text" class="form-control" name="rutAlumno" value="{{ old('rutAlumno') }}">
+                            <label for="rutAlumno" class="font-italic">Ej. 11111111-1</label>
                         </div>
                     </div>
 
@@ -161,7 +161,7 @@
                             <button id="cancelar" class="btn btn-secondary" type="button">Cancelar</button>
                         </div>
                         <div class="col-md-4">
-                            <input class="btn btn-primary" type="submit" value="Agregar">
+                            <input class="btn btn-primary" id="agregar" type="submit" value="Agregar">
                         </div>
                     </div>
                 </div>
@@ -178,6 +178,8 @@
                 if($("#carrera").val() != "Ingeniería Civil Informática"){
                     $('#prueba').hide();
                     $('#practica').removeAttr('required');
+                    $('#practica').val("");
+
                 }
                 else{
                     $('#prueba').show();
@@ -186,10 +188,10 @@
 
             });
         });
-    </script>
+
 
     {{--Metodo para mostrar pantalla para el boton "cancelar"--}}
-    <script>
+
         $('#cancelar').click(function()
         {
             Swal({
@@ -209,6 +211,101 @@
                 }
             })
         });
+
+        $('#añoProyecto').change(function()
+        {
+            $('#añoProyecto').attr('min', $('#añoCarrera').val());
+        });
+
+        $("#rutAlumno").change(function()
+        {
+            var Fn = {
+                // Valida el rut con su cadena completa "XXXXXXXX-X"
+                validaRut : function (rutCompleto) {
+                    rutCompleto = rutCompleto.replace("‐","-");
+                    if (!/^[0-9]+[-|‐]{1}[0-9kK]{1}$/.test( rutCompleto ))
+                        return false;
+                    var tmp     = rutCompleto.split('-');
+                    var digv    = tmp[1];
+                    var rut     = tmp[0];
+                    if ( digv == 'K' ) digv = 'k' ;
+
+                    return (Fn.dv(rut) == digv );
+                },
+                dv : function(T)
+                {
+                    var M=0,S=1;
+                    for(;T;T=Math.floor(T/10))
+                        S=(S+T%10*(9-M++%6))%11;
+                    return S?S-1:'k';
+                }
+            }
+
+            if (Fn.validaRut( $("#rutAlumno").val() )){
+                $('#rutAlumno').attr('class', 'form-control is-valid');
+                this.setCustomValidity('');
+            } else {
+                $('#rutAlumno').attr('class', 'form-control is-invalid');
+                this.setCustomValidity('Rut inválido');
+            }
+        });
+
+
+
+        // this is the id of the form
+        $("#formularioSolicitud").submit(function(e) {
+
+            e.preventDefault(); // avoid to execute the actual submit of the form.
+
+            var form = $(this);
+            var url = form.attr('action');
+
+            Swal({
+                title: '¿Estás seguro?',
+                text: "Es imporante revisar si todo está correcto!",
+                type: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si!'
+            }).then((result) => {
+
+                if (result.value) {
+
+                    window.swal({
+                        title: "Por favor espere",
+                        showConfirmButton: false,
+                        allowOutsideClick: false
+                    });
+                    $.ajax({
+                        url: url,
+                        method: "POST",
+                        data: form.serialize(), // serializes the form's elements.
+                        success: function(){
+                            Swal(
+                                'Listo!',
+                                'El formulario ha sido enviado.',
+                                'success'
+                            ).then((result) =>
+                            {
+                                if (result.value)
+                                {
+                                    window.location.href = "{{route('descripcionSolicitud')}}"
+                                }
+                            })
+                        },
+                        error:function() {
+                            Swal.fire({
+                                type: 'error',
+                                title: 'Opps...!',
+                                text: 'No se pudo enviar el correo electrónico',
+                            });
+                        }
+                    });
+                }
+            });
+        });
+
     </script>
 
 
