@@ -187,41 +187,53 @@ class SolicitudController extends Controller
 
         // si la solicitud es aprobada , se crea el alumno y usuario del mismo
         if($solicitud->resolucion_solicitud == 'Aprobado'){
+            $alumno = Alumno::all()
+                ->where('rut', $solicitud->rut)
+                ->where("carrera",$solicitud->carrera);
 
             $fecha= date("Y-m-d H:i:s");
-            
-            $nuevo = new Alumno;
-            $nuevo->nombre = $solicitud->nombre;
-            $nuevo->apellido_paterno = $solicitud->apellido_paterno;
-            $nuevo->apellido_materno = $solicitud->apellido_materno;
-            $nuevo->rut = $solicitud->rut;
-            $nuevo->email = $solicitud->email;
-            $nuevo->direccion = $solicitud->direccion;
-            $nuevo->fono = $solicitud->fono;
-            $nuevo->anno_ingreso = $solicitud->anno_ingreso;
-            $nuevo->carrera = $solicitud->carrera;
-            $nuevo->estimacion_semestre = 0;
 
-            $nueva_instancia = new User;
-            $nueva_instancia->name = $nuevo->nombre;
-            $nueva_instancia->email = $nuevo->email;
-            $nueva_instancia->password = bcrypt($nuevo->rut);
-            $nueva_instancia->type = 'Alumno';
+            if($alumno == null){
+             
+                $nuevo = new Alumno;
+                $nuevo->nombre = $solicitud->nombre;
+                $nuevo->apellido_paterno = $solicitud->apellido_paterno;
+                $nuevo->apellido_materno = $solicitud->apellido_materno;
+                $nuevo->rut = $solicitud->rut;
+                $nuevo->email = $solicitud->email;
+                $nuevo->direccion = $solicitud->direccion;
+                $nuevo->fono = $solicitud->fono;
+                $nuevo->anno_ingreso = $solicitud->anno_ingreso;
+                $nuevo->carrera = $solicitud->carrera;
+                $nuevo->estimacion_semestre = 0;
 
-            $nueva_instancia->save();
+                $nueva_instancia = new User;
+                $nueva_instancia->name = $nuevo->nombre;
+                $nueva_instancia->email = $nuevo->email;
+                $nueva_instancia->password = bcrypt($nuevo->rut);
+                $nueva_instancia->type = 'Alumno';
+                $nueva_instancia->save();
 
-            $nuevo->id_user = $nueva_instancia->id_user;
+                $nuevo->id_user = $nueva_instancia->id_user;
+                $nuevo->save();
 
+                // Verificar esto @Pablo y @Luis 
+                //return redirect()->route('enviar'); 
 
-            $nuevo->save();
-            return redirect()->route('enviar');
-        $solicitud->save();
+                $solicitud->save();
 
-            $nueva_instancia = new Practica;
-            $nueva_instancia->f_solicitud = $fecha;
-
-            $nueva_instancia->id_alumno = $nuevo->id_alumno;
-            $nueva_instancia->save();
+                $nueva_instancia = new Practica;
+                $nueva_instancia->f_solicitud = $fecha;
+                $nueva_instancia->id_alumno = $nuevo->id_alumno;
+                $nueva_instancia->save();
+            }
+            else {
+                
+                $nueva_instancia = new Practica;
+                $nueva_instancia->f_solicitud = $fecha;
+                $nueva_instancia->id_alumno = $alumno->id_alumno;
+                $nueva_instancia->save();
+            }
         }
 
         if($solicitud->carrera == "Ingeniería Civil Informática"){
@@ -240,7 +252,7 @@ class SolicitudController extends Controller
 
         $solicitud->resolucion_solicitud = $request->resolucion;
         $solicitud->observacion_solicitud = $request->observacion;
-        // si la solicitud al ser modificada es aprobada , se crea el alumno y usuario del mismo
+        
         if($solicitud->resolucion_solicitud == 'Aprobado')
             $nuevo = new Alumno;
 
@@ -266,8 +278,10 @@ class SolicitudController extends Controller
             $nuevo->id_user = $nueva_instancia->id_user;
             $nuevo->save();
 
-            return redirect()->route('enviar');
-        $solicitud->save();
+            //Verificar @Pablo y @Luis
+            //return redirect()->route('enviar');
+
+            $solicitud->save();
 
        if($solicitud->carrera == "Ingeniería Civil Informática"){
 
