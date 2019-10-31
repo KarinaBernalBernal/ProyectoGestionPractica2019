@@ -50,12 +50,26 @@
                             <a class="collapse-item" href="{{route('lista_evaluaciones_supervisor')}}">Gestión de evaluaciones supervisor</a>
                             <a class="collapse-item" href="{{route('lista_empresas')}}">Gestión de empresas</a>
                             <a class="collapse-item" href="{{route('lista_auto_evaluaciones')}}">Gestión de auto evaluaciones</a>
-
-
                         </div>
                     </div>
-
                 </li>
+                
+                <li class="nav-item">
+                    <!-- Solo profesores -->
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseVerEstadisticas" aria-expanded="true" aria-controls="collapseVerEstadisticas"><i class="fas fa-users"></i>
+                            <span>Ver estadísticas</span>
+                        </a>
+                        <div id="collapseVerEstadisticas" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                            <div class="bg-white py-2 collapse-inner rounded">
+
+                                <a class="collapse-item" href="{{route('estadisticaAlumno')}}">Busqueda avanzada</a>
+                                <a class="collapse-item" href="{{route('estadisticaCriterios')}}">Estadísticas generales</a>
+    
+                            </div>
+                        </div>
+                    <!-- -->
+                </li>
+             
             <hr class="sidebar-divider">
 
             <!-- Heading -->

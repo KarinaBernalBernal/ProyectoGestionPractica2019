@@ -169,6 +169,7 @@
         </form>
 
     </div>
+
     {{--Metodo para esconder la opcion de "se ha realizado su primera practica profesional--}}
     <script>
         $(document).ready(function ()
