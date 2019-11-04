@@ -54,7 +54,7 @@
                         <label for="rutEmpresa" class="col-md-3 col-form-label text-md-right">{{ __('RUT') }}</label>
 
                         <div class="col-md-6">
-                            <input id="rutEmpresa" type="text" class="form-control" name="rutEmpresa" value="{{ old('rutEmpresa') }}" maxlength="10" minlength="10" required pattern="[0-9]{8}-[K-k0-9]{1}">
+                            <input id="rutEmpresa" type="text" class="form-control" name="rutEmpresa" value="{{ old('rutEmpresa') }}" maxlength="10" minlength="10" required pattern="[0-9]{8}-[K,k0-9]{1}">
                             <label for="rutEmpresa" class="font-italic">Ej. 12345678-9</label>
                         </div>
                     </div>
