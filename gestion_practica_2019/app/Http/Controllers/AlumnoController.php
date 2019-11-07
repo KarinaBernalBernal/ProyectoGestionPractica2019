@@ -12,7 +12,8 @@ class AlumnoController extends Controller
     //vista principal de un elemento en especifico
     public function lista(Request $request)
     {
-        $lista= Alumno::filtrarYPaginar($request->get('nombre'), 
+        $lista= Alumno::filtrarYPaginar($request->get('buscador'),
+                                        $request->get('nombre'), 
                                         $request->get('apellido_paterno'),
                                         $request->get('apellido_materno'),
                                         $request->get('email'),

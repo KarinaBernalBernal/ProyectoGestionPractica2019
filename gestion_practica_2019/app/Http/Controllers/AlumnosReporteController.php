@@ -12,11 +12,13 @@ class AlumnosReporteController extends Controller
     public function index(Request $request)
         {
 
-        $lista= Alumno::filtrarYPaginar($request->get('nombre'), 
+        $lista= Alumno::filtrarYPaginar($request->get('buscador'),
+                                        $request->get('nombre'), 
                                         $request->get('apellido_paterno'),
                                         $request->get('apellido_materno'),
                                         $request->get('email'),
-                                        $request->get('anno_ingreso'));
+                                        $request->get('anno_ingreso'),
+                                        $request->get('carrera'));
         
         return view('Reportes.alumnos')->with("lista", $lista);
     }
