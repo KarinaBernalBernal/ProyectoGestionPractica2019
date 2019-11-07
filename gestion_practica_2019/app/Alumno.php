@@ -25,8 +25,9 @@ class Alumno extends Model
         return $this->belongsTo('App\Practica');    
     }
 
-    public static function filtrarYPaginar($nombre, $apellido_paterno, $apellido_materno, $email, $anno_ingreso, $carrera){
-        return Alumno::Nombre($nombre)
+    public static function filtrarYPaginar($buscador, $nombre, $apellido_paterno, $apellido_materno, $email, $anno_ingreso, $carrera){
+        return Alumno::Buscador($buscador)
+                    ->Nombre($nombre)
                     ->ApellidoPaterno($apellido_paterno)
                     ->ApellidoMaterno($apellido_materno)
                     ->Email($email)
@@ -34,6 +35,21 @@ class Alumno extends Model
                     ->Carrera($carrera)
                     ->orderBy('id_alumno', 'ASC')
                     ->paginate();
+    }
+
+    public function scopeBuscador($query, $buscador){
+
+        if (  trim($buscador !== '') ) {
+            $query->where('nombre', 'LIKE', '%'. $buscador . '%')
+                    ->orwhere('apellido_paterno', 'LIKE', '%'. $buscador . '%')
+                    ->orwhere('apellido_materno', 'LIKE', '%'. $buscador . '%')
+                    ->orwhere('email', 'LIKE', '%'. $buscador . '%')
+                    ->orwhere('carrera', 'LIKE', '%'. $buscador . '%')
+                    ->orwhere('rut', 'LIKE', '%'. $buscador . '%')
+                    ->orwhere('anno_ingreso', 'LIKE', '%'. $buscador . '%')
+                    ->orwhere('direccion', 'LIKE', '%'. $buscador . '%');
+		}
+		return $query;
     }
 
     public function scopeNombre($query, $nombre){
