@@ -180,3 +180,7 @@ Route::get('/estadisticaAlumno', 'EstadisticaController@buscarAlumno')->name('es
 /* --------------  Estadisticas Generales --------------- */
 //Criterios
 Route::get('/estadisticaCriterios', 'EstadisticaController@verEstadisticaCriterios')->name('estadisticaCriterios');
+
+/* ----------------- Supevisores en practica ---------------------------- */
+
+Route::get('/supervisoresPractica', 'SupervisorController@supervisoresEnPractica')->name('supervisoresPractica');

@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 use SGPP\Supervisor;
 use SGPP\User;
 use SGPP\Empresa;
-
+use SGPP\Alumno;
+use SGPP\Practica;
 
 class SupervisorController extends Controller
 {
@@ -19,6 +20,32 @@ class SupervisorController extends Controller
                 'lista'=>$lista,
             ]);
     }
+
+    public function supervisoresEnPractica() //Supervisores de alumnos de ejecucion en practica
+    {
+        $alumnosInformatica = Alumno::all()->where('carrera', 'Ingeniería de Ejecución Informática');
+        $practicas = Practica::all();
+        $supervisores = Supervisor::all();
+
+        if($practicas->isNotEmpty()) //el recorrido no se hace si no hay nada que recorrer
+        {
+            for($i = 0; $i<count($alumnosInformatica,1); $i++)
+            {
+                $practicas[$i] = Practica::all()->where('id_alumno', $alumnosInformatica[$i]->id_alumno)->first(); // Clave foranea, variable alumnosInformatica
+            }
+        }
+
+        if($supervisores->isNotEmpty())
+        {
+            for($i = 0; $i<count($practicas,1); $i++)
+            {
+                $supervisores[$i] = Supervisor::all()->where('id_supervisor', $practicas[$i]->id_supervisor)->first(); // Clave foranea, variable alumnosInformatica
+            }
+        }
+
+        return view('Practicas/Ejecucion/supervisores_en_practica')->with('supervisores',$supervisores);
+    }
+
     public function crear()
     {
         $empresas= Empresa::all();
@@ -102,5 +129,8 @@ class SupervisorController extends Controller
         return redirect()->route('lista_supervisores');
     }
 
-
+    public function probando()
+    {
+        return view('Practicas/Ejecucion/supervisores_en_practica');
+    }
 }

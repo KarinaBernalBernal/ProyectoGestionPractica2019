@@ -123,7 +123,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Gestión general</h6>
                         <a class="collapse-item" href="#">Alumnos en práctica</a>
-                        <a class="collapse-item" href="#">Supervisores</a>
+                        <a class="collapse-item" href="supervisoresPractica">Supervisores</a>
 
                         <h6 class="collapse-header">Etapas</h6>
                         @if(Auth::user()->name == 'Jefe de docencia') 

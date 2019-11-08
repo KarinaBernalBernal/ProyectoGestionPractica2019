@@ -186,15 +186,17 @@ class SolicitudController extends Controller
         $solicitud->save();
 
         // si la solicitud es aprobada , se crea el alumno y usuario del mismo
-        if($solicitud->resolucion_solicitud == 'Aprobado'){
+        if($solicitud->resolucion_solicitud == 'Aprobado')
+        {
             $alumno = Alumno::all()
                 ->where('rut', $solicitud->rut)
-                ->where("carrera",$solicitud->carrera);
+                ->where("carrera",$solicitud->carrera)->first();
 
             $fecha= date("Y-m-d H:i:s");
 
-            if($alumno == null){
-             
+            if($alumno == null)
+            {
+
                 $nuevo = new Alumno;
                 $nuevo->nombre = $solicitud->nombre;
                 $nuevo->apellido_paterno = $solicitud->apellido_paterno;
@@ -205,7 +207,7 @@ class SolicitudController extends Controller
                 $nuevo->fono = $solicitud->fono;
                 $nuevo->anno_ingreso = $solicitud->anno_ingreso;
                 $nuevo->carrera = $solicitud->carrera;
-                $nuevo->estimacion_semestre = 0;
+                $nuevo->estimacion_semestre = 0; //Revisar esto
 
                 $nueva_instancia = new User;
                 $nueva_instancia->name = $nuevo->nombre;
@@ -217,8 +219,8 @@ class SolicitudController extends Controller
                 $nuevo->id_user = $nueva_instancia->id_user;
                 $nuevo->save();
 
-                // Verificar esto @Pablo y @Luis 
-                //return redirect()->route('enviar'); 
+                // Verificar esto @Pablo y @Luis
+                //return redirect()->route('enviar');
 
                 $solicitud->save();
 
@@ -228,7 +230,7 @@ class SolicitudController extends Controller
                 $nueva_instancia->save();
             }
             else {
-                
+
                 $nueva_instancia = new Practica;
                 $nueva_instancia->f_solicitud = $fecha;
                 $nueva_instancia->id_alumno = $alumno->id_alumno;
@@ -236,7 +238,8 @@ class SolicitudController extends Controller
             }
         }
 
-        if($solicitud->carrera == "Ingeniería Civil Informática"){
+        if($solicitud->carrera == "Ingeniería Civil Informática")
+        {
             return redirect()->route('evaluacionSolicitud')->with('success','Registro creado satisfactoriamente');
         }
         else{
