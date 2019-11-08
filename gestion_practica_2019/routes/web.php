@@ -116,7 +116,6 @@ Route::get('/evaluacionSolicitudCivil', 'SolicitudController@evaluacion')->name(
 Route::get('/evaluacionSolicitudEjecucion', 'SolicitudController@evaluacionEjecucion')->name('evaluacionSolicitudEjecucion');
 
 //modals
-
 Route::get('/modal/evaluarSolicitudModal/{id}','SolicitudController@evaluarSolicitudModal')->name('evaluarSolicitudModal');
 Route::post('/evaluacionSolicitud/evaluarSolicitud/{id}','SolicitudController@evaluarSolicitud')->name('evaluarSolicitud');
 Route::get('/modal/modificarEvaluacionSolicitudModal/{id}','SolicitudController@modificarEvaluacionSolicitudModal')->name('modificarEvaluacionSolicitudModal');
@@ -179,4 +178,4 @@ Route::get('Notificar/Usuario', ['as' => 'enviar', function () {
 Route::get('/estadisticaAlumno', 'EstadisticaController@buscarAlumno')->name('estadisticaAlumno');
 /* --------------  Estadisticas Generales --------------- */
 //Criterios
-Route::get('/estadisticaCriterios', 'EstadisticaController@verEstadisticaCriterios')->name('estadisticaCriterios');
+Route::get('/estadisticaCriteriosAutoevaluacion', 'EstadisticaController@verEstadisticaCriteriosAutoeval')->name('estadisticaCriteriosAutoeval');

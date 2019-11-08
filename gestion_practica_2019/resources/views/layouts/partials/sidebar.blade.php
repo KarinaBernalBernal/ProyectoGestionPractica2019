@@ -62,8 +62,8 @@
                         <div id="collapseVerEstadisticas" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                             <div class="bg-white py-2 collapse-inner rounded">
 
-                                <a class="collapse-item" href="{{route('estadisticaAlumno')}}">Busqueda avanzada</a>
-                                <a class="collapse-item" href="{{route('estadisticaCriterios')}}">Estadísticas generales</a>
+                                <a class="collapse-item" href="{{route('estadisticaAlumno')}}">Búsqueda avanzada</a>
+                                <a class="collapse-item" href="{{route('estadisticaCriteriosAutoeval')}}">Criterios de Autoevaluación</a>
     
                             </div>
                         </div>
