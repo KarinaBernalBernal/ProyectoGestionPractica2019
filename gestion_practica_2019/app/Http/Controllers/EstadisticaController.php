@@ -3,10 +3,15 @@
 namespace SGPP\Http\Controllers;
 
 use Illuminate\Http\Request;
+<<<<<<< HEAD
 use SGPP\EvalActPractica;
 use SGPP\Autoevaluacion;
 use SGPP\Practica;
 use SGPP\Alumno;
+=======
+use SGPP\Alumno;
+use SGPP\User;
+>>>>>>> rama_vale
 
 class EstadisticaController extends Controller
 {
@@ -22,7 +27,15 @@ class EstadisticaController extends Controller
     }
     
     public function buscarAlumno(Request $request){
-        //return view('Estadisticas/........');
+        $lista= Alumno::filtrarYPaginar($request->get('buscador'),
+                                        $request->get('nombre'), 
+                                        $request->get('apellido_paterno'),
+                                        $request->get('apellido_materno'),
+                                        $request->get('email'),
+                                        $request->get('anno_ingreso'),
+                                        $request->get('carrera')
+                                    );
+        return view('Estadisticas/AlumnosDetalles')->with("lista", $lista);
     }
 
     //---------------------- funciones de EstadisticaCriteriosAutoeval -------------------
