@@ -196,7 +196,7 @@
         $('#cancelar').click(function()
         {
             Swal({
-                title: 'Estas seguro de querer cancelar?',
+                title: '¿Estás seguro?',
                 type: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
@@ -240,7 +240,7 @@
                         S=(S+T%10*(9-M++%6))%11;
                     return S?S-1:'k';
                 }
-            }
+            };
 
             if (Fn.validaRut( $("#rutAlumno").val() )){
                 $('#rutAlumno').attr('class', 'form-control is-valid');
@@ -299,7 +299,7 @@
                             Swal.fire({
                                 type: 'error',
                                 title: 'Opps...!',
-                                text: 'No se pudo enviar el correo electrónico',
+                                text: 'No se pudo enviar el formulario',
                             });
                         }
                     });
