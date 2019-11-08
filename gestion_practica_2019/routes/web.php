@@ -101,7 +101,7 @@ Route::post('/Supervisores/actualizar/{id_elemento}', 'SupervisorController@edit
 Route::post('/Supervisores/eliminar/{id_elemento}','SupervisorController@borrarSupervisor')->name('borrar_supervisor');
 /*--------------------- Etapa Solicitud ---------------------*/
 
-//-------Envio de correo para estudiante
+//-------Envio de correo para estudiante con link de formulario de autorización práctica
 Route::get('/contactar', 'SolicitudController@contact')->name('contact');
 
 //-------formulario de solicitud
@@ -156,23 +156,6 @@ Route::post('/agregarEvaluacionEmpresa', 'EvaluacionSupervisorController@store')
 /* Rutas Reportes alumnos */
 // Rutas tipo GET
 Route::get('/Reportes/alumnos', 'AlumnosReporteController@index')->name('reporte_alumnos');
-
-/* Verificar @Pablo y @Luis
-Route::get('Notificar/Usuario', ['as' => 'enviar', function () {
-
-                $data = ['link' => 'http://styde.net'];
-
-                \Mail::send('Emails.notificacion', $data, function ($message) {
-
-                    $message->from('practicaprofesionalpucv@gmail.com', 'Styde.Net');
-
-                    $message->to('pablo.cabello.alvarez@gmail.com')->subject('Notificación');
-
-                });
-
-                return redirect()->route('home');
-            }]);
-*/
 
 /* ---------------------------------------  Estadísticas  ---------------------------- */
 /* --------------  Estadisticas de alumno --------------- */

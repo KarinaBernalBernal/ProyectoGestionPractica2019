@@ -1,5 +1,5 @@
 <!-- Sidebar -->
-<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">  <!-- style="position: fixed; z-index: 1;  -->
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar" style="position: fixed; z-index: 1; width: 100%; height: 100%; overflow-x: hidden;">  <!-- style="position: fixed; z-index: 1;"  -->
 
     <!-- Sidebar - Brand -->
     <li class="nav-item">
@@ -240,8 +240,22 @@
 
     <!-- Sidebar Toggler (Sidebar) -->
     <div class="text-center d-none d-md-inline">
-        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+        <i class="fas fa-angle-double-left fa-2x" id="hola" style="color: #f2eeed;"></i>
     </div>
+
 
 </ul>
 <!-- End of Sidebar -->
+
+<script>
+
+    $('#hola').click(function()
+    {
+        $('#accordionSidebar').hide(80);
+        $('#topBarToggle').show();
+        $('#content').removeAttr('style');
+
+    });
+
+
+</script>
