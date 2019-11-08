@@ -3,15 +3,10 @@
 namespace SGPP\Http\Controllers;
 
 use Illuminate\Http\Request;
-<<<<<<< HEAD
 use SGPP\EvalActPractica;
 use SGPP\Autoevaluacion;
 use SGPP\Practica;
 use SGPP\Alumno;
-=======
-use SGPP\Alumno;
-use SGPP\User;
->>>>>>> rama_vale
 
 class EstadisticaController extends Controller
 {
