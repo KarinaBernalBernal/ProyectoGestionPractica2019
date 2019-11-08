@@ -140,6 +140,7 @@
                                     <option selected value="">Selecciona...</option>
                                     <option>Aprobado</option>
                                     <option>Rechazado</option>
+                                    <option>Pendiente</option>
                                 </select>      
                             </div>
                         </div>

@@ -98,8 +98,25 @@
             </tr>
             <tr>
               <td class="bodycopy">
-                Te informamos que tu solicitud de practica ha sido aprobada, la información de los pasos a seguir se encuentran en la pagina de Sistema de gestión de practica profesional.
-                Puedes acceder al sistema con tu correo y contraseña , siendo este ultimo tu rut.
+                <!--Te informamos que tu solicitud de practica ha sido aprobada, -->
+
+                Te informamos que el estado de tu solicitud es: <b>{{$resolucion}}</b>.
+
+                @if($observacion != "")
+                <p>El jefe de Docencia escribio la siguiente observación: <b>{{$observacion}}</b></p>
+                @endif
+
+                @if($resolucion == "Aprobado")
+                  <p>La información de los pasos a seguir se encuentran en la pagina de Sistema de gestión de practica profesional.
+                  Puedes acceder al sistema con tu correo y contraseña , siendo este ultimo tu rut.</p>
+                @endif
+
+                @if($resolucion == "Rechazado")
+                  <p>No podrás realizar la práctica profesional este semestre, para mas información, puedes consultar tus dudas en docencia.</p>
+                @endif
+                @if($resolucion == "Pendiente")
+                  <p>La</p>
+                @endif
               </td>
             </tr>
           </table>

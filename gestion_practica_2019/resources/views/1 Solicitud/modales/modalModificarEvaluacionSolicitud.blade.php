@@ -140,7 +140,12 @@
                                     <option selected value="{{ $solicitud->resolucion_solicitud}}">{{ $solicitud->resolucion_solicitud}}</option>
                                     @if( $solicitud->resolucion_solicitud == 'Aprobado')
                                         <option>Rechazado</option>
+                                        <option>Pendiente</option>
+                                    @elseif($solicitud->resolucion_solicitud == 'Rechazado')
+                                        <option>Aprobado</option>
+                                        <option>Pendiente</option>
                                     @else
+                                        <option>Rechazado</option>
                                         <option>Aprobado</option>
                                     @endif
                                 </select>      

@@ -106,7 +106,7 @@ class InscripcionController extends Controller
             User::create([
                 'name' => $request->nombreSupervisor,
                 'email' => $request->emailSupervisor,
-                'password' => bcrypt('supervisor123'),
+                'password' => bcrypt('supervisor123'), //str_random(8) Para el value
                 'type' => 'Supervisor'
             ]);
             $usuarioS = User::where('email',$request->emailSupervisor)->first();

@@ -186,14 +186,16 @@ class SolicitudController extends Controller
         $solicitud->save();
 
         // si la solicitud es aprobada , se crea el alumno y usuario del mismo
-        if($solicitud->resolucion_solicitud == 'Aprobado'){
+        if($solicitud->resolucion_solicitud == 'Aprobado' || $solicitud->resolucion_solicitud == 'Pendiente')
+        {
             $alumno = Alumno::all()
                 ->where('rut', $solicitud->rut)
-                ->where("carrera",$solicitud->carrera);
+                ->where("carrera",$solicitud->carrera)->first();
 
             $fecha= date("Y-m-d H:i:s");
 
-            if($alumno == null){
+            if($alumno == null)
+            {
              
                 $nuevo = new Alumno;
                 $nuevo->nombre = $solicitud->nombre;
@@ -217,24 +219,27 @@ class SolicitudController extends Controller
                 $nuevo->id_user = $nueva_instancia->id_user;
                 $nuevo->save();
 
-                // Verificar esto @Pablo y @Luis 
-                //return redirect()->route('enviar'); 
-
                 $solicitud->save();
-
                 $nueva_instancia = new Practica;
                 $nueva_instancia->f_solicitud = $fecha;
                 $nueva_instancia->id_alumno = $nuevo->id_alumno;
                 $nueva_instancia->save();
             }
             else {
-                
                 $nueva_instancia = new Practica;
                 $nueva_instancia->f_solicitud = $fecha;
                 $nueva_instancia->id_alumno = $alumno->id_alumno;
                 $nueva_instancia->save();
             }
         }
+        // Se notifica al Alumno sobre el estado de su solicitud
+        $subject = "Estado solicitud de práctica";
+        $for = $solicitud->email;
+        Mail::send('Emails.notificacion',$request->all(), function($msj) use($subject,$for){
+            $msj->from("practicaprofesionalpucv@gmail.com","Docencia Escuela de Ingeniería Informática");
+            $msj->subject($subject);
+            $msj->to($for);
+        });
 
         if($solicitud->carrera == "Ingeniería Civil Informática"){
             return redirect()->route('evaluacionSolicitud')->with('success','Registro creado satisfactoriamente');
@@ -283,6 +288,14 @@ class SolicitudController extends Controller
 
             $solicitud->save();
 
+            $subject = "Estado solicitud de práctica";
+            $for = $nuevo->email;
+            Mail::send('Emails.notificacion', $request->all(), function($msj) use($subject,$for){
+                $msj->from("practicaprofesionalpucv@gmail.com","Docencia Escuela de Ingeniería Informática");
+                $msj->subject($subject);
+                $msj->to($for);
+        });
+
        if($solicitud->carrera == "Ingeniería Civil Informática"){
 
             return redirect()->route('evaluacionSolicitud')->with('success','Registro creado satisfactoriamente');
@@ -303,5 +316,6 @@ class SolicitudController extends Controller
         });
         return redirect()->route('descripcionSolicitud');
     }
+
 }
 

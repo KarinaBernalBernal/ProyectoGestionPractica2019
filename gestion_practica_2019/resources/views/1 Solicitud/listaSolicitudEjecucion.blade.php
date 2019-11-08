@@ -5,14 +5,14 @@
         <div class="row">
             <div class="col col-md-offset">
                 <div class="tab-content" id="myTabContent">
-                    <div class="row">
+                    <div class="container-fluid">
                         <h2>Nuevas Solicitudes</h2>
                     </div>
 
                     <br>
                     @if (count($solicitudes)>0)
 
-                        <div class="row d-flex justify-content-center">
+                        <div class="container-fluid">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="MyTable">
                                     <thead class="bg-dark" style="color: white">
@@ -23,10 +23,11 @@
                                         <th class="text-truncate text-center">Apellido materno</th>
                                         <th class="text-truncate text-center">Fecha</th>
                                         <th class="text-truncate text-center">Direccion</th>
+                                        <th class="text-truncate text-center">Email</th>
                                         <th class="text-truncate text-center">Fono</th>
                                         <th class="text-truncate text-center">Año Ingreso</th>
                                         <th class="text-truncate text-center">Estimación</th>
-                                        <th class="text-truncate text-center">Acciones</th>
+                                      {{--  <th class="text-truncate text-center">Acciones</th>  --}}
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -38,11 +39,13 @@
                                             <td class="text-truncate text-center">{{ $solicitud->apellido_materno }}</td>
                                             <td class="text-truncate text-center">{{ $solicitud->f_solicitud }}</td>
                                             <td class="text-truncate text-center">{{ $solicitud->direccion }}</td>
+                                            <td class="text-truncate text-center">{{ $solicitud->email }}</td>
                                             <td class="text-truncate text-center">{{ $solicitud->fono }}</td>
                                             <td class="text-truncate text-center">{{ $solicitud->anno_ingreso }}</td>
                                             <td class="text-truncate text-center"><strong>Semestre:</strong> {{ $solicitud->semestre_proyecto }} <br>
                                                 <strong>Año:</strong>	{{ $solicitud->anno_proyecto }}</td>
 
+                                {{--        Estos son los botones de aceptar o denergar en la lista. Se omitieron ya que no se están usando actualmente
 
                                             <td class="text-center">
                                                 <div class="btn-group">
@@ -54,6 +57,7 @@
                                                     </form>
                                                 </div>
                                             </td>
+                                --}}
                                         </tr>
                                     @endforeach
                                     </tbody>
