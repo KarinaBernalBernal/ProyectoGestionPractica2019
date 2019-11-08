@@ -80,6 +80,7 @@ class SolicitudController extends Controller
         return redirect()->route('home');
     }
 
+    //Este metodo no se está utilizando de momento ya que pertenecia a la verificacion del gestionador.
     public function estado($id)
     {
         $solicitudes = Solicitud::find($id);
@@ -129,11 +130,11 @@ class SolicitudController extends Controller
 
         $solicitudesP = Solicitud::all()
             ->where('carrera', 'Ingeniería Civil Informática')
-            ->where("estado",1);
+            ->where("estado",0);
 
         $solicitudesE = Solicitud::all()
             ->where('carrera', 'Ingeniería Civil Informática')
-            ->where("estado",2);
+            ->where("estado",1);
 
         return view('1 Solicitud/evaluacionSolicitud',[
             'solicitudesP'=>$solicitudesP,
@@ -145,11 +146,11 @@ class SolicitudController extends Controller
 
         $solicitudesP = Solicitud::all()
             ->where('carrera', 'Ingeniería de Ejecución Informática')
-            ->where("estado",1);
+            ->where("estado",0);
 
         $solicitudesE = Solicitud::all()
             ->where('carrera', 'Ingeniería de Ejecución Informática')
-            ->where("estado",2);
+            ->where("estado",1);
 
         return view('1 Solicitud/evaluacionSolicitud',[
             'solicitudesP'=>$solicitudesP,
@@ -182,7 +183,7 @@ class SolicitudController extends Controller
 
         $solicitud->resolucion_solicitud = $request->resolucion;
         $solicitud->observacion_solicitud = $request->observacion;
-        $solicitud->estado = 2;
+        $solicitud->estado = 1;
         $solicitud->save();
 
         // si la solicitud es aprobada , se crea el alumno y usuario del mismo

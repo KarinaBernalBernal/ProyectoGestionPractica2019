@@ -5,16 +5,16 @@
         <div class="row">
             <div class="col col-md-offset">
                 <div class="tab-content" id="myTabContent">
-                    <div class="row">
+                    <div class="container-fluid">
                         <h2>Nuevas Solicitudes</h2>
                     </div>
 
                     <br>
                     @if (count($solicitudes)>0)
 
-                        <div class="row d-flex justify-content-center">
+                        <div class="container-fluid">
                             <div class="table-responsive">
-                                <table class="table table-bordered" id="MyTable">
+                                <table class="table table-bordered table-sm" id="MyTable">
                                     <thead class="bg-dark" style="color: white">
                                     <tr>
                                         <th class="text-truncate text-center">Rut</th>
@@ -26,7 +26,7 @@
                                         <th class="text-truncate text-center">Fono</th>
                                         <th class="text-truncate text-center">Año Ingreso</th>
                                         <th class="text-truncate text-center">Estimación</th>
-                                        <th class="text-truncate text-center">Acciones</th>
+                                    {{--<th class="text-truncate text-center">Acciones</th>--}}
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -43,31 +43,33 @@
                                             <td class="text-truncate text-center"><strong>Semestre:</strong> {{ $solicitud->semestre_proyecto }} <br>
                                                 <strong>Año:</strong>	{{ $solicitud->anno_proyecto }}</td>
 
+                                        {{--        Estos son los botones de aceptar o denergar en la lista. Se omitieron ya que no se están usando actualmente
 
-                                            <td class="text-center">
-                                                <div class="btn-group">
-                                                    <form method="get" action='{{ route('aceptarSolicitud', $solicitud->id_solicitud) }}'>
-                                                        <button type="submit" class="btn btn-success btn-sm btn-block">Aceptar</button>
-                                                    </form>
-                                                    <form method="get" action='{{ route('borrarSolicitud', $solicitud->id_solicitud) }}'>
-                                                        <button type="submit" class="btn btn-danger btn-sm">Denegar</button>
-                                                    </form>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                    </tbody>
-                                </table>
+                                                <td class="text-center">
+                                                    <div class="btn-group">
+                                                        <form method="get" action='{{ route('aceptarSolicitud', $solicitud->id_solicitud) }}'>
+                                                            <button type="submit" class="btn btn-success btn-sm btn-block">Aceptar</button>
+                                                        </form>
+                                                        <form method="get" action='{{ route('borrarSolicitud', $solicitud->id_solicitud) }}'>
+                                                            <button type="submit" class="btn btn-danger btn-sm">Denegar</button>
+                                                        </form>
+                                                    </div>
+                                                </td>
+                                          --}}
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
-                        </div>
-                    @else
-                    <p>No existen solicitudes en este momento</p>
-                    @endif
+                        @else
+                        <p>No existen solicitudes en este momento</p>
+                        @endif
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row d-flex justify-content-center">
-        {{ $solicitudes->links() }}
-    </div>
-@endsection
+        <div class="row d-flex justify-content-center">
+            {{ $solicitudes->links() }}
+        </div>
+    @endsection

@@ -14,7 +14,7 @@
 
                         <div class="container-fluid">
                             <div class="table-responsive">
-                                <table class="table table-bordered" id="MyTable">
+                                <table class="table table-bordered table-sm" id="MyTable">
                                     <thead class="bg-dark" style="color: white">
                                     <tr>
                                         <th class="text-truncate text-center">Rut</th>

@@ -3,7 +3,7 @@
 
 
     <!-- Sidebar Toggle (Topbar) -->
-    <div class=" d-none d-md-inline" id="topBarToggle" style="display: none">
+    <div class=" d-none d-md-inline" id="topBarToggle" style="display: none; color: #2e59d9">
         <i class="fa fa-bars fa-2x"></i>
     </div>
 
@@ -60,7 +60,7 @@
 
     $('#topBarToggle').click(function()
     {
-        $('#accordionSidebar').show();
+        $('#accordionSidebar').show(90);
         $('#topBarToggle').hide();
         $('#content').attr('style','margin-left: 215px; padding: 0px 10px;');
 
