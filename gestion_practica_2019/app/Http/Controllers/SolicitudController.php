@@ -24,18 +24,6 @@ class SolicitudController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create(Request $request)
-    {
-        //
-
-
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -95,17 +83,6 @@ class SolicitudController extends Controller
     public function verDescripcion(){
         return view('1 Solicitud/solicitud');
     }
-
-    /* ----------- Evaluacion de una Solicitud ----------  */
-
-    // Civil
-    /*
-    public function evaluacion(){
-        $solicitudesP = Solicitud::orderBy('rut','DESC')
-            ->where('carrera', 'Ingeniería Civil Informática')
-            ->where('estado',1)
-            ->paginate(5);
-
 
     /* ----------- Validar una solicitud ----------  */
 
