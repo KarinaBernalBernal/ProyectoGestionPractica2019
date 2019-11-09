@@ -21,8 +21,12 @@ class SupervisorController extends Controller
             ]);
     }
 
-    public function supervisoresEnPractica() //Supervisores de alumnos de ejecucion en practica
+    public function supervisoresEnPractica(Request $request) //Supervisores de alumnos de ejecucion en practica
     {
+        //$supervisores = Supervisor::nombre($request->get('nombre'));
+        //dd($request->get('nombre'));
+        //dd(Supervisor::all());
+        /*
         $alumnosInformatica = Alumno::all()->where('carrera', 'Ingeniería de Ejecución Informática');
         $practicas = Practica::all();
         $supervisores = Supervisor::all();
@@ -43,7 +47,16 @@ class SupervisorController extends Controller
             }
         }
 
+       /*
+        if(trim($request) != "")
+        {
+            $supervisores = Supervisor:: nombre($request->get('nombre'));
+            //nombre($request->get('nombre'));
+        }
+        */
+
         return view('Practicas/Ejecucion/supervisores_en_practica')->with('supervisores',$supervisores);
+         //return view('admin.users.index', compact('users'));
     }
 
     public function crear()

@@ -26,4 +26,17 @@ class Supervisor extends Model
         return $this->belongsTo('App\Practica');
     }
 
+    //----------------FILTROS------------
+
+
+    public function scopeNombre($query, $nombre)
+    {
+        if(trim($nombre) != "")
+        {
+            //dd("scope: " ,$nombre);
+            //$query->where('nombre', $nombre);
+            $query->where(\DB::raw("CONCAT(nombre, ' ', apellido_paterno)"), "LIKE", "%$nombre%");
+        }
+    }
+
 }
