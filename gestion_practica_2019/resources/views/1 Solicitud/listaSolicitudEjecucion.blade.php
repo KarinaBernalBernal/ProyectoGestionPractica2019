@@ -45,8 +45,6 @@
                                             <td class="text-truncate text-center"><strong>Semestre:</strong> {{ $solicitud->semestre_proyecto }} <br>
                                                 <strong>Año:</strong>	{{ $solicitud->anno_proyecto }}</td>
 
-                                {{--        Estos son los botones de aceptar o denergar en la lista. Se omitieron ya que no se están usando actualmente
-
                                             <td class="text-center">
                                                 <div class="btn-group">
                                                     <form method="get" action='{{ route('aceptarSolicitud', $solicitud->id_solicitud) }}'>
@@ -57,7 +55,6 @@
                                                     </form>
                                                 </div>
                                             </td>
-                                --}}
                                         </tr>
                                     @endforeach
                                     </tbody>

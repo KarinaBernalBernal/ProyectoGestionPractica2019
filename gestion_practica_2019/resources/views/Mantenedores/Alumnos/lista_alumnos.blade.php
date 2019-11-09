@@ -19,7 +19,7 @@
                         <div class="col-3 mb-2">
                             <input id="nombre" type="text" class="form-control" name="nombre" placeholder="Ingrese nombre...">
                         </div>
-        
+
                         <div class="col-3 mb-2">
                             <input id="apellido_paterno" type="text" class="form-control" name="apellido_paterno" placeholder="Ingrese Apellido Paterno...">
                         </div>
