@@ -20,7 +20,7 @@ class EstadisticaController extends Controller
         
         return view('Estadisticas/estadisticaCriteriosAutoeval')->with('evalActEjec', $evalActEjec);
     }
-    
+    //---------------------- funciones de detalles del alumno-------------------
     public function buscarAlumno(Request $request){
         $lista= Alumno::filtrarYPaginar($request->get('buscador'),
                                         $request->get('nombre'), 
@@ -31,6 +31,12 @@ class EstadisticaController extends Controller
                                         $request->get('carrera')
                                     );
         return view('Estadisticas/AlumnosDetalles')->with("lista", $lista);
+    }
+    /*  Funciones Modales de Estadisticas Alumno  */
+    public function mostrarEstadisticasAlumno($id){
+        $alumno = Alumno::find($id);
+            
+        return view('Estadisticas/modales/modalMostrarEstadisticasAlumno')->with("alumno", $alumno);;
     }
 
     //---------------------- funciones de EstadisticaCriteriosAutoeval -------------------

@@ -93,7 +93,7 @@
                                                     <td>{{$alumno->carrera}}</td>
                                                     <td>{{$alumno->estimacion_semestre}}</td>
                                                     <td>
-                                                        <a href="#"><button id="{{$alumno->id_alumno}}" class="btn btn-primary">Revisar</button></a>
+                                                        <a class='botonModalmostrarEstadisticasAlumno btn btn-primary btn-sm' href="" data-toggle="modal" data-form="{{ route('mostrarEstadisticasAlumnoModal',['id'=>$alumno->id_alumno])}}" data-target="#modal-mostrarEstadisticasAlumno">Revisar</a></td>
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -119,5 +119,20 @@
         </div>
     </div>
 </div>
+<div class="modal" id="modal-mostrarEstadisticasAlumno"></div>
+  
+<script>    
+   $(document).ready(function () {
 
+    	//modal-mostrarEstadisticasAlumno
+    	$(".botonModalmostrarEstadisticasAlumno").click(function (ev) { // for each edit contact url
+        	ev.preventDefault(); // prevent navigation
+        	var url = $(this).data("form"); // get the contact form url
+        	console.log(url);
+        	$("#modal-mostrarEstadisticasAlumno").load(url, function () { // load the url into the modal
+                $(this).modal('show'); // display the modal on url load
+        	});
+    	});
+    });
+</script>
 @endsection

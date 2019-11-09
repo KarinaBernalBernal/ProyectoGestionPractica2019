@@ -100,15 +100,16 @@ Route::post('/Supervisores/agregar', 'SupervisorController@crearSupervisor')->na
 Route::post('/Supervisores/actualizar/{id_elemento}', 'SupervisorController@editarSupervisor')->name('actualizar_supervisor');
 Route::post('/Supervisores/eliminar/{id_elemento}','SupervisorController@borrarSupervisor')->name('borrar_supervisor');
 /*--------------------- Etapa Solicitud ---------------------*/
-
 //-------Envio de correo para estudiante con link de formulario de autorización práctica
 Route::get('/contactar', 'SolicitudController@contact')->name('contact');
 
 //-------formulario de solicitud
 Route::get('/formularioSolicitud', 'SolicitudController@index')->name('formularioSolicitud');
 Route::post('/agregarSolicitud', 'SolicitudController@store')->name('agregarSolicitud');
+
 //--------Descripcion de etapa solicitud
 Route::get('/descripcionSolicitud', 'SolicitudController@verDescripcion')->name('descripcionSolicitud');
+
 //--------Evaluacion de solicitudes
 //Civil
 Route::get('/evaluacionSolicitudCivil', 'SolicitudController@evaluacion')->name('evaluacionSolicitud');
@@ -156,9 +157,13 @@ Route::post('/agregarEvaluacionEmpresa', 'EvaluacionSupervisorController@store')
 // Rutas tipo GET
 Route::get('/Reportes/alumnos', 'AlumnosReporteController@index')->name('reporte_alumnos');
 
+
+
+
 /* ---------------------------------------  Estadísticas  ---------------------------- */
 /* --------------  Estadisticas de alumno --------------- */
 Route::get('/estadisticaAlumno', 'EstadisticaController@buscarAlumno')->name('estadisticaAlumno');
+Route::get('/modal/estadisticaAlumnoModal/{id}','EstadisticaController@mostrarEstadisticasAlumno')->name('mostrarEstadisticasAlumnoModal');
 /* --------------  Estadisticas Generales --------------- */
 //Criterios
 Route::get('/estadisticaCriteriosAutoevaluacion', 'EstadisticaController@verEstadisticaCriteriosAutoeval')->name('estadisticaCriteriosAutoeval');
