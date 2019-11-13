@@ -28,15 +28,51 @@ class Supervisor extends Model
 
     //----------------FILTROS------------
 
+    public static function filtrarYPaginar($buscador, $nombre, $apellido_paterno,$email)
+    {
+        return Supervisor::Buscador($buscador)
+            ->Nombre($nombre)
+            ->ApellidoPaterno($apellido_paterno)
+            ->Email($email)
+            ->orderBy('id_supervisor', 'ASC')
+            ->paginate();
+    }
+
+    public function scopeBuscador($query, $buscador)
+    {
+        if (  trim($buscador !== '') )
+        {
+            $query->where('nombre', 'LIKE', '%'. $buscador . '%')
+                ->orwhere('apellido_paterno', 'LIKE', '%'. $buscador . '%')
+                ->orwhere('email', 'LIKE', '%'. $buscador . '%');
+        }
+        return $query;
+    }
 
     public function scopeNombre($query, $nombre)
     {
-        if(trim($nombre) != "")
+        if (  trim($nombre !== '') )
         {
-            //dd("scope: " ,$nombre);
-            //$query->where('nombre', $nombre);
-            $query->where(\DB::raw("CONCAT(nombre, ' ', apellido_paterno)"), "LIKE", "%$nombre%");
+            $query->where('nombre', 'LIKE', '%'. $nombre . '%');
         }
+        return $query;
     }
 
+    public function scopeApellidoPaterno($query, $apellido_paterno)
+    {
+        if (  trim($apellido_paterno !== '') )
+        {
+            $query->where('apellido_paterno', 'LIKE', '%'. $apellido_paterno . '%');
+        }
+        return $query;
+    }
+
+    public function scopeEmail($query, $email)
+    {
+        if (  trim($email !== '') )
+        {
+            $query->where('email', 'LIKE', '%'. $email . '%');
+        }
+        return $query;
+    }
 }

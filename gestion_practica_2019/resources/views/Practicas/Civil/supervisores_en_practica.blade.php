@@ -3,7 +3,7 @@
         <hr>
 
         <div class="container-fluid">
-            {!! Form::open(['route'=> 'supervisoresPracticaEjecucion', 'method' => 'GET', 'class' => 'row container-fluid', 'role' => 'search' ])  !!}
+            {!! Form::open(['route'=> 'supervisoresPracticaCivil', 'method' => 'GET', 'class' => 'row container-fluid', 'role' => 'search' ])  !!}
             <div class="col-3 mb-2">
                 {!! Form::text('nombre', null, ['class' => 'form-control', 'placeholder' => 'Nombre']) !!}
             </div>

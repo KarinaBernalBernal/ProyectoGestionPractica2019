@@ -8,6 +8,7 @@ use SGPP\User;
 use SGPP\Empresa;
 use SGPP\Alumno;
 use SGPP\Practica;
+use Illuminate\Support\Facades\DB;
 
 class SupervisorController extends Controller
 {
@@ -21,42 +22,97 @@ class SupervisorController extends Controller
             ]);
     }
 
-    public function supervisoresEnPractica(Request $request) //Supervisores de alumnos de ejecucion en practica
+    public function supervisoresEnPracticaEjecucion(Request $request)
     {
-        //$supervisores = Supervisor::nombre($request->get('nombre'));
-        //dd($request->get('nombre'));
-        //dd(Supervisor::all());
-        /*
-        $alumnosInformatica = Alumno::all()->where('carrera', 'Ingeniería de Ejecución Informática');
-        $practicas = Practica::all();
-        $supervisores = Supervisor::all();
 
-        if($practicas->isNotEmpty()) //el recorrido no se hace si no hay nada que recorrer
+        //-----Supervisores de informatica-----//
+        $supervisoresInformatica = DB::table('supervisores')
+            ->join('practicas', 'practicas.id_supervisor', '=', 'supervisores.id_supervisor')
+            ->join('alumnos', 'alumnos.id_alumno', '=', 'practicas.id_alumno')
+            ->where('alumnos.carrera', '=', "Ingeniería de Ejecución Informática")
+            ->select('supervisores.*')
+            ->get();
+
+        //-----Si no se seleccionaron filtros solo entregamos la consulta de la base-----//
+
+        if ($request->nombre != null || $request->apellido_paterno != null || $request->email != null)
         {
-            for($i = 0; $i<count($alumnosInformatica,1); $i++)
+            $supervisoresFiltrados = collect();
+
+            //-----Filtro-----//
+            $listaFiltrada= Supervisor::filtrarYPaginar($request->get('buscador'),
+                $request->get('nombre'),
+                $request->get('apellido_paterno'),
+                $request->get('email')
+            );
+
+            if(count($listaFiltrada))
             {
-                $practicas[$i] = Practica::all()->where('id_alumno', $alumnosInformatica[$i]->id_alumno)->first(); // Clave foranea, variable alumnosInformatica
+                for($i = 0; $i<count($listaFiltrada,1); $i++)
+                {
+                    if($supervisoresInformatica->where('id_supervisor', $listaFiltrada[$i]->id_supervisor)->first())
+                    {
+                        $supervisoresFiltrados->push($supervisoresInformatica->where('id_supervisor', $listaFiltrada[$i]->id_supervisor)->first());
+                    }
+                }
             }
+            return view('Practicas/Ejecucion/supervisores_en_practica')->with('lista',$supervisoresFiltrados);
         }
 
-        if($supervisores->isNotEmpty())
+        return view('Practicas/Ejecucion/supervisores_en_practica')->with('lista',$supervisoresInformatica);
+    }
+
+
+    public function supervisoresEnPracticaCivil(Request $request)
+    {
+
+        //-----Supervisores de informatica-----//
+        $supervisoresInformatica = DB::table('supervisores')
+            ->join('practicas', 'practicas.id_supervisor', '=', 'supervisores.id_supervisor')
+            ->join('alumnos', 'alumnos.id_alumno', '=', 'practicas.id_alumno')
+            ->where('alumnos.carrera', '=', "Ingeniería Civil Informática")
+            ->select('supervisores.*')
+            ->get();
+
+        //-----Si no se seleccionaron filtros solo entregamos la consulta de la base-----//
+
+        if ($request->nombre != null || $request->apellido_paterno != null || $request->email != null)
         {
-            for($i = 0; $i<count($practicas,1); $i++)
+            $supervisoresFiltrados = collect();
+
+            //-----Filtro-----//
+            $listaFiltrada= Supervisor::filtrarYPaginar($request->get('buscador'),
+                $request->get('nombre'),
+                $request->get('apellido_paterno'),
+                $request->get('email')
+            );
+
+            if(count($listaFiltrada))
             {
-                $supervisores[$i] = Supervisor::all()->where('id_supervisor', $practicas[$i]->id_supervisor)->first(); // Clave foranea, variable alumnosInformatica
+                for($i = 0; $i<count($listaFiltrada,1); $i++)
+                {
+                    if($supervisoresInformatica->where('id_supervisor', $listaFiltrada[$i]->id_supervisor)->first())
+                    {
+                        $supervisoresFiltrados->push($supervisoresInformatica->where('id_supervisor', $listaFiltrada[$i]->id_supervisor)->first());
+                    }
+                }
             }
+            return view('Practicas/Civil/supervisores_en_practica')->with('lista',$supervisoresFiltrados);
         }
 
-       /*
-        if(trim($request) != "")
-        {
-            $supervisores = Supervisor:: nombre($request->get('nombre'));
-            //nombre($request->get('nombre'));
-        }
-        */
+        return view('Practicas/Civil/supervisores_en_practica')->with('lista',$supervisoresInformatica);
+    }
 
-        return view('Practicas/Ejecucion/supervisores_en_practica')->with('supervisores',$supervisores);
-         //return view('admin.users.index', compact('users'));
+
+    //vista principal de un elemento en especifico
+    public function listaSupervisores(Request $request)
+    {
+        $lista= Supervisor::filtrarYPaginar($request->get('buscador'),
+            $request->get('nombre'),
+            $request->get('apellido_paterno'),
+            $request->get('email')
+        );
+        return view('Practicas.Ejecucion.supervisores_en_practica')->with("lista", $lista);
     }
 
     public function crear()
