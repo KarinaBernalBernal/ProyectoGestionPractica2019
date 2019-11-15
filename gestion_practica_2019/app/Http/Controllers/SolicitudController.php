@@ -1,13 +1,11 @@
 <?php
 
 namespace SGPP\Http\Controllers;
-use Illuminate\Routing\Route;
 use Illuminate\Http\Request;
 use SGPP\Solicitud;
 use SGPP\Alumno;
 use SGPP\User;
 use SGPP\Practica;
-use SGPP\Supervisor;
 use Mail;
 
 
@@ -114,6 +112,8 @@ class SolicitudController extends Controller
     {
         $solicitudes = Solicitud::orderBy('rut','DESC')->where('carrera', 'Ingeniería de Ejecución Informática')->where("estado",0)->paginate(7);
         return view('1 Solicitud/listaSolicitudEjecucion')->with('solicitudes', $solicitudes);
+
+
     }
 
     public function listaSolicitudCivil()
@@ -186,8 +186,8 @@ class SolicitudController extends Controller
         $solicitud->estado = 1;
         $solicitud->save();
 
-        // si la solicitud es aprobada , se crea el alumno y usuario del mismo
-        if($solicitud->resolucion_solicitud == 'Aprobado' || $solicitud->resolucion_solicitud == 'Pendiente')
+        // si la solicitud es autorizada o pendiente, se crea el alumno y usuario del mismo
+        if($solicitud->resolucion_solicitud == 'Autorizada' || $solicitud->resolucion_solicitud == 'Pendiente')
         {
             $alumno = Alumno::all()
                 ->where('rut', $solicitud->rut)
@@ -234,6 +234,7 @@ class SolicitudController extends Controller
             }
         }
         // Se notifica al Alumno sobre el estado de su solicitud
+        /* Por mientras para no mandar tanto correo cuando se esté probando
         $subject = "Estado solicitud de práctica";
         $for = $solicitud->email;
         Mail::send('Emails.notificacion',$request->all(), function($msj) use($subject,$for){
@@ -241,7 +242,7 @@ class SolicitudController extends Controller
             $msj->subject($subject);
             $msj->to($for);
         });
-
+        */
         if($solicitud->carrera == "Ingeniería Civil Informática"){
             return redirect()->route('evaluacionSolicitud')->with('success','Registro creado satisfactoriamente');
         }
@@ -255,48 +256,88 @@ class SolicitudController extends Controller
        $solicitud = Solicitud::find($id);
         if(!isset($solicitud))
             return redirect()->route('home');
+        $alumno = Alumno::all()
+            ->where('rut', $solicitud->rut)
+            ->where("carrera",$solicitud->carrera)->first();
+
+        if ($solicitud->resolucion_solicitud != $request->resolucion)
+        {
+            if(($solicitud->resolucion_solicitud == 'Autorizada' && $request->resolucion == 'Rechazada') || ($solicitud->resolucion_solicitud == 'Pendiente' && $request->resolucion == 'Rechazada'))
+            {
+                $usuario = User::find($alumno->id_user);
+                $practica = Practica::all()->where('id_alumno', $alumno->id_alumno);
+
+                if($practica->count() > 1)
+                {
+                    $practica->last()->delete();
+
+                }else
+                    {
+                        $usuario->delete();
+                        $alumno->delete();
+                    }
+            }
+
+            if($solicitud->resolucion_solicitud == 'Rechazada' && $request->resolucion == 'Pendiente' || $request->resolucion == 'Autorizada')
+            {
+                $fecha= date("Y-m-d H:i:s");
+                $alumno = Alumno::all()
+                    ->where('rut', $solicitud->rut)
+                    ->where("carrera",$solicitud->carrera)->first();
+
+                if($alumno == null)
+                {
+                    $nuevo = new Alumno;
+                    $nuevo->nombre = $solicitud->nombre;
+                    $nuevo->apellido_paterno = $solicitud->apellido_paterno;
+                    $nuevo->apellido_materno = $solicitud->apellido_materno;
+                    $nuevo->rut = $solicitud->rut;
+                    $nuevo->email = $solicitud->email;
+                    $nuevo->direccion = $solicitud->direccion;
+                    $nuevo->fono = $solicitud->fono;
+                    $nuevo->anno_ingreso = $solicitud->anno_ingreso;
+                    $nuevo->carrera = $solicitud->carrera;
+                    $nuevo->estimacion_semestre = 0;
+
+                    $nueva_instancia = new User;
+                    $nueva_instancia->name = $nuevo->nombre;
+                    $nueva_instancia->email = $nuevo->email;
+                    $nueva_instancia->password = bcrypt($nuevo->rut);
+                    $nueva_instancia->type = 'Alumno';
+                    $nueva_instancia->save();
+
+                    $nuevo->id_user = $nueva_instancia->id_user;
+                    $nuevo->save();
+
+                    $solicitud->save();
+                    $nueva_instancia = new Practica;
+                    $nueva_instancia->f_solicitud = $fecha;
+                    $nueva_instancia->id_alumno = $nuevo->id_alumno;
+                    $nueva_instancia->save();
+                }
+                else {
+                    $nueva_instancia = new Practica;
+                    $nueva_instancia->f_solicitud = $fecha;
+                    $nueva_instancia->id_alumno = $alumno->id_alumno;
+                    $nueva_instancia->save();
+                }
+            }
+        }
 
         $solicitud->resolucion_solicitud = $request->resolucion;
         $solicitud->observacion_solicitud = $request->observacion;
-        
-        if($solicitud->resolucion_solicitud == 'Aprobado')
-            $nuevo = new Alumno;
 
-            $nuevo->nombre = $solicitud->nombre;
-            $nuevo->apellido_paterno = $solicitud->apellido_paterno;
-            $nuevo->apellido_materno = $solicitud->apellido_materno;
-            $nuevo->rut = $solicitud->rut;
-            $nuevo->email = $solicitud->email;
-            $nuevo->direccion = $solicitud->direccion;
-            $nuevo->fono = $solicitud->fono;
-            $nuevo->anno_ingreso = $solicitud->anno_ingreso;
-            $nuevo->carrera = $solicitud->carrera;
-            $nuevo->estimacion_semestre = 0;
+        $solicitud->save();
 
-            $nueva_instancia = new User;
-            $nueva_instancia->name = $nuevo->nombre;
-            $nueva_instancia->email = $nuevo->email;
-            $nueva_instancia->password = bcrypt($nuevo->rut);
-            $nueva_instancia->type = 'alumno';
-
-            $nueva_instancia->save();
-
-            $nuevo->id_user = $nueva_instancia->id_user;
-            $nuevo->save();
-
-            //Verificar @Pablo y @Luis
-            //return redirect()->route('enviar');
-
-            $solicitud->save();
-
-            $subject = "Estado solicitud de práctica";
-            $for = $nuevo->email;
-            Mail::send('Emails.notificacion', $request->all(), function($msj) use($subject,$for){
-                $msj->from("practicaprofesionalpucv@gmail.com","Docencia Escuela de Ingeniería Informática");
-                $msj->subject($subject);
-                $msj->to($for);
+        /* Por mientras para no mandar tanto correo cuando se esté probando
+        $subject = "Estado solicitud de práctica";
+        $for = $nuevo->email;
+        Mail::send('Emails.notificacion', $request->all(), function($msj) use($subject,$for){
+            $msj->from("practicaprofesionalpucv@gmail.com","Docencia Escuela de Ingeniería Informática");
+            $msj->subject($subject);
+            $msj->to($for);
         });
-
+        */
        if($solicitud->carrera == "Ingeniería Civil Informática"){
 
             return redirect()->route('evaluacionSolicitud')->with('success','Registro creado satisfactoriamente');
