@@ -110,7 +110,7 @@ class SolicitudController extends Controller
 
     public function listaSolicitudEjecucion()
     {
-        $solicitudes = Solicitud::orderBy('rut','DESC')->where('carrera', 'Ingeniería de Ejecución Informática')->where("estado",0)->paginate(7);
+        $solicitudes = Solicitud::orderBy('rut','DESC')->where('carrera', 'Ingeniería de Ejecución Informática')->paginate(7);
         return view('1 Solicitud/listaSolicitudEjecucion')->with('solicitudes', $solicitudes);
 
 
@@ -118,7 +118,7 @@ class SolicitudController extends Controller
 
     public function listaSolicitudCivil()
     {
-        $solicitudes = Solicitud::orderBy('rut','DESC')->where('carrera', 'Ingeniería Civil Informática')->where("estado",0)->paginate(7);
+        $solicitudes = Solicitud::orderBy('rut','DESC')->where('carrera', 'Ingeniería Civil Informática')->paginate(7);
         return view('1 Solicitud/listaSolicitudCivil')->with('solicitudes', $solicitudes);
     }
 
