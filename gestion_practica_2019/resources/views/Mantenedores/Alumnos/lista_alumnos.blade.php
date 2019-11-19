@@ -17,9 +17,12 @@
         
                     <div class="row">
                         <div class="col-3 mb-2">
+                            <input id="buscador" type="text" class="form-control" name="buscador" placeholder="Ingrese palabra clave...">
+                        </div>
+                        <div class="col-3 mb-2">
                             <input id="nombre" type="text" class="form-control" name="nombre" placeholder="Ingrese nombre...">
                         </div>
-        
+
                         <div class="col-3 mb-2">
                             <input id="apellido_paterno" type="text" class="form-control" name="apellido_paterno" placeholder="Ingrese Apellido Paterno...">
                         </div>
@@ -34,6 +37,7 @@
                         </div>
                         <div class="col-3 mb-2">
                             <select id="carrera" type="text" class="form-control" name="carrera" placeholder="Ingrese año de ingreso">
+                                <option value="">Seleccione Carrera</option>
                                 <option value="Ingeniería Civil en Informatica">Ingeniería Civil en Informatica</option>
                                 <option value="Ingeniería de Ejecución en Informatica">Ingeniería de Ejecución en Informatica</option>
                             </select>

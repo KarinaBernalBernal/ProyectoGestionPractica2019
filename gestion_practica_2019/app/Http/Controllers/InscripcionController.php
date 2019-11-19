@@ -82,16 +82,12 @@ class InscripcionController extends Controller
     public function storeInscripcion(Request $request)
     {
         $fecha = date("Y-m-d");
-
         $usuario_id = Auth()->user()->id_user;
         $alumno = Alumno::where('id_user',$usuario_id)->first();
-        $practica = Practica::where('id_alumno',$alumno->id_alumno)->first();
-        $solicitud = Solicitud::all()
-            ->where('rut', $alumno->rut)
-            ->where("carrera",$alumno->carrera)->first();
-
+        
         $empresa = Empresa::where('rut',$request->rutEmpresa)->first();
-        if($empresa == null){
+        if($empresa == null)
+        {
             Empresa::create([
                 'n_empresa' => $request->empresa,
                 'rut' => $request->rutEmpresa,
@@ -105,7 +101,8 @@ class InscripcionController extends Controller
         }
         
         $supervisor = Supervisor::where('email',$request->emailSupervisor)->first();
-        if($supervisor == null){
+        if($supervisor == null)
+        {
             User::create([
                 'name' => $request->nombreSupervisor,
                 'email' => $request->emailSupervisor,
@@ -118,17 +115,17 @@ class InscripcionController extends Controller
                 'nombre' => $request->nombreSupervisor,
                 'apellido_paterno' => $request->aPaternoSupervisor,
                 'cargo' => $request->cargo,
-                'departamento' => $request->departamento,   
-                'email' => $request->emailSupervisor, 
-                'fono' => $request->fonoSupervisor,   
-                'id_user' => $usuarioS->id_user,     
-                'id_empresa' => $empresa->id_empresa     
+                'departamento' => $request->departamento,
+                'email' => $request->emailSupervisor,
+                'fono' => $request->fonoSupervisor,
+                'id_user' => $usuarioS->id_user,
+                'id_empresa' => $empresa->id_empresa
             ]);
             $supervisor = Supervisor::where('email',$request->emailSupervisor)->first();
         }
 
         $practica = Practica::where('id_alumno',$alumno->id_alumno)->first();
-        if($practica == null)
+        if($practica == null) //Si el alumno no posee ninguna practica
         {
             Practica::create([
                 'f_solicitud' => $fecha,
@@ -138,13 +135,18 @@ class InscripcionController extends Controller
                 'id_alumno' => $alumno->id_alumno,
                 'id_supervisor' => $supervisor->id_supervisor,
             ]);
-            $practica = Practica::where('id_alumno',$alumno->id_alumno)->first();
         }
+        else {  //Si el alumno tiene la practica (pero sin los datos completos) REVISAR
+            $practica->f_inscripcion = $fecha;
+            $practica->f_desde = $request->fechaDesde;
+            $practica->f_hasta = $request->fechaHasta;
+            $practica->id_supervisor = $supervisor->id_supervisor;
 
+            $practica->save();
+        }
         //Con esto evitamos que aquellas solicitudes de alumnos que estén en práctica, puedan ser modificadas y
         //asi evitar que la practica pueda ser eliminada.
         $solicitud->estado = 3;
-
         return redirect()->route('descripcionInscripcion');
     }
 
