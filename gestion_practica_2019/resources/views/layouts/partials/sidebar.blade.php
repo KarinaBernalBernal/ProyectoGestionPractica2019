@@ -94,7 +94,7 @@
                 <div id="collapseIngCivilInf" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Gestión general</h6>
-                        <a class="collapse-item" href="#">Alumnos en práctica</a>
+                        <a class="collapse-item" href="alumnosPracticaCivil">Alumnos en práctica</a>
                         <a class="collapse-item" href="supervisoresPracticaCivil">Supervisores</a>
 
                         <h6 class="collapse-header">Etapas</h6>
@@ -122,7 +122,7 @@
                 <div id="collapseIngEjecInf" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Gestión general</h6>
-                        <a class="collapse-item" href="#">Alumnos en práctica</a>
+                        <a class="collapse-item" href="alumnosPracticaEjecucion">Alumnos en práctica</a>
                         <a class="collapse-item" href="supervisoresPracticaEjecucion">Supervisores</a>
 
                         <h6 class="collapse-header">Etapas</h6>

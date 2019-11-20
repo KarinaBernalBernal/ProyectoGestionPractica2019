@@ -119,7 +119,7 @@ Route::get('/evaluacionSolicitudEjecucion', 'SolicitudController@evaluacionEjecu
 
 Route::get('/modal/evaluarSolicitudModal/{id}','SolicitudController@evaluarSolicitudModal')->name('evaluarSolicitudModal');
 Route::post('/evaluacionSolicitud/evaluarSolicitud/{id}','SolicitudController@evaluarSolicitud')->name('evaluarSolicitud');
-Route::get('/modal/modificarEvaluacionSolicitudModal/{id}','SolicitudController@modificarEvaluacionSolicitudModal')->name('modificarEvaluacionSolicitudModal');
+    Route::get('/modal/modificarEvaluacionSolicitudModal/{id}','SolicitudController@modificarEvaluacionSolicitudModal')->name('modificarEvaluacionSolicitudModal');
 Route::post('/evaluacionSolicitud/modificarEvaluacionSolicitud/{id}','SolicitudController@modificarEvaluacionSolicitud')->name('modificarEvaluacionSolicitud');
 //---------Validacion de solicitudes
 Route::get('/listaSolicitudEjecucion', 'SolicitudController@listaSolicitudEjecucion')->name('listaSolicitudEjecucion');
@@ -164,7 +164,12 @@ Route::get('/estadisticaAlumno', 'EstadisticaController@buscarAlumno')->name('es
 //Criterios
 Route::get('/estadisticaCriterios', 'EstadisticaController@verEstadisticaCriterios')->name('estadisticaCriterios');
 
-/* ----------------- Supevisores en practica ---------------------------- */
+/* ----------------- Supevisores y alumnos en practica ---------------------------- */
 
+/*Informatica*/
 Route::get('/supervisoresPracticaEjecucion', 'SupervisorController@supervisoresEnPracticaEjecucion')->name('supervisoresPracticaEjecucion');
+Route::get('/alumnosPracticaEjecucion', 'AlumnoController@alumnosEnPracticaEjecucion')->name('alumnosPracticaEjecucion');
+Route::get('/modal/autoEvaluacionModal/{id}','AlumnoController@mostrarAutoEvaluacionModal')->name('autoEvaluacionModal');
+/*Civil*/
 Route::get('/supervisoresPracticaCivil', 'SupervisorController@supervisoresEnPracticaCivil')->name('supervisoresPracticaCivil');
+Route::get('/alumnosPracticaCivil', 'AlumnoController@alumnosEnPracticaCivil')->name('alumnosPracticaCivil');
