@@ -53,13 +53,28 @@
                                     </td>
                                     <td class="text-truncate text-center">{{$alumnos->anno_ingreso}}</td>
                                     <td>
+                                        <b> Solicitud :</b>
+
+                                        @if(\SGPP\Http\Controllers\AlumnoController::verificarSolicitudAlumno($alumnos->id_alumno))
+                                            <a  href="" class='botonModalSolicitud fa fa-check text-success' data-toggle="modal" data-form="{{ route('solicitudModal',['id'=>$alumnos->id_alumno])}}" data-target="#modal-solicitud"></a> <br>
+                                        @else
+                                            <a class='fa fa-times text-danger'></a><br>
+                                        @endif
+
+                                        <b> Inscripcion :</b>
+
+                                        @if(\SGPP\Http\Controllers\AlumnoController::verificarInscripcionAlumno($alumnos->id_alumno))
+                                            <a  href="" class='botonModalInscripcion fa fa-check text-success' data-toggle="modal" data-form="{{ route('inscripcionModal',['id'=>$alumnos->id_alumno])}}" data-target="#modal-inscripcion"></a><br>
+                                        @else
+                                            <a class='fa fa-times text-danger'></a><br>
+                                        @endif
 
                                         <b> Autoevaluacion :</b>
 
-                                        @if(\SGPP\Http\Controllers\AlumnoController::verificarFormularioAlumno($alumnos->id_alumno))
-                                            <a  href="" class='botonModalAutoEvaluacion fa fa-check text-success' data-toggle="modal" data-form="{{ route('autoEvaluacionModal',['id'=>$alumnos->id_alumno])}}" data-target="#modal-autoEvaluacion"></a>
+                                        @if(\SGPP\Http\Controllers\AlumnoController::verificarAutoEvaluacionAlumno($alumnos->id_alumno))
+                                            <a  href="" class='botonModalAutoEvaluacion fa fa-check text-success' data-toggle="modal" data-form="{{ route('autoEvaluacionModal',['id'=>$alumnos->id_alumno])}}" data-target="#modal-autoEvaluacion"></a><br>
                                          @else
-                                            <a class='fa fa-times text-danger'></a>
+                                            <a class='fa fa-times text-danger'></a><br>
                                         @endif
                                     </td>
                                 </tr>
@@ -74,7 +89,12 @@
         </div>
     </div>
 
+    <div class="modal" id="modal-autoEvaluacion"></div>
+    <div class="modal" id="modal-inscripcion"></div>
+
     <script>
+
+        /*BOTON AUTO EVALUACION*/
 
         $(document).ready(function ()
         {
@@ -89,8 +109,62 @@
                     $(this).modal('show'); // display the modal on url load
                 });
             });
+            $('.autoEvaluacion-form').on('submit', function ()
+            {
+                $.ajax({
+                    type: $(this).attr('method'),
+                    url: $(this).attr('action'),
+                    data: $(this).serialize(),
+                    context: this,
+                    success: function (data, status)
+                    {
+                        $('#modal-autoEvaluacion').html(data);
+                    }
+                });
+            });
+
+            $('#modal-autoEvaluacion').on('hidden.bs.modal', function (e)
+            {
+                $(this).find('.modal-content').empty();
+            });
+
+        });
+
+        /*BOTON INSCRIPCION*/
+
+        $(document).ready(function ()
+        {
+            //modal-inscripcion
+            $(".botonModalInscripcion").click(function (ev) // for each edit contact url
+            {
+                ev.preventDefault(); // prevent navigation
+                var url = $(this).data("form"); // get the contact form url
+                console.log(url);
+                $("#modal-inscripcion").load(url, function () // load the url into the modal
+                {
+                    $(this).modal('show'); // display the modal on url load
+                });
+            });
+            $('.inscripcion-form').on('submit', function ()
+            {
+                $.ajax({
+                    type: $(this).attr('method'),
+                    url: $(this).attr('action'),
+                    data: $(this).serialize(),
+                    context: this,
+                    success: function (data, status)
+                    {
+                        $('#modal-inscripcion').html(data);
+                    }
+                });
+            });
+
+            $('#modal-inscripcion').on('hidden.bs.modal', function (e)
+            {
+                $(this).find('.modal-content').empty();
+            });
+
         });
     </script>
-
 @endsection
 

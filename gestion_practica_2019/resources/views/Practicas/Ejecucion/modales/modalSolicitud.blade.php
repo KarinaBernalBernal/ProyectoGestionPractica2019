@@ -1,7 +1,7 @@
 <div class="modal-dialog modal-lg">
     <div class="modal-content">
         <div class="modal-header">
-            <h4>Auto Evaluacion</h4>
+            <h4>Solicitud de Practica</h4>
             <button type="button" class="close" data-dismiss="modal">
                 <span> <i class="fas fa-times"></i></span>
             </button>

@@ -5,6 +5,9 @@ namespace SGPP\Http\Controllers;
 use Illuminate\Http\Request;
 use SGPP\Alumno;
 use SGPP\Autoevaluacion;
+use SGPP\Empresa;
+use SGPP\Solicitud;
+use SGPP\Supervisor;
 use SGPP\User;
 use SGPP\Practica;
 use Illuminate\Support\Facades\DB;
@@ -183,7 +186,54 @@ class AlumnoController extends Controller
         return view('Practicas/Civil/alumnos_en_practica')->with('lista',$alumnosInformatica);
     }
 
-    public static function verificarFormularioAlumno($id) //Comprobar si el alumno tiene su auto evaluacion
+
+    public static function verificarSolicitudAlumno($id) //Comprobar si el alumno tiene su solicitud
+    {
+        $solicitudes = Solicitud::where('id_alumno', $id)->first();
+
+        if( $solicitudes != null )
+        {
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function mostrarSolicitudModal($id) //Mostrar el formulario del alumno
+    {
+        $solicitudes = Solicitud::where('id_alumno', $id)->first();
+
+        return view('Practicas/Ejecucion/modales/modalSolicitud')->with('formulario',$solicitudes);
+    }
+
+    public static function verificarInscripcionAlumno($id) //Comprobar si el alumno tiene su inscripcion
+    {
+        $alumnos = Alumno::where('id_alumno', $id)->first();
+        $practicas = Practica::where('id_alumno', $alumnos->id_alumno)->first();
+
+        if( $practicas->f_inscripcion != null )
+        {
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function mostrarInscripcionModal($id) //Mostrar el formulario del alumno
+    {
+        $alumnos = Alumno::where('id_alumno', $id)->first();
+        $practicas = Practica::where('id_alumno', $alumnos->id_alumno)->first();
+        $supervisores = Supervisor::where('id_supervisor', $practicas->id_supervisor)->first();
+        $empresas = Empresa::where('id_empresa', $supervisores->id_empresa)->first();
+
+        return view('Practicas/Ejecucion/modales/modalInscripcion')
+            ->with('alumnos',$alumnos)
+            ->with('practicas',$practicas)
+            ->with('supervisores',$supervisores)
+            ->with('empresas', $empresas);
+    }
+
+    public static function verificarAutoEvaluacionAlumno($id) //Comprobar si el alumno tiene su auto evaluacion
     {
         $practicas = Practica::where('id_alumno', $id)->first();
         $autoEvaluacion = Autoevaluacion::where('id_practica', $practicas->id_practica)->first();
@@ -200,8 +250,10 @@ class AlumnoController extends Controller
     {
         $practicas = Practica::where('id_alumno', $id)->first();
         $autoEvaluacion = Autoevaluacion::where('id_practica', $practicas->id_practica)->first();
-        dd($autoEvaluacion);
+
         return view('Practicas/Ejecucion/modales/modalAutoEvaluacion')->with('formulario',$autoEvaluacion);
     }
+
+
 
 }
