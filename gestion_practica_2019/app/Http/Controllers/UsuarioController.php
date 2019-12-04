@@ -43,13 +43,10 @@ class UsuarioController extends Controller
 
     public function editar($id_elemento)
     {
-        // dd($id_elemento);
-
         $elemento= User::find($id_elemento);
         return view('Mantenedores/Usuarios/editar_usuario',[
                 'elemento'=>$elemento,
         	]);
-
     }
 
     public function editarUsuario(Request $request, $id_elemento)

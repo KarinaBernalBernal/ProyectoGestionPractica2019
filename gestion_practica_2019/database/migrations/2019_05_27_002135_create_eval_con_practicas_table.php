@@ -15,13 +15,15 @@ class CreateEvalConPracticasTable extends Migration
     {
         Schema::create('eval_con_practicas', function (Blueprint $table) {
             $table->integer('id_autoeval')->unsigned();
-            $table->integer('id_conocimiento')->unsigned();
+            $table->integer('id_conocimiento')->unsigned()->nullable();
+            $table->string('eleccion');
+            $table->string('criterio');
 
             $table->timestamps();
             $table->foreign('id_autoeval')->references('id_autoeval')
                     ->on('autoevaluaciones')->onDelete('cascade');
             $table->foreign('id_conocimiento')->references('id_conocimiento')
-                    ->on('eval_conocimientos')->onDelete('cascade');
+                    ->on('eval_conocimientos')->onDelete('set null');
         });
     }
 

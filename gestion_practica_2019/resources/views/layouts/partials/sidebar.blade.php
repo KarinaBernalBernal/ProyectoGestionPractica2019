@@ -49,7 +49,9 @@
                             <a class="collapse-item" href="{{route('lista_practicas')}}">Prácticas</a>
                             <a class="collapse-item" href="{{route('lista_evaluaciones_supervisor')}}">Evaluaciones supervisor</a>
                             <a class="collapse-item" href="{{route('lista_empresas')}}">Empresas</a>
-                            <a class="collapse-item" href="{{route('lista_auto_evaluaciones')}}">Evaluaciones</a>
+                            <a class="collapse-item" href="{{route('lista_auto_evaluaciones')}}">Autoevaluaciones</a>
+                            <h6 class="collapse-header">Formularios</h6>
+                            <a class="collapse-item" href="{{route('lista_elementos_dinamicos')}}">Elementos dinámicos</a>
                         </div>
                     </div>
                 </li>

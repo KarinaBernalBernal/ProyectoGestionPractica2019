@@ -6,6 +6,7 @@ use SGPP\Alumno;
 use SGPP\User;
 use SGPP\Practica;
 use Mail;
+
 class SolicitudController extends Controller
 {
     /**
@@ -153,7 +154,6 @@ class SolicitudController extends Controller
             $fecha= date("Y-m-d H:i:s");
             if($alumno == null)
             {
-             
                 $nuevo = new Alumno;
                 $nuevo->nombre = $solicitud->nombre;
                 $nuevo->apellido_paterno = $solicitud->apellido_paterno;

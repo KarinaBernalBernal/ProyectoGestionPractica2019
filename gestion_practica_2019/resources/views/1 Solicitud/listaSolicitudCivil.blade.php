@@ -63,7 +63,7 @@
                                 </div>
                             </div>
                         @else
-                        <p>No existen solicitudes en este momento</p>
+                        <p class="container-fluid">No existen solicitudes en este momento</p>
                         @endif
                     </div>
                 </div>

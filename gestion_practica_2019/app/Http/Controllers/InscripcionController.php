@@ -3,7 +3,6 @@
 namespace SGPP\Http\Controllers;
 use Auth;
 use Illuminate\Http\Request;
-use PHPUnit\Framework\Warning;
 use SGPP\Alumno;
 use SGPP\DocSolicitado;
 use SGPP\Practica;
@@ -84,7 +83,9 @@ class InscripcionController extends Controller
         $fecha = date("Y-m-d");
         $usuario_id = Auth()->user()->id_user;
         $alumno = Alumno::where('id_user',$usuario_id)->first();
-        
+        $solicitud = Solicitud::all()
+            ->where('rut', $alumno->rut)
+            ->where("carrera",$alumno->carrera)->first();
         $empresa = Empresa::where('rut',$request->rutEmpresa)->first();
         if($empresa == null)
         {
@@ -170,13 +171,13 @@ class InscripcionController extends Controller
 
     /* -------Listas de inscripcion -----*/
     public function listaInscripcionCivil(){
-        $practicas = Practica::orderBy('id_alumno','DESC')->paginate(7);
+        $practicas = Practica::orderBy('id_alumno','DESC')->where('f_inscripcion','!=', 'NULL')->paginate(7);
         $alumnos = Alumno::orderBy('id_alumno','DESC')->where('carrera', 'Ingeniería Civil Informática')->paginate(7);
 
         return view('2 Inscripcion/listaInscripcion')->with('practicas', $practicas)->with('alumnos',$alumnos);
     }   
     public function listaInscripcionEjecucion(){
-        $practicas = Practica::orderBy('id_alumno','DESC')->paginate(7);
+        $practicas = Practica::orderBy('id_alumno','DESC')->where('f_inscripcion','!=', 'NULL')->paginate(7);
         $alumnos = Alumno::orderBy('id_alumno','DESC')->where('carrera', 'Ingeniería de Ejecución Informática')->paginate(7);
 
         return view('2 Inscripcion/listaInscripcion')->with('practicas', $practicas)->with('alumnos',$alumnos);
