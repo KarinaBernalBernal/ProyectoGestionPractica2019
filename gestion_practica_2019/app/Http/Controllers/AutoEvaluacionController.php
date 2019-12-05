@@ -123,8 +123,8 @@ class AutoEvaluacionController extends Controller
             Conocimiento::create([
                 'id_autoeval' => $autoevaluaciones->id_autoeval,
                 'n_conocimiento' => $request->conocimiento[$i],
-                'dp_conocimiento' => "sin descripcion",
-                'tipo_conocimiento' => 1
+                'dp_conocimiento' => $request->dpConocimiento[$i],
+                'tipo_conocimiento' => "aprendida"
             ]);
         }
         for($i = 0; $i<count($request->habilidadA,1); $i++)
@@ -132,7 +132,7 @@ class AutoEvaluacionController extends Controller
             Habilidad::create([
                 'id_autoeval' => $autoevaluaciones->id_autoeval,
                 'n_habilidad' => $request->habilidadA[$i],
-                'dp_habilidad' => "sin descripcion",
+                'dp_habilidad' => $request->dpHabilidadA[$i],
                 'tipo_habilidad' => "aprendida"
             ]);
         }
@@ -142,7 +142,7 @@ class AutoEvaluacionController extends Controller
             Habilidad::create([
                 'id_autoeval' => $autoevaluaciones->id_autoeval,
                 'n_habilidad' => $request->habilidadF[$i],
-                'dp_habilidad' => "sin descripcion",
+                'dp_habilidad' => $request->dpHabilidadF[$i],
                 'tipo_habilidad' => "faltante"
             ]);
         }

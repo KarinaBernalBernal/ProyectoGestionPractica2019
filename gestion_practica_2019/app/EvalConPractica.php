@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class EvalConPractica extends Model
 {
     protected $fillable = [
-        'valor_con_practica','id_autoeval','id_conocimiento', 'eleccion', 'criterio'
+        'id_autoeval','id_conocimiento', 'eleccion', 'criterio'
     ];
 
     public function autoevaluacion(){

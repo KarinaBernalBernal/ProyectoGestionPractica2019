@@ -20,7 +20,15 @@ class EvaluacionSupervisorController extends Controller
 
     public function index()
     {
-        return view('3 Evaluacion/formularioEvaluacionEmpresa');
+        $area = Area::all();
+        $actitud = EvalActitudinal::all();
+        $conocimiento = EvalConocimiento::all();
+
+        return view('3 Evaluacion/formularioEvaluacionEmpresa',[
+            'area'=>$area,
+            'actitud'=>$actitud,
+            'conocimiento'=>$conocimiento,
+        ]);
     }
     public function verDescripcionEvaluacionEmpresa(){
         return view('3 Evaluacion/evaluacionEmpresa');
@@ -102,7 +110,7 @@ class EvaluacionSupervisorController extends Controller
             Fortaleza::create([
                 'id_eval_supervisor' => $evaluacionesSupervisor->id_eval_supervisor,
                 'n_fortaleza' => $request->fortaleza[$i],
-                'dp_fortaleza' => "sin descripcion"
+                'dp_fortaleza' => $request->dpFortaleza[$i]
             ]);
         }
         for($i = 0; $i<count($request->debilidad,1); $i++)
@@ -110,48 +118,42 @@ class EvaluacionSupervisorController extends Controller
             Debilidad::create([
                 'id_eval_supervisor' => $evaluacionesSupervisor->id_eval_supervisor,
                 'n_debilidad' => $request->debilidad[$i],
-                'dp_debilidad' => "sin descripcion"
+                'dp_debilidad' => $request->dpDebilidad[$i]
             ]);
         }
 
         for($i = 0; $i<count($request->criterio,1); $i++)
         {
-            $criterios = EvalActitudinal::create([
-                'n_act' => $request->criterio[$i],
-                'dp_act' => "sin descripcion"
-            ]);
+            $actitud = EvalActitudinal::all()->where("id_actitudinal",$request->actitud[$i])->first();
 
             EvalActEmpPractica::create([
                 'id_eval_supervisor' => $evaluacionesSupervisor->id_eval_supervisor,
-                'id_actitudinal' => $criterios->id_actitudinal,
-                'valor_act_emp_practica' => 1
+                'id_actitudinal' => $actitud->id_actitudinal,
+                'eleccion' => $request->criterio[$i],
+                'criterio' => $actitud->dp_act
             ]);
         }
 
         for($i = 0; $i<count($request->criterio2,1); $i++)
         {
-            $criterios2 = EvalConocimiento::create([
-                'n_con' => $request->criterio2[$i],
-                'dp_con' => "sin descripcion"
-            ]);
+            $conocimiento = EvalConocimiento::all()->where("id_conocimiento",$request->criterioConocimiento[$i])->first();
 
             EvalConEmpPractica::create([
                 'id_eval_supervisor' => $evaluacionesSupervisor->id_eval_supervisor,
-                'id_conocimiento' => $criterios2->id_conocimiento,
-                'valor_con_emp_practica' => 1
-
+                'id_conocimiento' => $conocimiento->id_conocimiento,
+                'eleccion' => $request->criterio2[$i],
+                'criterio' => $conocimiento->dp_con
             ]);
         }
 
         for($i = 0; $i<count($request->area,1); $i++)
         {
-            $areas = Area::create([
-                'n_area' => $request->area[$i]
-            ]);
+            $areas = Area::all()->where("n_area",$request->area[$i])->first();
 
             AreaEvaluacion::create([
                 'id_eval_supervisor' => $evaluacionesSupervisor->id_eval_supervisor,
-                'id_area' => $areas->id_area
+                'id_area' => $areas->id_area,
+                'eleccion' => $areas->n_area
             ]);
         }
 

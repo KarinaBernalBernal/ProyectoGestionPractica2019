@@ -72,7 +72,7 @@
                         <h6><strong>1.- ¿Qué Conocimientos / Habilidades aprendidas en la carrera fueron importantes para el desarrollo de su práctica? (comente):</strong></h6>
                     </div>
                     <br>
-
+{{--
                     <div class="table-responsive">
                         <table class="table table-bordered" id="tablaHabilidadesA">
                             <tr>
@@ -81,13 +81,25 @@
                             </tr>
                         </table>
                     </div>
+--}}
+                    <div id="tablaHabilidadesA" class="container-fluid">
+                        <div class="form-group row container-fluid">
+                            <input type="text" name="habilidadA[]" placeholder="Nombre" class="form-control name_list col-sm-2" required/>
+                            <div class="col-9">
+                                <input type="text" name="dpHabilidadA[]" placeholder="Descripción de habilidad aprendida" class="form-control name_list" required/>
+                            </div>
+                            <div class="col-1">
+                                <button type="button" name="addHabilidadA" id="addHabilidadA" class="btn btn-success"><span class="fas fa-plus" aria-hidden="true"></span></button>
+                            </div>
+                        </div>
+                    </div>
 
                     <br>
                     <div class="col-md-auto">
                         <h6><strong>2.- ¿Qué Conocimientos / Habilidades piensa que le faltaron para un buen desempeño en su práctica? (comente):</strong></h6>
                     </div>
                     <br>
-
+{{--
                     <div class="table-responsive">
                         <table class="table table-bordered" id="tablaHabilidadesF">
                             <tr>
@@ -96,13 +108,25 @@
                             </tr>
                         </table>
                     </div>
+--}}
+                    <div id="tablaHabilidadesF" class="container-fluid">
+                        <div class="form-group row container-fluid">
+                            <input type="text" name="habilidadF[]" placeholder="Nombre" class="form-control name_list col-sm-2" required/>
+                            <div class="col-9">
+                                <input type="text" name="dpHabilidadF[]" placeholder="Descripción de habilidad faltante" class="form-control name_list" required/>
+                            </div>
+                            <div class="col-1">
+                                <button type="button" name="addHabilidadF" id="addHabilidadF" class="btn btn-success"><span class="fas fa-plus" aria-hidden="true"></span></button>
+                            </div>
+                        </div>
+                    </div>
 
                     <br>
                     <div class="col-md-auto">
                         <h6><strong>3.- ¿Qué conocimientos adquirió durante su práctica?</strong></h6>
                     </div>
                     <br>
-
+{{--
                     <div class="table-responsive">
                         <table class="table table-bordered" id="tablaConocimientos">
                             <tr>
@@ -111,6 +135,21 @@
                             </tr>
                         </table>
                     </div>
+--}}
+                    <div id="tablaConocimientos" class="container-fluid">
+                        <div class="form-group row container-fluid">
+                            <input type="text" name="conocimiento[]" placeholder="Nombre" class="form-control name_list col-sm-2" required/>
+                            <div class="col-9">
+                                <input type="text" name="dpConocimiento[]" placeholder="Descripción del conocimiento" class="form-control name_list" required/>
+                            </div>
+                            <div class="col-1">
+                                <button type="button" name="ddConocimiento" id="addConocimiento" class="btn btn-success"><span class="fas fa-plus" aria-hidden="true"></span></button>
+                            </div>
+                        </div>
+                    </div>
+
+
+
                 </div>
             </div>
             <br>
@@ -259,7 +298,7 @@
 
             $('#addConocimiento').click(function(){
                 i++;
-                $('#tablaConocimientos').append('<tr id="row'+i+'"><td><input type="text" name="conocimiento[]" placeholder="Ingrese conocimiento" class="form-control name_list" required/></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button></td></tr>');
+                $('#tablaConocimientos').append('<div class="form-group row container-fluid" id="row'+i+'"><input type="text" name="conocimiento[]" placeholder="Nombre" class="form-control name_list col-sm-2" required/><div class="col-9"><input type="text" name="dpConocimiento[]" placeholder="Descripción del conocimiento" class="form-control name_list" required/></div><div class="col-1"><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove"><span class="fas fa-trash-alt" aria-hidden="true"></span></button></div></div>');
             });
             $(document).on('click', '.btn_remove', function(){
                 var button_id = $(this).attr("id");
@@ -268,7 +307,7 @@
 
             $('#addHabilidadA').click(function(){
                 i++;
-                $('#tablaHabilidadesA').append('<tr id="row'+i+'"><td><input type="text" name="habilidadA[]" placeholder="Ingrese habilidad aprendida" class="form-control name_list" required/></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button></td></tr>');
+                $('#tablaHabilidadesA').append('<div class="form-group row container-fluid" id="row'+i+'"><input type="text" name="habilidadA[]" placeholder="Nombre" class="form-control name_list col-sm-2" required/><div class="col-9"><input type="text" name="dpHabilidadA[]" placeholder="Descripción de habilidad aprendida" class="form-control name_list" required/></div><div class="col-1"><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove"><span class="fas fa-trash-alt" aria-hidden="true"></span></button></div></div>');
             });
             $(document).on('click', '.btn_remove', function(){
                 var button_id = $(this).attr("id");
@@ -277,7 +316,7 @@
 
             $('#addHabilidadF').click(function(){
                 i++;
-                $('#tablaHabilidadesF').append('<tr id="row'+i+'"><td><input type="text" name="habilidadF[]" placeholder="Ingrese habilidad faltante" class="form-control name_list" required/></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button></td></tr>');
+                $('#tablaHabilidadesF').append('<div class="form-group row container-fluid" id="row'+i+'"><input type="text" name="habilidadF[]" placeholder="Nombre" class="form-control name_list col-sm-2" required/><div class="col-9"><input type="text" name="dpHabilidadF[]" placeholder="Descripción de habilidad faltante" class="form-control name_list" required/></div><div class="col-1"><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove"><span class="fas fa-trash-alt" aria-hidden="true"></span></button></div></div>');
             });
             $(document).on('click', '.btn_remove', function(){
                 var button_id = $(this).attr("id");

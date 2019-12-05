@@ -14,16 +14,16 @@ class CreateEvalActEmpPracticaTable extends Migration
     public function up()
     {
         Schema::create('eval_act_emp_practica', function (Blueprint $table) {
-            $table->integer('valor_act_emp_practica');
-            
             $table->integer('id_eval_supervisor')->unsigned();
-            $table->integer('id_actitudinal')->unsigned();
+            $table->integer('id_actitudinal')->unsigned()->nullable();
+            $table->string('eleccion');
+            $table->string('criterio');
             $table->timestamps();
 
             $table->foreign('id_eval_supervisor')->references('id_eval_supervisor')
                     ->on('evaluaciones_supervisor')->onDelete('cascade');
             $table->foreign('id_actitudinal')->references('id_actitudinal')
-                    ->on('eval_actitudinales')->onDelete('cascade');
+                    ->on('eval_actitudinales')->onDelete('set null');
         });
     }
 

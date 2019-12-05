@@ -15,13 +15,14 @@ class CreateAreaEvaluacionTable extends Migration
     {
         Schema::create('area_evaluacion', function (Blueprint $table) {
             $table->integer('id_eval_supervisor')->unsigned();
-            $table->integer('id_area')->unsigned();
+            $table->integer('id_area')->unsigned()->nullable();
+            $table->string('eleccion');
             $table->timestamps();
 
             $table->foreign('id_eval_supervisor')->references('id_eval_supervisor')
                     ->on('evaluaciones_supervisor')->onDelete('cascade');
             $table->foreign('id_area')->references('id_area')
-                    ->on('areas')->onDelete('cascade');
+                    ->on('areas')->onDelete('set null');
         });
     }
 
