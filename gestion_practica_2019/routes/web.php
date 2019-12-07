@@ -163,7 +163,10 @@ Route::get('/Reportes/alumnos', 'AlumnosReporteController@index')->name('reporte
 /* ---------------------------------------  Estadísticas  ---------------------------- */
 /* --------------  Estadisticas de alumno --------------- */
 Route::get('/estadisticaAlumno', 'EstadisticaController@buscarAlumno')->name('estadisticaAlumno');
-Route::get('/modal/estadisticaAlumnoModal/{id}','EstadisticaController@mostrarEstadisticasAlumno')->name('mostrarEstadisticasAlumnoModal');
+
+Route::get('/datosAlumno/{id}', 'EstadisticaController@mostrarEstadisticasAlumno')->name('datosAlumno');
+Route::get('/modal/AutoevaluacionAlumnoModal/{id}','EstadisticaController@mostrarAutoevaluacionAlumno')->name('mostrarAutoevaluacionAlumnoModal');
+Route::get('/modal/EvaluacionSupervisorModal/{id}','EstadisticaController@mostrarEvaluacionSupervisor')->name('mostrarEvaluacionSupervisorModal');
 /* --------------  Estadisticas Generales --------------- */
 //Criterios
 Route::get('/estadisticaCriteriosAutoevaluacion', 'EstadisticaController@verEstadisticaCriteriosAutoeval')->name('estadisticaCriteriosAutoeval');

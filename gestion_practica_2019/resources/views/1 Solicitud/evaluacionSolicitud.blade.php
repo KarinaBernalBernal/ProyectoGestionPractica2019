@@ -122,7 +122,7 @@
     	$(".botonModalEvaluarSolicitud").click(function (ev) { // for each edit contact url
         	ev.preventDefault(); // prevent navigation
         	var url = $(this).data("form"); // get the contact form url
-        	console.log(url);
+			
         	$("#modal-evaluarSolicitud").load(url, function () { // load the url into the modal
             $(this).modal('show'); // display the modal on url load
         	});
