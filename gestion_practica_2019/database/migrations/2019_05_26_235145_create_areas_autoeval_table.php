@@ -15,14 +15,14 @@ class CreateAreasAutoevalTable extends Migration
     {
         Schema::create('areas_autoeval', function (Blueprint $table) {
             $table->integer('id_autoeval')->unsigned();
-            $table->integer('id_area')->unsigned()->nullable();
-            $table->string('eleccion');
+            $table->integer('id_area')->unsigned();
+            $table->integer('vigencia')->default(1);
             $table->timestamps();
             
             $table->foreign('id_autoeval')->references('id_autoeval')
                     ->on('autoevaluaciones')->onDelete('cascade');
             $table->foreign('id_area')->references('id_area')
-                    ->on('areas')->onDelete('set null');
+                    ->on('areas')->onDelete('cascade');
         });
     }
 

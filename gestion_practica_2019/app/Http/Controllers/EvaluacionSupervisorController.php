@@ -129,8 +129,7 @@ class EvaluacionSupervisorController extends Controller
             EvalActEmpPractica::create([
                 'id_eval_supervisor' => $evaluacionesSupervisor->id_eval_supervisor,
                 'id_actitudinal' => $actitud->id_actitudinal,
-                'eleccion' => $request->criterio[$i],
-                'criterio' => $actitud->dp_act
+                'valor_act_emp_practica' => $request->criterio[$i]
             ]);
         }
 
@@ -141,8 +140,7 @@ class EvaluacionSupervisorController extends Controller
             EvalConEmpPractica::create([
                 'id_eval_supervisor' => $evaluacionesSupervisor->id_eval_supervisor,
                 'id_conocimiento' => $conocimiento->id_conocimiento,
-                'eleccion' => $request->criterio2[$i],
-                'criterio' => $conocimiento->dp_con
+                'valor_con_emp_practica' => $request->criterio2[$i]
             ]);
         }
 
@@ -152,8 +150,7 @@ class EvaluacionSupervisorController extends Controller
 
             AreaEvaluacion::create([
                 'id_eval_supervisor' => $evaluacionesSupervisor->id_eval_supervisor,
-                'id_area' => $areas->id_area,
-                'eleccion' => $areas->n_area
+                'id_area' => $areas->id_area
             ]);
         }
 

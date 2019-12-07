@@ -8,7 +8,7 @@ class EvalActPractica extends Model
 {
     protected $table = 'eval_act_practicas';
     protected $fillable = [
-        'id_autoeval','id_actitudinal', 'eleccion', 'criterio'
+        'id_autoeval','id_actitudinal', 'valor_act_practica', 'vigencia'
     ];
 
     public function autoevaluacion(){

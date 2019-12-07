@@ -124,7 +124,25 @@ class AutoEvaluacionController extends Controller
                 'id_autoeval' => $autoevaluaciones->id_autoeval,
                 'n_conocimiento' => $request->conocimiento[$i],
                 'dp_conocimiento' => $request->dpConocimiento[$i],
+                'tipo_conocimiento' => "adquirida"
+            ]);
+        }
+        for($i = 0; $i<count($request->conocimientoA,1); $i++)
+        {
+            Conocimiento::create([
+                'id_autoeval' => $autoevaluaciones->id_autoeval,
+                'n_conocimiento' => $request->conocimientoA[$i],
+                'dp_conocimiento' => $request->dpConocimientoA[$i],
                 'tipo_conocimiento' => "aprendida"
+            ]);
+        }
+        for($i = 0; $i<count($request->conocimientoF,1); $i++)
+        {
+            Conocimiento::create([
+                'id_autoeval' => $autoevaluaciones->id_autoeval,
+                'n_conocimiento' => $request->conocimientoF[$i],
+                'dp_conocimiento' => $request->dpConocimientoF[$i],
+                'tipo_conocimiento' => "faltante"
             ]);
         }
         for($i = 0; $i<count($request->habilidadA,1); $i++)
@@ -154,7 +172,6 @@ class AutoEvaluacionController extends Controller
             AreaAutoeval::create([
                 'id_autoeval' => $autoevaluaciones->id_autoeval,
                 'id_area' => $areas->id_area,
-                'eleccion' => $areas->n_area
             ]);
         }
 
@@ -165,7 +182,6 @@ class AutoEvaluacionController extends Controller
             HerramientaPractica::create([
                 'id_autoeval' => $autoevaluaciones->id_autoeval,
                 'id_herramienta' => $herramientas->id_herramienta,
-                'eleccion' => $herramientas->n_herramienta
             ]);
         }
 
@@ -176,8 +192,7 @@ class AutoEvaluacionController extends Controller
             EvalActPractica::create([
                 'id_autoeval' => $autoevaluaciones->id_autoeval,
                 'id_actitudinal' => $actitud->id_actitudinal,
-                'eleccion' => $request->criterio[$i],
-                'criterio' => $actitud->dp_act
+                'valor_act_practica' => $request->criterio[$i]
             ]);
         }
 
@@ -188,8 +203,7 @@ class AutoEvaluacionController extends Controller
             EvalConPractica::create([
                 'id_autoeval' => $autoevaluaciones->id_autoeval,
                 'id_conocimiento' => $conocimiento->id_conocimiento,
-                'eleccion' => $request->criterio2[$i],
-                'criterio' => $conocimiento->dp_con
+                'valor_con_practica' => $request->criterio2[$i]
             ]);
         }
 

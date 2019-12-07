@@ -8,7 +8,7 @@ class EvalActEmpPractica extends Model
 {
     protected $table = 'eval_act_emp_practica';
     protected $fillable = [
-        'id_eval_supervisor','id_actitudinal', 'eleccion', 'criterio'
+        'id_eval_supervisor','id_actitudinal', 'valor_act_emp_practica', 'vigencia'
     ];
 
     public function evaluacionSupervisor(){

@@ -15,14 +15,14 @@ class CreateHerramientasPracticaTable extends Migration
     {
         Schema::create('herramientas_practica', function (Blueprint $table) {
             $table->integer('id_autoeval')->unsigned();
-            $table->integer('id_herramienta')->unsigned()->nullable();
-            $table->string('eleccion');
+            $table->integer('id_herramienta')->unsigned();
+            $table->integer('vigencia')->default(1);
             $table->timestamps();
 
             $table->foreign('id_autoeval')->references('id_autoeval')
                     ->on('autoevaluaciones')->onDelete('cascade');
             $table->foreign('id_herramienta')->references('id_herramienta')
-                    ->on('herramientas')->onDelete('set null');
+                    ->on('herramientas')->onDelete('cascade');
         });
     }
 
