@@ -194,8 +194,9 @@
                         
                         <div class="row">
                             <div class="col-md-12">
-                                <a href="" class="botonModalMostrarAutoevaluacionAlumno btn btn-info btn-sm" data-toggle="modal" data-form="{{route('mostrarAutoevaluacionAlumnoModal',['id'=>$practica->id_practica])}}" data-target="#modal-mostrarAutoevaluacionAlumno"><span>Ver autoevaluación<span></a>
-                                <a href="" class="botonModalMostrarEvaluacionSupervisor btn btn-info btn-sm" data-toggle="modal" data-form="{{route('mostrarEvaluacionSupervisorModal',['id'=>$alumno->id_alumno])}}" data-target="#modal-mostrarEvaluacionSupervisor"><span>Ver evaluación del supervisor<span></a>
+                                <a id='botonMostrarAutoevaluacionAlumno btn btn-info btn-sm' class='btn btn-primary btn-sm' href="{{ route('mostrarAutoevaluacionAlumno',['id'=>$practica->id_practica])}}" >Ver autoevaluación</a>
+                                <a id='botonMostrarAutoevaluacionAlumno btn btn-info btn-sm' class='btn btn-primary btn-sm' href="{{ route('mostrarEvaluacionSupervisor',['id'=>$practica->id_practica])}}" >Ver evaluación del supervisor</a>
+                               
                             </div>
                         </div>
                     </div> 
@@ -214,44 +215,6 @@
         </div>
     </div>
 </div>  
-
-<div class="modal" id="modal-mostrarAutoevaluacionAlumno"></div>
-<div class="modal" id="modal-mostrarEvaluacionSupervisor"></div>
-
-<script>
-    $(document).ready(function () {
-
-        //modal-mostrarAutoevaluacionAlumno
-        $(".botonModalMostrarAutoevaluacionAlumno").click(function (ev) { // for each edit contact url
-            ev.preventDefault(); // prevent navigation
-            var url = $(this).data("form"); // get the contact form url
-            
-            $("#modal-mostrarAutoevaluacionAlumno").load(url, function () { // load the url into the modal
-               //$(this).modal('show'); // display the modal on url load
-            });
-        });
-
-        //modal-mostrarEvaluacionSupervisor
-        $(".botonModalMostrarEvaluacionSupervisor").click(function (ev) { // for each edit contact url
-                ev.preventDefault(); // prevent navigation
-                var url = $(this).data("form"); // get the contact form url
-                
-                $("#modal-mostrarEvaluacionSuperviso    r").load(url, function () { // load the url into the modal
-                   //$(this).modal('show'); // display the modal on url load
-                });
-        });
-
-        $('#modal-mostrarAutoevaluacionAlumno').on('hidden.bs.modal', function (e) {
-            $(this).find('.modal-content').empty();
-        });
-
-        $('#modal-mostrarEvaluacionSupervisor').on('hidden.bs.modal', function (e) {
-            $(this).find('.modal-content').empty();
-        });
-    });
-
-
-</script>
 
 
 @endsection

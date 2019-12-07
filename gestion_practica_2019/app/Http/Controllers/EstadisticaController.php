@@ -90,7 +90,7 @@ class EstadisticaController extends Controller
         /*$evalActPractica = EvalActPractica::where('id_autoeval',$autoevaluacion->id_autoeval)->paginate(12);
         $evalConPractica = EvalConPractica::where('id_autoeval',$autoevaluacion->id_autoeval)->paginate(12);*/
         
-        return view('Estadisticas/modales/mostrarAutoevaluacionAlumno')->with("autoevaluacion", $autoevaluacion)
+        return view('Estadisticas/mostrarAutoevaluacionAlumno')->with("autoevaluacion", $autoevaluacion)
                 ->with("desempeño", $desempeño)->with("tareas", $tareas)
                 ->with("habilidades", $habilidades)->with("conocimientos", $conocimientos)
                 ->with("herramientas", $herramientas)->with("areas", $areas)
@@ -103,7 +103,7 @@ class EstadisticaController extends Controller
         $alumno = Alumno::find($id);
         
 
-        return view('Estadisticas/modales/mostrarEvaluacionSupervisor')->with("alumno", $alumno);
+        return view('Estadisticas/mostrarEvaluacionSupervisor')->with("alumno", $alumno);
     }
 
 
