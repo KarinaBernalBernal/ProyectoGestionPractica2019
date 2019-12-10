@@ -129,7 +129,7 @@ Route::get('/evaluacionSolicitudEjecucion', 'SolicitudController@evaluacionEjecu
 //modals
 Route::get('/modal/evaluarSolicitudModal/{id}','SolicitudController@evaluarSolicitudModal')->name('evaluarSolicitudModal');
 Route::post('/evaluacionSolicitud/evaluarSolicitud/{id}','SolicitudController@evaluarSolicitud')->name('evaluarSolicitud');
-Route::get('/modal/modificarEvaluacionSolicitudModal/{id}','SolicitudController@modificarEvaluacionSolicitudModal')->name('modificarEvaluacionSolicitudModal');
+    Route::get('/modal/modificarEvaluacionSolicitudModal/{id}','SolicitudController@modificarEvaluacionSolicitudModal')->name('modificarEvaluacionSolicitudModal');
 Route::post('/evaluacionSolicitud/modificarEvaluacionSolicitud/{id}','SolicitudController@modificarEvaluacionSolicitud')->name('modificarEvaluacionSolicitud');
 //---------Validacion de solicitudes
 Route::get('/listaSolicitudEjecucion', 'SolicitudController@listaSolicitudEjecucion')->name('listaSolicitudEjecucion');
@@ -167,11 +167,18 @@ Route::post('/agregarEvaluacionEmpresa', 'EvaluacionSupervisorController@store')
 // Rutas tipo GET
 Route::get('/Reportes/alumnos', 'AlumnosReporteController@index')->name('reporte_alumnos');
 
-* ----------------- Supevisores en practica ---------------------------- */
+/* ----------------- Supevisores y alumnos en practica ---------------------------- */
 
+/*Informatica*/
 Route::get('/supervisoresPracticaEjecucion', 'SupervisorController@supervisoresEnPracticaEjecucion')->name('supervisoresPracticaEjecucion');
-Route::get('/supervisoresPracticaCivil', 'SupervisorController@supervisoresEnPracticaCivil')->name('supervisoresPracticaCivil');
+Route::get('/alumnosPracticaEjecucion', 'AlumnoController@alumnosEnPracticaEjecucion')->name('alumnosPracticaEjecucion');
+Route::get('/modal/solicitudModal/{id}','AlumnoController@mostrarAutoEvaluacionModal')->name('autoEvaluacionModal');
+Route::get('/modal/inscripcionModal/{id}','AlumnoController@mostrarInscripcionModal')->name('inscripcionModal');
+Route::get('/modal/autoEvaluacionModal/{id}','AlumnoController@mostrarAutoEvaluacionModal')->name('autoEvaluacionModal');
 
+/*Civil*/
+Route::get('/supervisoresPracticaCivil', 'SupervisorController@supervisoresEnPracticaCivil')->name('supervisoresPracticaCivil');
+Route::get('/alumnosPracticaCivil', 'AlumnoController@alumnosEnPracticaCivil')->name('alumnosPracticaCivil');
 
 
 /* ---------------------------------------  Estadísticas  ---------------------------- */

@@ -4,7 +4,13 @@ namespace SGPP\Http\Controllers;
 
 use Illuminate\Http\Request;
 use SGPP\Alumno;
+use SGPP\Autoevaluacion;
+use SGPP\Empresa;
+use SGPP\Solicitud;
+use SGPP\Supervisor;
 use SGPP\User;
+use SGPP\Practica;
+use Illuminate\Support\Facades\DB;
 
 class AlumnoController extends Controller
 {
@@ -101,9 +107,153 @@ class AlumnoController extends Controller
             return redirect()->route('lista_alumnos');
         }
     }
+
     public function borrarAlumno($id_elemento){
         $elemento_eliminar =  Alumno::find($id_elemento);
         $elemento_eliminar->delete();
         return redirect()->route('lista_alumnos');
     }
+
+    public function alumnosEnPracticaEjecucion(Request $request)
+    {
+        //-----Alumnos de informatica-----//
+        $alumnosInformatica = Alumno::all()->where('carrera', 'Ingeniería de Ejecución Informática');
+
+        //-----Si no se seleccionaron filtros solo entregamos la consulta de la base-----//
+
+        if ($request->nombre != null || $request->apellido_paterno != null || $request->email != null || $request->anno_ingreso != null )
+        {
+            $alumnosFiltrados = collect();
+
+            //-----Filtro-----//
+            $listaFiltrada= Alumno::filtrarYPaginar($request->get('buscador'),
+                $request->get('nombre'),
+                $request->get('apellido_paterno'),
+                $request->get(null),
+                $request->get('email'),
+                $request->get('anno_ingreso'),
+                $request->get(null)
+            );
+
+            if(count($listaFiltrada))
+            {
+                for($i = 0; $i<count($listaFiltrada,1); $i++)
+                {
+                    if($alumnosInformatica->where('id_alumno', $listaFiltrada[$i]->id_alumno)->first())
+                    {
+                        $alumnosFiltrados->push($alumnosInformatica->where('id_alumno', $listaFiltrada[$i]->id_alumno)->first());
+                    }
+                }
+            }
+            return view('Practicas/Ejecucion/alumnos_en_practica')->with('lista',$alumnosFiltrados);
+        }
+        return view('Practicas/Ejecucion/alumnos_en_practica')->with('lista',$alumnosInformatica);
+    }
+
+    public function alumnosEnPracticaCivil(Request $request)
+    {
+        //-----Alumnos de informatica-----//
+        $alumnosInformatica = Alumno::all()->where('carrera', 'Ingeniería Civil Informática');
+
+        //-----Si no se seleccionaron filtros solo entregamos la consulta de la base-----//
+
+        if ($request->nombre != null || $request->apellido_paterno != null || $request->email != null || $request->anno_ingreso != null )
+        {
+            $alumnosFiltrados = collect();
+
+            //-----Filtro-----//
+            $listaFiltrada= Alumno::filtrarYPaginar($request->get('buscador'),
+                $request->get('nombre'),
+                $request->get('apellido_paterno'),
+                $request->get(null),
+                $request->get('email'),
+                $request->get('anno_ingreso'),
+                $request->get(null)
+            );
+
+            if(count($listaFiltrada))
+            {
+                for($i = 0; $i<count($listaFiltrada,1); $i++)
+                {
+                    if($alumnosInformatica->where('id_alumno', $listaFiltrada[$i]->id_alumno)->first())
+                    {
+                        $alumnosFiltrados->push($alumnosInformatica->where('id_alumno', $listaFiltrada[$i]->id_alumno)->first());
+                    }
+                }
+            }
+            return view('Practicas/Civil/alumnos_en_practica')->with('lista',$alumnosFiltrados);
+        }
+        return view('Practicas/Civil/alumnos_en_practica')->with('lista',$alumnosInformatica);
+    }
+
+
+    public static function verificarSolicitudAlumno($id) //Comprobar si el alumno tiene su solicitud
+    {
+        $solicitudes = Solicitud::where('id_alumno', $id)->first();
+
+        if( $solicitudes != null )
+        {
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function mostrarSolicitudModal($id) //Mostrar el formulario del alumno
+    {
+        $solicitudes = Solicitud::where('id_alumno', $id)->first();
+
+        return view('Practicas/Ejecucion/modales/modalSolicitud')->with('formulario',$solicitudes);
+    }
+
+    public static function verificarInscripcionAlumno($id) //Comprobar si el alumno tiene su inscripcion
+    {
+        $alumnos = Alumno::where('id_alumno', $id)->first();
+        $practicas = Practica::where('id_alumno', $alumnos->id_alumno)->first();
+
+        if( $practicas->f_inscripcion != null )
+        {
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function mostrarInscripcionModal($id) //Mostrar el formulario del alumno
+    {
+        $alumnos = Alumno::where('id_alumno', $id)->first();
+        $practicas = Practica::where('id_alumno', $alumnos->id_alumno)->first();
+        $supervisores = Supervisor::where('id_supervisor', $practicas->id_supervisor)->first();
+        $empresas = Empresa::where('id_empresa', $supervisores->id_empresa)->first();
+
+        return view('Practicas/Ejecucion/modales/modalInscripcion')
+            ->with('alumnos',$alumnos)
+            ->with('practicas',$practicas)
+            ->with('supervisores',$supervisores)
+            ->with('empresas', $empresas);
+    }
+
+    public static function verificarAutoEvaluacionAlumno($id) //Comprobar si el alumno tiene su auto evaluacion
+    {
+        $practicas = Practica::where('id_alumno', $id)->first();
+        $autoEvaluacion = Autoevaluacion::where('id_practica', $practicas->id_practica)->first();
+
+        if( $autoEvaluacion != null )
+        {
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function mostrarAutoEvaluacionModal($id) //Mostrar el formulario del alumno
+    {
+        $practicas = Practica::where('id_alumno', $id)->first();
+        $autoEvaluacion = Autoevaluacion::where('id_practica', $practicas->id_practica)->first();
+
+        return view('Practicas/Ejecucion/modales/modalAutoEvaluacion')->with('formulario',$autoEvaluacion);
+    }
+
+
+
 }
