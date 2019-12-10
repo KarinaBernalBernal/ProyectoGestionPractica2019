@@ -16,6 +16,7 @@ class CreateAreaEvaluacionTable extends Migration
         Schema::create('area_evaluacion', function (Blueprint $table) {
             $table->integer('id_eval_supervisor')->unsigned();
             $table->integer('id_area')->unsigned();
+            $table->integer('vigencia')->default(1);
             $table->timestamps();
 
             $table->foreign('id_eval_supervisor')->references('id_eval_supervisor')

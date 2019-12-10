@@ -99,6 +99,16 @@ Route::get('/Supervisores/editar/{id_elemento}', 'SupervisorController@editar')-
 Route::post('/Supervisores/agregar', 'SupervisorController@crearSupervisor')->name('agregar_supervisor');
 Route::post('/Supervisores/actualizar/{id_elemento}', 'SupervisorController@editarSupervisor')->name('actualizar_supervisor');
 Route::post('/Supervisores/eliminar/{id_elemento}','SupervisorController@borrarSupervisor')->name('borrar_supervisor');
+
+/* Rutas mantenedor elementos dinamicos */
+// Rutas tipo GET
+Route::get('/ElementosDinamicos/crear/{tipo}', 'ElementosDinamicosController@crear')->name('crear_elemento_dinamico');
+Route::get('/ElementosDinamicos/lista', 'ElementosDinamicosController@lista')->name('lista_elementos_dinamicos');
+Route::get('/ElementosDinamicos/editar/{id_elemento},{tipo}', 'ElementosDinamicosController@editar')->name('editar_elemento');
+//Rutas tipo POST
+Route::post('/ElementosDinamicos/agregar/{tipo}', 'ElementosDinamicosController@crearElemento')->name('agregar_elemento_dinamico');
+Route::post('/ElementosDinamicos/eliminar/{id_elemento},{tipo}','ElementosDinamicosController@borrarElemento')->name('borrar_elemento_dinamico');
+Route::post('/ElementosDinamicos/actualizar/{id_elemento},{tipo}', 'ElementosDinamicosController@editarElemento')->name('actualizar_elemento_dinamico');
 /*--------------------- Etapa Solicitud ---------------------*/
 //-------Envio de correo para estudiante con link de formulario de autorización práctica
 Route::get('/contactar', 'SolicitudController@contact')->name('contact');
@@ -157,6 +167,10 @@ Route::post('/agregarEvaluacionEmpresa', 'EvaluacionSupervisorController@store')
 // Rutas tipo GET
 Route::get('/Reportes/alumnos', 'AlumnosReporteController@index')->name('reporte_alumnos');
 
+* ----------------- Supevisores en practica ---------------------------- */
+
+Route::get('/supervisoresPracticaEjecucion', 'SupervisorController@supervisoresEnPracticaEjecucion')->name('supervisoresPracticaEjecucion');
+Route::get('/supervisoresPracticaCivil', 'SupervisorController@supervisoresEnPracticaCivil')->name('supervisoresPracticaCivil');
 
 
 

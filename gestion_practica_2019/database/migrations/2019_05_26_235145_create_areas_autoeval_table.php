@@ -16,6 +16,7 @@ class CreateAreasAutoevalTable extends Migration
         Schema::create('areas_autoeval', function (Blueprint $table) {
             $table->integer('id_autoeval')->unsigned();
             $table->integer('id_area')->unsigned();
+            $table->integer('vigencia')->default(1);
             $table->timestamps();
             
             $table->foreign('id_autoeval')->references('id_autoeval')

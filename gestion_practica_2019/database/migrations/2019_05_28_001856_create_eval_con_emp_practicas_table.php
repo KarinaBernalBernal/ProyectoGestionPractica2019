@@ -14,10 +14,10 @@ class CreateEvalConEmpPracticasTable extends Migration
     public function up()
     {
         Schema::create('eval_con_emp_practicas', function (Blueprint $table) {
-            $table->integer('valor_con_emp_practica');
-            
             $table->integer('id_eval_supervisor')->unsigned();
             $table->integer('id_conocimiento')->unsigned();
+            $table->integer('vigencia')->default(1);
+            $table->integer('valor_con_emp_practica');
             $table->timestamps();
 
             $table->foreign('id_eval_supervisor')->references('id_eval_supervisor')

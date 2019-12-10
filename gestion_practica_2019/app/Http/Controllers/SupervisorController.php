@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 use SGPP\Supervisor;
 use SGPP\User;
 use SGPP\Empresa;
-
+use SGPP\Alumno;
+use SGPP\Practica;
+use Illuminate\Support\Facades\DB;
 
 class SupervisorController extends Controller
 {
@@ -19,6 +21,100 @@ class SupervisorController extends Controller
                 'lista'=>$lista,
             ]);
     }
+
+    public function supervisoresEnPracticaEjecucion(Request $request)
+    {
+
+        //-----Supervisores de informatica-----//
+        $supervisoresInformatica = DB::table('supervisores')
+            ->join('practicas', 'practicas.id_supervisor', '=', 'supervisores.id_supervisor')
+            ->join('alumnos', 'alumnos.id_alumno', '=', 'practicas.id_alumno')
+            ->where('alumnos.carrera', '=', "Ingeniería de Ejecución Informática")
+            ->select('supervisores.*')
+            ->get();
+
+        //-----Si no se seleccionaron filtros solo entregamos la consulta de la base-----//
+
+        if ($request->nombre != null || $request->apellido_paterno != null || $request->email != null)
+        {
+            $supervisoresFiltrados = collect();
+
+            //-----Filtro-----//
+            $listaFiltrada= Supervisor::filtrarYPaginar($request->get('buscador'),
+                $request->get('nombre'),
+                $request->get('apellido_paterno'),
+                $request->get('email')
+            );
+
+            if(count($listaFiltrada))
+            {
+                for($i = 0; $i<count($listaFiltrada,1); $i++)
+                {
+                    if($supervisoresInformatica->where('id_supervisor', $listaFiltrada[$i]->id_supervisor)->first())
+                    {
+                        $supervisoresFiltrados->push($supervisoresInformatica->where('id_supervisor', $listaFiltrada[$i]->id_supervisor)->first());
+                    }
+                }
+            }
+            return view('Practicas/Ejecucion/supervisores_en_practica')->with('lista',$supervisoresFiltrados);
+        }
+
+        return view('Practicas/Ejecucion/supervisores_en_practica')->with('lista',$supervisoresInformatica);
+    }
+
+
+    public function supervisoresEnPracticaCivil(Request $request)
+    {
+
+        //-----Supervisores de informatica-----//
+        $supervisoresInformatica = DB::table('supervisores')
+            ->join('practicas', 'practicas.id_supervisor', '=', 'supervisores.id_supervisor')
+            ->join('alumnos', 'alumnos.id_alumno', '=', 'practicas.id_alumno')
+            ->where('alumnos.carrera', '=', "Ingeniería Civil Informática")
+            ->select('supervisores.*')
+            ->get();
+
+        //-----Si no se seleccionaron filtros solo entregamos la consulta de la base-----//
+
+        if ($request->nombre != null || $request->apellido_paterno != null || $request->email != null)
+        {
+            $supervisoresFiltrados = collect();
+
+            //-----Filtro-----//
+            $listaFiltrada= Supervisor::filtrarYPaginar($request->get('buscador'),
+                $request->get('nombre'),
+                $request->get('apellido_paterno'),
+                $request->get('email')
+            );
+
+            if(count($listaFiltrada))
+            {
+                for($i = 0; $i<count($listaFiltrada,1); $i++)
+                {
+                    if($supervisoresInformatica->where('id_supervisor', $listaFiltrada[$i]->id_supervisor)->first())
+                    {
+                        $supervisoresFiltrados->push($supervisoresInformatica->where('id_supervisor', $listaFiltrada[$i]->id_supervisor)->first());
+                    }
+                }
+            }
+            return view('Practicas/Civil/supervisores_en_practica')->with('lista',$supervisoresFiltrados);
+        }
+
+        return view('Practicas/Civil/supervisores_en_practica')->with('lista',$supervisoresInformatica);
+    }
+
+
+    //vista principal de un elemento en especifico
+    public function listaSupervisores(Request $request)
+    {
+        $lista= Supervisor::filtrarYPaginar($request->get('buscador'),
+            $request->get('nombre'),
+            $request->get('apellido_paterno'),
+            $request->get('email')
+        );
+        return view('Practicas.Ejecucion.supervisores_en_practica')->with("lista", $lista);
+    }
+
     public function crear()
     {
         $empresas= Empresa::all();
@@ -102,5 +198,8 @@ class SupervisorController extends Controller
         return redirect()->route('lista_supervisores');
     }
 
-
+    public function probando()
+    {
+        return view('Practicas/Ejecucion/supervisores_en_practica');
+    }
 }

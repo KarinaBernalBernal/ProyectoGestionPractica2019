@@ -5,14 +5,14 @@
         <div class="row">
             <div class="col col-md-offset">
                 <div class="tab-content" id="myTabContent">
-                    <div class="row">
+                    <div class="container-fluid">
                         <h2>Inscripciones</h2>
                     </div>
 
                     <br>
 
                     @if (count($practicas)>0)
-                        <div class="row d-flex justify-content-center">
+                        <div class="container-fluid">{{--row d-flex justify-content-center--}}
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="MyTable">
                                     <thead class="bg-dark" style="color: white">
@@ -24,6 +24,7 @@
                                             <th class="text-truncate text-center">Fecha Inscripcion</th>
                                             <th class="text-truncate text-center">Inicio</th>
                                             <th class="text-truncate text-center">Termino</th>
+                                            <th class="text-truncate text-center">Detalles</th>
                                             <!--<th class="text-truncate text-center">Supervisor</th>-->
                                         </tr>
                                         </thead>
@@ -36,9 +37,11 @@
                                                             <td class="text-truncate text-center">{{ $alumno->nombre }}</td>
                                                             <td class="text-truncate text-center">{{ $alumno->apellido_paterno }}</td>
                                                             <td class="text-truncate text-center">{{ $alumno->apellido_materno }}</td>
-                                                            <td class="text-truncate text-center">{{ $practica->f_inscripcion }}</td>
-                                                            <td class="text-truncate text-center">{{ $practica->f_desde }}</td>
-                                                            <td class="text-truncate text-center">{{ $practica->f_hasta }}</td>
+                                                            <td class="text-truncate text-center">{{ date('d-m-Y', strtotime($practica->f_inscripcion)) }}</td>
+                                                            <td class="text-truncate text-center">{{ date('d-m-Y', strtotime($practica->f_desde)) }}</td>
+                                                            <td class="text-truncate text-center">{{ date('d-m-Y', strtotime($practica->f_hasta)) }}</td>
+                                                            <td class="text-truncate text-center"><a href="" class="botonModalmodificarEvaluacionSolicitud" data-toggle="modal" data-form="" data-target="#modal-modificarEvaluacionSolicitud"><span><i class="fas fa-search-plus"></i></span></a>
+
                                                         </tr>
                                                     @endif
                                                 @endforeach
@@ -48,7 +51,7 @@
                                 </div>
                             </div>
                     @else
-                    <p>No existen solicitudes en este momento</p>
+                        <p class="container-fluid">No existen inscripciones en este momento</p>
                     @endif
                 </div>
             </div>

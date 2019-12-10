@@ -5,7 +5,7 @@
             <h1 class="h3 mb-0 text-gray-800">FORMULARIO DE AUTOEVALUACIÓN</h1>
         </div>
 
-        <form action="{{route('agregarAutoEvaluacion')}}" enctype="multipart/form-data" method="POST" role="form">
+        <form id="formularioAutoevaluacion" action="{{route('agregarAutoEvaluacion')}}" enctype="multipart/form-data" method="POST" role="form">
             {{ csrf_field() }}
 
             {{-- Autoevaluacion del Alumno --}}
@@ -13,52 +13,13 @@
                 <div class="card-body">
                     <h4>¿En qué área(s) clasificaría su práctica?</h4>
                     <hr>
-                    
-
-                    {{-- Areas --}}
                     <div class="form-group row">
-                        <div class="col-md-6">
-                            <label for="area[]" class="col-md-5 col-form-label">{{ __('Codificación') }}</label>
-                            <input type="checkbox" name="area[]" value="Codificación">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="area[]" class="col-md-7 col-form-label">{{ __('Análisis / Diseño') }}</label>
-                            <input type="checkbox" name="area[]" value="Análisis / Diseño">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="area[]" class="col-md-5 col-form-label">{{ __('Mantención Sw') }}</label>
-                            <input type="checkbox" name="area[]" value="Mantención Sw">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="area[]" class="col-md-7 col-form-label">{{ __('Documentar') }}</label>
-                            <input type="checkbox" name="area[]" value="Documentar">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="area[]" class="col-md-5 col-form-label">{{ __('Testing - SQA') }}</label>
-                            <input type="checkbox" name="area[]" value="Testing - SQA">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="area[]" class="col-md-7 col-form-label">{{ __('Soporte HW') }}</label>
-                            <input type="checkbox" name="area[]" value="Soporte HW">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="area[]" class="col-md-5 col-form-label">{{ __('Administración S.O.') }}</label>
-                            <input type="checkbox" name="area[]" value="Administración S.O.">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="area[]" class="col-md-7 col-form-label">{{ __('Instalacion / Administración redes') }}</label>
-                            <input type="checkbox" name="area[]" value="Instalacion / Administración redes">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="area[]" class="col-md-5 col-form-label">{{ __('Modelado de Procesos') }}</label>
-                            <input type="checkbox" name="area[]" value="Modelado de Procesos">
-                        </div>
-                        {{--
-                        <div class="col-md-4">
-                            <label for="otros" class="col-md-3 col-form-label">{{ __('Otros') }}</label>
-                            <input id="otros" type="text" class="" name="area[9]" value="{{ old('otros') }}" >
-                        </div>
-                        --}}
+                        @foreach($area as $areas)
+                            <div class="col-lg-6">
+                                <label for="area[]" class="col-lg-7 col-form-label">{{ $areas->n_area }}</label>
+                                <input type="checkbox" name="area[]" value="{{ $areas->n_area }}" >
+                            </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -66,17 +27,18 @@
             <div class="card text">
                 <div class="card-body">
 
-                    <h4>Describe las tareas realizaadas</h4>
+                    <h4>Describe las tareas realizadas</h4>
                     <hr>
-                    
-
-                    <div class="table-responsive">
-                        <table class="table table-bordered" id="tablaTareas">
-                            <tr>
-                                <td><input type="text" name="tarea[]" placeholder="Ingrese la tarea" class="form-control name_list" required/></td>
-                                <td><button type="button" name="addTarea" id="addTarea" class="btn btn-success">Add More</button></td>
-                            </tr>
-                        </table>
+                    <div id="tablaTareas">
+                        <div class="form-group row container-fluid">
+                            <input type="text" name="tarea[]" placeholder="Nombre" class="form-control name_list col-lg-2" required/>
+                            <div class="col-9">
+                                <input type="text" name="dptarea[]" placeholder="Descripción de tarea" class="form-control name_list" required/>
+                            </div>
+                            <div class="col-1">
+                                <button type="button" name="addTarea" id="addTarea" class="btn btn-success"><span class="fas fa-plus" aria-hidden="true"></span></button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -89,32 +51,12 @@
 
                     {{-- Herramientas utilizadas --}}
                     <div class="form-group row">
-                        <div class="col-md-6">
-                            <label for="herramienta[]" class="col-md-5 col-form-label">{{ __('Eclipce IDE') }}</label>
-                            <input type="checkbox" name="herramienta[]" value="Eclipce IDE">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="herramienta[]" class="col-md-7 col-form-label">{{ __('CodeBlocks IDE') }}</label>
-                            <input type="checkbox" name="herramienta[]" value="CodeBlocks IDE">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="herramienta[]" class="col-md-5 col-form-label">{{ __('Trello') }}</label>
-                            <input type="checkbox" name="herramienta[]" value="Trello">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="herramienta[]" class="col-md-7 col-form-label">{{ __('Xampp') }}</label>
-                            <input type="checkbox" name="herramienta[]" value="Xampp">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="herramienta[]" class="col-md-5 col-form-label">{{ __('MySql') }}</label>
-                            <input type="checkbox" name="herramienta[]" value="MySql">
-                        </div>
-                        {{--
-                        <div class="col-md-4">
-                            <label for="otros" class="col-md-3 col-form-label">{{ __('Otros') }}</label>
-                            <input id="otros" type="text" class="" name="otros" value="{{ old('otros') }}" required>
-                        </div>
-                        --}}
+                        @foreach($herramienta as $herramientas)
+                            <div class="col-lg-6">
+                                <label for="herramienta[]" class="col-lg-5 col-form-label">{{ $herramientas->n_herramienta }}</label>
+                                <input type="checkbox" name="herramienta[]" value="{{ $herramientas->n_herramienta }}">
+                            </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -127,33 +69,83 @@
 
                     <br>
                     <div class="col-md-auto">
-                        <h6><strong>1.- ¿Qué Conocimientos / Habilidades aprendidas en la carrera fueron importantes para el desarrollo de su práctica? (comente):</strong></h6>
+                        <h6><strong>1.- ¿Qué Conocimientos / Habilidades aprendidas en la carrera fueron importantes para el desarrollo de su práctica?:</strong></h6>
                     </div>
                     <br>
-
-                    <div class="table-responsive">
-                        <table class="table table-bordered" id="tablaHabilidadesA">
-                            <tr>
-                                <td><input type="text" name="habilidadA[]" placeholder="Ingrese habilidad aprendida" class="form-control name_list" required/></td>
-                                <td><button type="button" name="addHabilidadA" id="addHabilidadA" class="btn btn-success">Add More</button></td>
-                            </tr>
-                        </table>
+                    <div id="tablaConocimientosA" class="container-fluid">
+                        <div class="form-group row container-fluid">
+                            <label for="conocimientoA" class="col-lg-2 col-form-label text-md-right"><strong>{{ __('Conocimiento:') }}</strong></label>
+                            <div class="col-2">
+                                <input type="text" name="conocimientoA[]" placeholder="Nombre" class="form-control name_list" required/>
+                                <label for="conocimientoA" class="font-italic">Ej."Programación"</label>
+                            </div>
+                            <div class="col-7">
+                                <input type="text" name="dpConocimientoA[]" placeholder="Explicación de conocimiento aprendido" class="form-control name_list" required/>
+                                <label for="dpConocimientoA" class="font-italic">Ej."Conocimientos en programación orientada a objetos"</label>
+                            </div>
+                            <div class="col-1">
+                                <button type="button" name="addConocimientoA" id="addConocimientoA" class="btn btn-success"><span class="fas fa-plus" aria-hidden="true"></span></button>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div id="tablaHabilidadesA" class="container-fluid">
+                        <div class="form-group row container-fluid">
+                            <label for="habilidadA" class="col-lg-2 col-form-label text-md-right"><strong>{{ __('Habilidad:') }}</strong></label>
+                            <div class="col-2">
+                                <input type="text" name="habilidadA[]" placeholder="Nombre" class="form-control name_list" required/>
+                                <label for="habilidadA" class="font-italic">Ej."Informes"</label>
+                            </div>
+                            <div class="col-7">
+                                <input type="text" name="dpHabilidadA[]" placeholder="Explicación de habilidad aprendida" class="form-control name_list" required/>
+                                <label for="dpHabilidadA" class="font-italic">Ej."Habilidad en redacción de informes"</label>
+                            </div>
+                            <div class="col-1">
+                                <button type="button" name="addHabilidadA" id="addHabilidadA" class="btn btn-success"><span class="fas fa-plus" aria-hidden="true"></span></button>
+                            </div>
+                        </div>
                     </div>
 
                     <br>
                     <div class="col-md-auto">
-                        <h6><strong>2.- ¿Qué Conocimientos / Habilidades piensa que le faltaron para un buen desempeño en su práctica? (comente):</strong></h6>
+                        <h6><strong>2.- ¿Qué Conocimientos / Habilidades piensa que le faltaron para un buen desempeño en su práctica?:</strong></h6>
                     </div>
                     <br>
 
-                    <div class="table-responsive">
-                        <table class="table table-bordered" id="tablaHabilidadesF">
-                            <tr>
-                                <td><input type="text" name="habilidadF[]" placeholder="Ingrese habilidad faltante" class="form-control name_list" required/></td>
-                                <td><button type="button" name="addHabilidadF" id="addHabilidadF" class="btn btn-success">Add More</button></td>
-                            </tr>
-                        </table>
+                    <div id="tablaConocimientosF" class="container-fluid">
+                        <div class="form-group row container-fluid">
+                            <label for="conocimientoF" class="col-lg-2 col-form-label text-md-right"><strong>{{ __('Conocimiento:') }}</strong></label>
+                            <div class="col-2">
+                                <input type="text" name="conocimientoF[]" placeholder="Nombre" class="form-control name_list" required/>
+                                <label for="conocimientoF" class="font-italic">Ej."Programación"</label>
+                            </div>
+                            <div class="col-7">
+                                <input type="text" name="dpConocimientoF[]" placeholder="Explicación de conocimiento faltante" class="form-control name_list" required/>
+                                <label for="dpConocimientoF" class="font-italic">Ej."Conocimientos en programación orientada a objetos"</label>
+                            </div>
+                            <div class="col-1">
+                                <button type="button" name="addConocimientoF" id="addConocimientoF" class="btn btn-success"><span class="fas fa-plus" aria-hidden="true"></span></button>
+                            </div>
+                        </div>
                     </div>
+                    <br>
+                    <div id="tablaHabilidadesF" class="container-fluid">
+                        <div class="form-group row container-fluid">
+                            <label for="habilidadF" class="col-lg-2 col-form-label text-md-right"><strong>{{ __('Habilidad:') }}</strong></label>
+                            <div class="col-2">
+                                <input type="text" name="habilidadF[]" placeholder="Nombre" class="form-control name_list" required/>
+                                <label for="habilidadF" class="font-italic">Ej."Informes"</label>
+                            </div>
+                            <div class="col-7">
+                                <input type="text" name="dpHabilidadF[]" placeholder="Explicación de habilidad faltante" class="form-control name_list" required/>
+                                <label for="dpHabilidadF" class="font-italic">Ej."Habilidad en redacción de informes"</label>
+                            </div>
+                            <div class="col-1">
+                                <button type="button" name="addHabilidadF" id="addHabilidadF" class="btn btn-success"><span class="fas fa-plus" aria-hidden="true"></span></button>
+                            </div>
+                        </div>
+                    </div>
+
 
                     <br>
                     <div class="col-md-auto">
@@ -161,14 +153,19 @@
                     </div>
                     <br>
 
-                    <div class="table-responsive">
-                        <table class="table table-bordered" id="tablaConocimientos">
-                            <tr>
-                                <td><input type="text" name="conocimiento[]" placeholder="Ingrese conocimiento" class="form-control name_list" required/></td>
-                                <td><button type="button" name="addConocimiento" id="addConocimiento" class="btn btn-success">Add More</button></td>
-                            </tr>
-                        </table>
+                    <div id="tablaConocimientos" class="container-fluid">
+                        <div class="form-group row container-fluid">
+                            <input type="text" name="conocimiento[]" placeholder="Nombre" class="form-control name_list col-sm-2" required/>
+                            <div class="col-9">
+                                <input type="text" name="dpConocimiento[]" placeholder="Descripción del conocimiento" class="form-control name_list" required/>
+                            </div>
+                            <div class="col-1">
+                                <button type="button" name="ddConocimiento" id="addConocimiento" class="btn btn-success"><span class="fas fa-plus" aria-hidden="true"></span></button>
+                            </div>
+                        </div>
                     </div>
+
+
                 </div>
             </div>
             <br>
@@ -206,7 +203,7 @@
                     <div class="form-group row">
                         <label for="dpDesempenno" class="col-md-3 col-form-label text-md-right"></label>
                         <div class="col-md-6">
-                            <textarea id="dpDesempenno" name="dpDesempenno" class="form-control" rows="10" cols="40" placeholder="Escribe aquí tu comentario"></textarea>
+                            <textarea id="dpDesempenno" name="dpDesempenno" class="form-control" rows="10" cols="40" placeholder="Escribe aquí tu comentario..."></textarea>
                         </div>
                     </div>
 
@@ -234,72 +231,20 @@
                             <td><strong>NA</strong></td>
                             <td><strong>NL</strong></td>
                         </tr>
-                        <tr>
-                            <td>Se desempeña con responsabilidad, respeto y ética profesional</td>
-
-                                <td><input type="radio" name="criterio[0]" value="1" required><br></td>
-                                <td><input type="radio" name="criterio[0]" value="2" required><br></td>
-                                <td><input type="radio" name="criterio[0]" value="3" required><br></td>
-                                <td><input type="radio" name="criterio[0]" value="4" required><br></td>
-                                <td><input type="radio" name="criterio[0]" value="NA" required><br></td>
-                                <td><input type="radio" name="criterio[0]" value="NL" required><br></td>
-
-                        </tr>
-                        <tr>
-                            <td>Demuestra Iniciativa, creatividad y proactividad en el desempeño de las tareas.</td>
-
-                                <td><input type="radio" name="criterio[1]" value="1" required><br></td>
-                                <td><input type="radio" name="criterio[1]" value="2" required><br></td>
-                                <td><input type="radio" name="criterio[1]" value="3" required><br></td>
-                                <td><input type="radio" name="criterio[1]" value="4" required><br></td>
-                                <td><input type="radio" name="criterio[1]" value="NA" required><br></td>
-                                <td><input type="radio" name="criterio[1]" value="NL" required><br></td>
-
-                        </tr>
-                        <tr>
-                            <td>Presenta capacidad de Autoaprendizaje</td>
-
-                                <td><input type="radio" name="criterio[2]" value="1" required><br></td>
-                                <td><input type="radio" name="criterio[2]" value="2" required><br></td>
-                                <td><input type="radio" name="criterio[2]" value="3" required><br></td>
-                                <td><input type="radio" name="criterio[2]" value="4" required><br></td>
-                                <td><input type="radio" name="criterio[2]" value="NA" required><br></td>
-                                <td><input type="radio" name="criterio[2]" value="NL" required><br></td>
-
-                        </tr>
-                        <tr>
-                            <td>Participa adecuadamente en trabajos en grupo</td>
-
-                                <td><input type="radio" name="criterio[3]" value="1" required><br></td>
-                                <td><input type="radio" name="criterio[3]" value="2" required><br></td>
-                                <td><input type="radio" name="criterio[3]" value="3" required><br></td>
-                                <td><input type="radio" name="criterio[3]" value="4" required><br></td>
-                                <td><input type="radio" name="criterio[3]" value="NA" required><br></td>
-                                <td><input type="radio" name="criterio[3]" value="NL" required><br></td>
-
-                        </tr>
-                        <tr>
-                            <td>Se comunica efectivamente en forma oral y escrita en su lengua materna</td>
-
-                                <td><input type="radio" name="criterio[4]" value="1" required><br></td>
-                                <td><input type="radio" name="criterio[4]" value="2" required><br></td>
-                                <td><input type="radio" name="criterio[4]" value="3" required><br></td>
-                                <td><input type="radio" name="criterio[4]" value="4" required><br></td>
-                                <td><input type="radio" name="criterio[4]" value="NA" required><br></td>
-                                <td><input type="radio" name="criterio[4]" value="NL" required><br></td>
-
-                        </tr>
-                        <tr>
-                            <td>Maneja de forma apropiada el idioma Inglés en el contexto de su profesión</td>
-
-                                <td><input type="radio" name="criterio[5]" value="1" required><br></td>
-                                <td><input type="radio" name="criterio[5]" value="2" required><br></td>
-                                <td><input type="radio" name="criterio[5]" value="3" required><br></td>
-                                <td><input type="radio" name="criterio[5]" value="4" required><br></td>
-                                <td><input type="radio" name="criterio[5]" value="NA" required><br></td>
-                                <td><input type="radio" name="criterio[5]" value="NL" required><br></td>
-
-                        </tr>
+                        <?php $i = 0 ?>
+                        @foreach($actitud as $actitudes)
+                            <tr>
+                                <td>{{ $actitudes->dp_act }}</td>
+                                <input name="actitud[{{$i}}]" value="{{$actitudes->id_actitudinal}}" style="display: none">
+                                <td><input type="radio" name="criterio[{{$i}}]" value="1" required><br></td>
+                                <td><input type="radio" name="criterio[{{$i}}]" value="2" required><br></td>
+                                <td><input type="radio" name="criterio[{{$i}}]" value="3" required><br></td>
+                                <td><input type="radio" name="criterio[{{$i}}]" value="4" required><br></td>
+                                <td><input type="radio" name="criterio[{{$i}}]" value="NA" required><br></td>
+                                <td><input type="radio" name="criterio[{{$i}}]" value="NL" required><br></td>
+                            </tr>
+                            <?php $i++ ?>
+                        @endforeach
                     </table>
                     <br>
                     <div class="col-md-auto" style="padding-left: 5%">
@@ -321,56 +266,27 @@
                             <td><strong>NA</strong></td>
                             <td><strong>NL</strong></td>
                         </tr>
+                        <?php $j = 0 ?>
+                        @foreach($conocimiento as $conocimientos)
                         <tr>
-                            <td>Aplica adecuadamente conocimientos teóricos para diseñar soluciones.</td>
-
-                            <td><input type="radio" name="criterio2[0]" value="1" required><br></td>
-                            <td><input type="radio" name="criterio2[0]" value="2" required><br></td>
-                            <td><input type="radio" name="criterio2[0]" value="3" required><br></td>
-                            <td><input type="radio" name="criterio2[0]" value="4" required><br></td>
-                            <td><input type="radio" name="criterio2[0]" value="NA" required><br></td>
-                            <td><input type="radio" name="criterio2[0]" value="NL" required><br></td>
+                            <td>{{ $conocimientos->dp_con }}</td>
+                            <input name="criterioConocimiento[{{$j}}]" value="{{$conocimientos->id_conocimiento}}" style="display: none">
+                            <td><input type="radio" name="criterio2[{{$j}}]" value="1" required><br></td>
+                            <td><input type="radio" name="criterio2[{{$j}}]" value="2" required><br></td>
+                            <td><input type="radio" name="criterio2[{{$j}}]" value="3" required><br></td>
+                            <td><input type="radio" name="criterio2[{{$j}}]" value="4" required><br></td>
+                            <td><input type="radio" name="criterio2[{{$j}}]" value="NA" required><br></td>
+                            <td><input type="radio" name="criterio2[{{$j}}]" value="NL" required><br></td>
 
                         </tr>
-                        <tr>
-                            <td>Concibe soluciones eficientes a los problemas presentados, considerando la evaluación de variables involucradas en éstas.</td>
-
-                                <td><input type="radio" name="criterio2[1]" value="1" required><br></td>
-                                <td><input type="radio" name="criterio2[1]" value="2" required><br></td>
-                                <td><input type="radio" name="criterio2[1]" value="3" required><br></td>
-                                <td><input type="radio" name="criterio2[1]" value="4" required><br></td>
-                                <td><input type="radio" name="criterio2[1]" value="NA" required><br></td>
-                                <td><input type="radio" name="criterio2[1]" value="NL" required><br></td>
-
-                        </tr>
-                        <tr>
-                            <td>Desarrolla su trabajo considerando aspectos de calidad, en proceso y resultado.</td>
-
-                                <td><input type="radio" name="criterio2[2]" value="1" required><br></td>
-                                <td><input type="radio" name="criterio2[2]" value="2" required><br></td>
-                                <td><input type="radio" name="criterio2[2]" value="3" required><br></td>
-                                <td><input type="radio" name="criterio2[2]" value="4" required><br></td>
-                                <td><input type="radio" name="criterio2[2]" value="NA" required><br></td>
-                                <td><input type="radio" name="criterio2[2]" value="NL" required><br></td>
-
-                        </tr>
-                        <tr>
-                            <td>Gestiona proyectos y lidera procesos organizacionales</td>
-
-                                <td><input type="radio" name="criterio2[3]" value="1" required><br></td>
-                                <td><input type="radio" name="criterio2[3]" value="2" required><br></td>
-                                <td><input type="radio" name="criterio2[3]" value="3" required><br></td>
-                                <td><input type="radio" name="criterio2[3]" value="4" required><br></td>
-                                <td><input type="radio" name="criterio2[3]" value="NA" required><br></td>
-                                <td><input type="radio" name="criterio2[3]" value="NL" required><br></td>
-
-                        </tr>
+                            <?php $j++ ?>
+                        @endforeach
                     </table>
                 </div>
 
                 <div class="row justify-content-end ">
                     <div class="col-md-4">
-                        <a href="{{route('descripcionAutoEvaluacion')}}" class="btn btn-secondary">Cancelar</a>
+                        <button id="cancelar" class="btn btn-secondary" type="button">Cancelar</button>
                     </div>
                     <div class="col-md-4">
                         <input class="btn btn-primary" id="submit" type="submit" value="Aceptar">
@@ -389,16 +305,25 @@
             var i=1;
             $('#addTarea').click(function(){
                 i++;
-                $('#tablaTareas').append('<tr id="row'+i+'"><td><input type="text" name="tarea[]" placeholder="Ingrese la tarea" class="form-control name_list" required/></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button></td></tr>');
+                $('#tablaTareas').append('<div class="form-group row container-fluid" id="row'+i+'"><input type="text" name="tarea[]" placeholder="Nombre" class="form-control name_list col-sm-2" required/><div class="col-9"><input type="text" name="dptarea[]" placeholder="Descripción de tarea" class="form-control name_list" required/></div><div class="col-1"><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove"><span class="fas fa-trash-alt" aria-hidden="true"></span></button></div></div>');
             });
             $(document).on('click', '.btn_remove', function(){
                 var button_id = $(this).attr("id");
                 $('#row'+button_id+'').remove();
             });
 
-            $('#addConocimiento').click(function(){
+            $('#addConocimientoA').click(function(){
                 i++;
-                $('#tablaConocimientos').append('<tr id="row'+i+'"><td><input type="text" name="conocimiento[]" placeholder="Ingrese conocimiento" class="form-control name_list" required/></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button></td></tr>');
+                $('#tablaConocimientosA').append('<div class="form-group row container-fluid" id="row'+i+'"><label for="conocimientoA" class="col-lg-2 col-form-label text-md-right"></label><div class="col-2"><input type="text" name="conocimientoA[]" placeholder="Nombre" class="form-control name_list" required/></div><div class="col-7"><input type="text" name="dpConocimientoA[]" placeholder="Explicación de conocimiento aprendido" class="form-control name_list" required/></div><div class="col-1"><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove"><span class="fas fa-trash-alt" aria-hidden="true"></span></button></div></div>');
+            });
+            $(document).on('click', '.btn_remove', function(){
+                var button_id = $(this).attr("id");
+                $('#row'+button_id+'').remove();
+            });
+
+            $('#addConocimientoF').click(function(){
+                i++;
+                $('#tablaConocimientosF').append('<div class="form-group row container-fluid" id="row'+i+'"><label for="conocimientoF" class="col-lg-2 col-form-label text-md-right"></label><div class="col-2"><input type="text" name="conocimientoF[]" placeholder="Nombre" class="form-control name_list" required/></div><div class="col-7"><input type="text" name="dpConocimientoF[]" placeholder="Explicación de conocimiento faltante" class="form-control name_list" required/></div><div class="col-1"><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove"><span class="fas fa-trash-alt" aria-hidden="true"></span></button></div></div>');
             });
             $(document).on('click', '.btn_remove', function(){
                 var button_id = $(this).attr("id");
@@ -407,7 +332,7 @@
 
             $('#addHabilidadA').click(function(){
                 i++;
-                $('#tablaHabilidadesA').append('<tr id="row'+i+'"><td><input type="text" name="habilidadA[]" placeholder="Ingrese habilidad aprendida" class="form-control name_list" required/></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button></td></tr>');
+                $('#tablaHabilidadesA').append('<div class="form-group row container-fluid" id="row'+i+'"><label for="habilidadA" class="col-lg-2 col-form-label text-md-right"></label><div class="col-2"><input type="text" name="habilidadA[]" placeholder="Nombre" class="form-control name_list" required/></div><div class="col-7"><input type="text" name="dpHabilidadA[]" placeholder="Explicación de habilidad aprendida" class="form-control name_list" required/></div><div class="col-1"><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove"><span class="fas fa-trash-alt" aria-hidden="true"></span></button></div></div>');
             });
             $(document).on('click', '.btn_remove', function(){
                 var button_id = $(this).attr("id");
@@ -416,7 +341,16 @@
 
             $('#addHabilidadF').click(function(){
                 i++;
-                $('#tablaHabilidadesF').append('<tr id="row'+i+'"><td><input type="text" name="habilidadF[]" placeholder="Ingrese habilidad faltante" class="form-control name_list" required/></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button></td></tr>');
+                $('#tablaHabilidadesF').append('<div class="form-group row container-fluid" id="row'+i+'"><label for="habilidadF" class="col-lg-2 col-form-label text-md-right"></label><div class="col-2"><input type="text" name="habilidadF[]" placeholder="Nombre" class="form-control name_list" required/></div><div class="col-7"><input type="text" name="dpHabilidadF[]" placeholder="Explicación de habilidad faltante" class="form-control name_list" required/></div><div class="col-1"><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove"><span class="fas fa-trash-alt" aria-hidden="true"></span></button></div></div>');
+            });
+            $(document).on('click', '.btn_remove', function(){
+                var button_id = $(this).attr("id");
+                $('#row'+button_id+'').remove();
+            });
+
+            $('#addConocimiento').click(function(){
+                i++;
+                $('#tablaConocimientos').append('<div class="form-group row container-fluid" id="row'+i+'"><input type="text" name="conocimiento[]" placeholder="Nombre" class="form-control name_list col-sm-2" required/><div class="col-9"><input type="text" name="dpConocimiento[]" placeholder="Explicación del conocimiento" class="form-control name_list" required/></div><div class="col-1"><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove"><span class="fas fa-trash-alt" aria-hidden="true"></span></button></div></div>');
             });
             $(document).on('click', '.btn_remove', function(){
                 var button_id = $(this).attr("id");
@@ -424,6 +358,81 @@
             });
 
         });
-    </script>
 
+
+        $("#formularioAutoevaluacion").submit(function(e) {
+
+            e.preventDefault(); // avoid to execute the actual submit of the form.
+
+            var form = $(this);
+            var url = form.attr('action');
+
+            Swal({
+                title: '¿Estás seguro?',
+                text: "Es imporante revisar si todo está correcto!",
+                type: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si!'
+            }).then((result) => {
+
+                if (result.value) {
+
+                    window.swal({
+                        title: "Por favor espere",
+                        showConfirmButton: false,
+                        allowOutsideClick: false
+                    });
+                    $.ajax({
+                        url: url,
+                        method: "POST",
+                        data: form.serialize(), // serializes the form's elements.
+                        success: function(){
+                            Swal(
+                                'Listo!',
+                                'El formulario ha sido enviado.',
+                                'success'
+                            ).then((result) =>
+                            {
+                                if (result.value)
+                                {
+                                    window.location.href = "{{route('descripcionAutoEvaluacion')}}"
+                                }
+                            })
+                        },
+                        error:function() {
+                            Swal.fire({
+                                type: 'error',
+                                title: 'Opps...!',
+                                text: 'No se pudo enviar el formulario',
+                            });
+                        }
+                    });
+                }
+            });
+        });
+
+        $('#cancelar').click(function()
+        {
+            Swal({
+                title: '¿Estás seguro?',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                cancelButtonText: 'No!',
+                confirmButtonText:'Si!'
+
+            }).then((result) =>
+            {
+                if (result.value)
+                {
+                    window.location.href = "{{route('descripcionAutoEvaluacion')}}"
+                }
+            })
+        });
+    </script>
 @endsection
+
+

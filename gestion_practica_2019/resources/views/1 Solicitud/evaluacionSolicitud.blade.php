@@ -19,11 +19,11 @@
 				  	<div class="row">
 					   <h2>Solicitudes pendientes</h2>
 					</div>
-
+					@if (count($solicitudesP)>0)
 					<br>
 
 					<div class="row d-flex justify-content-center">	
-						<table class="table table-bordered bg-light table-hover">
+						<table class="table table-bordered bg-light table-hover table-responsive">
         					<thead class="bg-dark" style="color: white">							
 								<tr class='text-center'>
 									<th style="vertical-align: middle" scope="col">Rut</th>
@@ -57,6 +57,12 @@
 							</tbody>
 						</table>
 					</div>
+					@else
+						<br>
+						<div class="container-fluid text-center">
+						<p>No existen solicitudes en este momento!</p>
+						</div>
+					@endif
 				</div>
 			</div>
 			
@@ -65,11 +71,11 @@
 				  	<div class="row">
 					   <h2>Solicitudes evaluadas</h2>
 					</div>
-
+					@if (count($solicitudesE)>0)
 					<br>
 
 					<div class="row d-flex justify-content-center">	
-						<table class="table table-bordered bg-light table-hover">
+						<table class="table table-bordered bg-light table-hover table-responsive">
         					<thead class="bg-dark" style="color: white">
 								<tr class='text-center'>
 									<th style="vertical-align: middle" scope="col">Rut</th>
@@ -105,6 +111,12 @@
 							</tbody>
 						</table>
 					</div>
+					@else
+						<br>
+						<div class="container-fluid text-center">
+							<p>No existen solicitudes en este momento!</p>
+						</div>
+					@endif
 				</div>
 			</div>
 			
