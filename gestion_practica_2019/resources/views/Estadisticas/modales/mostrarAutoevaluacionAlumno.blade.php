@@ -153,17 +153,46 @@
                         </div>
                         <div class="form-group row">
                             <div class="col-md-11">
-                                @foreach($herramientaPracticas as $herramientaPractica)
-                                    @foreach($herramientas as $herramienta)
-                                        @if($herramientaPractica->id_herramienta == $herramienta->id_herramienta )
-                                            <div class="form-group row">   
-                                                <div class="col-md-9"> 
-                                                    <label class="col-form-label text-md-right">{{$herramienta->n_herramienta}} </label>
-                                                </div>
-                                            </div>
-                                        @endif
-                                    @endforeach
-                                @endforeach                   
+                                <div class="form-group row">   
+                                    <div class="col-md-9"> 
+                                        @foreach($herramientaPracticas as $herramientaPractica)
+                                            @foreach($herramientas as $herramienta)
+                                                @if($herramientaPractica->id_herramienta == $herramienta->id_herramienta )
+                                                    <label class="col-form-label text-md-right">{{$herramienta->n_herramienta}}</label>
+                                                @endif
+                                            @endforeach
+                                            @if($loop->count <> $loop->iteration)
+                                                <label >-</label>
+                                            @endif
+                                        @endforeach       
+                                    </div>
+                                </div>
+                            </div> 
+                        </div>
+
+                        {{-- Areas --}}
+                        <div class="form-group row justify-content-md-center">
+                            <div class="col-md-12">
+                                <h5>Áreas</h5>
+                                <hr>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-11">
+                                <div class="form-group row">   
+                                    <div class="col-md-9"> 
+                                        @foreach($areaAutoevals as $areaAutoeval)
+                                            @foreach($areas as $area)
+                                                @if($areaAutoeval->id_area == $area->id_area )
+                                                    <label class="col-form-label text-md-right">{{$area->n_area}}</label>
+                                                @endif
+                                            @endforeach
+                                            @if($loop->count <> $loop->iteration)
+                                                <label >-</label>
+                                            @endif
+                                        @endforeach    
+                                    </div>
+                                </div>                  
                             </div> 
                         </div>
 

@@ -200,9 +200,7 @@
                             </div>
                         </div>
                     </div> 
-                    
                 </div>
-               
                 <br>
             @endforeach 
             <div class="container-fluid">
