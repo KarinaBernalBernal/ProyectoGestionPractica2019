@@ -16,7 +16,6 @@ class CreateEvalActEmpPracticaTable extends Migration
         Schema::create('eval_act_emp_practica', function (Blueprint $table) {
             $table->integer('id_eval_supervisor')->unsigned();
             $table->integer('id_actitudinal')->unsigned();
-            $table->integer('vigencia')->default(1);
             $table->string('valor_act_emp_practica');
             $table->timestamps();
 

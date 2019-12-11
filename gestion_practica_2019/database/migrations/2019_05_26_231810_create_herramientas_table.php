@@ -16,6 +16,7 @@ class CreateHerramientasTable extends Migration
         Schema::create('herramientas', function (Blueprint $table) {
             $table->increments('id_herramienta');
             $table->string('n_herramienta');
+            $table->integer('vigencia')->default(1);
 
             $table->timestamps();
         });

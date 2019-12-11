@@ -9,7 +9,7 @@ class Herramienta extends Model
     protected $primaryKey = 'id_herramienta';
 
     protected $fillable = [
-       	'n_herramienta'
+       	'n_herramienta', 'vigencia'
     ];
 
     public function herramientaPractica(){

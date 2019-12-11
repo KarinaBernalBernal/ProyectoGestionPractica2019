@@ -109,6 +109,7 @@ Route::get('/ElementosDinamicos/editar/{id_elemento},{tipo}', 'ElementosDinamico
 Route::post('/ElementosDinamicos/agregar/{tipo}', 'ElementosDinamicosController@crearElemento')->name('agregar_elemento_dinamico');
 Route::post('/ElementosDinamicos/eliminar/{id_elemento},{tipo}','ElementosDinamicosController@borrarElemento')->name('borrar_elemento_dinamico');
 Route::post('/ElementosDinamicos/actualizar/{id_elemento},{tipo}', 'ElementosDinamicosController@editarElemento')->name('actualizar_elemento_dinamico');
+Route::post('/ElementosDinamicos/vigencia', 'ElementosDinamicosController@modificarVigencia')->name('modificar_vigencia');
 /*--------------------- Etapa Solicitud ---------------------*/
 
 //-------Envio de correo para estudiante con link de formulario de autorización práctica

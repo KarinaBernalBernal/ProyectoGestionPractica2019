@@ -8,7 +8,7 @@ class AreaAutoeval extends Model
 {
     protected $table = 'areas_autoeval';
     protected $fillable = [
-       	'id_autoeval','id_area', 'vigencia'
+       	'id_autoeval','id_area'
     ];
 
     public function autoevaluacion(){

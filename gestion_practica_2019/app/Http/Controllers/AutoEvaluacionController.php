@@ -25,10 +25,10 @@ class AutoEvaluacionController extends Controller
 {
     public function index()
     {
-        $area = Area::all();
-        $herramienta = Herramienta::all();
-        $actitud = EvalActitudinal::all();
-        $conocimiento = EvalConocimiento::all();
+        $area = Area::all()->where('vigencia',"1");
+        $herramienta = Herramienta::all()->where('vigencia',"1");;
+        $actitud = EvalActitudinal::all()->where('vigencia',"1");;
+        $conocimiento = EvalConocimiento::all()->where('vigencia',"1");;
         return view('3 Evaluacion/formularioAutoEvaluacion',[
             'area'=>$area,
             'herramienta'=>$herramienta,
