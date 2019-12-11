@@ -16,8 +16,8 @@ class CreateEvalConPracticasTable extends Migration
         Schema::create('eval_con_practicas', function (Blueprint $table) {
             $table->integer('id_autoeval')->unsigned();
             $table->integer('id_conocimiento')->unsigned();
+            $table->string('valor_con_practica');
             $table->integer('vigencia')->default(1);
-            $table->integer('valor_con_practica');
 
             $table->timestamps();
             $table->foreign('id_autoeval')->references('id_autoeval')

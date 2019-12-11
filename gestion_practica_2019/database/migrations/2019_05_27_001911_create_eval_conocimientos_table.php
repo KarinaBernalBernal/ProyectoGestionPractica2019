@@ -17,6 +17,7 @@ class CreateEvalConocimientosTable extends Migration
             $table->increments('id_conocimiento');
             $table->string('n_con');
             $table->string('dp_con');
+            $table->integer('vigencia')->default(1);
 
             $table->timestamps();
         });

@@ -20,7 +20,7 @@
 		<br>
 
 		<div class="tab-content" id="myTabContent">
-			<div class="tab-pane fade show active" id="areas" role="tabpanel" aria-labelledby="areas-tab">
+            <div class="tab-pane fade show active" id="areas" role="tabpanel" aria-labelledby="areas-tab">
 				<h2>Áreas de Autoevaluación/Evaluación Supervisor</h2>
 				<br>
 				<input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
@@ -35,6 +35,7 @@
 											<tr class='text-center'>
 												<th style="vertical-align: middle" scope="col">ID</th>
 												<th style="vertical-align: middle" scope="col">Nombre</th>
+												<th style="vertical-align: middle" scope="col">Vigencia</th>
 												<th style="vertical-align: middle" scope="col">Opción</th>
 											</tr>
 										</thead>
@@ -43,6 +44,12 @@
 												<tr id="{{ $areas->id_area }}">
 													<td>{{ $areas->id_area }} </td>
 													<td>{{ $areas->n_area }}</td>
+
+													@if($areas->vigencia == 1)
+														<td><input name="area[]" type="checkbox" data-id="{{ $areas->id_area }}" data-title="area" checked></td>
+													@else
+														<td><input name="area[]" type="checkbox" data-id="{{ $areas->id_area }}" data-title="area"></td>
+													@endif
 													<td>
 														<a href="{{route('editar_elemento',[$areas->id_area, "Área"])}}"><button id="{{$areas->id_area}}" class="btn btn-warning">
 																		<span class="fas fa-edit" aria-hidden="true"></span>
@@ -51,6 +58,7 @@
 																		<span class="fas fa-trash-alt" aria-hidden="true"></span>
 																	</button></a>
 													</td>
+
 												</tr>
 											@endforeach
 										</tbody>
@@ -92,6 +100,7 @@
 											<tr class='text-center'>
 												<th style="vertical-align: middle" scope="col">ID</th>
 												<th style="vertical-align: middle" scope="col">Nombre</th>
+												<th style="vertical-align: middle" scope="col">Vigencia</th>
 												<th style="vertical-align: middle" scope="col">Opción</th>
 											</tr>
 											</thead>
@@ -101,6 +110,11 @@
                                                 <tr id="{{ $herramientas->id_herramienta }}">
 													<td>{{ $herramientas->id_herramienta }}</td>
 													<td>{{ $herramientas->n_herramienta }}</td>
+													@if($herramientas->vigencia == 1)
+														<td><input name="herramienta[]" type="checkbox" data-id="{{ $herramientas->id_herramienta }}" data-title="herramienta" checked></td>
+													@else
+														<td><input name="herramienta[]" type="checkbox" data-id="{{ $herramientas->id_herramienta }}" data-title="herramienta"></td>
+													@endif
 													<td>
 														<a href="{{route('editar_elemento',[$herramientas->id_herramienta, "Herramienta"])}}"><button id="{{$herramientas->id_herramienta}}" class="btn btn-warning">
 																<span class="fas fa-edit" aria-hidden="true"></span>
@@ -151,6 +165,7 @@
 												<th style="vertical-align: middle" scope="col">ID</th>
 												<th style="vertical-align: middle" scope="col">Nombre</th>
 												<th style="vertical-align: middle" scope="col">Descripción</th>
+												<th style="vertical-align: middle" scope="col">Vigencia</th>
 												<th style="vertical-align: middle" scope="col">Opción</th>
 											</tr>
 											</thead>
@@ -160,6 +175,11 @@
 													<td>{{ $evalActitudinales->id_actitudinal }}</td>
 													<td>{{ $evalActitudinales->n_act }}</td>
 													<td>{{ $evalActitudinales->dp_act }}</td>
+													@if($evalActitudinales->vigencia == 1)
+														<td><input name="actitud[]" type="checkbox" data-id="{{ $evalActitudinales->id_actitudinal }}" data-title="actitud" checked></td>
+													@else
+														<td><input name="actitud[]" type="checkbox" data-id="{{ $evalActitudinales->id_actitudinal }}" data-title="actitud"></td>
+													@endif
 													<td>
 														<a href="{{route('editar_elemento',[$evalActitudinales->id_actitudinal, "Actitud"])}}"><button id="{{$evalActitudinales->id_actitudinal}}" class="btn btn-warning">
 																<span class="fas fa-edit" aria-hidden="true"></span>
@@ -210,6 +230,7 @@
 												<th style="vertical-align: middle" scope="col">ID</th>
 												<th style="vertical-align: middle" scope="col">Nombre</th>
 												<th style="vertical-align: middle" scope="col">Descripción</th>
+												<th style="vertical-align: middle" scope="col">Vigencia</th>
 												<th style="vertical-align: middle" scope="col">Opción</th>
 											</tr>
 											</thead>
@@ -219,6 +240,11 @@
 													<td>{{ $evalConocimientos->id_conocimiento }}</td>
 													<td>{{ $evalConocimientos->n_con }}</td>
 													<td>{{ $evalConocimientos->dp_con }}</td>
+													@if($evalConocimientos->vigencia == 1)
+														<td><input name="conocimiento[]" type="checkbox" data-id="{{ $evalConocimientos->id_conocimiento }}" data-title="conocimiento" checked></td>
+													@else
+														<td><input name="conocimiento[]" type="checkbox" data-id="{{ $evalConocimientos->id_conocimiento }}" data-title="conocimiento"></td>
+													@endif
 													<td>
 														<a href="{{route('editar_elemento',[$evalConocimientos->id_conocimiento, "Conocimiento"])}}"><button id="{{$evalConocimientos->id_conocimiento}}" class="btn btn-warning">
 																<span class="fas fa-edit" aria-hidden="true"></span>
@@ -251,10 +277,85 @@
 						</div>
 					</div>
 				</div>
+				{{--{id: $(this).data('id'), name: $(this).data('name'), tipo: $(this).data('title')},--}}
 			</div>
 		</div>
    	</div>
    <script>
+       $.ajaxSetup({
+
+           headers: {
+
+               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+
+           }
+
+       });
+	   var _token = $("input[name='_token']").val();
+	   $(document).on('click','input[name="area[]"]',function()
+	   {
+		   $.post({
+			   url: '/ElementosDinamicos/vigencia',
+			   method: "POST",
+			   data: { _token:_token,id: $(this).data('id'), tipo: $(this).data('title')},
+
+			   error:function() {
+                   Swal.fire({
+                       type: 'error',
+                       title: 'Opps...!',
+                       text: 'No se pudo modificar la vigencia, recarge la pagina para verificar!',
+                   });
+               }
+		   });
+	   });
+       $(document).on('click','input[name="herramienta[]"]',function()
+       {
+           $.post({
+               url: '/ElementosDinamicos/vigencia',
+               method: "POST",
+               data: { _token:_token,id: $(this).data('id'), tipo: $(this).data('title')},
+
+               error:function() {
+                   Swal.fire({
+                       type: 'error',
+                       title: 'Opps...!',
+                       text: 'No se pudo modificar la vigencia, recarge la pagina para verificar!',
+                   });
+               }
+           });
+       });
+       $(document).on('click','input[name="actitud[]"]',function()
+       {
+           $.post({
+               url: '/ElementosDinamicos/vigencia',
+               method: "POST",
+               data: { _token:_token,id: $(this).data('id'), tipo: $(this).data('title')},
+
+               error:function() {
+                   Swal.fire({
+                       type: 'error',
+                       title: 'Opps...!',
+                       text: 'No se pudo modificar la vigencia, recarge la pagina para verificar!',
+                   });
+               }
+           });
+       });
+       $(document).on('click','input[name="conocimiento[]"]',function()
+       {
+           $.post({
+               url: '/ElementosDinamicos/vigencia',
+               method: "POST",
+               data: { _token:_token,id: $(this).data('id'), tipo: $(this).data('title')},
+
+               error:function() {
+                   Swal.fire({
+                       type: 'error',
+                       title: 'Opps...!',
+                       text: 'No se pudo modificar la vigencia, recarge la pagina para verificar!',
+                   });
+               }
+           });
+       });
        function borrar(id_elemento,name , url_action)
        {
            Swal({

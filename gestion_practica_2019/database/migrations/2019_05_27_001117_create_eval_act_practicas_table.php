@@ -16,8 +16,8 @@ class CreateEvalActPracticasTable extends Migration
         Schema::create('eval_act_practicas', function (Blueprint $table) {
             $table->integer('id_autoeval')->unsigned();
             $table->integer('id_actitudinal')->unsigned();
+            $table->string('valor_act_practica');
             $table->integer('vigencia')->default(1);
-            $table->integer('valor_act_practica');
             $table->timestamps();
 
             $table->foreign('id_autoeval')->references('id_autoeval')
