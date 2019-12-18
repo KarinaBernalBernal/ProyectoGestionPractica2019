@@ -55,6 +55,7 @@ class EstadisticaController extends Controller
                 ->with("evalActEjecPromG", $evalActEjecPromG)->with("evalConEjecPromG", $evalConEjecPromG);
 
     }
+    
 ////////////////////////////////////////////////// Busqueda por rango de año ////////////////////////////////////////
 
     public function busquedaPorRango(Request $request){
