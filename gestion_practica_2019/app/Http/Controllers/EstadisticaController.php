@@ -32,7 +32,7 @@ class EstadisticaController extends Controller
         
         return view('Estadisticas/estadisticaCriteriosAutoeval');//->with('evalActEjec', $evalActEjec);
     }
-    //---------------------- funciones de detalles del alumno-------------------
+    
     public function buscarAlumno(Request $request){
         $lista= Alumno::filtrarYPaginar($request->get('buscador'),
                                         $request->get('nombre'), 
@@ -40,7 +40,8 @@ class EstadisticaController extends Controller
                                         $request->get('apellido_materno'),
                                         $request->get('email'),
                                         $request->get('anno_ingreso'),
-                                        $request->get('carrera')
+                                        $request->get('carrera'),
+                                        $request->get('direccion')
                                     );
         return view('Estadisticas/AlumnosDetalles')->with("lista", $lista);
     }
