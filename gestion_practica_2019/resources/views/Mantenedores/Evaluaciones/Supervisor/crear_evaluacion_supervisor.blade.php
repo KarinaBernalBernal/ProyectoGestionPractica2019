@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-md col-md-offset-2">
                 <div class="card">
-                    <div class="card-header"><h1>Agregar alumno</h1></div>
+                    <div class="card-header"><h1>Agregar Evaluación</h1></div>
                     <div class="card-body">
                         <form class="form-horizontal" action="{{route('agregar_evaluacion_supervisor')}}" method="post">
                             {{ csrf_field() }}
@@ -59,7 +59,7 @@
                                     <button type="submit" class="btn btn-primary">
                                         Guardar
                                     </button>
-                                    <a href="{{route('lista_evaluaciones_supervisor')}}"><button class="btn btn-secondary">Cancelar</button></a>
+                                    <a href="{{route('lista_evaluaciones_supervisor')}}"><button class="btn btn-secondary" type="button">Cancelar</button></a>
                                 </div>
                             </div>
                         </form>

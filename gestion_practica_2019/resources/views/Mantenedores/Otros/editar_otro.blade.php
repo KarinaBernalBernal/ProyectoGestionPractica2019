@@ -1,24 +1,25 @@
 @extends('layouts.mainlayout')
 
 @section('content')
-        <div class="container-fluid">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-md col-md-offset-2">
                 <div class="card">
-                    <div class="car-header"><h1>Modificar {{$elemento->n_perfil}}</h1></div>
+                    <div class="card-header"><h3>Modificar {{$tipo}}</h3></div>
                     <div class="card-body">
-                        <form class="form-horizontal" action="{{route('actualizar_perfil',[$elemento->id_perfil])}}" method="post">
+
+                        @if($tipo == "Área" || $tipo == "Herramienta")
+                        <form class="form-horizontal" @if($tipo == "Área")action="{{route('actualizar_otro',[$elemento->id_otro_area, $tipo])}}"@endif @if($tipo == "Herramienta")action="{{route('actualizar_otro',[$elemento->id_otro_herramienta, $tipo])}}"@endif method="post">
                             {{ csrf_field() }}
 
                             <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                                <label for="name" class="col-md-4 control-label">Name</label>
+                                <label for="name" class="col-md-4 control-label">Nombre</label>
 
                                 <div class="col-md-6">
-                                    <input id="n_perfil" type="text" class="form-control" name="n_perfil" value="{{ old('n_perfil', $elemento->n_perfil) }}" required autofocus>
-
+                                    <input id="name" type="text" class="form-control" name="name" @if($tipo == "Área") value="{{ old('name', $elemento->n_area) }}"@endif @if($tipo == "Herramienta") value="{{ old('name', $elemento->n_herramienta) }}"@endif required autofocus>
                                     @if ($errors->has('name'))
                                         <span class="help-block">
-                                            <strong>{{ $errors->first('n_perfil') }}</strong>
+                                            <strong>{{ $errors->first('name') }}</strong>
                                         </span>
                                     @endif
                                 </div>
@@ -28,13 +29,15 @@
                                     <button type="submit" class="btn btn-primary">
                                         Guardar
                                     </button>
-                                    <a href="{{route('lista_perfiles')}}"><button class="btn btn-secondary" type="button">Cancelar</button></a>
+                                    <a href="{{route('lista_elementos_dinamicos')}}"><button class="btn btn-secondary" type="button">Cancelar</button></a>
                                 </div>
                             </div>
                         </form>
+                        @endif
                     </div>
                 </div>
             </div>
         </div>
     </div>
 @endsection
+

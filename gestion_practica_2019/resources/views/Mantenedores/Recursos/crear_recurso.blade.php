@@ -70,7 +70,7 @@
                                 </div>
                             </div>
                         </form>
-                        <a href="{{route('lista_recursos')}}"><button class="btn btn-lg btn-block">Cancelar</button></a>
+                        <a href="{{route('lista_recursos')}}"><button class="btn btn-lg btn-block" type="button">Cancelar</button></a>
                     </div>
                 </div>
             </div>

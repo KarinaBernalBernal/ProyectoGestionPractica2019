@@ -19,6 +19,7 @@
                                         <th>Id</th>
                                         <th>Fecha entrega</th>
                                         <th>Id practica</th>
+                                        <th>Opción</th>
                                     </tr >
                                 </thead>
                                 <tbody>
@@ -34,13 +35,6 @@
                                         </tr>
                                     @endforeach
                                 </tbody>
-                                <tfoot>
-                                    <tr >
-                                        <th>Id</th>
-                                        <th>Fecha entrega</th>
-                                        <th>Id practica</th>
-                                    </tr>
-                                </tfoot>
                             </table>
                         </div>
                     </div>
