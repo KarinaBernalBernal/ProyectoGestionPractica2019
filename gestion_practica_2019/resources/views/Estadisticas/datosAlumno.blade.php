@@ -194,9 +194,9 @@
                         
                         <div class="row">
                             <div class="col-md-12">
-                                <a id='botonMostrarAutoevaluacionAlumno btn btn-info btn-sm' class='btn btn-primary btn-sm' href="{{ route('mostrarAutoevaluacionAlumno',['id'=>$practica->id_practica])}}" >Ver autoevaluación</a>
-                                <a id='botonMostrarAutoevaluacionAlumno btn btn-info btn-sm' class='btn btn-primary btn-sm' href="{{ route('mostrarEvaluacionSupervisor',['id'=>$practica->id_practica])}}" >Ver evaluación del supervisor</a>
-                               
+                                <a id='botonMostrarAutoevaluacionAlumno' class='btn btn-info btn-sm' href="{{ route('mostrarAutoevaluacionAlumno',['id'=>$practica->id_practica])}}" >Ver autoevaluación</a>
+                                <a id='botonMostrarAutoevaluacionAlumno' class='btn btn-info btn-sm' href="{{ route('mostrarEvaluacionSupervisor',['id'=>$practica->id_practica])}}" >Ver evaluación del supervisor</a>
+                                <a id='botonMostrarComparativaEvaluaciones' class='btn btn-info btn-sm' href="{{ route('mostrarComparativaEvaluaciones',['id'=>$practica->id_practica])}}" >Comparativa de criterios de evaluaciones</a>
                             </div>
                         </div>
                     </div> 
@@ -206,14 +206,13 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-3">
-                        <a href=""><button class="btn btn-secondary">Atrás</button></a>
+                        <a href="{{ URL::previous() }}"><button class="btn btn-secondary">Atrás</button></a>
                     </div>  
                 </div>
             <div>      
         </div>
     </div>
 </div>  
-
 
 @endsection
                 

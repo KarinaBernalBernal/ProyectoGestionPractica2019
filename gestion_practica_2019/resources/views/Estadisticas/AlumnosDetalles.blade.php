@@ -31,7 +31,7 @@
                     </div>
                     <div class="col-3 mb-2">
                         <label>Año de ingreso</label>
-                        <input id="anno_ingreso" type="text" class="form-control" name="anno_ingreso" placeholder="Ingrese año de ingreso...">
+                        <input id="anno_ingreso" type="number" class="form-control" name="anno_ingreso" placeholder="Ingrese año de ingreso...">
                     </div>
                     <div class="col-3 mb-2">
                         <label>Carrera</label>
@@ -40,6 +40,10 @@
                             <option value="Ingeniería Civil en Informatica">Ingeniería Civil en Informatica</option>
                             <option value="Ingeniería de Ejecución en Informatica">Ingeniería de Ejecución en Informatica</option>
                         </select>
+                    </div>
+                    <div class="col-3 mb-2">
+                        <label>Dirección</label>
+                        <input id="direccion" type="text" class="form-control" name="direccion" placeholder="Ingrese dirección...">
                     </div>
                 </div>
     
@@ -60,7 +64,7 @@
                             <!-- DATA TABLES -->
                             <div class="row d-flex justify-content-center">
                                 <div class="table-responsive">
-                                    <table class="table table-bordered" id="MyTable">
+                                    <table class="table table-bordered" id="dataTable">
                                         <thead class="bg-dark" style="color: white">
 
                                         <tr >
@@ -109,12 +113,12 @@
                     </div>
                 </div>
             </div>
-
+            
             <br>
 
             <div class="row">
                 <div class="col">
-                    <a id="botonCerrar" href="/"><button class="btn btn-primary">Atras</button></a>
+                    <a id="botonCerrar" href="{{ URL::previous() }}"><button class="btn btn-primary">Atras</button></a>
                 </div>
             </div>
         </div>
