@@ -19,7 +19,6 @@ class AlumnosReporteController extends Controller
                                         $request->get('email'),
                                         $request->get('anno_ingreso'),
                                         $request->get('carrera'));
-        
         return view('Reportes.alumnos')->with("lista", $lista);
     }
 }

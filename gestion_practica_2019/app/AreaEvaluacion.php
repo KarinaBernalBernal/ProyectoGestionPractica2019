@@ -8,7 +8,7 @@ class AreaEvaluacion extends Model
 {
     protected $table = 'area_evaluacion';
     protected $fillable = [
-       	'id_eval_supervisor','id_area'
+       	'id_eval_supervisor','id_area', 'vigencia'
     ];
 
     public function evaluacionSupervisor(){

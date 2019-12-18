@@ -1,10 +1,12 @@
 <!-- Topbar -->
-<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow" id="topBar">
+
 
     <!-- Sidebar Toggle (Topbar) -->
-    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-        <i class="fa fa-bars"></i>
-    </button>
+    <div class=" d-none d-md-inline" id="topBarToggle" style="display: none; color: #2e59d9">
+        <i class="fa fa-bars fa-2x"></i>
+    </div>
+
 
     <!-- Topbar Navbar -->
     <ul class="navbar-nav ml-auto">
@@ -53,4 +55,16 @@
     </ul>
 
 </nav>
+
+<script>
+
+    $('#topBarToggle').click(function()
+    {
+        $('#accordionSidebar').show(90);
+        $('#topBarToggle').hide();
+        $('#content').attr('style','margin-left: 215px; padding: 0px 10px;');
+
+
+    });
+</script>
 <!-- End of Topbar -->

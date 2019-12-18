@@ -6,7 +6,7 @@
             <h1 class="h3 mb-0 text-gray-800">INSCRIPCION PRÁCTICA PROFESIONAL</h1>
         </div>
 
-        <form action="{{route('agregarInscripcion')}}" enctype="multipart/form-data" method="POST" role="form">
+        <form action="{{route('agregarInscripcion')}}" enctype="multipart/form-data" method="POST" role="form" id="formularioInscripcion">
             {{ csrf_field() }} 
 
             {{-- Documentos solicitados --}}
@@ -54,8 +54,8 @@
                         <label for="rutEmpresa" class="col-md-3 col-form-label text-md-right">{{ __('RUT') }}</label>
 
                         <div class="col-md-6">
-                            <input id="rutEmpresa" type="text" class="form-control" name="rutEmpresa" value="{{ old('rutEmpresa') }}" maxlength="10" minlength="10" required pattern="[0-9]{8}-[K-k0-9]{1}">
-                            <label for="rutEmpresa" class="font-italic">Ej. 12345678-9</label>
+                            <input id="rutEmpresa" type="text" class="form-control" name="rutEmpresa" value="{{ old('rutEmpresa') }}">
+                            <label for="rutEmpresa" class="font-italic">Ej. 11111111-1</label>
                         </div>
                     </div>
 
@@ -195,16 +195,13 @@
             </div>
         </form>
     </div>
-@endsection
-
-@section('scripts')
 
     {{--Metodo para mostrar pantalla para el boton "cancelar"--}}
     <script>
         $('#cancelar').click(function()
         {
             Swal({
-                title: 'Estas seguro de querer cancelar?',
+                title: '¿Estás seguro?',
                 type: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
@@ -226,6 +223,95 @@
         {
             $('#fechaHasta').removeAttr('disabled');
             $('#fechaHasta').attr('min', $('#fechaDesde').val());
+        });
+
+        $("#rutEmpresa").change(function()
+        {
+            var Fn = {
+                // Valida el rut con su cadena completa "XXXXXXXX-X"
+                validaRut : function (rutCompleto) {
+                    rutCompleto = rutCompleto.replace("‐","-");
+                    if (!/^[0-9]+[-|‐]{1}[0-9kK]{1}$/.test( rutCompleto ))
+                        return false;
+                    var tmp     = rutCompleto.split('-');
+                    var digv    = tmp[1];
+                    var rut     = tmp[0];
+                    if ( digv == 'K' ) digv = 'k' ;
+
+                    return (Fn.dv(rut) == digv );
+                },
+                dv : function(T)
+                {
+                    var M=0,S=1;
+                    for(;T;T=Math.floor(T/10))
+                        S=(S+T%10*(9-M++%6))%11;
+                    return S?S-1:'k';
+                }
+            };
+
+            if (Fn.validaRut( $("#rutEmpresa").val() )){
+                $('#rutEmpresa').attr('class', 'form-control is-valid');
+                this.setCustomValidity('');
+            } else {
+                $('#rutEmpresa').attr('class', 'form-control is-invalid');
+                this.setCustomValidity('Rut inválido');
+            }
+        });
+
+
+
+        // this is the id of the form
+        $("#formularioInscripcion").submit(function(e) {
+
+            e.preventDefault(); // avoid to execute the actual submit of the form.
+
+            var form = $(this);
+            var url = form.attr('action');
+
+            Swal({
+                title: '¿Estás seguro?',
+                text: "Es imporante revisar si todo está correcto!",
+                type: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si!'
+            }).then((result) => {
+
+                if (result.value) {
+
+                    window.swal({
+                        title: "Por favor espere",
+                        showConfirmButton: false,
+                        allowOutsideClick: false
+                    });
+                    $.ajax({
+                        url: url,
+                        method: "POST",
+                        data: form.serialize(), // serializes the form's elements.
+                        success: function(){
+                            Swal(
+                                'Listo!',
+                                'El formulario ha sido enviado.',
+                                'success'
+                            ).then((result) =>
+                            {
+                                if (result.value)
+                                {
+                                    window.location.href = "{{route('descripcionInscripcion')}}"
+                                }
+                            })
+                        },
+                        error:function() {
+                            Swal.fire({
+                                type: 'error',
+                                title: 'Opps...!',
+                                text: 'No se pudo enviar el formulario',
+                            });
+                        }
+                    });
+                }
+            });
         });
 
     </script>

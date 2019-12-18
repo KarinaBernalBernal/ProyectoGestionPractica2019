@@ -14,7 +14,7 @@ class HomeController extends Controller
     public function __construct()
     {
         //HOME NO PUEDE SER VISTO POR GENTE SIN SESIÓN ACTIVA, USAR "guest" es una solución
-        $this->middleware('auth');
+        //$this->middleware('auth');
     }
 
     /**

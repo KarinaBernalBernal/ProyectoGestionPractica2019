@@ -99,16 +99,27 @@ Route::get('/Supervisores/editar/{id_elemento}', 'SupervisorController@editar')-
 Route::post('/Supervisores/agregar', 'SupervisorController@crearSupervisor')->name('agregar_supervisor');
 Route::post('/Supervisores/actualizar/{id_elemento}', 'SupervisorController@editarSupervisor')->name('actualizar_supervisor');
 Route::post('/Supervisores/eliminar/{id_elemento}','SupervisorController@borrarSupervisor')->name('borrar_supervisor');
-/*--------------------- Etapa Solicitud ---------------------*/
 
-//-------Envio de correo para estudiante
+/* Rutas mantenedor elementos dinamicos */
+// Rutas tipo GET
+Route::get('/ElementosDinamicos/crear/{tipo}', 'ElementosDinamicosController@crear')->name('crear_elemento_dinamico');
+Route::get('/ElementosDinamicos/lista', 'ElementosDinamicosController@lista')->name('lista_elementos_dinamicos');
+Route::get('/ElementosDinamicos/editar/{id_elemento},{tipo}', 'ElementosDinamicosController@editar')->name('editar_elemento');
+//Rutas tipo POST
+Route::post('/ElementosDinamicos/agregar/{tipo}', 'ElementosDinamicosController@crearElemento')->name('agregar_elemento_dinamico');
+Route::post('/ElementosDinamicos/eliminar/{id_elemento},{tipo}','ElementosDinamicosController@borrarElemento')->name('borrar_elemento_dinamico');
+Route::post('/ElementosDinamicos/actualizar/{id_elemento},{tipo}', 'ElementosDinamicosController@editarElemento')->name('actualizar_elemento_dinamico');
+/*--------------------- Etapa Solicitud ---------------------*/
+//-------Envio de correo para estudiante con link de formulario de autorización práctica
 Route::get('/contactar', 'SolicitudController@contact')->name('contact');
 
 //-------formulario de solicitud
 Route::get('/formularioSolicitud', 'SolicitudController@index')->name('formularioSolicitud');
 Route::post('/agregarSolicitud', 'SolicitudController@store')->name('agregarSolicitud');
+
 //--------Descripcion de etapa solicitud
 Route::get('/descripcionSolicitud', 'SolicitudController@verDescripcion')->name('descripcionSolicitud');
+
 //--------Evaluacion de solicitudes
 //Civil
 Route::get('/evaluacionSolicitudCivil', 'SolicitudController@evaluacion')->name('evaluacionSolicitud');
@@ -116,10 +127,9 @@ Route::get('/evaluacionSolicitudCivil', 'SolicitudController@evaluacion')->name(
 Route::get('/evaluacionSolicitudEjecucion', 'SolicitudController@evaluacionEjecucion')->name('evaluacionSolicitudEjecucion');
 
 //modals
-
 Route::get('/modal/evaluarSolicitudModal/{id}','SolicitudController@evaluarSolicitudModal')->name('evaluarSolicitudModal');
 Route::post('/evaluacionSolicitud/evaluarSolicitud/{id}','SolicitudController@evaluarSolicitud')->name('evaluarSolicitud');
-Route::get('/modal/modificarEvaluacionSolicitudModal/{id}','SolicitudController@modificarEvaluacionSolicitudModal')->name('modificarEvaluacionSolicitudModal');
+    Route::get('/modal/modificarEvaluacionSolicitudModal/{id}','SolicitudController@modificarEvaluacionSolicitudModal')->name('modificarEvaluacionSolicitudModal');
 Route::post('/evaluacionSolicitud/modificarEvaluacionSolicitud/{id}','SolicitudController@modificarEvaluacionSolicitud')->name('modificarEvaluacionSolicitud');
 //---------Validacion de solicitudes
 Route::get('/listaSolicitudEjecucion', 'SolicitudController@listaSolicitudEjecucion')->name('listaSolicitudEjecucion');
@@ -157,26 +167,27 @@ Route::post('/agregarEvaluacionEmpresa', 'EvaluacionSupervisorController@store')
 // Rutas tipo GET
 Route::get('/Reportes/alumnos', 'AlumnosReporteController@index')->name('reporte_alumnos');
 
-/* Verificar @Pablo y @Luis
-Route::get('Notificar/Usuario', ['as' => 'enviar', function () {
+/* ----------------- Supevisores y alumnos en practica ---------------------------- */
 
-                $data = ['link' => 'http://styde.net'];
+/*Informatica*/
+Route::get('/supervisoresPracticaEjecucion', 'SupervisorController@supervisoresEnPracticaEjecucion')->name('supervisoresPracticaEjecucion');
+Route::get('/alumnosPracticaEjecucion', 'AlumnoController@alumnosEnPracticaEjecucion')->name('alumnosPracticaEjecucion');
+Route::get('/modal/solicitudModal/{id}','AlumnoController@mostrarAutoEvaluacionModal')->name('autoEvaluacionModal');
+Route::get('/modal/inscripcionModal/{id}','AlumnoController@mostrarInscripcionModal')->name('inscripcionModal');
+Route::get('/modal/autoEvaluacionModal/{id}','AlumnoController@mostrarAutoEvaluacionModal')->name('autoEvaluacionModal');
 
-                \Mail::send('Emails.notificacion', $data, function ($message) {
+/*Civil*/
+Route::get('/supervisoresPracticaCivil', 'SupervisorController@supervisoresEnPracticaCivil')->name('supervisoresPracticaCivil');
+Route::get('/alumnosPracticaCivil', 'AlumnoController@alumnosEnPracticaCivil')->name('alumnosPracticaCivil');
 
-                    $message->from('practicaprofesionalpucv@gmail.com', 'Styde.Net');
-
-                    $message->to('pablo.cabello.alvarez@gmail.com')->subject('Notificación');
-
-                });
-
-                return redirect()->route('home');
-            }]);
-*/
 
 /* ---------------------------------------  Estadísticas  ---------------------------- */
 /* --------------  Estadisticas de alumno --------------- */
 Route::get('/estadisticaAlumno', 'EstadisticaController@buscarAlumno')->name('estadisticaAlumno');
+Route::get('/datosAlumno/{id}', 'EstadisticaController@mostrarEstadisticasAlumno')->name('datosAlumno');
+
+Route::get('/autoevaluacionAlumno/{id}','EstadisticaController@mostrarAutoevaluacionAlumno')->name('mostrarAutoevaluacionAlumno');
+Route::get('/evaluacionSupervisor/{id}','EstadisticaController@mostrarEvaluacionSupervisor')->name('mostrarEvaluacionSupervisor');
 /* --------------  Estadisticas Generales --------------- */
 //Criterios
-Route::get('/estadisticaCriterios', 'EstadisticaController@verEstadisticaCriterios')->name('estadisticaCriterios');
+Route::get('/estadisticaCriteriosAutoevaluacion', 'EstadisticaController@verEstadisticaCriteriosAutoeval')->name('estadisticaCriteriosAutoeval');

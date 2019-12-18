@@ -22,7 +22,7 @@
                         <div class="col-3 mb-2">
                             <input id="nombre" type="text" class="form-control" name="nombre" placeholder="Ingrese nombre...">
                         </div>
-        
+
                         <div class="col-3 mb-2">
                             <input id="apellido_paterno" type="text" class="form-control" name="apellido_paterno" placeholder="Ingrese Apellido Paterno...">
                         </div>
@@ -55,7 +55,7 @@
                                 <!-- DATA TABLES -->
                                 <div class="row d-flex justify-content-center">
                                     <div class="table-responsive">
-                                        <table class="table table-bordered" id="MyTable">
+                                        <table class="table table-bordered " id="MyTable">
                                             <thead class="bg-dark" style="color: white">
 
                                             <tr >

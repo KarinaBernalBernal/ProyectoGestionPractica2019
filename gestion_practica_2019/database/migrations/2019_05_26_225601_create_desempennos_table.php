@@ -18,7 +18,7 @@ class CreateDesempennosTable extends Migration
             $table->primary('id_autoeval');
 
             $table->string('valor');
-            $table->string('dp_tarea');
+            $table->string('dp_desempenno');
             $table->timestamps();
 
             $table->foreign('id_autoeval')->references('id_autoeval')

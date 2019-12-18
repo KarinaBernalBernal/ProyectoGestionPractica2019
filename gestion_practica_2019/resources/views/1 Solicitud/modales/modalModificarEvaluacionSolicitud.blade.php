@@ -6,7 +6,7 @@
                 <span> <i class="fas fa-times"></i></span>
             </button> 
         </div>
-        <form class="modificarEvaluacionSolicitud-form" method="POST" action="{{route('modificarEvaluacionSolicitud', ['id'=>$solicitud->id_solicitud])}}" enctype="multipart/form-data"  role="form">
+        <form id="modalModificarSolicitud" class="modificarEvaluacionSolicitud-form" method="POST" action="{{route('modificarEvaluacionSolicitud', ['id'=>$solicitud->id_solicitud])}}" enctype="multipart/form-data"  role="form">
             {{ csrf_field() }}
             <div class="modal-body">
                 <div class="form-group row justify-content-md-center">
@@ -138,10 +138,15 @@
                             <div class="col-md-8"> 
                                 <select id="resolucion" name="resolucion" class="custom-select">
                                     <option selected value="{{ $solicitud->resolucion_solicitud}}">{{ $solicitud->resolucion_solicitud}}</option>
-                                    @if( $solicitud->resolucion_solicitud == 'Aprobado')
-                                        <option>Rechazado</option>
+                                    @if( $solicitud->resolucion_solicitud == 'Autorizada')
+                                        <option>Rechazada</option>
+                                        <option>Pendiente</option>
+                                    @elseif($solicitud->resolucion_solicitud == 'Rechazada')
+                                        <option>Autorizada</option>
+                                        <option>Pendiente</option>
                                     @else
-                                        <option>Aprobado</option>
+                                        <option>Rechazada</option>
+                                        <option>Autorizada</option>
                                     @endif
                                 </select>      
                             </div>
@@ -156,7 +161,7 @@
                                 <label class="col-form-label text-md-right" >:</label>
                             </div>
                             <div class="col-md-8"> 
-                                <textarea id="observacion" class="form-control" name="observacion">{{ $solicitud->observacion_solicitud}}</textarea>
+                                <textarea id="observacion" class="form-control" placeholder="Escribe un comentario..." name="observacion">{{ $solicitud->observacion_solicitud}}</textarea>
                             </div>
                         </div>
                     </div>
@@ -168,9 +173,89 @@
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                  </div>
                 <div class="col-md-6 text-md-right">
-                    <button type="submit" class="btn btn-primary">Modificar</button>
+                    <button id="botonModificar" type="submit" class="btn btn-primary" disabled>Modificar</button>
                 </div>
             </div>
         </form>
     </div>
 </div>
+<script>
+
+    var resolucion = "{{ ($solicitud->resolucion_solicitud) }}";
+    var observacion = "{{ ($solicitud->observacion_solicitud) }}";
+
+
+    $('#resolucion').change(function()
+    {
+    if(($("#resolucion").val() == resolucion) && ($("#observacion").val() == observacion))
+    {
+        $('#botonModificar').attr('disabled','disabled');
+    }else {
+        $('#botonModificar').removeAttr('disabled');
+    }
+    });
+
+    $('#observacion').change(function()
+    {
+        if(($("#resolucion").val() == resolucion) && ($("#observacion").val() == observacion))
+        {
+            $('#botonModificar').attr('disabled','disabled');
+        }else {
+            $('#botonModificar').removeAttr('disabled');
+        }
+    });
+
+
+    $("#modalModificarSolicitud").submit(function(e) {
+
+        e.preventDefault(); // avoid to execute the actual submit of the form.
+
+        var form = $(this);
+        var url = form.attr('action');
+
+        Swal({
+            title: '¿Estás seguro?',
+            text: "Se notificará al estudiante el estado de su solicitud mediante un email",
+            type: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si!'
+        }).then((result) => {
+
+            if (result.value) {
+
+                window.swal({
+                    title: "Por favor espere",
+                    showConfirmButton: false,
+                    allowOutsideClick: false
+                });
+                $.ajax({
+                    url: url,
+                    method: "POST",
+                    data: form.serialize(), // serializes the form's elements.
+                    success: function(){
+                        Swal(
+                            'Listo!',
+                            'Se ha modificado la solicitud.',
+                            'success'
+                        ).then((result) =>
+                        {
+                            if (result.value)
+                            {
+                                window.location.reload();
+                            }
+                        })
+                    },
+                    error:function() {
+                        Swal.fire({
+                            type: 'error',
+                            title: 'Opps...!',
+                            text: 'No se pudo modificar la solicitud',
+                        });
+                    }
+                });
+            }
+        });
+    });
+</script>

@@ -9,14 +9,14 @@
             @include('layouts.partials.sidebar')
 
             <!-- Content Wrapper -->
-            <div id="content-wrapper" class="d-flex flex-column">
-                <!-- Main Content -->
-                <div id="content">
-                        <!-- Topbar -->
-                        @include('layouts.partials.topbar')
+            <div id="content-wrapper" class="d-flex flex-column" style="position: absolute; width: 100%; height: 100%">
+                <!-- Topbar -->
+                @include('layouts.partials.topbar')
+            <!-- Main Content -->
+                <div id="content" style="margin-left: 215px; padding: 0px 10px;">
                         @yield('content')
-                </div>
                 <!-- End of Main Content -->
+                </div>
                 @include('layouts.partials.footer')
             </div>
             <!-- End of Content Wrapper -->

@@ -6,7 +6,7 @@
                 <span> <i class="fas fa-times"></i></span>
             </button> 
         </div>
-        <form class="evaluarSolicitud-form" method="POST" action="{{route('evaluarSolicitud', ['id'=>$solicitud->id_solicitud])}}" enctype="multipart/form-data"  role="form">
+        <form id= "modalEvaluarSolicitud" class="evaluarSolicitud-form" method="POST" action="{{route('evaluarSolicitud', ['id'=>$solicitud->id_solicitud])}}" enctype="multipart/form-data"  role="form">
             {{ csrf_field() }}
             <div class="modal-body">
                 <div class="form-group row justify-content-md-center">
@@ -136,10 +136,11 @@
                                 <label class="col-form-label text-md-right" >:</label>
                             </div>
                             <div class="col-md-8"> 
-                                <select id="resolucion" name="resolucion" class="custom-select">
+                                <select id="resolucion" name="resolucion" class="custom-select" required>
                                     <option selected value="">Selecciona...</option>
-                                    <option>Aprobado</option>
-                                    <option>Rechazado</option>
+                                    <option>Autorizada</option>
+                                    <option>Rechazada</option>
+                                    <option>Pendiente</option>
                                 </select>      
                             </div>
                         </div>
@@ -171,3 +172,58 @@
         </form>
     </div>
 </div>
+<script>
+
+    $("#modalEvaluarSolicitud").submit(function(e) {
+
+        e.preventDefault(); // avoid to execute the actual submit of the form.
+
+        var form = $(this);
+        var url = form.attr('action');
+
+        Swal({
+            title: '¿Estás seguro?',
+            text: "Se notificará al estudiante el estado de su solicitud mediante un email",
+            type: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si!'
+        }).then((result) => {
+
+            if (result.value) {
+
+                window.swal({
+                    title: "Por favor espere",
+                    showConfirmButton: false,
+                    allowOutsideClick: false
+                });
+                $.ajax({
+                    url: url,
+                    method: "POST",
+                    data: form.serialize(), // serializes the form's elements.
+                    success: function(){
+                        Swal(
+                            'Listo!',
+                            'El ha evaluado la solicitud',
+                            'success'
+                        ).then((result) =>
+                        {
+                            if (result.value)
+                            {
+                                window.location.reload();
+                            }
+                        })
+                    },
+                    error:function() {
+                        Swal.fire({
+                            type: 'error',
+                            title: 'Opps...!',
+                            text: 'No se pudo evaluar la solicitud',
+                        });
+                    }
+                });
+            }
+        });
+    });
+</script>
