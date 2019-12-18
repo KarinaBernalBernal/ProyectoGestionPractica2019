@@ -4,7 +4,7 @@
 
 <div class="container-fluid">
   	<div class="d-sm-flex align-items-center justify-content-between mb-4">
-    	<h3 class="h3 mb-0 text-gray-800">Autoevaluación del alumno</h3>
+    	<h3 class="h3 mb-0 text-gray-800">Promedio general: Evaluación del supervisor</h3>
   	</div>
 
     <form class="form-horizontal" action="{{route('buscarPorRango')}}" method="get">    
@@ -39,25 +39,30 @@
             <div>
         </div>
     <form>
+
 	<div class="card text">
     	<div class="card-body">                 
       		<h4>Criterios por Actitud del alumno</h4> 
             <br>
-            <div class="row">
-                <div class="col-md-12">
-                    <div id="columnchart_evalActPractica" style="height: 300px;"></div>                            
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="columnchart_evalActPractica" style="height: 300px;"></div>                            
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     <br>
     <div class="card text">
-    	<div class="card-body">   
+    	<div class="card-body"> 
             <h4>Criterios por Conocimiento del alumno</h4>
             <br>
-            <div class="row">
-                <div class="col-md-12">
-                    <div id="columnchart_evalConPractica" style="height: 300px;"></div> 
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="columnchart_evalConPractica" style="height: 300px;"></div> 
+                    </div>
                 </div>
             </div>
         </div>
@@ -80,8 +85,6 @@
         $('#busquedaHasta').removeAttr('disabled');
         $('#busquedaHasta').attr('min', $('#busquedaDesde').val() );
     });
-
-    // Graficos
 
     google.charts.load('current', {'packages':['bar']});
     google.charts.setOnLoadCallback(drawChart);

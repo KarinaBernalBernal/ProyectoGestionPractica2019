@@ -118,7 +118,7 @@
 
             <div class="row">
                 <div class="col">
-                    <a id="botonCerrar" href="/"><button class="btn btn-primary">Atras</button></a>
+                    <a id="botonCerrar" href="{{ URL::previous() }}"><button class="btn btn-primary">Atras</button></a>
                 </div>
             </div>
         </div>
