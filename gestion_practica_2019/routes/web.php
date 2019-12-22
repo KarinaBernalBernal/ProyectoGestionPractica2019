@@ -192,8 +192,8 @@ Route::get('/autoevaluacionAlumno/{id}','EstadisticaController@mostrarAutoevalua
 Route::get('/evaluacionSupervisor/{id}','EstadisticaController@mostrarEvaluacionSupervisor')->name('mostrarEvaluacionSupervisor');
 /* --------------  Estadisticas Generales --------------- */
 //Busquedas 
-Route::post('/busquedaPorRango', 'EstadisticaController@buscarPorRango')->name('buscarPorRango');
+Route::get('estadisticaCriteriosAutoevaluacion/busquedaPorRango', 'EstadisticaController@busquedaAutoeval')->name('busquedaAutoeval');
+Route::get('estadisticaCriteriosEvaluacionSupervisor/busquedaPorRango', 'EstadisticaController@busquedaEvalSup')->name('busquedaEvalSup');
 //Criterios
 Route::get('/estadisticaCriteriosAutoevaluacion', 'EstadisticaController@verEstadisticaCriteriosAutoeval')->name('estadisticaCriteriosAutoeval');
-Route::post('/estadisticaCriteriosAutoevaluacion', 'EstadisticaController@verEstadisticaCriteriosAutoeval')->name('estadisticaCriteriosAutoeval');
 Route::get('/estadisticaCriteriosEvaluacionSupervisor', 'EstadisticaController@verEstadisticaCriteriosEvalSupervisor')->name('estadisticaCriteriosEvalSupervisor');

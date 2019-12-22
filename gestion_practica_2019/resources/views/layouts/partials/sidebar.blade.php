@@ -65,8 +65,8 @@
                             <div class="bg-white py-2 collapse-inner rounded">
 
                                 <a class="collapse-item" href="{{route('estadisticaAlumno')}}">Búsqueda avanzada</a>
-                                <a class="collapse-item" href="{{route('estadisticaCriteriosAutoeval')}}">Promedio general:<br> Autoevaluación del alumno</a>
-                                <a class="collapse-item" href="{{route('estadisticaCriteriosEvalSupervisor')}}">Promedio general:<br> Evaluación del supervisor</a>
+                                <a class="collapse-item" href="{{route('estadisticaCriteriosAutoeval')}}">Búsqueda por año:<br> Autoevaluación del alumno</a>
+                                <a class="collapse-item" href="{{route('estadisticaCriteriosEvalSupervisor')}}">Búsqueda por año:<br> Evaluación del supervisor</a>
                                 
                             </div>
                         </div>

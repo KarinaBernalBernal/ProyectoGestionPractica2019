@@ -4,38 +4,37 @@
 
 <div class="container-fluid">
   	<div class="d-sm-flex align-items-center justify-content-between mb-4">
-    	<h3 class="h3 mb-0 text-gray-800">Promedio general: Evaluación del supervisor</h3>
+    	<h3 class="h3 mb-0 text-gray-800">Evaluación del supervisor</h3>
   	</div>
 
-    <form class="form-horizontal" action="{{route('buscarPorRango')}}" method="get">    
+    <form class="form-horizontal" action="{{route('busquedaEvalSup')}}" method="get">    
         <div class="card text">
             <div class="card-body">     
-                {{ csrf_field() }} 
+            {{ csrf_field() }} 
                 <div class="input-group input-group-md mb-3">
-                    <label for="busquedaDesde" class="col-form-label">Ingrese año: </label>
-                    <div class="col-md-2">
-                        <input id="busquedaDesde" type="number" placeholder="Desde"class="form-control" name="busquedaDesde" value="{{ old('busquedaHasta') }}" required>
-                    </div>
-
-                    <label for="busquedaHasta" class="col-form-label">y</label>
-                    <div class="col-md-2">
-                        <input id="busquedaHasta" type="number" placeholder="Hasta" class="form-control" name="busquedaHasta" value="{{ old('busquedaHasta') }}" required disabled>
-                    </div>
-
                     <label for="tipoBusqueda" class="col-form-label">{{ __('Tipo búsqueda:') }}</label>
                     <div class="col-md-3">
                             <select id="tipoBusqueda" name="tipoBusqueda" class="custom-select" required>
                                 <option selected value="">Selecciona...</option>
                                 <option value ="1">Búsqueda por rango de año</option>
-                                <option value ="2">Búsqueda por año especifico</option>
+                                <option value ="2">Búsqueda por año específico</option>
                             </select>
                     </div>
+                    
+                    <label for="busquedaDesde" class="col-form-label">Ingrese año: </label>
+                    <div class="col-md-2">
+                        <input id="busquedaDesde" type="number" placeholder="Desde"class="form-control" name="busquedaDesde" value="{{ old('busquedaHasta') }}" required>
+                    </div>
+
+                    <div class="col-md-2">
+                        <input id="busquedaHasta" type="number" placeholder="Hasta" class="form-control" name="busquedaHasta" value="{{ old('busquedaHasta') }}" style="display: none;" required disabled>
+                    </div>
+                    
                     <div class="col-md-2">
                         <a href=""><button class="btn btn-primary" type="submit" ><i class="fas fa-search"></i></button></a>
                     </div>
                 </div>
                 <br>
-                
             <div>
         </div>
     <form>
@@ -81,11 +80,25 @@
 
 <script type="text/javascript">
 
-    $('#busquedaDesde').change(function(){
-        $('#busquedaHasta').removeAttr('disabled');
-        $('#busquedaHasta').attr('min', $('#busquedaDesde').val() );
-    });
+    $(function(){
+        $('#busquedaDesde').change(function(){
+            $('#busquedaHasta').removeAttr('disabled');
+            $('#busquedaHasta').attr('min', $('#busquedaDesde').val() );
+        });
 
+        $("#tipoBusqueda").change( function() {
+            if ($(this).val() === "2") {
+                $("#busquedaHasta").removeAttr("required");
+                document.getElementById('busquedaHasta').style.display = "none";
+                
+            }else{
+                if ($(this).val() === "1") {
+                    document.getElementById('busquedaHasta').style.display = "block";
+                    $("#busquedaHasta").prop("required", true);
+                }
+            }
+        });
+    });
     google.charts.load('current', {'packages':['bar']});
     google.charts.setOnLoadCallback(drawChart);
 
