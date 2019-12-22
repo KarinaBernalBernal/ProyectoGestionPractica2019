@@ -1,14 +1,14 @@
 @extends('layouts.mainlayout')
-
 @section('content')
-        <div class="container-fluid">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-md col-md-offset-2">
                 <div class="card">
-                    <div class="card-header"><h1>Agregar supervisor</h1></div>
+                    <div class="card-header"><h1>Agregar Administrador</h1></div>
                     <div class="card-body">
-                        <form class="form-horizontal" action="{{route('agregar_supervisor')}}" method="post">
+                        <form class="form-horizontal" action="{{route('agregar_administrador')}}" method="post">
                             {{ csrf_field() }}
+
                             <div class="form-group{{ $errors->has('nombre') ? ' has-error' : '' }}">
                                 <label for="nombre" class="col-md-4 control-label">Nombre</label>
                                 <div class="col-md-6">
@@ -42,24 +42,13 @@
                                     @endif
                                 </div>
                             </div>
-                             <div class="form-group{{ $errors->has('cargo') ? ' has-error' : '' }}">
-                                <label for="cargo" class="col-md-4 control-label">Cargo</label>
+                             <div class="form-group{{ $errors->has('rut') ? ' has-error' : '' }}">
+                                <label for="rut" class="col-md-4 control-label">RUT</label>
                                 <div class="col-md-6">
-                                    <input id="cargo" type="text" class="form-control" name="cargo" required autofocus>
-                                    @if ($errors->has('cargo'))
+                                    <input id="rut" type="text" class="form-control" name="rut" required autofocus>
+                                    @if ($errors->has('rut'))
                                         <span class="help-block">
-                                            <strong>{{ $errors->first('cargo') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
-                            </div>
-                             <div class="form-group{{ $errors->has('departamento') ? ' has-error' : '' }}">
-                                <label for="departamento" class="col-md-4 control-label">Departamento</label>
-                                <div class="col-md-6">
-                                    <input id="departamento" type="text" class="form-control" name="departamento" required autofocus>
-                                    @if ($errors->has('departamento'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('departamento') }}</strong>
+                                            <strong>{{ $errors->first('rut') }}</strong>
                                         </span>
                                     @endif
                                 </div>
@@ -75,35 +64,23 @@
                                     @endif
                                 </div>
                             </div>
-                            <div class="form-group{{ $errors->has('fono') ? ' has-error' : '' }}">
-                                <label for="fono" class="col-md-4 control-label">Teléfono</label>
+                            <div class="form-group">
+                                <label for="cargo" class="col-md-4 control-label">Cargo</label>
                                 <div class="col-md-6">
-                                    <input id="fono" type="text" class="form-control" name="fono" required autofocus>
-                                    @if ($errors->has('fono'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('fono') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
-                            </div>
-                             <div>
-                                <div class="col-md-6">
-                                    <label for="id_empresa" class="col-md-4 control-label">id_Empresas</label>
-                                    <select id="id_empresa" name="id_empresa" class="form-control">
-
-                                        @foreach($empresas as $id_empresa)
-                                            <option value="{{ $id_empresa->id_empresa }}" >{{ $id_empresa->n_empresa }}</option>
-                                        @endforeach
+                                    <select name="cargo" class="form-control">
+                                        <option value="" disabled selected>Elige una opcion...</option>
+                                        <option value="profesor">Profesor</option>
+                                        <option value="gestionador">Gestionador</option>
+                                        <option value="jefe de docencia">Jefe de docencia</option>
                                     </select>
                                 </div>
                             </div>
-                            <br>
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-4">
                                     <button type="submit" class="btn btn-primary">
                                         Guardar
                                     </button>
-                                    <a href="{{route('lista_supervisores')}}"><button class="btn btn-secondary" type="button">Cancelar</button></a>
+                                    <a href="{{route('lista_administradores')}}"><button class="btn btn-secondary" type="button">Cancelar</button></a>
                                 </div>
                             </div>
                         </form>

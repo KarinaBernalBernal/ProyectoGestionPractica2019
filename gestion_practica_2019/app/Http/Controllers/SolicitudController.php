@@ -160,7 +160,7 @@ class SolicitudController extends Controller
                 $nuevo->fono = $solicitud->fono;
                 $nuevo->anno_ingreso = $solicitud->anno_ingreso;
                 $nuevo->carrera = $solicitud->carrera;
-                $nuevo->estimacion_semestre = 0;
+                $nuevo->estimacion_semestre = 0;        //REVISAR
                 $nueva_instancia = new User;
                 $nueva_instancia->name = $nuevo->nombre;
                 $nueva_instancia->email = $nuevo->email;

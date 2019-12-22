@@ -21,6 +21,7 @@
                                         <th>resultado_eval</th>
                                         <th>f_entrega_eval</th>
                                         <th>id_practica</th>
+                                        <th>opción</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -38,16 +39,6 @@
                                         </tr>
                                     @endforeach
                                 </tbody>
-                                <tfoot>
-                                    <tr >
-                                        <th>id_eval_supervisor</th>
-                                        <th>porcent_tareas_realizadas</th>
-                                        <th>resultado_eval</th>
-                                        <th>f_entrega_eval</th>
-                                        <th>id_practica</th>
-
-                                    </tr>
-                                </tfoot>
                             </table>
                         </div>
                     </div>

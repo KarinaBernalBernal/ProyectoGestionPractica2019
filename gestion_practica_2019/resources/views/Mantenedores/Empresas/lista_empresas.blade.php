@@ -45,19 +45,6 @@
                                         </tr>
                                     @endforeach
                                 </tbody>
-                                <tfoot>
-                                <tr >
-                                    <th>Id</th>
-                                    <th>Nombre</th>
-                                    <th>RUT</th>
-                                    <th>Ciudad</th>
-                                    <th>Direccion</th>
-                                    <th>Telefono</th>
-                                    <th>Casilla</th>
-                                    <th>Email</th>
-                                    <th>Opción</th>
-                                </tr>
-                                </tfoot>
                             </table>
                         </div>
                     </div>

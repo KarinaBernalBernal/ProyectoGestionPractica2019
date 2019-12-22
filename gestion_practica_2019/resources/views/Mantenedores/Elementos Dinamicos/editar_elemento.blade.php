@@ -68,7 +68,7 @@
                                         <button type="submit" class="btn btn-primary">
                                             Guardar
                                         </button>
-                                        <a href="{{route('lista_elementos_dinamicos')}}"><button class="btn btn-secondary">Cancelar</button></a>
+                                        <a href="{{route('lista_elementos_dinamicos')}}"><button class="btn btn-secondary" type="button">Cancelar</button></a>
                                     </div>
                                 </div>
                             </form>

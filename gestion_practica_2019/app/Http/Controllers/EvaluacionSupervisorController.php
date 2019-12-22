@@ -49,7 +49,7 @@ class EvaluacionSupervisorController extends Controller
     public function editar($id_elemento)
     {
         $elemento= EvaluacionSupervisor::find($id_elemento);
-        return view('Mantenedores/Evaluaciones/Supervisor/editar_evaluacion_supervisor',[
+        return view('Mantenedores/Evaluaciones/Supervisor/editar_evaluacion_sup',[
                 'elemento'=>$elemento,
             ]);
     }
@@ -73,7 +73,6 @@ class EvaluacionSupervisorController extends Controller
         $elemento_editar=EvaluacionSupervisor::find($id_elemento);
         if(isset($elemento_editar))
         {
-            $elemento_editar->id_eval_supervisor=$request->id_eval_supervisor;
             $elemento_editar->porcent_tareas_realizadas=$request->porcent_tareas_realizadas;
             $elemento_editar->resultado_eval=$request->resultado_eval;
             $elemento_editar->f_entrega_eval=$request->f_entrega_eval;
@@ -154,6 +153,15 @@ class EvaluacionSupervisorController extends Controller
             ]);
         }
 
+        if (!isset($request->areasOtros))
+        {
+            for($i = 0; $i<count($request->areasOtros,1); $i++)
+            {
+                OtrosAreas::create([
+                    'n_area' => $request->areasOtros
+                ]);
+            }
+        }
 
         return redirect()->route('descripcionAutoEvaluacion');
     }

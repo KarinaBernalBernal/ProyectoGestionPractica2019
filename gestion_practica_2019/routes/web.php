@@ -54,6 +54,16 @@ Route::get('/Alumnos/editar/{id_elemento}', 'AlumnoController@editar')->name('ed
 Route::post('/Alumnos/agregar', 'AlumnoController@crearAlumno')->name('agregar_alumno');
 Route::post('/Alumnos/actualizar/{id_elemento}', 'AlumnoController@editarAlumno')->name('actualizar_alumno');
 Route::post('/Alumnos/eliminar/{id_elemento}','AlumnoController@borrarAlumno')->name('borrar_alumno');
+/* Rutas mantenedor administradores */
+// Rutas tipo GET
+Route::get('/Administradores/lista', 'AdministradorController@lista')->name('lista_administradores');
+Route::get('/Administradores/crear', 'AdministradorController@crear')->name('crear_administrador');
+Route::get('/Administradores/editar/{id_elemento}', 'AdministradorController@editar')->name('editar_administrador');
+//Rutas tipo POST
+Route::post('/Administradores/agregar', 'AdministradorController@crearAdministrador')->name('agregar_administrador');
+Route::post('/Administradores/actualizar/{id_elemento}', 'AdministradorController@editarAdministrador')->name('actualizar_administrador');
+Route::post('/Administradores/eliminar/{id_elemento}','AdministradorController@borrarAdministrador')->name('borrar_administrador');
+
 /* Rutas mantenedor recursos */
 // Rutas tipo GET
 Route::get('/Practicas/lista', 'PracticaController@lista')->name('lista_practicas');
@@ -90,7 +100,7 @@ Route::get('/Empresas/editar/{id_elemento}', 'EmpresaController@editar')->name('
 Route::post('/Empresas/agregar', 'EmpresaController@crearEmpresa')->name('agregar_empresa');
 Route::post('/Empresas/actualizar/{id_elemento}', 'EmpresaController@editarEmpresa')->name('actualizar_empresa');
 Route::post('/Empresas/eliminar/{id_elemento}','EmpresaController@borrarEmpresa')->name('borrar_empresa');
-/* Rutas mantenedor empresa */
+/* Rutas mantenedor Supervisor */
 // Rutas tipo GET
 Route::get('/Supervisores/lista', 'SupervisorController@lista')->name('lista_supervisores');
 Route::get('/Supervisores/crear', 'SupervisorController@crear')->name('crear_supervisor');
@@ -110,6 +120,18 @@ Route::post('/ElementosDinamicos/agregar/{tipo}', 'ElementosDinamicosController@
 Route::post('/ElementosDinamicos/eliminar/{id_elemento},{tipo}','ElementosDinamicosController@borrarElemento')->name('borrar_elemento_dinamico');
 Route::post('/ElementosDinamicos/actualizar/{id_elemento},{tipo}', 'ElementosDinamicosController@editarElemento')->name('actualizar_elemento_dinamico');
 Route::post('/ElementosDinamicos/vigencia', 'ElementosDinamicosController@modificarVigencia')->name('modificar_vigencia');
+
+/* Rutas mantenedor otros */
+// Rutas tipo GET
+Route::get('/Otros/crear/{tipo}', 'OtroController@crear')->name('crear_otro');
+Route::get('/Otros/lista', 'OtroController@lista')->name('lista_otros');
+Route::get('/Otros/editar/{id_elemento},{tipo}', 'OtroController@editar')->name('editar_otro');
+//Rutas tipo POST
+Route::post('/Otros/agregar/{tipo}', 'OtroController@crearElemento')->name('agregar_otro');
+Route::post('/Otros/eliminar/{id_elemento},{tipo}','OtroController@borrarElemento')->name('borrar_otro');
+Route::post('/Otros/actualizar/{id_elemento},{tipo}', 'OtroController@editarElemento')->name('actualizar_otro');
+
+
 /*--------------------- Etapa Solicitud ---------------------*/
 //-------Envio de correo para estudiante con link de formulario de autorización práctica
 Route::get('/contactar', 'SolicitudController@contact')->name('contact');
