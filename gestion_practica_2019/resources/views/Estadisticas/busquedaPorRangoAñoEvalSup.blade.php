@@ -4,52 +4,8 @@
 
 <div class="container-fluid">
   	<div class="d-sm-flex align-items-center justify-content-between mb-4">
-    	<h3 class="h3 mb-0 text-gray-800">Autoevaluación del alumno</h3>
+    	<h3 class="h3 mb-0 text-gray-800">Búsqueda por rango de año: Evaluación del supervisor</h3>
   	</div>
-
-    <form class="form-horizontal" action="{{route('busquedaAutoeval')}}" method="get">    
-        <div class="card text">
-            <div class="card-body">     
-                {{ csrf_field() }} 
-                <div class="input-group input-group-md mb-3">
-                    <label for="tipoBusqueda" class="col-form-label">{{ __('Tipo búsqueda:') }}</label>
-                    <div class="col-md-3">
-                            <select id="tipoBusqueda" name="tipoBusqueda" class="custom-select" required>
-                                <option selected value="">Selecciona...</option>
-                                <option value ="1">Búsqueda por rango de año</option>
-                                <option value ="2">Búsqueda por año específico</option>
-                            </select>
-                    </div>
-                    
-                    <label for="busquedaDesde" class="col-form-label">Ingrese año: </label>
-                    <div class="col-md-2">
-                        <input id="busquedaDesde" type="number" placeholder="Desde"class="form-control" name="busquedaDesde" value="{{ old('busquedaHasta') }}" required>
-                    </div>
-
-                    <div class="col-md-2">
-                        <input id="busquedaHasta" type="number" placeholder="Hasta" class="form-control" name="busquedaHasta" value="{{ old('busquedaHasta') }}" style="display: none;" required disabled>
-                    </div>
-                    
-                    <div class="col-md-2">
-                        <a href=""><button class="btn btn-primary" type="submit" ><i class="fas fa-search"></i></button></a>
-                    </div>
-                </div>
-                <br>
-            <div>
-        </div>
-    <form>
-    <div class="card text">
-    	<div class="card-body">   
-            <h4>Herramientas más utilizadas</h4>
-            <br>
-            <div class="row">
-                <div class="col-md-12">
-                    <div id="barchart_herramientas" style="height: 300px;"></div> 
-                </div>
-            </div>
-        </div>
-    </div>
-    <br>
     <div class="card text">
     	<div class="card-body">   
             <h4>Áreas más solicitadas</h4>
@@ -92,34 +48,12 @@
                 <a href="{{ URL::previous() }}"><button class="btn btn-secondary">Atrás</button></a>
             </div>  
         </div>
-    </div>
+    <div>
 </div>
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
 <script type="text/javascript">
-
-    $(function(){
-        $('#busquedaDesde').change(function(){
-            $('#busquedaHasta').removeAttr('disabled');
-            $('#busquedaHasta').attr('min', $('#busquedaDesde').val() );
-        });
-
-        $("#tipoBusqueda").change( function() {
-            if ($(this).val() === "2") {
-                $("#busquedaHasta").removeAttr("required");
-                document.getElementById('busquedaHasta').style.display = "none";
-                
-            }else{
-                if ($(this).val() === "1") {
-                    document.getElementById('busquedaHasta').style.display = "block";
-                    $("#busquedaHasta").prop("required", true);
-                }
-            }
-        });
-    });
-
-    // Graficos
 
     google.charts.load('current', {'packages':['bar']});
     google.charts.setOnLoadCallback(drawChart);
@@ -139,8 +73,8 @@
         
         var options = {
             chart: {
-                title: 'Autoevaluación del alumno, Promedio general',
-                subtitle: 'Escuela de Ingeniería en Informática',
+                title: 'Evaluación del supervisor, <?php echo $desde ?> - <?php echo $hasta ?>',
+                subtitle: 'Escuela de Ingeniería en Informática',  
             },
             legend: { position: 'bottom', alignment: 'end' },
             responsive: true,
@@ -167,8 +101,8 @@
         
         var options2 = {
             chart: {
-                title: 'Autoevaluación del alumno, Promedio general',
-                subtitle: 'Escuela de Ingeniería en Informática',
+                title: 'Evaluación del supervisor, <?php echo $desde ?> - <?php echo $hasta ?>',
+                subtitle: 'Escuela de Ingeniería en Informática',  
             },
             legend: { position: 'bottom', alignment: 'end' },
             responsive: true,
@@ -176,45 +110,13 @@
 		var eval_con_practica= new google.charts.Bar(document.getElementById('columnchart_evalConPractica'));
         eval_con_practica.draw(data_EvalConPractica, google.charts.Bar.convertOptions(options2));
     }
-    
-    //Herramientas 
-
-    google.charts.load('current', {'packages':['bar']});
-      google.charts.setOnLoadCallback(drawChart3);
-
-      function drawChart3() {
-        var data = google.visualization.arrayToDataTable([
-            ['Herramientas', 'Ingeniería Civil Informática', 'Ingeniería de Ejecución Informática'],
-            <?php  
-                foreach($herramientas as $herramienta){
-            ?>
-                    ['<?php echo $herramienta->n_herramienta; ?>' , <?php echo $herramientasCivilPromG[($herramienta->id_herramienta)-1];?> , <?php echo $herramientasEjecPromG[($herramienta->id_herramienta)-1];?> ],
-            <?php
-                }
-            ?>
-        ]);
-
-        var options = {
-            chart: {
-                title: 'Autoevaluación del alumno, Promedio general',
-                subtitle: 'Sales, Expenses, and Profit: 2014-2017',
-            },
-            bars: 'horizontal', // Required for Material Bar Charts.
-            legend: { position: 'bottom', alignment: 'end' },
-            responsive: true,
-        };
-
-        var chart = new google.charts.Bar(document.getElementById('barchart_herramientas'));
-
-        chart.draw(data, google.charts.Bar.convertOptions(options));
-      }
 
       //Areas
 
-      google.charts.load('current', {'packages':['bar']});
-      google.charts.setOnLoadCallback(drawChart4);
+    google.charts.load('current', {'packages':['bar']});
+    google.charts.setOnLoadCallback(drawChart4);
 
-      function drawChart4() {
+    function drawChart4() {
         var data = google.visualization.arrayToDataTable([
             ['Áreas', 'Ingeniería Civil Informática', 'Ingeniería de Ejecución Informática'],
             <?php  
@@ -231,7 +133,7 @@
                 title: 'Company Performance',
                 subtitle: 'Sales, Expenses, and Profit: 2014-2017',
             },
-            bars: 'horizontal',// Required for Material Bar Charts.
+            bars: 'horizontal', // Required for Material Bar Charts.
             legend: { position: 'bottom', alignment: 'end' },
             responsive: true,
         };
@@ -239,8 +141,7 @@
         var chart = new google.charts.Bar(document.getElementById('barchart_areas'));
 
         chart.draw(data, google.charts.Bar.convertOptions(options));
-      }
-
+    }
 </script>
 
 @endsection

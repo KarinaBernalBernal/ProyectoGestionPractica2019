@@ -38,7 +38,18 @@
             <div>
         </div>
     <form>
-
+    <div class="card text">
+    	<div class="card-body">   
+            <h4>Áreas más solicitadas</h4>
+            <br>
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="barchart_areas" style="height: 300px;"></div> 
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
 	<div class="card text">
     	<div class="card-body">                 
       		<h4>Criterios por Actitud del alumno</h4> 
@@ -154,6 +165,39 @@
 		var eval_con_practica= new google.charts.Bar(document.getElementById('columnchart_evalConPractica'));
         eval_con_practica.draw(data_EvalConPractica, google.charts.Bar.convertOptions(options2));
     }
+
+    //Areas
+
+    google.charts.load('current', {'packages':['bar']});
+      google.charts.setOnLoadCallback(drawChart4);
+
+      function drawChart4() {
+        var data = google.visualization.arrayToDataTable([
+            ['Áreas', 'Ingeniería Civil Informática', 'Ingeniería de Ejecución Informática'],
+            <?php  
+                foreach($areas as $area){
+            ?>
+                    ['<?php echo $area->n_area; ?>' , <?php echo $areasCivilPromG[($area->id_area)-1];?> , <?php echo $areasEjecPromG[($area->id_area)-1];?> ],
+            <?php
+                }
+            ?>
+        ]);
+
+        var options = {
+            chart: {
+                title: 'Company Performance',
+                subtitle: 'Sales, Expenses, and Profit: 2014-2017',
+            },
+            bars: 'horizontal', // Required for Material Bar Charts.
+            legend: { position: 'bottom', alignment: 'end' },
+            responsive: true,
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('barchart_areas'));
+
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+      }
+
 
 </script>
 

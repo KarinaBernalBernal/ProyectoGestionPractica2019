@@ -16,6 +16,7 @@ use SGPP\Habilidad;
 use SGPP\Conocimiento;
 use SGPP\HerramientaPractica;
 use SGPP\AreaAutoeval;
+use SGPP\AreaEvaluacion;
 use SGPP\EvalActPractica;
 use SGPP\EvalConPractica;
 use SGPP\EvalActitudinal;
@@ -149,22 +150,34 @@ class EstadisticaController extends Controller
     }
 /////////////////////////////////////////////// Estadisticas Generales ////////////////////////////////////////////////////
     public function verEstadisticaCriteriosAutoeval(){
+
         $evalActitudinales = EvalActitudinal::orderby('id_actitudinal', 'ASC')->paginate(12);
         $evalConocimientos = EvalConocimiento::orderby('id_conocimiento', 'ASC')->paginate(12);
+        $areas = Area::orderby('id_area', 'ASC')->where('areas.vigencia', 1)->paginate(12);
+        $herramientas = Herramienta::orderby('id_herramienta', 'ASC')->where('herramientas.vigencia', 1)->paginate(12);
         
         $evalActitudinales->toArray();
         $evalConocimientos->toArray();
+        $areas->toArray();
+        $herramientas->toArray();
         
         $evalActCivilPromG = $this->calcularActAutoevalPromG($evalActitudinales, 'Ingeniería Civil Informática' );
         $evalConCivilPromG = $this->calcularConAutoevalPromG($evalConocimientos, 'Ingeniería Civil Informática' );
-
+        $herramientasCivilPromG = $this->calcularHerramAutoevalPromG($herramientas,'Ingeniería Civil Informática');
+        $areasCivilPromG = $this->calcularAreasAutoevalPromG($areas ,'Ingeniería Civil Informática');
+        
         $evalActEjecPromG = $this->calcularActAutoevalPromG($evalActitudinales, 'Ingeniería de Ejecución Informática');
         $evalConEjecPromG = $this->calcularConAutoevalPromG($evalConocimientos, 'Ingeniería de Ejecución Informática' );
-        
+        $herramientasEjecPromG = $this->calcularHerramAutoevalPromG($herramientas, 'Ingeniería de Ejecución Informática');
+        $areasEjecPromG = $this->calcularAreasAutoevalPromG($areas, 'Ingeniería de Ejecución Informática');
+
         return view('Estadisticas/estadisticaCriteriosAutoeval')
                 ->with('evalActitudinales', $evalActitudinales)->with('evalConocimientos',$evalConocimientos)
                 ->with("evalActCivilPromG", $evalActCivilPromG)->with("evalConCivilPromG", $evalConCivilPromG)
-                ->with("evalActEjecPromG", $evalActEjecPromG)->with("evalConEjecPromG", $evalConEjecPromG);
+                ->with("evalActEjecPromG", $evalActEjecPromG)->with("evalConEjecPromG", $evalConEjecPromG)
+                ->with('herramientasCivilPromG',$herramientasCivilPromG)->with('herramientasEjecPromG',$herramientasEjecPromG)
+                ->with('areasCivilPromG',$areasCivilPromG)->with('areasEjecPromG',$areasEjecPromG)
+                ->with('herramientas',$herramientas)->with('areas',$areas);
 
     }
 
@@ -172,20 +185,26 @@ class EstadisticaController extends Controller
 
         $evalActitudinales = EvalActitudinal::orderby('id_actitudinal', 'ASC')->paginate(12);
         $evalConocimientos = EvalConocimiento::orderby('id_conocimiento', 'ASC')->paginate(12);
-        
+        $areas = Area::orderby('id_area', 'ASC')->where('areas.vigencia', 1)->paginate(12);        
+
         $evalActitudinales->toArray();
         $evalConocimientos->toArray();
+        $areas->toArray();
         
         $evalActCivilPromG = $this->calcularActEvalSupPromG($evalActitudinales, 'Ingeniería Civil Informática' );
         $evalConCivilPromG = $this->calcularConEvalSupPromG($evalConocimientos, 'Ingeniería Civil Informática' );
-
+        $areasCivilPromG = $this->calcularAreasEvalSupPromG($areas ,'Ingeniería Civil Informática');
+        
         $evalActEjecPromG = $this->calcularActEvalSupPromG($evalActitudinales, 'Ingeniería de Ejecución Informática' );
         $evalConEjecPromG = $this->calcularConEvalSupPromG($evalConocimientos, 'Ingeniería de Ejecución Informática' );
+        $areasEjecPromG = $this->calcularAreasEvalSupPromG($areas, 'Ingeniería de Ejecución Informática');
         
         return view('Estadisticas/estadisticaCriteriosEvaluacionSupervisor')
                 ->with('evalActitudinales', $evalActitudinales)->with('evalConocimientos',$evalConocimientos)
                 ->with("evalActCivilPromG", $evalActCivilPromG)->with("evalConCivilPromG", $evalConCivilPromG)
-                ->with("evalActEjecPromG", $evalActEjecPromG)->with("evalConEjecPromG", $evalConEjecPromG);
+                ->with("evalActEjecPromG", $evalActEjecPromG)->with("evalConEjecPromG", $evalConEjecPromG)
+                ->with('areasCivilPromG',$areasCivilPromG)->with('areasEjecPromG',$areasEjecPromG)
+                ->with('areas',$areas);
 
     }
 
@@ -194,9 +213,13 @@ class EstadisticaController extends Controller
     public function busquedaAutoeval(Request $request){
         $evalActitudinales = EvalActitudinal::orderby('id_actitudinal', 'ASC')->paginate(12);
         $evalConocimientos = EvalConocimiento::orderby('id_conocimiento', 'ASC')->paginate(12);
+        $areas = Area::orderby('id_area', 'ASC')->where('areas.vigencia', 1)->paginate(12);
+        $herramientas = Herramienta::orderby('id_herramienta', 'ASC')->where('herramientas.vigencia', 1)->paginate(12);
         
         $evalActitudinales->toArray();
         $evalConocimientos->toArray();
+        $areas->toArray();
+        $herramientas->toArray();
 
         $hasta = $request->busquedaHasta;
         $desde = $request->busquedaDesde;
@@ -206,68 +229,88 @@ class EstadisticaController extends Controller
         if($request->tipoBusqueda == 1){ // 1: Busqueda por rango. 2: Busqueda por año especifico
             $evalActCivilPromG = $this->calcularActAutoevalPromGRangoAño($evalActitudinales, 'Ingeniería Civil Informática', $request->busquedaDesde, $request->busquedaHasta);
             $evalConCivilPromG = $this->calcularConAutoevalPromGRangoAño($evalConocimientos, 'Ingeniería Civil Informática', $request->busquedaDesde, $request->busquedaHasta);
+            $herramientasCivilPromG = $this->calcularHerramAutoevalPromGRangoAño($herramientas,'Ingeniería Civil Informática',$request->busquedaDesde, $request->busquedaHasta);
+            $areasCivilPromG = $this->calcularAreasAutoevalPromGRangoAño($areas ,'Ingeniería Civil Informática',$request->busquedaDesde, $request->busquedaHasta);
 
             $evalActEjecPromG = $this->calcularActAutoevalPromGRangoAño($evalActitudinales, 'Ingeniería de Ejecución Informática', $request->busquedaDesde, $request->busquedaHasta);
             $evalConEjecPromG = $this->calcularConAutoevalPromGRangoAño($evalConocimientos, 'Ingeniería de Ejecución Informática', $request->busquedaDesde, $request->busquedaHasta);
-        
-            return view('Estadisticas/busquedaPorAño')
+            $herramientasEjecPromG = $this->calcularHerramAutoevalPromGRangoAño($herramientas, 'Ingeniería de Ejecución Informática',$request->busquedaDesde, $request->busquedaHasta);
+            $areasEjecPromG = $this->calcularAreasAutoevalPromGRangoAño($areas, 'Ingeniería de Ejecución Informática',$request->busquedaDesde, $request->busquedaHasta);
+            
+            return view('Estadisticas/busquedaPorRangoAñoAutoeval')
                 ->with('evalActitudinales', $evalActitudinales)->with('evalConocimientos',$evalConocimientos)
                 ->with('evalActCivilPromG', $evalActCivilPromG)->with('evalConCivilPromG', $evalConCivilPromG)
                 ->with('evalActEjecPromG', $evalActEjecPromG)->with('evalConEjecPromG', $evalConEjecPromG)
-                ->with('tipoEval', $tipoEval)->with("desde", $desde)->with("hasta", $hasta);
+                ->with('herramientasCivilPromG',$herramientasCivilPromG)->with('herramientasEjecPromG',$herramientasEjecPromG)
+                ->with('areasCivilPromG',$areasCivilPromG)->with('areasEjecPromG',$areasEjecPromG)
+                ->with('herramientas',$herramientas)->with('areas',$areas)
+                ->with("desde", $desde)->with("hasta", $hasta);
         }
         else{
             $evalActCivilPromG = $this->calcularActAutoevalAñoEspecifico($evalActitudinales, 'Ingeniería Civil Informática', $request->busquedaDesde );
             $evalConCivilPromG = $this->calcularConAutoevalAñoEspecifico($evalConocimientos, 'Ingeniería Civil Informática', $request->busquedaDesde);
+            $herramientasCivilPromG = $this->calcularHerramAutoevalAñoEspecifico($herramientas,'Ingeniería Civil Informática',$request->busquedaDesde);
+            $areasCivilPromG = $this->calcularAreasAutoevalAñoEspecifico($areas ,'Ingeniería Civil Informática',$request->busquedaDesde);
 
             $evalActEjecPromG = $this->calcularActAutoevalAñoEspecifico($evalActitudinales, 'Ingeniería de Ejecución Informática', $request->busquedaDesde );
             $evalConEjecPromG = $this->calcularConAutoevalAñoEspecifico($evalConocimientos, 'Ingeniería de Ejecución Informática', $request->busquedaDesde );
+            $herramientasEjecPromG = $this->calcularHerramAutoevalAñoEspecifico($herramientas, 'Ingeniería de Ejecución Informática',$request->busquedaDesde, $request->busquedaHasta);
+            $areasEjecPromG = $this->calcularAreasAutoevalAñoEspecifico($areas, 'Ingeniería de Ejecución Informática',$request->busquedaDesde);
 
-            return view('Estadisticas/busquedaPorAñoEspecifico')
+            return view('Estadisticas/busquedaPorAñoEspecificoAutoeval')
                 ->with('evalActitudinales', $evalActitudinales)->with('evalConocimientos',$evalConocimientos)
                 ->with("evalActCivilPromG", $evalActCivilPromG)->with("evalConCivilPromG", $evalConCivilPromG)
                 ->with("evalActEjecPromG", $evalActEjecPromG)->with("evalConEjecPromG", $evalConEjecPromG)
-                ->with('tipoEval', $tipoEval)->with("desde", $desde);
+                ->with('herramientasCivilPromG',$herramientasCivilPromG)->with('herramientasEjecPromG',$herramientasEjecPromG)
+                ->with('areasCivilPromG',$areasCivilPromG)->with('areasEjecPromG',$areasEjecPromG)
+                ->with('herramientas',$herramientas)->with('areas',$areas)
+                ->with("desde", $desde);
         }
     }
 
     public function busquedaEvalSup(Request $request){
         $evalActitudinales = EvalActitudinal::orderby('id_actitudinal', 'ASC')->paginate(12);
         $evalConocimientos = EvalConocimiento::orderby('id_conocimiento', 'ASC')->paginate(12);
+        $areas = Area::orderby('id_area', 'ASC')->where('areas.vigencia', 1)->paginate(12);
         
         $evalActitudinales->toArray();
         $evalConocimientos->toArray();
+        $areas->toArray();
 
         $hasta = $request->busquedaHasta;
         $desde = $request->busquedaDesde;
-
-        $tipoEval = 'Evaluación del supervisor';
         
         if($request->tipoBusqueda == 1){ // 1: Busqueda por rango. 2: Busqueda por año especifico
             $evalActCivilPromG = $this->calcularActEvalSupPromGRangoAño($evalActitudinales, 'Ingeniería Civil Informática', $request->busquedaDesde, $request->busquedaHasta);
             $evalConCivilPromG = $this->calcularConEvalSupPromGRangoAño($evalConocimientos, 'Ingeniería Civil Informática', $request->busquedaDesde, $request->busquedaHasta);
-
+            $areasCivilPromG = $this->calcularAreasEvalSupPromGRangoAño($areas ,'Ingeniería Civil Informática',$request->busquedaDesde, $request->busquedaHasta);
+            
             $evalActEjecPromG = $this->calcularActEvalSupPromGRangoAño($evalActitudinales, 'Ingeniería de Ejecución Informática', $request->busquedaDesde, $request->busquedaHasta);
             $evalConEjecPromG = $this->calcularConEvalSupPromGRangoAño($evalConocimientos, 'Ingeniería de Ejecución Informática', $request->busquedaDesde, $request->busquedaHasta);
-        
-            return view('Estadisticas/busquedaPorAño')
+            $areasEjecPromG = $this->calcularAreasEvalSupPromGRangoAño($areas, 'Ingeniería de Ejecución Informática',$request->busquedaDesde, $request->busquedaHasta);
+
+            return view('Estadisticas/busquedaPorRangoAñoEvalSup')
                 ->with('evalActitudinales', $evalActitudinales)->with('evalConocimientos',$evalConocimientos)
                 ->with("evalActCivilPromG", $evalActCivilPromG)->with("evalConCivilPromG", $evalConCivilPromG)
                 ->with("evalActEjecPromG", $evalActEjecPromG)->with("evalConEjecPromG", $evalConEjecPromG)
-                ->with('tipoEval', $tipoEval)->with("desde", $desde)->with("hasta", $hasta);
+                ->with('areasCivilPromG',$areasCivilPromG)->with('areasEjecPromG',$areasEjecPromG)
+                ->with('areas',$areas)->with("desde", $desde)->with("hasta", $hasta);
         }
         else{
             $evalActCivilPromG = $this->calcularActEvalSupAñoEspecifico($evalActitudinales, 'Ingeniería Civil Informática', $request->busquedaDesde );
             $evalConCivilPromG = $this->calcularConEvalSupAñoEspecifico($evalConocimientos, 'Ingeniería Civil Informática', $request->busquedaDesde);
+            $areasCivilPromG = $this->calcularAreasAutoevalAñoEspecifico($areas ,'Ingeniería Civil Informática',$request->busquedaDesde);
 
             $evalActEjecPromG = $this->calcularActEvalSupAñoEspecifico($evalActitudinales, 'Ingeniería de Ejecución Informática', $request->busquedaDesde );
             $evalConEjecPromG = $this->calcularConEvalSupAñoEspecifico($evalConocimientos, 'Ingeniería de Ejecución Informática', $request->busquedaDesde );
+            $areasEjecPromG = $this->calcularAreasAutoevalAñoEspecifico($areas, 'Ingeniería de Ejecución Informática',$request->busquedaDesde);
 
-            return view('Estadisticas/busquedaPorAñoEspecifico')
+            return view('Estadisticas/busquedaPorAñoEspecificoEvalSup')
                 ->with('evalActitudinales', $evalActitudinales)->with('evalConocimientos',$evalConocimientos)
                 ->with("evalActCivilPromG", $evalActCivilPromG)->with("evalConCivilPromG", $evalConCivilPromG)
                 ->with("evalActEjecPromG", $evalActEjecPromG)->with("evalConEjecPromG", $evalConEjecPromG)
-                ->with('tipoEval', $tipoEval)->with("desde", $desde);
+                ->with('areasCivilPromG',$areasCivilPromG)->with('areasEjecPromG',$areasEjecPromG)
+                ->with('areas',$areas)->with("desde", $desde);
         }
     }
 /////////////////////////////////////////////// Funciones para calcular //////////////////////////////////////////////////////77
@@ -388,6 +431,62 @@ class EstadisticaController extends Controller
         
         return $EvalConPromG;
     }
+
+    public function calcularHerramAutoevalPromG($herramientas, $carrera){
+        $herramientasPromG = array_fill(0, sizeof($herramientas), 0);
+        
+        $herramientasPracticas = HerramientaPractica::join('autoevaluaciones', 'herramientas_practica.id_autoeval', '=', 'autoevaluaciones.id_autoeval')
+                                ->join('practicas', 'autoevaluaciones.id_practica', '=', 'practicas.id_practica')
+                                ->join('alumnos', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
+                                ->join('herramientas','herramientas_practica.id_herramienta', '=', 'herramientas.id_herramienta')
+                                ->where('alumnos.carrera',$carrera)
+                                ->where('herramientas.vigencia', 1)
+                                ->select('herramientas_practica.*')
+                                ->get();
+
+        foreach($herramientasPracticas as $herramientasPractica){
+            $herramientasPromG[($herramientasPractica->id_herramienta) -1] += 1;
+        }
+        return $herramientasPromG;
+    }
+
+    public function calcularAreasAutoevalPromG($areas, $carrera){
+        $areasPromG = array_fill(0, sizeof($areas), 0);
+        
+        $areasAutoevals = AreaAutoeval::join('autoevaluaciones', 'areas_autoeval.id_autoeval', '=', 'autoevaluaciones.id_autoeval')
+                                ->join('practicas', 'autoevaluaciones.id_practica', '=', 'practicas.id_practica')
+                                ->join('alumnos', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
+                                ->join('areas','areas_autoeval.id_area', '=', 'areas.id_area')
+                                ->where('alumnos.carrera',$carrera)
+                                ->where('areas.vigencia', 1)
+                                ->select('areas_autoeval.*')
+                                ->get();
+
+        foreach($areasAutoevals as $areasAutoeval){
+            $areasPromG[($areasAutoeval->id_area) -1] += 1;
+        }
+        return $areasPromG;
+    }
+
+    public function calcularAreasEvalSupPromG($areas, $carrera){
+        $areasPromG = array_fill(0, sizeof($areas), 0);
+        
+        $areasEvaluacions = AreaEvaluacion::join('evaluaciones_supervisor', 'area_evaluacion.id_eval_supervisor', '=', 'evaluaciones_supervisor.id_eval_supervisor')
+                                ->join('practicas', 'evaluaciones_supervisor.id_practica', '=', 'practicas.id_practica')
+                                ->join('alumnos', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
+                                ->join('areas','area_evaluacion.id_area', '=', 'areas.id_area')
+                                ->where('alumnos.carrera',$carrera)
+                                ->where('areas.vigencia', 1)
+                                ->select('area_evaluacion.*')
+                                ->get();
+
+        foreach($areasEvaluacions as $areasEvaluacion){
+            $areasPromG[($areasEvaluacion->id_area) -1] += 1;
+        }
+        return $areasPromG;
+    }
+
+
 //--------------------------------------- Rango de año ------------------------------------------//
     public function calcularActAutoevalPromGRangoAño($evalActitudinales, $carrera, $fechaDesde, $fechaHasta){
         $evalActPromG = array_fill(0, sizeof($evalActitudinales), 0);
@@ -521,6 +620,69 @@ class EstadisticaController extends Controller
         return $evalConPromG;
     }
 
+    public function calcularHerramAutoevalPromGRangoAño($herramientas, $carrera, $fechaDesde, $fechaHasta){
+        $herramientasPromG = array_fill(0, sizeof($herramientas), 0);
+        
+        $herramientasPracticas = HerramientaPractica::join('autoevaluaciones', 'herramientas_practica.id_autoeval', '=', 'autoevaluaciones.id_autoeval')
+                                ->join('practicas', 'autoevaluaciones.id_practica', '=', 'practicas.id_practica')
+                                ->join('alumnos', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
+                                ->join('herramientas','herramientas_practica.id_herramienta', '=', 'herramientas.id_herramienta')
+                                ->where('alumnos.carrera',$carrera)
+                                ->where('herramientas.vigencia', 1)
+                                ->select('herramientas_practica.*','autoevaluaciones.f_entrega')
+                                ->get();
+
+        foreach($herramientasPracticas as $herramientasPractica){
+            $anio = date("Y", strtotime($herramientasPractica->f_entrega));
+
+            if($anio >= $fechaDesde && $anio <= $fechaHasta){
+                $herramientasPromG[($herramientasPractica->id_herramienta) -1] += 1;
+            }
+        }
+        return $herramientasPromG;
+    }
+    public function calcularAreasAutoevalPromGRangoAño($areas, $carrera, $fechaDesde, $fechaHasta){
+        $areasPromG = array_fill(0, sizeof($areas), 0);
+        
+        $areasAutoevals = AreaAutoeval::join('autoevaluaciones', 'areas_autoeval.id_autoeval', '=', 'autoevaluaciones.id_autoeval')
+                                ->join('practicas', 'autoevaluaciones.id_practica', '=', 'practicas.id_practica')
+                                ->join('alumnos', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
+                                ->join('areas','areas_autoeval.id_area', '=', 'areas.id_area')
+                                ->where('alumnos.carrera',$carrera)
+                                ->where('areas.vigencia', 1)
+                                ->select('areas_autoeval.*','autoevaluaciones.f_entrega')
+                                ->get();
+
+        foreach($areasAutoevals as $areasAutoeval){
+            $anio = date("Y", strtotime($areasAutoeval->f_entrega));
+
+            if($anio >= $fechaDesde && $anio <= $fechaHasta){
+                $areasPromG[($areasAutoeval->id_area) -1] += 1;
+            }
+        }
+        return $areasPromG;
+    }
+    public function calcularAreasEvalSupPromGRangoAño($areas, $carrera, $fechaDesde, $fechaHasta){
+        $areasPromG = array_fill(0, sizeof($areas), 0);
+        
+        $areasEvaluacions = AreaEvaluacion::join('evaluaciones_supervisor', 'area_evaluacion.id_eval_supervisor', '=', 'evaluaciones_supervisor.id_eval_supervisor')
+                                ->join('practicas', 'evaluaciones_supervisor.id_practica', '=', 'practicas.id_practica')
+                                ->join('alumnos', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
+                                ->join('areas','area_evaluacion.id_area', '=', 'areas.id_area')
+                                ->where('alumnos.carrera',$carrera)
+                                ->where('areas.vigencia', 1)
+                                ->select('area_evaluacion.*','evaluaciones_supervisor.f_entrega_eval')
+                                ->get();
+
+        foreach($areasEvaluacions as $areasEvaluacion){
+            $anio = date("Y", strtotime($areasEvaluacion->f_entrega_eval));
+
+            if($anio >= $fechaDesde && $anio <= $fechaHasta){
+                $areasPromG[($areasEvaluacion->id_area) -1] += 1;
+            }
+        }
+        return $areasPromG;
+    }
 
     //------------------------------------------ Año especifico ---------------------------------//
     public function calcularActAutoevalAñoEspecifico($evalActitudinales, $carrera, $fechaDesde){
@@ -658,5 +820,72 @@ class EstadisticaController extends Controller
         
         return $evalConPromG;
     }
+
+    public function calcularHerramAutoevalAñoEspecifico($herramientas, $carrera, $fechaDesde){
+        $herramientasPromG = array_fill(0, sizeof($herramientas), 0);
+        
+        $herramientasPracticas = HerramientaPractica::join('autoevaluaciones', 'herramientas_practica.id_autoeval', '=', 'autoevaluaciones.id_autoeval')
+                                ->join('practicas', 'autoevaluaciones.id_practica', '=', 'practicas.id_practica')
+                                ->join('alumnos', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
+                                ->join('herramientas','herramientas_practica.id_herramienta', '=', 'herramientas.id_herramienta')
+                                ->where('alumnos.carrera',$carrera)
+                                ->where('herramientas.vigencia', 1)
+                                ->select('herramientas_practica.*','autoevaluaciones.f_entrega')
+                                ->get();
+
+        foreach($herramientasPracticas as $herramientasPractica){
+            $anio = date("Y", strtotime($herramientasPractica->f_entrega));
+
+            if($anio == $fechaDesde){
+                $herramientasPromG[($herramientasPractica->id_herramienta) -1] += 1;
+            }
+        }
+        return $herramientasPromG;
+    }
+
+    public function calcularAreasAutoevalAñoEspecifico($areas, $carrera, $fechaDesde){
+        $areasPromG = array_fill(0, sizeof($areas), 0);
+        
+        $areasAutoevals = AreaAutoeval::join('autoevaluaciones', 'areas_autoeval.id_autoeval', '=', 'autoevaluaciones.id_autoeval')
+                                ->join('practicas', 'autoevaluaciones.id_practica', '=', 'practicas.id_practica')
+                                ->join('alumnos', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
+                                ->join('areas','areas_autoeval.id_area', '=', 'areas.id_area')
+                                ->where('alumnos.carrera',$carrera)
+                                ->where('areas.vigencia', 1)
+                                ->select('areas_autoeval.*','autoevaluaciones.f_entrega')
+                                ->get();
+
+        foreach($areasAutoevals as $areasAutoeval){
+            $anio = date("Y", strtotime($areasAutoeval->f_entrega));
+
+            if($anio == $fechaDesde){
+                $areasPromG[($areasAutoeval->id_area) -1] += 1;
+            }
+        }
+        return $areasPromG;
+    }
+
+    public function calcularAreasEvalSupAñoEspecifico($areas, $carrera, $fechaDesde){
+        $areasPromG = array_fill(0, sizeof($areas), 0);
+        
+        $areasEvaluacions = AreaEvaluacion::join('evaluaciones_supervisor', 'area_evaluacion.id_eval_supervisor', '=', 'evaluaciones_supervisor.id_eval_supervisor')
+                                ->join('practicas', 'evaluaciones_supervisor.id_practica', '=', 'practicas.id_practica')
+                                ->join('alumnos', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
+                                ->join('areas','area_evaluacion.id_area', '=', 'areas.id_area')
+                                ->where('alumnos.carrera',$carrera)
+                                ->where('areas.vigencia', 1)
+                                ->select('area_evaluacion.*','evaluaciones_supervisor.f_entrega_eval')
+                                ->get();
+
+        foreach($areasEvaluacions as $areasEvaluacion){
+            $anio = date("Y", strtotime($areasEvaluacion->f_entrega_eval));
+
+            if($anio == $fechaDesde){
+                $areasPromG[($areasEvaluacion->id_area) -1] += 1;
+            }
+        }
+        return $areasPromG;
+    }
+
 }
 ?>
