@@ -38,7 +38,6 @@ class PracticaController extends Controller
         $nuevo->f_desde = $data['f_desde'];
         $nuevo->f_hasta = $data['f_hasta'];
         $nuevo->asist_ch_post_pract = $data['asist_ch_post_pract'];
-        $nuevo->asist_ch_pre_pract = $data['asist_ch_pre_pract'];
         $nuevo->id_alumno = $data['id_alumno'];
         $nuevo->id_supervisor = $data['id_supervisor'];
 
@@ -52,12 +51,12 @@ class PracticaController extends Controller
         $elemento_editar=Practica::find($id_elemento);
         if(isset($elemento_editar))
         {
-            $elemento_editar->f_solicitud=$request->f_solicitud;
+
+            $elemento_editar->f_solicitud= $request->f_solicitud;
             $elemento_editar->f_inscripcion=$request->f_inscripcion;
             $elemento_editar->f_desde=$request->f_desde;
             $elemento_editar->f_hasta=$request->f_hasta;
             $elemento_editar->asist_ch_post_pract=$request->asist_ch_post_pract;
-            $elemento_editar->asist_ch_pre_pract=$request->asist_ch_pre_pract;
             $elemento_editar->id_alumno=$request->id_alumno;
             $elemento_editar->id_supervisor=$request->id_supervisor;
 

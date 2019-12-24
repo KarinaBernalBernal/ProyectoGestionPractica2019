@@ -31,17 +31,6 @@
                                     @endif
                                 </div>
                             </div>
-                             <div class="form-group{{ $errors->has('apellido_materno') ? ' has-error' : '' }}">
-                                <label for="apellido_materno" class="col-md-4 control-label">Apellido materno</label>
-                                <div class="col-md-6">
-                                    <input id="apellido_materno" type="text" class="form-control" name="apellido_materno" value="{{ old('apellido_materno', $elemento->apellido_materno) }}"  required autofocus>
-                                    @if ($errors->has('apellido_materno'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('apellido_materno') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
-                            </div>
                              <div class="form-group{{ $errors->has('cargo') ? ' has-error' : '' }}">
                                 <label for="cargo" class="col-md-4 control-label">cargo</label>
                                 <div class="col-md-6">
@@ -67,7 +56,8 @@
                             <div class="form-group{{ $errors->has('fono') ? ' has-error' : '' }}">
                                 <label for="fono" class="col-md-4 control-label">Teléfono</label>
                                 <div class="col-md-6">
-                                    <input id="fono" type="text" class="form-control" name="fono" value="{{ old('fono', $elemento->fono) }}"  required autofocus>
+                                    <input id="fono" type="text" class="form-control" name="fono" value="{{ old('fono', $elemento->fono) }}"  required autofocus minlength="9">
+                                    <label for="fono" class="font-italic">Ej. 9 87654321</label>
                                     @if ($errors->has('fono'))
                                         <span class="help-block">
                                             <strong>{{ $errors->first('fono') }}</strong>
@@ -78,7 +68,7 @@
                             <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                                 <label for="email" class="col-md-4 control-label">Email</label>
                                 <div class="col-md-6">
-                                    <input id="email" type="text" class="form-control" name="email" value="{{ old('email', $elemento->email) }}"  required autofocus>
+                                    <input id="email" type="email" class="form-control" name="email" value="{{ old('email', $elemento->email) }}"  required autofocus>
                                     @if ($errors->has('email'))
                                         <span class="help-block">
                                             <strong>{{ $errors->first('email') }}</strong>
@@ -88,16 +78,14 @@
                             </div>
                             <div class="col-md-6">
                                 <label for="id_empresa" class="col-md-4 control-label">Empresas</label>
-
                                     <select id="id_empresa" name="id_empresa" class="form-control">
-
+                                        @if(count($empresas) == 0)<option value="" disabled selected>No existen empresas! Es necesario crear una.</option>@endif
                                         @foreach($empresas as $id_empresa)
                                             <option value="{{ old('id_empresa', $id_empresa->id_empresa) }}" >{{ $id_empresa->n_empresa }}</option>
                                         @endforeach
                                     </select>
-
-
                             </div>
+                            <br>
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-4">
                                     <button type="submit" class="btn btn-primary">

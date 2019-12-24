@@ -160,7 +160,8 @@ class SolicitudController extends Controller
                 $nuevo->fono = $solicitud->fono;
                 $nuevo->anno_ingreso = $solicitud->anno_ingreso;
                 $nuevo->carrera = $solicitud->carrera;
-                $nuevo->estimacion_semestre = 0;        //REVISAR
+                $nuevo->semestre_proyecto = $solicitud->semestre_proyecto;
+                $nuevo->anno_proyecto = $solicitud->anno_proyecto;
                 $nueva_instancia = new User;
                 $nueva_instancia->name = $nuevo->nombre;
                 $nueva_instancia->email = $nuevo->email;
@@ -239,7 +240,8 @@ class SolicitudController extends Controller
                     $nuevo->fono = $solicitud->fono;
                     $nuevo->anno_ingreso = $solicitud->anno_ingreso;
                     $nuevo->carrera = $solicitud->carrera;
-                    $nuevo->estimacion_semestre = 0;
+                    $nuevo->semestre_proyecto = $solicitud->semestre_proyecto;
+                    $nuevo->anno_proyecto = $solicitud->anno_proyecto;
                     $nueva_instancia = new User;
                     $nueva_instancia->name = $nuevo->nombre;
                     $nueva_instancia->email = $nuevo->email;

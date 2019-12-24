@@ -2,9 +2,9 @@
 
 @section('content')
    <div class="container-fluid">
-      <ul class="nav nav-tabs" id="myTab" role="tablist">
+      <ul class="nav nav-tabs active" id="myTab" role="tablist">
 		<li class="nav-item">
-			<a class="nav-link active" id="otrosAreas-tab" data-toggle="tab" href="#otrosAreas" role="tab" aria-controls="otrosAreas" aria-selected="true">Otros/Áreas</a>
+			<a class="nav-link " id="otrosAreas-tab" data-toggle="tab" href="#otrosAreas" role="tab" aria-controls="otrosAreas" aria-selected="true">Otros/Áreas</a>
 		</li>
 		<li class="nav-item">
 			<a class="nav-link" id="otrosHerramientas-tab" data-toggle="tab" href="#otrosHerramientas" role="tab" aria-controls="otrosHerramientas" aria-selected="false">Otros/Herramientas</a>
@@ -14,7 +14,7 @@
 		<br>
 
 		<div class="tab-content" id="myTabContent">
-            <div class="tab-pane fade show active" id="otrosAreas" role="tabpanel" aria-labelledby="otrosAreas-tab">
+            <div class="tab-pane fade show" id="otrosAreas" role="tabpanel" aria-labelledby="otrosAreas-tab">
 				<h2>Áreas de Autoevaluación/Evaluación Supervisor</h2>
 				<br>
 				<input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
@@ -128,10 +128,28 @@
 					</div>
 				</div>
 			</div>
-				{{--{id: $(this).data('id'), name: $(this).data('name'), tipo: $(this).data('title')},--}}
 		</div>
    	</div>
    <script>
+
+       $(document).ready(function()
+       {
+           $('a[data-toggle="tab"]').on('shown.bs.tab', function(e)
+           {
+               sessionStorage.setItem('activeTabOtros', $(e.target).attr('href'));
+           });
+           var activeTabOtros = sessionStorage.getItem('activeTabOtros');
+           if(activeTabOtros)
+           {
+			   $('#myTab a[href="' + activeTabOtros + '"]').click();
+           }else
+           {
+               $('#myTab a[href="#otrosAreas"]').attr('class','nav-link active');
+               $('#otrosAreas').attr('class','tab-pane fade show active');
+           }
+       });
+
+
        function borrar(id_elemento,name , url_action)
        {
            Swal({
