@@ -23,56 +23,72 @@
         @auth
         <?php if (Auth::user()->type == 'administrador'): ?>
 
-            <!--Administrador-->
-                <!-- Divider -->
-                <hr class="sidebar-divider">
+        <!--Administrador-->
+            <!-- Divider -->
+            <hr class="sidebar-divider">
 
-                <!-- Heading -->
-                <div class="sidebar-heading">
-                    Gestión Practicas Profesionales
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Gestión Practicas Profesionales
+            </div>
+
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseGestionCuentas" aria-expanded="true" aria-controls="collapseGestionCuentas"><i class="fas fa-users"></i>
+                <span>Mantenedores</span>
+                </a>
+                <div id="collapseGestionCuentas" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+
+                        <a class="collapse-item" href="{{route('lista_usuarios')}}">Usuarios</a>
+                        <!--<a class="collapse-item" href="{{route('lista_recursos')}}">recursos</a>-->
+                        <!--<a class="collapse-item" href="{{route('lista_perfiles')}}">perfiles</a>-->
+                        <a class="collapse-item" href="{{route('lista_alumnos')}}">Alumnos</a>
+                        <a class="collapse-item" href="{{route('lista_administradores')}}">Administradores</a>
+                        <a class="collapse-item" href="{{route('lista_supervisores')}}">Supervisores</a>
+                        <a class="collapse-item" href="{{route('lista_practicas')}}">Prácticas</a>
+                        <a class="collapse-item" href="{{route('lista_empresas')}}">Empresas</a>
+                        <a class="collapse-item" href="{{route('lista_auto_evaluaciones')}}">Autoevaluaciones</a>
+                        <a class="collapse-item" href="{{route('lista_evaluaciones_supervisor')}}">Evaluaciones supervisor</a>
+                        <h6 class="collapse-header">Formularios</h6>
+                        <a class="collapse-item" href="{{route('lista_elementos_dinamicos')}}">Elementos dinámicos</a>
+                        <a class="collapse-item" href="{{route('lista_otros')}}">Respuestas "otro"</a>
+                    </div>
                 </div>
-
-                <!-- Nav Item - Pages Collapse Menu -->
-                <li class="nav-item">
-
-                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseGestionCuentas" aria-expanded="true" aria-controls="collapseGestionCuentas"><i class="fas fa-users"></i>
-                    <span>Mantenedores</span>
+            </li>
+                
+            <li class="nav-item">
+                <!-- Solo profesores -->
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseVerEstadisticas" aria-expanded="true" aria-controls="collapseVerEstadisticas"><i class="fas fa-users"></i>
+                        <span>Ver estadísticas</span>
                     </a>
-                    <div id="collapseGestionCuentas" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div id="collapseVerEstadisticas" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
 
-                            <a class="collapse-item" href="{{route('lista_usuarios')}}">Usuarios</a>
-                            <!--<a class="collapse-item" href="{{route('lista_recursos')}}">recursos</a>-->
-                            <!--<a class="collapse-item" href="{{route('lista_perfiles')}}">perfiles</a>-->
-                            <a class="collapse-item" href="{{route('lista_alumnos')}}">Alumnos</a>
-                            <a class="collapse-item" href="{{route('lista_administradores')}}">Administradores</a>
-                            <a class="collapse-item" href="{{route('lista_supervisores')}}">Supervisores</a>
-                            <a class="collapse-item" href="{{route('lista_practicas')}}">Prácticas</a>
-                            <a class="collapse-item" href="{{route('lista_empresas')}}">Empresas</a>
-                            <a class="collapse-item" href="{{route('lista_auto_evaluaciones')}}">Autoevaluaciones</a>
-                            <a class="collapse-item" href="{{route('lista_evaluaciones_supervisor')}}">Evaluaciones supervisor</a>
-                            <h6 class="collapse-header">Formularios</h6>
-                            <a class="collapse-item" href="{{route('lista_elementos_dinamicos')}}">Elementos dinámicos</a>
-                            <a class="collapse-item" href="{{route('lista_otros')}}">Respuestas "otro"</a>
+                            <a class="collapse-item" href="{{route('estadisticaAlumno')}}">Busqueda avanzada</a>
+                            <a class="collapse-item" href="{{route('estadisticaCriterios')}}">Estadísticas generales</a>
+
                         </div>
                     </div>
-                </li>
-                
-                <li class="nav-item">
-                    <!-- Solo profesores -->
-                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseVerEstadisticas" aria-expanded="true" aria-controls="collapseVerEstadisticas"><i class="fas fa-users"></i>
-                            <span>Ver estadísticas</span>
-                        </a>
-                        <div id="collapseVerEstadisticas" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                            <div class="bg-white py-2 collapse-inner rounded">
+                <!-- -->
+            </li>
 
-                                <a class="collapse-item" href="{{route('estadisticaAlumno')}}">Busqueda avanzada</a>
-                                <a class="collapse-item" href="{{route('estadisticaCriterios')}}">Estadísticas generales</a>
-    
-                            </div>
-                        </div>
-                    <!-- -->
-                </li>
+            <li class="nav-item">
+                <!-- Solo profesores -->
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseResolucionPracticas" aria-expanded="true" aria-controls="collapseResolucionPracticas"><i class="fas fa-archive"></i>
+                    <span>Resolución de Prácticas</span>
+                </a>
+                <div id="collapseResolucionPracticas" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+
+                        <a class="collapse-item" href="#">Ing. Civil Informatica</a>
+                        <a class="collapse-item" href="#">Ing. Ejec. Informatica</a>
+
+                    </div>
+                </div>
+                <!-- -->
+            </li>
              
             <hr class="sidebar-divider">
 
@@ -110,11 +126,13 @@
                         @endif
                         <a class="collapse-item" href="{{route('listaInscripcionCivil')}}">Inscripciones</a>
                         <a class="collapse-item" href="#">Autoevaluaciones</a>
-                        <a class="collapse-item" href="#">Evaluaciones de empresas</a>
+                        <a class="collapse-item" href="#">Evaluaciones de <br> Empresas</a>
 
-                        <!--<h7 class="collapse-header">Asistencia a charlas</h7>
-                        <a class="collapse-item" href="#">Explicación introductoria</a>
-                        <a class="collapse-item" href="#">Presentaciones de práctica</a>-->
+                        @if(Auth::user()->name == 'Gestionador')
+                            <h7 class="collapse-header">Gestión de Charlas</h7>
+                            <a class="collapse-item" href="#">Charlas de Presentación</a>
+                        @endif
+
                     </div>
                 </div>
             </li>
@@ -139,11 +157,12 @@
                         @endif
                         <a class="collapse-item" href="{{route('listaInscripcionEjecucion')}}">Inscripciones</a>
                         <a class="collapse-item" href="#">Autoevaluaciones</a>
-                        <a class="collapse-item" href="#">Evaluaciones de empresas</a>
+                        <a class="collapse-item" href="#">Evaluaciones de <br> Empresas</a>
 
-                        <!--<h7 class="collapse-header">Asistencia a charlas</h7>
-                        <a class="collapse-item" href="#">Explicación introductoria</a>
-                        <a class="collapse-item" href="#">Presentaciones de práctica</a>-->
+                        @if(Auth::user()->name == 'Gestionador')
+                            <h7 class="collapse-header">Gestión de Charlas</h7>
+                            <a class="collapse-item" href="#">Charlas de Presentación</a>
+                        @endif
                     </div>
                 </div>
             </li>
