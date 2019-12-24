@@ -35,7 +35,7 @@
                              <div class="form-group{{ $errors->has('f_entrega_eval') ? ' has-error' : '' }}">
                                 <label for="f_entrega_eval" class="col-md-4 control-label">Fecha entrega evaluación</label>
                                 <div class="col-md-6">
-                                    <input id="f_entrega_eval" type="text" class="form-control" name="f_entrega_eval" required autofocus>
+                                    <input id="f_entrega_eval" type="date" class="form-control" name="f_entrega_eval" required autofocus>
                                     @if ($errors->has('f_entrega_eval'))
                                         <span class="help-block">
                                             <strong>{{ $errors->first('f_entrega_eval') }}</strong>

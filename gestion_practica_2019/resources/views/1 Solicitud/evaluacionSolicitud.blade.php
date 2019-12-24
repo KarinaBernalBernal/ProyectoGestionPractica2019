@@ -127,7 +127,6 @@
    <div class="modal" id="modal-modificarEvaluacionSolicitud"></div>
 
    <script>
-    
    $(document).ready(function () {
 
     	//modal-evaluarSolicitud

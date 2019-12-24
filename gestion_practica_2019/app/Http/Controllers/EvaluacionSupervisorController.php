@@ -153,12 +153,12 @@ class EvaluacionSupervisorController extends Controller
             ]);
         }
 
-        if (!isset($request->areasOtros))
+        if($request->areasOtros != null)
         {
-            for($i = 0; $i<count($request->areasOtros,1); $i++)
+            for ($i = 0; $i < count($request->areasOtros, 1); $i++)
             {
                 OtrosAreas::create([
-                    'n_area' => $request->areasOtros
+                    'n_area' => $request->areasOtros[$i]
                 ]);
             }
         }

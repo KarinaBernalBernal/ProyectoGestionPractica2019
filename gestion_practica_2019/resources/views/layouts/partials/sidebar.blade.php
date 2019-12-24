@@ -48,9 +48,9 @@
                             <a class="collapse-item" href="{{route('lista_administradores')}}">Administradores</a>
                             <a class="collapse-item" href="{{route('lista_supervisores')}}">Supervisores</a>
                             <a class="collapse-item" href="{{route('lista_practicas')}}">Prácticas</a>
-                            <a class="collapse-item" href="{{route('lista_evaluaciones_supervisor')}}">Evaluaciones supervisor</a>
                             <a class="collapse-item" href="{{route('lista_empresas')}}">Empresas</a>
                             <a class="collapse-item" href="{{route('lista_auto_evaluaciones')}}">Autoevaluaciones</a>
+                            <a class="collapse-item" href="{{route('lista_evaluaciones_supervisor')}}">Evaluaciones supervisor</a>
                             <h6 class="collapse-header">Formularios</h6>
                             <a class="collapse-item" href="{{route('lista_elementos_dinamicos')}}">Elementos dinámicos</a>
                             <a class="collapse-item" href="{{route('lista_otros')}}">Respuestas "otro"</a>

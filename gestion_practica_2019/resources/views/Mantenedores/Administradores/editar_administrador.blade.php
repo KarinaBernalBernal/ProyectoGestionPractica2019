@@ -47,6 +47,7 @@
                                 <label for="rut" class="col-md-4 control-label">RUT</label>
                                 <div class="col-md-6">
                                     <input id="rut" type="text" class="form-control" name="rut" value="{{ old('rut', $elemento->rut) }}"  required autofocus>
+                                    <label for="rut" class="font-italic">Ej. 11111111-1</label>
                                     @if ($errors->has('rut'))
                                         <span class="help-block">
                                             <strong>{{ $errors->first('rut') }}</strong>
@@ -57,7 +58,7 @@
                              <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                                 <label for="email" class="col-md-4 control-label">Correo</label>
                                 <div class="col-md-6">
-                                    <input id="email" type="text" class="form-control" name="email" value="{{ old('email', $elemento->email) }}"  required autofocus>
+                                    <input id="email" type="email" class="form-control" name="email" value="{{ old('email', $elemento->email) }}"  required autofocus>
                                     @if ($errors->has('email'))
                                         <span class="help-block">
                                             <strong>{{ $errors->first('email') }}</strong>
@@ -90,4 +91,39 @@
             </div>
         </div>
     </div>
+    <script>
+
+        $("#rut").change(function()
+        {
+            var Fn = {
+                // Valida el rut con su cadena completa "XXXXXXXX-X"
+                validaRut : function (rutCompleto) {
+                    rutCompleto = rutCompleto.replace("‐","-");
+                    if (!/^[0-9]+[-|‐]{1}[0-9kK]{1}$/.test( rutCompleto ))
+                        return false;
+                    var tmp     = rutCompleto.split('-');
+                    var digv    = tmp[1];
+                    var rut     = tmp[0];
+                    if ( digv == 'K' ) digv = 'k' ;
+
+                    return (Fn.dv(rut) == digv );
+                },
+                dv : function(T)
+                {
+                    var M=0,S=1;
+                    for(;T;T=Math.floor(T/10))
+                        S=(S+T%10*(9-M++%6))%11;
+                    return S?S-1:'k';
+                }
+            };
+
+            if (Fn.validaRut( $("#rut").val() )){
+                $('#rut').attr('class', 'form-control is-valid');
+                this.setCustomValidity('');
+            } else {
+                $('#rut').attr('class', 'form-control is-invalid');
+                this.setCustomValidity('Rut inválido');
+            }
+        });
+    </script>
 @endsection
