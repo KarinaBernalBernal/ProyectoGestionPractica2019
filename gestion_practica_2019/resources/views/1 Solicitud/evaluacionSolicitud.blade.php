@@ -37,12 +37,11 @@
                     <div class="row">
 					   <h2>Solicitudes pendientes</h2>
 					</div>
-
+					@if (count($solicitudesP)>0)
 					<br>
-
-					<div class="row d-flex justify-content-center">
-						<table class="table table-bordered bg-light table-hover">
-        					<thead class="bg-dark" style="color: white">
+					<div class="row d-flex justify-content-center">	
+						<table class="table table-bordered bg-light table-hover table-responsive">
+        					<thead class="bg-dark" style="color: white">							
 								<tr class='text-center'>
 									<th style="vertical-align: middle" scope="col">Rut</th>
 									<th style="vertical-align: middle" scope="col">Nombre</th>
@@ -74,6 +73,12 @@
 							</tbody>
 						</table>
 					</div>
+					@else
+						<br>
+						<div class="container-fluid text-center">
+						<p>No existen solicitudes en este momento!</p>
+						</div>
+					@endif
 				</div>
 				<div class="row d-flex justify-content-center">
 					{{ $solicitudesP->links( "pagination::bootstrap-4") }}
@@ -103,11 +108,10 @@
 				  	<div class="row">
 					   <h2>Solicitudes evaluadas</h2>
 					</div>
-
+					@if (count($solicitudesE)>0)
 					<br>
-
-					<div class="row d-flex justify-content-center">
-						<table class="table table-bordered bg-light table-hover">
+					<div class="row d-flex justify-content-center">	
+						<table class="table table-bordered bg-light table-hover table-responsive">
         					<thead class="bg-dark" style="color: white">
 								<tr class='text-center'>
 									<th style="vertical-align: middle" scope="col">Rut</th>
@@ -144,6 +148,12 @@
 							{{ $solicitudesE->links( "pagination::bootstrap-4") }}
 						</div>
 					</div>
+					@else
+						<br>
+						<div class="container-fluid text-center">
+							<p>No existen solicitudes en este momento!</p>
+						</div>
+					@endif
 				</div>
 			</div>
 
@@ -155,7 +165,6 @@
    <div class="modal" id="modal-modificarEvaluacionSolicitud"></div>
 
    <script>
-    
    $(document).ready(function () {
 
     	//modal-evaluarSolicitud

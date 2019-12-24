@@ -82,7 +82,8 @@
                         <label for="fono" class="col-md-3 col-form-label text-md-right">{{ __('Fono') }}</label>
 
                         <div class="col-md-6">
-                            <input id="fono" type="number" class="form-control" name="fono" value="{{ old('fono') }}" required>
+                            <input id="fono" type="number" class="form-control" name="fono" value="{{ old('fono') }}" required minlength="9">
+                            <label for="fono" class="font-italic">Ej. 9 87654321</label>
                         </div>
                     </div>
 
@@ -161,7 +162,8 @@
                         <label for="fonoSupervisor" class="col-md-3 col-form-label text-md-right">{{ __('Fono') }}</label>
 
                         <div class="col-md-6">
-                            <input id="fonoSupervisor" type="number" class="form-control" name="fonoSupervisor" value="{{ old('fonoSupervisor') }}" required>
+                            <input id="fonoSupervisor" type="number" class="form-control" name="fonoSupervisor" value="{{ old('fonoSupervisor') }}" required minlength="9">
+                            <label for="fono" class="font-italic">Ej. 9 87654321</label>
                         </div>
                     </div>
 

@@ -9,7 +9,7 @@ class EvalConocimiento extends Model
     protected $primaryKey = 'id_conocimiento';
 
     protected $fillable = [
-       	'n_con','dp_con'
+       	'n_con','dp_con', 'vigencia'
     ];
 
     public function evalConPractica(){

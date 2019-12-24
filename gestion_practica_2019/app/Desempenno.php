@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Desempenno extends Model
 {
     protected $fillable = [
-          	'id_autoeval','valor','dp_tarea'   
+          	'id_autoeval','valor','dp_desempenno'
 	];
     public function autoevaluacion(){
  		return $this->belongsTo('App\User');

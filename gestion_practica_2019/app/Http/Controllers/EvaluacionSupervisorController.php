@@ -22,7 +22,15 @@ class EvaluacionSupervisorController extends Controller
 
     public function index($id)
     {
-        return view('3 Evaluacion/formularioEvaluacionEmpresa')->with('id',$id);
+  		$area = Area::all()->where('vigencia',"1");
+        $actitud = EvalActitudinal::all()->where('vigencia',"1");
+        $conocimiento = EvalConocimiento::all()->where('vigencia',"1");
+        
+        return view('3 Evaluacion/formularioEvaluacionEmpresa',[
+            'area'=>$area,
+            'actitud'=>$actitud,
+            'conocimiento'=>$conocimiento,
+        ]);
     }
 
     public function verDescripcionEvaluacionEmpresa()
@@ -59,7 +67,7 @@ class EvaluacionSupervisorController extends Controller
     public function editar($id_elemento)
     {
         $elemento= EvaluacionSupervisor::find($id_elemento);
-        return view('Mantenedores/Evaluaciones/Supervisor/editar_evaluacion_supervisor',[
+        return view('Mantenedores/Evaluaciones/Supervisor/editar_evaluacion_sup',[
                 'elemento'=>$elemento,
             ]);
     }
@@ -83,7 +91,6 @@ class EvaluacionSupervisorController extends Controller
         $elemento_editar=EvaluacionSupervisor::find($id_elemento);
         if(isset($elemento_editar))
         {
-            $elemento_editar->id_eval_supervisor=$request->id_eval_supervisor;
             $elemento_editar->porcent_tareas_realizadas=$request->porcent_tareas_realizadas;
             $elemento_editar->resultado_eval=$request->resultado_eval;
             $elemento_editar->f_entrega_eval=$request->f_entrega_eval;
@@ -104,22 +111,21 @@ class EvaluacionSupervisorController extends Controller
     public function store(Request $request, $id)
     {
         $fecha= date("Y-m-d H:i:s");
-        $practicas = Practica::where('id_alumno', $id)->first();
-
+        $id = auth()->user()->id_user;
+        $supervisores = Supervisor::where('id_user', $id)->first();
+        $practicas = Practica::where('id_supervisor', $supervisores->id_supervisor)->first();
         $evaluacionesSupervisor = EvaluacionSupervisor::create([
             'id_practica' => $practicas->id_practica,
             'f_entrega_eval' => $fecha,
             'porcent_tareas_realizadas' => $request->porcentaje,
             'resultado_eval' => $request->recomendacion
-
         ]);
-
         for($i = 0; $i<count($request->fortaleza,1); $i++)
         {
             Fortaleza::create([
                 'id_eval_supervisor' => $evaluacionesSupervisor->id_eval_supervisor,
                 'n_fortaleza' => $request->fortaleza[$i],
-                'dp_fortaleza' => "sin descripcion"
+                'dp_fortaleza' => $request->dpFortaleza[$i]
             ]);
         }
         for($i = 0; $i<count($request->debilidad,1); $i++)
@@ -127,66 +133,47 @@ class EvaluacionSupervisorController extends Controller
             Debilidad::create([
                 'id_eval_supervisor' => $evaluacionesSupervisor->id_eval_supervisor,
                 'n_debilidad' => $request->debilidad[$i],
-                'dp_debilidad' => "sin descripcion"
+                'dp_debilidad' => $request->dpDebilidad[$i]
             ]);
         }
-
         for($i = 0; $i<count($request->criterio,1); $i++)
         {
-            $criterios = EvalActitudinal::create([
-                'n_act' => $request->criterio[$i],
-                'dp_act' => "sin descripcion"
-            ]);
-
+            $actitud = EvalActitudinal::all()->where("id_actitudinal",$request->actitud[$i])->first();
             EvalActEmpPractica::create([
                 'id_eval_supervisor' => $evaluacionesSupervisor->id_eval_supervisor,
-                'id_actitudinal' => $criterios->id_actitudinal,
-                'valor_act_emp_practica' => 1
+                'id_actitudinal' => $actitud->id_actitudinal,
+                'valor_act_emp_practica' => $request->criterio[$i]
             ]);
         }
-
         for($i = 0; $i<count($request->criterio2,1); $i++)
         {
-            $criterios2 = EvalConocimiento::create([
-                'n_con' => $request->criterio2[$i],
-                'dp_con' => "sin descripcion"
-            ]);
-
+            $conocimiento = EvalConocimiento::all()->where("id_conocimiento",$request->criterioConocimiento[$i])->first();
             EvalConEmpPractica::create([
                 'id_eval_supervisor' => $evaluacionesSupervisor->id_eval_supervisor,
-                'id_conocimiento' => $criterios2->id_conocimiento,
-                'valor_con_emp_practica' => 1
-
+                'id_conocimiento' => $conocimiento->id_conocimiento,
+                'valor_con_emp_practica' => $request->criterio2[$i]
             ]);
         }
-
         for($i = 0; $i<count($request->area,1); $i++)
         {
-            $areas = Area::create([
-                'n_area' => $request->area[$i]
-            ]);
-
+            $areas = Area::all()->where("n_area",$request->area[$i])->first();
             AreaEvaluacion::create([
                 'id_eval_supervisor' => $evaluacionesSupervisor->id_eval_supervisor,
                 'id_area' => $areas->id_area
             ]);
         }
+        if($request->areasOtros != null)
+        {
+            for ($i = 0; $i < count($request->areasOtros, 1); $i++)
+            {
+                OtrosAreas::create([
+                    'n_area' => $request->areasOtros[$i]
+                ]);
+            }
+        }
         return redirect()->route('descripcionAutoEvaluacion');
     }
-
-    public static function verificarEvaluacionAlumno($id)
-    {
-        $practicas = Practica::where('id_alumno', $id)->first();
-        $evaluacion = EvaluacionSupervisor::where('id_practica', $practicas->id_practica)->first();
-
-        if( $evaluacion != null )
-        {
-            return true;
-        }else{
-            return false;
-        }
-    }
-
+    
     public function mostrarEvaluacionModal($id)
     {
         $practicas = Practica::where('id_alumno', $id)->first();

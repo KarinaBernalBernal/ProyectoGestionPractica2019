@@ -9,7 +9,7 @@ class Area extends Model
     protected $primaryKey = 'id_area';
 
     protected $fillable = [
-       	'n_area'
+       	'n_area', 'vigencia'
     ];
 
     public function areaAutoeval(){

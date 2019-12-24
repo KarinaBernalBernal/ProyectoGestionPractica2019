@@ -3,7 +3,6 @@
 namespace SGPP\Http\Controllers;
 use Auth;
 use Illuminate\Http\Request;
-use PHPUnit\Framework\Warning;
 use SGPP\Alumno;
 use SGPP\DocSolicitado;
 use SGPP\Practica;
@@ -26,9 +25,7 @@ class InscripcionController extends Controller
      */
     public function indexSolicitarDocumentos()
     {
-
         return view('2 Inscripcion/formularioSolicitarDocumentos');
-
     }
 
     public function indexInscripcion()
@@ -86,7 +83,9 @@ class InscripcionController extends Controller
         $fecha = date("Y-m-d");
         $usuario_id = Auth()->user()->id_user;
         $alumno = Alumno::where('id_user',$usuario_id)->first();
-        
+        $solicitud = Solicitud::all()
+            ->where('rut', $alumno->rut)
+            ->where("carrera",$alumno->carrera)->first();
         $empresa = Empresa::where('rut',$request->rutEmpresa)->first();
         if($empresa == null)
         {
@@ -146,7 +145,9 @@ class InscripcionController extends Controller
 
             $practica->save();
         }
-
+        //Con esto evitamos que aquellas solicitudes de alumnos que estén en práctica, puedan ser modificadas y
+        //asi evitar que la practica pueda ser eliminada.
+        $solicitud->estado = 3;
         return redirect()->route('descripcionInscripcion');
     }
 

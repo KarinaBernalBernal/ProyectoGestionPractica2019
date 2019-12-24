@@ -58,7 +58,8 @@ class AlumnoController extends Controller
         $nuevo->fono = $data['fono'];
 		$nuevo->anno_ingreso = $data['anno_ingreso'];
         $nuevo->carrera = $data['carrera'];
-        $nuevo->estimacion_semestre = $data['estimacion_semestre'];
+        $nuevo->semestre_proyecto = $data['semestreProyecto'];
+        $nuevo->anno_proyecto = $data['annoProyecto'];
 
         $nueva_instancia = new User;
         $nueva_instancia->name = $nuevo->nombre;
@@ -90,8 +91,8 @@ class AlumnoController extends Controller
             $elemento_editar->fono=$request->fono;
 			$elemento_editar->anno_ingreso=$request->anno_ingreso;
             $elemento_editar->carrera=$request->carrera;
-            $elemento_editar->estimacion_semestre=$request->estimacion_semestre;
-
+            $elemento_editar->semestre_proyecto=$request->semestreProyecto;
+            $elemento_editar->anno_proyecto=$request->annoProyecto;
 
             $user_editar=User::find($elemento_editar->id_user);
             if(isset($user_editar))
@@ -111,7 +112,8 @@ class AlumnoController extends Controller
 
     public function borrarAlumno($id_elemento){
         $elemento_eliminar =  Alumno::find($id_elemento);
-        $elemento_eliminar->delete();
+        $usuario_eliminar = User::find($elemento_eliminar->id_user);
+        $usuario_eliminar->delete();
         return redirect()->route('lista_alumnos');
     }
 

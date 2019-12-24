@@ -19,6 +19,8 @@ use SGPP\EvalActPractica;
 use SGPP\EvalActitudinal;
 use SGPP\EvalConPractica;
 use SGPP\EvalConocimiento;
+use SGPP\OtrosAreas;
+use SGPP\OtrosHerramientas;
 use Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -26,7 +28,16 @@ class AutoEvaluacionController extends Controller
 {
     public function index()
     {
-        return view('3 Evaluacion/formularioAutoEvaluacion');
+        $area = Area::all()->where('vigencia',"1");
+        $herramienta = Herramienta::all()->where('vigencia',"1");;
+        $actitud = EvalActitudinal::all()->where('vigencia',"1");;
+        $conocimiento = EvalConocimiento::all()->where('vigencia',"1");;
+        return view('3 Evaluacion/formularioAutoEvaluacion',[
+            'area'=>$area,
+            'herramienta'=>$herramienta,
+            'actitud'=>$actitud,
+            'conocimiento'=>$conocimiento,
+        ]);
     }
     public function verDescripcionAutoEvaluacion(){
         return view('3 Evaluacion/autoEvaluacion');
@@ -101,7 +112,7 @@ class AutoEvaluacionController extends Controller
         Desempenno::create([
             'id_autoeval' => $autoevaluaciones->id_autoeval,
             'valor' => $request->desempenno,
-            'dp_tarea' => $request->dpDesempenno
+            'dp_desempenno' => $request->dpDesempenno
         ]);
 
         for($i = 0; $i<count($request->tarea,1); $i++)
@@ -109,7 +120,7 @@ class AutoEvaluacionController extends Controller
             Tarea::create([
                 'id_autoeval' => $autoevaluaciones->id_autoeval,
                 'n_tarea' => $request->tarea[$i],
-                'dp_tarea' => "sin descripcion"
+                'dp_tarea' => $request->dptarea[$i]
             ]);
         }
         for($i = 0; $i<count($request->conocimiento,1); $i++)
@@ -117,8 +128,26 @@ class AutoEvaluacionController extends Controller
             Conocimiento::create([
                 'id_autoeval' => $autoevaluaciones->id_autoeval,
                 'n_conocimiento' => $request->conocimiento[$i],
-                'dp_conocimiento' => "sin descripcion",
-                'tipo_conocimiento' => 1
+                'dp_conocimiento' => $request->dpConocimiento[$i],
+                'tipo_conocimiento' => "adquirida"
+            ]);
+        }
+        for($i = 0; $i<count($request->conocimientoA,1); $i++)
+        {
+            Conocimiento::create([
+                'id_autoeval' => $autoevaluaciones->id_autoeval,
+                'n_conocimiento' => $request->conocimientoA[$i],
+                'dp_conocimiento' => $request->dpConocimientoA[$i],
+                'tipo_conocimiento' => "aprendida"
+            ]);
+        }
+        for($i = 0; $i<count($request->conocimientoF,1); $i++)
+        {
+            Conocimiento::create([
+                'id_autoeval' => $autoevaluaciones->id_autoeval,
+                'n_conocimiento' => $request->conocimientoF[$i],
+                'dp_conocimiento' => $request->dpConocimientoF[$i],
+                'tipo_conocimiento' => "faltante"
             ]);
         }
         for($i = 0; $i<count($request->habilidadA,1); $i++)
@@ -126,7 +155,7 @@ class AutoEvaluacionController extends Controller
             Habilidad::create([
                 'id_autoeval' => $autoevaluaciones->id_autoeval,
                 'n_habilidad' => $request->habilidadA[$i],
-                'dp_habilidad' => "sin descripcion",
+                'dp_habilidad' => $request->dpHabilidadA[$i],
                 'tipo_habilidad' => "aprendida"
             ]);
         }
@@ -136,64 +165,72 @@ class AutoEvaluacionController extends Controller
             Habilidad::create([
                 'id_autoeval' => $autoevaluaciones->id_autoeval,
                 'n_habilidad' => $request->habilidadF[$i],
-                'dp_habilidad' => "sin descripcion",
+                'dp_habilidad' => $request->dpHabilidadF[$i],
                 'tipo_habilidad' => "faltante"
             ]);
         }
 
         for($i = 0; $i<count($request->area,1); $i++)
         {
-            $areas = Area::create([
-                'n_area' => $request->area[$i]
-            ]);
+            $areas = Area::all()->where("n_area",$request->area[$i])->first();
 
             AreaAutoeval::create([
                 'id_autoeval' => $autoevaluaciones->id_autoeval,
-                'id_area' => $areas->id_area
+                'id_area' => $areas->id_area,
             ]);
         }
 
         for($i = 0; $i<count($request->herramienta,1); $i++)
         {
-            $herramientas = Herramienta::create([
-                'n_herramienta' => $request->herramienta[$i]
-            ]);
+            $herramientas =  Herramienta::all()->where("n_herramienta",$request->herramienta[$i])->first();
 
             HerramientaPractica::create([
                 'id_autoeval' => $autoevaluaciones->id_autoeval,
-                'id_herramienta' => $herramientas->id_herramienta
+                'id_herramienta' => $herramientas->id_herramienta,
             ]);
         }
 
         for($i = 0; $i<count($request->criterio,1); $i++)
         {
-            $criterios = EvalActitudinal::create([
-                'n_act' => $request->criterio[$i],
-                'dp_act' => "sin descripcion"
-            ]);
+            $actitud =  EvalActitudinal::all()->where("id_actitudinal",$request->actitud[$i])->first();
 
             EvalActPractica::create([
                 'id_autoeval' => $autoevaluaciones->id_autoeval,
-                'id_actitudinal' => $criterios->id_actitudinal
-
+                'id_actitudinal' => $actitud->id_actitudinal,
+                'valor_act_practica' => $request->criterio[$i]
             ]);
         }
 
         for($i = 0; $i<count($request->criterio2,1); $i++)
         {
-            $criterios2 = EvalConocimiento::create([
-                'n_con' => $request->criterio2[$i],
-                'dp_con' => "sin descripcion"
-            ]);
+            $conocimiento =  EvalConocimiento::all()->where("id_conocimiento",$request->criterioConocimiento[$i])->first();
 
             EvalConPractica::create([
                 'id_autoeval' => $autoevaluaciones->id_autoeval,
-                'id_conocimiento' => $criterios2->id_conocimiento
-
+                'id_conocimiento' => $conocimiento->id_conocimiento,
+                'valor_con_practica' => $request->criterio2[$i]
             ]);
         }
 
+        if($request->areasOtros != null)
+        {
+            for ($i = 0; $i < count($request->areasOtros, 1); $i++)
+            {
+                OtrosAreas::create([
+                    'n_area' => $request->areasOtros[$i]
+                ]);
+            }
+        }
 
+        if($request->herramientasOtros != null)
+        {
+            for($i = 0; $i<count($request->herramientasOtros,1); $i++)
+            {
+                OtrosHerramientas::create([
+                    'n_herramienta' => $request->herramientasOtros[$i]
+                ]);
+            }
+        }
         return redirect()->route('descripcionAutoEvaluacion');
     }
 

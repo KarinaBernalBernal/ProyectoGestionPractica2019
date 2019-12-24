@@ -9,7 +9,7 @@ class Practica extends Model
     protected $primaryKey = 'id_practica';
 
     protected $fillable = [
-        'f_solicitud','f_inscripcion','f_desde','f_hasta','asist_ch_post_pract','asist_ch_pre_pract','id_alumno','id_supervisor'
+        'f_solicitud','f_inscripcion','f_desde','f_hasta','asist_ch_post_pract','id_alumno','id_supervisor'
     ];
 
     public function alumno(){

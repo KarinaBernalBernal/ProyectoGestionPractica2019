@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container-fluid">
-        <h3>Mantenedor de Auto evaluaciones</h3>
+        <h3>Mantenedor de Autoevaluaciones</h3>
         <br>
     </div>
     <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
@@ -19,13 +19,14 @@
                                         <th>Id</th>
                                         <th>Fecha entrega</th>
                                         <th>Id practica</th>
+                                        <th>Opción</th>
                                     </tr >
                                 </thead>
                                 <tbody>
                                     @foreach ($lista as $auto_evaluacion)
                                         <tr id="{{$auto_evaluacion->id_autoeval}}">
                                             <td>{{$auto_evaluacion->id_autoeval}}</td>
-                                            <td>{{$auto_evaluacion->f_entrega}}</td>
+                                            <td>{{ date('d-m-Y', strtotime($auto_evaluacion->f_entrega)) }}</td>
                                             <td>{{$auto_evaluacion->id_practica}}</td>
                                             <td>
                                                 <a href="{{route('editar_auto_evaluacion',[$auto_evaluacion->id_autoeval])}} "><button id="{{$auto_evaluacion->id_autoeval}}" class="btn btn-warning">Editar</button></a>
@@ -34,13 +35,6 @@
                                         </tr>
                                     @endforeach
                                 </tbody>
-                                <tfoot>
-                                    <tr >
-                                        <th>Id</th>
-                                        <th>Fecha entrega</th>
-                                        <th>Id practica</th>
-                                    </tr>
-                                </tfoot>
                             </table>
                         </div>
                     </div>
@@ -58,9 +52,11 @@
             <div class="col-md-2">
                     <a href="/"><button class="btn btn-primary btn-lg">Atras</button></a>
             </div>
+            {{--
             <div class='ml-auto'>
                 <a href="{{route ('crear_auto_evaluacion')}}"><button id="boton_agregar" class="btn btn-primary btn-lg">Agregar</button></a>
             </div>
+            --}}
         </div>
 
     </div>

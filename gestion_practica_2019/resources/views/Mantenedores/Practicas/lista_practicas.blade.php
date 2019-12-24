@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container-fluid">
-        <h3>Mantenedor de Practicas</h3>
+        <h3>Mantenedor de Prácticas</h3>
         <br>
     </div>
     <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
@@ -11,20 +11,19 @@
             <div class="text-center">
                 @if (count($lista)>0)
                     <!-- DATA TABLES -->
-                    <div class="row d-flex justify-content-center">
+                    <div class="container-fluid">
                         <div class="table-responsive">
                             <table class="table table-bordered" id="MyTable">
                                 <thead class="bg-dark" style="color: white">
                                 <tr >
                                     <th>Id</th>
-                                    <th>f_solicitud</th>
-                                    <th>f_inscripcion</th>
-                                    <th>f_desde</th>
-                                    <th>f_hasta</th>
-                                    <th>asist_ch_post_pract</th>
-                                    <th>asist_ch_pre_pract</th>
-                                    <th>id_alumno</th>
-                                    <th>id_supervisor</th>
+                                    <th>Fecha Solicitud</th>
+                                    <th>Fecha Inscripción</th>
+                                    <th>Prac Desde</th>
+                                    <th>Prac Hasta</th>
+                                    <th>Asistencia Charla</th>
+                                    <th>Alumno</th>
+                                    <th>Supervisor</th>
                                     <th>Opción</th>
                                 </tr >
                                 </thead>
@@ -32,12 +31,11 @@
                                     @foreach ($lista as $practica)
                                         <tr id="{{$practica->id_practica}}">
                                             <td>{{$practica->id_practica}}</td>
-                                            <td>{{$practica->f_solicitud}}</td>
-                                            <td>{{$practica->f_inscripcion}}</td>
-                                            <td>{{$practica->f_desde}}</td>
-                                            <td>{{$practica->f_hasta}}</td>
+                                            <td>{{ date('d-m-Y', strtotime($practica->f_solicitud)) }}</td>
+                                            <td>{{ date('d-m-Y', strtotime($practica->f_inscripcion)) }}</td>
+                                            <td>{{ date('d-m-Y', strtotime($practica->f_desde)) }}</td>
+                                            <td>{{ date('d-m-Y', strtotime($practica->f_hasta)) }}</td>
                                             <td>{{$practica->asist_ch_post_pract}}</td>
-                                            <td>{{$practica->asist_ch_pre_pract}}</td>
                                             <td>{{$practica->id_alumno}}</td>
                                             <td>{{$practica->id_supervisor}}</td>
 
@@ -49,20 +47,6 @@
                                         </tr>
                                     @endforeach
                                 </tbody>
-                                <tfoot>
-                                <tr >
-                                    <th>Id</th>
-                                    <th>f_solicitud</th>
-                                    <th>f_inscripcion</th>
-                                    <th>f_desde</th>
-                                    <th>f_hasta</th>
-                                    <th>asist_ch_post_pract</th>
-                                    <th>asist_ch_pre_pract</th>
-                                    <th>id_alumno</th>
-                                    <th>id_supervisor</th>
-                                    <th>Opción</th>
-                                </tr>
-                                </tfoot>
                             </table>
                         </div>
                     </div>

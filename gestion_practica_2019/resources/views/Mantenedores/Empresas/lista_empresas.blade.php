@@ -11,7 +11,7 @@
             <div class="text-center">
                 @if (count($lista)>0)
                     <!-- DATA TABLES -->
-                    <div class="row d-flex justify-content-center">
+                    <div class="container-fluid">
                         <div class="table-responsive">
                             <table class="table table-bordered" id="MyTable">
                                 <thead class="bg-dark" style="color: white">
@@ -45,19 +45,6 @@
                                         </tr>
                                     @endforeach
                                 </tbody>
-                                <tfoot>
-                                <tr >
-                                    <th>Id</th>
-                                    <th>Nombre</th>
-                                    <th>RUT</th>
-                                    <th>Ciudad</th>
-                                    <th>Direccion</th>
-                                    <th>Telefono</th>
-                                    <th>Casilla</th>
-                                    <th>Email</th>
-                                    <th>Opción</th>
-                                </tr>
-                                </tfoot>
                             </table>
                         </div>
                     </div>

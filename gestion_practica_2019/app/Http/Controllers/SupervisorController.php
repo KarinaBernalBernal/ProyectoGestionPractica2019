@@ -58,8 +58,6 @@ class SupervisorController extends Controller
         $nuevo = new Supervisor;
         $nuevo->nombre = $data['nombre'];
         $nuevo->apellido_paterno = $data['apellido_paterno'];
-        //Verificar @Pablo y @Luis
-        //$nuevo->apellido_materno = $data['apellido_materno'];
         $nuevo->cargo = $data['cargo'];
         $nuevo->departamento = $data['departamento'];
         $nuevo->email = $data['email'];
@@ -89,8 +87,6 @@ class SupervisorController extends Controller
         {
             $elemento_editar->nombre=$request->nombre;
             $elemento_editar->apellido_paterno=$request->apellido_paterno;
-            //Verificar @Pablo y @Luis
-            //$elemento_editar->apellido_materno=$request->apellido_materno;
             $elemento_editar->cargo=$request->cargo;
             $elemento_editar->departamento=$request->departamento;
             $elemento_editar->email=$request->email;

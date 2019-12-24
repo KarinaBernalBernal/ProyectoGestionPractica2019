@@ -17,6 +17,7 @@ class CreateEvalActitudinalesTable extends Migration
             $table->increments('id_actitudinal');
             $table->string('n_act');
             $table->string('dp_act');
+            $table->integer('vigencia')->default(1);
 
             $table->timestamps();
         });

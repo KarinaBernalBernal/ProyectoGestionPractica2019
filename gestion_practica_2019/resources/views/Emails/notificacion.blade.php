@@ -106,16 +106,17 @@
                 <p>El jefe de Docencia escribio la siguiente observación: <b>{{$observacion}}</b></p>
                 @endif
 
-                @if($resolucion == "Aprobado")
+                @if($resolucion == "Autorizada")
                   <p>La información de los pasos a seguir se encuentran en la pagina de Sistema de gestión de practica profesional.
                   Puedes acceder al sistema con tu correo y contraseña , siendo este ultimo tu rut.</p>
                 @endif
 
-                @if($resolucion == "Rechazado")
+                @if($resolucion == "Rechazada")
                   <p>No podrás realizar la práctica profesional este semestre, para mas información, puedes consultar tus dudas en docencia.</p>
                 @endif
                 @if($resolucion == "Pendiente")
-                  <p>La</p>
+                  <p>La información de los pasos a seguir se encuentran en la pagina de Sistema de gestión de practica profesional.
+                      Puedes acceder al sistema con tu correo y contraseña , siendo este ultimo tu rut. Para que esta solicitud finalmente sea autorizada, es necesario que a final de semestre, apruebes las asignaturas que estás cursando.</p>
                 @endif
               </td>
             </tr>

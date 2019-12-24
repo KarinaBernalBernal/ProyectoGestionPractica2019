@@ -43,13 +43,10 @@ class UsuarioController extends Controller
 
     public function editar($id_elemento)
     {
-        // dd($id_elemento);
-
         $elemento= User::find($id_elemento);
         return view('Mantenedores/Usuarios/editar_usuario',[
                 'elemento'=>$elemento,
         	]);
-
     }
 
     public function editarUsuario(Request $request, $id_elemento)
@@ -75,16 +72,4 @@ class UsuarioController extends Controller
             return redirect()->route('lista_usuarios');
 
     }
-
-    // public function get_permissions(Request $request){
-    //     $user = $request->$user->id;
-    //     $profile = None;
-    //     if (isset($user->$profile))
-    //     {
-    //         $profile = $user->$profile;
-    //         $permissions = Recurso::all()->where('profile', 'profile');
-    //     }
-    //     return view('get_permissions')->with('permissions', $permissions);
-    // }
-
 }

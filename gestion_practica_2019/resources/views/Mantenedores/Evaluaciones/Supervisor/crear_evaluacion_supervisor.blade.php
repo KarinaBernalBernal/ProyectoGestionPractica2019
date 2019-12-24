@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-md col-md-offset-2">
                 <div class="card">
-                    <div class="card-header"><h1>Agregar alumno</h1></div>
+                    <div class="card-header"><h1>Agregar Evaluación</h1></div>
                     <div class="card-body">
                         <form class="form-horizontal" action="{{route('agregar_evaluacion_supervisor')}}" method="post">
                             {{ csrf_field() }}
@@ -35,7 +35,7 @@
                              <div class="form-group{{ $errors->has('f_entrega_eval') ? ' has-error' : '' }}">
                                 <label for="f_entrega_eval" class="col-md-4 control-label">Fecha entrega evaluación</label>
                                 <div class="col-md-6">
-                                    <input id="f_entrega_eval" type="text" class="form-control" name="f_entrega_eval" required autofocus>
+                                    <input id="f_entrega_eval" type="date" class="form-control" name="f_entrega_eval" required autofocus>
                                     @if ($errors->has('f_entrega_eval'))
                                         <span class="help-block">
                                             <strong>{{ $errors->first('f_entrega_eval') }}</strong>
@@ -59,7 +59,7 @@
                                     <button type="submit" class="btn btn-primary">
                                         Guardar
                                     </button>
-                                    <a href="{{route('lista_evaluaciones_supervisor')}}"><button class="btn btn-secondary">Cancelar</button></a>
+                                    <a href="{{route('lista_evaluaciones_supervisor')}}"><button class="btn btn-secondary" type="button">Cancelar</button></a>
                                 </div>
                             </div>
                         </form>

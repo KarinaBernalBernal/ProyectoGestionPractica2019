@@ -1,6 +1,6 @@
 <!-- Sidebar -->
-<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar" style="position: fixed; z-index: 1; width: 100%; height: 100%; overflow-x: hidden;">  <!-- style="position: fixed; z-index: 1;"  -->
 
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar" style="position: fixed; z-index: 1; width: 100%; height: 100%; overflow-x: hidden;">  <!-- style="position: fixed; z-index: 1;"  -->
     <!-- Sidebar - Brand -->
     <li class="nav-item">
         <div class="sidebar-brand d-flex align-items-center justify-content-center">
@@ -36,20 +36,24 @@
                 <li class="nav-item">
 
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseGestionCuentas" aria-expanded="true" aria-controls="collapseGestionCuentas"><i class="fas fa-users"></i>
-                    <span>Gestionar cuentas</span>
+                    <span>Mantenedores</span>
                     </a>
                     <div id="collapseGestionCuentas" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
 
-                            <a class="collapse-item" href="{{route('lista_usuarios')}}">Gestion de usuarios</a>
-                            <!--<a class="collapse-item" href="{{route('lista_recursos')}}">Gestión de recursos</a>-->
-                            <!--<a class="collapse-item" href="{{route('lista_perfiles')}}">Gestión de perfiles</a>-->
-                            <a class="collapse-item" href="{{route('lista_alumnos')}}">Gestión de alumnos</a>
-                            <a class="collapse-item" href="{{route('lista_supervisores')}}">Gestión de supervisores</a>
-                            <a class="collapse-item" href="{{route('lista_practicas')}}">Gestión de practicas</a>
-                            <a class="collapse-item" href="{{route('lista_evaluaciones_supervisor')}}">Gestión de evaluaciones supervisor</a>
-                            <a class="collapse-item" href="{{route('lista_empresas')}}">Gestión de empresas</a>
-                            <a class="collapse-item" href="{{route('lista_auto_evaluaciones')}}">Gestión de auto evaluaciones</a>
+                            <a class="collapse-item" href="{{route('lista_usuarios')}}">Usuarios</a>
+                            <!--<a class="collapse-item" href="{{route('lista_recursos')}}">recursos</a>-->
+                            <!--<a class="collapse-item" href="{{route('lista_perfiles')}}">perfiles</a>-->
+                            <a class="collapse-item" href="{{route('lista_alumnos')}}">Alumnos</a>
+                            <a class="collapse-item" href="{{route('lista_administradores')}}">Administradores</a>
+                            <a class="collapse-item" href="{{route('lista_supervisores')}}">Supervisores</a>
+                            <a class="collapse-item" href="{{route('lista_practicas')}}">Prácticas</a>
+                            <a class="collapse-item" href="{{route('lista_empresas')}}">Empresas</a>
+                            <a class="collapse-item" href="{{route('lista_auto_evaluaciones')}}">Autoevaluaciones</a>
+                            <a class="collapse-item" href="{{route('lista_evaluaciones_supervisor')}}">Evaluaciones supervisor</a>
+                            <h6 class="collapse-header">Formularios</h6>
+                            <a class="collapse-item" href="{{route('lista_elementos_dinamicos')}}">Elementos dinámicos</a>
+                            <a class="collapse-item" href="{{route('lista_otros')}}">Respuestas "otro"</a>
                         </div>
                     </div>
                 </li>
@@ -243,8 +247,8 @@
         <i class="fas fa-angle-double-left fa-2x" id="hola" style="color: #f2eeed;"></i>
     </div>
 
-
 </ul>
+
 <!-- End of Sidebar -->
 
 <script>

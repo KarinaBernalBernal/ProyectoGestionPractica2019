@@ -10,7 +10,7 @@ class EvalActitudinal extends Model
     protected $primaryKey = 'id_actitudinal';
 
     protected $fillable = [
-        'n_act','dp_act'
+        'n_act','dp_act', 'vigencia'
     ];
 
     public function evalActPractica(){
