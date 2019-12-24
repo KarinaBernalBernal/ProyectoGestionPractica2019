@@ -15,16 +15,33 @@ use SGPP\Practica;
 use SGPP\EvalActitudinal;
 use SGPP\EvalConocimiento;
 use Auth;
+use Illuminate\Support\Facades\DB;
+
 class EvaluacionSupervisorController extends Controller
 {
 
-    public function index()
+    public function index($id)
     {
-        return view('3 Evaluacion/formularioEvaluacionEmpresa');
+        return view('3 Evaluacion/formularioEvaluacionEmpresa')->with('id',$id);
     }
-    public function verDescripcionEvaluacionEmpresa(){
-        return view('3 Evaluacion/evaluacionEmpresa');
+
+    public function verDescripcionEvaluacionEmpresa()
+    {
+        $id = auth()->user()->id_user;
+        $supervisores = Supervisor::where('id_user', $id)->first();
+
+        //-----Alumnos bajo el cargo del supervisor-----//
+        $alumnos = DB::table('alumnos')
+            ->join('practicas', 'practicas.id_alumno', '=','alumnos.id_alumno')
+            ->join('supervisores', 'supervisores.id_supervisor', '=', 'practicas.id_supervisor')
+            ->where('practicas.id_supervisor', '=', $supervisores->id_supervisor)
+            ->select('alumnos.*')
+            ->get();
+
+        /*Se envian a todos los alumnos que corresponden al supervisor*/
+        return view('3 Evaluacion/evaluacionEmpresa')->with('lista',$alumnos);
     }
+
     //vista principal de un elemento en especifico
     public function lista()
     {
@@ -33,6 +50,7 @@ class EvaluacionSupervisorController extends Controller
                 'lista'=>$lista,
             ]);
     }
+
     public function crear()
     {
         return view('Mantenedores/Evaluaciones/Supervisor/crear_evaluacion_supervisor');
@@ -76,18 +94,17 @@ class EvaluacionSupervisorController extends Controller
             return redirect()->route('lista_evaluaciones_supervisor');
         }
     }
+
     public function borrarEvaluacionSupervisor($id_elemento){
         $elemento_eliminar =  EvaluacionSupervisor::find($id_elemento);
         $elemento_eliminar->delete();
         return redirect()->route('lista_evaluaciones_supervisor');
     }
 
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
         $fecha= date("Y-m-d H:i:s");
-        $id = auth()->user()->id_user;
-        $supervisores = Supervisor::where('id_user', $id)->first();
-        $practicas = Practica::where('id_supervisor', $supervisores->id_supervisor)->first();
+        $practicas = Practica::where('id_alumno', $id)->first();
 
         $evaluacionesSupervisor = EvaluacionSupervisor::create([
             'id_practica' => $practicas->id_practica,
@@ -154,8 +171,63 @@ class EvaluacionSupervisorController extends Controller
                 'id_area' => $areas->id_area
             ]);
         }
-
-
         return redirect()->route('descripcionAutoEvaluacion');
+    }
+
+    public static function verificarEvaluacionAlumno($id)
+    {
+        $practicas = Practica::where('id_alumno', $id)->first();
+        $evaluacion = EvaluacionSupervisor::where('id_practica', $practicas->id_practica)->first();
+
+        if( $evaluacion != null )
+        {
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function mostrarEvaluacionModal($id)
+    {
+        $practicas = Practica::where('id_alumno', $id)->first();
+        $evaluacion = EvaluacionSupervisor::where('id_practica', $practicas->id_practica)->first();
+
+        return view('Practicas/modales/modalEvaluacion')->with('formulario',$evaluacion);
+    }
+
+    public function listaEvaluacionSupervisor(Request $request, $carrera)
+    {
+        //-----Supervisores de informatica-----//
+        $supervisoresInformatica = DB::table('supervisores')
+            ->join('practicas', 'practicas.id_supervisor', '=', 'supervisores.id_supervisor')
+            ->join('alumnos', 'alumnos.id_alumno', '=', 'practicas.id_alumno')
+            ->join('evaluaciones_supervisor', 'evaluaciones_supervisor.id_practica', 'practicas.id_practica')
+            ->where('alumnos.carrera', '=', $carrera)
+            ->select('supervisores.*', 'evaluaciones_supervisor.*', 'evaluaciones_supervisor.f_entrega_eval', 'alumnos.nombre as nombre_alumno', 'alumnos.apellido_paterno as apellido_alumno')
+            ->get();
+
+        //-----Si no se seleccionaron filtros solo entregamos la consulta de la base-----//
+        if ($request->nombre != null || $request->apellido_paterno != null || $request->email != null || $request->fono != null || $request->f_entrega_eval)
+        {
+            //-----Filtro-----//
+            $listaFiltrada= EvaluacionSupervisor::filtrarEvaluaciones(
+                $request->get('nombre'),
+                $request->get('apellido_paterno'),
+                $request->get('email'),
+                $request->get('fono'),
+                $request->get('f_entrega_eval'),
+                $carrera
+            );
+            $contador = $listaFiltrada->count();  //mostrara la cantidad de resultados en la tabla filtrada
+            $listaFiltrada = $listaFiltrada->paginate(5);
+            return view('3 Evaluacion/listaEvaluacionSupervisor')->with('evaluacion',$listaFiltrada)
+                ->with('contador', $contador)
+                ->with('carrera', $carrera);
+        }
+        $contador = $supervisoresInformatica->count(); //mostrara la cantidad de resultados en la tabla
+        $supervisoresInformatica = $supervisoresInformatica->paginate(5);
+        return view('3 Evaluacion/listaEvaluacionSupervisor')->with('evaluacion',$supervisoresInformatica)
+            ->with('contador', $contador)
+            ->with('carrera', $carrera);
     }
 }

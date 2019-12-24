@@ -22,10 +22,11 @@ class AlumnoController extends Controller
                                         $request->get('nombre'), 
                                         $request->get('apellido_paterno'),
                                         $request->get('apellido_materno'),
+                                        $request->get('rut'),
                                         $request->get('email'),
                                         $request->get('anno_ingreso'),
                                         $request->get('carrera')
-                                    );
+                                    )->paginate(3);
         return view('Mantenedores.Alumnos.lista_alumnos')->with("lista", $lista);
     }
 
@@ -117,11 +118,20 @@ class AlumnoController extends Controller
     public function alumnosEnPracticaEjecucion(Request $request)
     {
         //-----Alumnos de informatica-----//
-        $alumnosInformatica = Alumno::all()->where('carrera', 'Ingeniería de Ejecución Informática');
+        $alumnosInformatica = DB::table('alumnos')
+            ->join('practicas', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
+            ->leftJoin('autoevaluaciones', 'autoevaluaciones.id_practica', 'practicas.id_practica')
+            ->leftJoin('solicitudes', 'solicitudes.id_alumno', 'alumnos.id_alumno')
+            ->where('alumnos.carrera', '=', "Ingeniería de Ejecución Informática")
+            ->select('alumnos.*', 'solicitudes.id_solicitud', 'autoevaluaciones.id_autoeval', 'practicas.f_inscripcion')
+            ->get();
+
+        $contador = $alumnosInformatica->count(); //mostrara la cantidad de resultados en la tabla
+
 
         //-----Si no se seleccionaron filtros solo entregamos la consulta de la base-----//
 
-        if ($request->nombre != null || $request->apellido_paterno != null || $request->email != null || $request->anno_ingreso != null )
+        if ($request->nombre != null || $request->apellido_paterno != null || $request->rut != null || $request->email != null || $request->anno_ingreso != null )
         {
             $alumnosFiltrados = collect();
 
@@ -130,6 +140,7 @@ class AlumnoController extends Controller
                 $request->get('nombre'),
                 $request->get('apellido_paterno'),
                 $request->get(null),
+                $request->get('rut'),
                 $request->get('email'),
                 $request->get('anno_ingreso'),
                 $request->get(null)
@@ -145,19 +156,30 @@ class AlumnoController extends Controller
                     }
                 }
             }
-            return view('Practicas/Ejecucion/alumnos_en_practica')->with('lista',$alumnosFiltrados);
+            $contador = $alumnosFiltrados->count();  //mostrara la cantidad de resultados en la tabla filtrada
+            $alumnosFiltrados = $alumnosFiltrados->paginate(5);
+            return view('Practicas/Ejecucion/alumnos_en_practica')->with('lista',$alumnosFiltrados)->with('contador',$contador);
         }
-        return view('Practicas/Ejecucion/alumnos_en_practica')->with('lista',$alumnosInformatica);
+        $alumnosInformatica = $alumnosInformatica->paginate(5);
+        return view('Practicas/Ejecucion/alumnos_en_practica')->with('lista',$alumnosInformatica)->with('contador', $contador);
     }
 
     public function alumnosEnPracticaCivil(Request $request)
     {
-        //-----Alumnos de informatica-----//
-        $alumnosInformatica = Alumno::all()->where('carrera', 'Ingeniería Civil Informática');
+        //-----Alumnos de civil informatica-----//
+        $alumnosInformatica = DB::table('alumnos')
+
+            ->join('practicas', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
+            ->leftJoin('autoevaluaciones', 'autoevaluaciones.id_practica', 'practicas.id_practica')
+            ->leftJoin('solicitudes', 'solicitudes.id_alumno', 'alumnos.id_alumno')
+            ->where('alumnos.carrera', '=', "Ingeniería Civil Informática")
+            ->select('alumnos.*', 'solicitudes.id_solicitud', 'autoevaluaciones.id_autoeval', 'practicas.f_inscripcion')
+            ->get();
+
+        $contador = $alumnosInformatica->count(); //mostrara la cantidad de resultados en la tabla
 
         //-----Si no se seleccionaron filtros solo entregamos la consulta de la base-----//
-
-        if ($request->nombre != null || $request->apellido_paterno != null || $request->email != null || $request->anno_ingreso != null )
+        if ($request->nombre != null || $request->apellido_paterno != null || $request->rut != null || $request->email != null || $request->anno_ingreso != null )
         {
             $alumnosFiltrados = collect();
 
@@ -166,6 +188,7 @@ class AlumnoController extends Controller
                 $request->get('nombre'),
                 $request->get('apellido_paterno'),
                 $request->get(null),
+                $request->get('rut'),
                 $request->get('email'),
                 $request->get('anno_ingreso'),
                 $request->get(null)
@@ -181,42 +204,19 @@ class AlumnoController extends Controller
                     }
                 }
             }
-            return view('Practicas/Civil/alumnos_en_practica')->with('lista',$alumnosFiltrados);
+            $contador = $alumnosFiltrados->count();  //mostrara la cantidad de resultados en la tabla filtrada
+            $alumnosFiltrados = $alumnosFiltrados->paginate(5);
+            return view('Practicas/Civil/alumnos_en_practica')->with('lista',$alumnosFiltrados)->with('contador',$contador);
         }
-        return view('Practicas/Civil/alumnos_en_practica')->with('lista',$alumnosInformatica);
-    }
-
-
-    public static function verificarSolicitudAlumno($id) //Comprobar si el alumno tiene su solicitud
-    {
-        $solicitudes = Solicitud::where('id_alumno', $id)->first();
-
-        if( $solicitudes != null )
-        {
-            return true;
-        }else{
-            return false;
-        }
+        $alumnosInformatica = $alumnosInformatica->paginate(5);
+        return view('Practicas/Civil/alumnos_en_practica')->with('lista',$alumnosInformatica)->with('contador',$contador);
     }
 
     public function mostrarSolicitudModal($id) //Mostrar el formulario del alumno
     {
         $solicitudes = Solicitud::where('id_alumno', $id)->first();
 
-        return view('Practicas/Ejecucion/modales/modalSolicitud')->with('formulario',$solicitudes);
-    }
-
-    public static function verificarInscripcionAlumno($id) //Comprobar si el alumno tiene su inscripcion
-    {
-        $alumnos = Alumno::where('id_alumno', $id)->first();
-        $practicas = Practica::where('id_alumno', $alumnos->id_alumno)->first();
-
-        if( $practicas->f_inscripcion != null )
-        {
-            return true;
-        }else{
-            return false;
-        }
+        return view('Practicas/modales/modalSolicitud')->with('solicitudes',$solicitudes);
     }
 
     public function mostrarInscripcionModal($id) //Mostrar el formulario del alumno
@@ -226,24 +226,11 @@ class AlumnoController extends Controller
         $supervisores = Supervisor::where('id_supervisor', $practicas->id_supervisor)->first();
         $empresas = Empresa::where('id_empresa', $supervisores->id_empresa)->first();
 
-        return view('Practicas/Ejecucion/modales/modalInscripcion')
+        return view('Practicas/modales/modalInscripcion')
             ->with('alumnos',$alumnos)
             ->with('practicas',$practicas)
             ->with('supervisores',$supervisores)
             ->with('empresas', $empresas);
-    }
-
-    public static function verificarAutoEvaluacionAlumno($id) //Comprobar si el alumno tiene su auto evaluacion
-    {
-        $practicas = Practica::where('id_alumno', $id)->first();
-        $autoEvaluacion = Autoevaluacion::where('id_practica', $practicas->id_practica)->first();
-
-        if( $autoEvaluacion != null )
-        {
-            return true;
-        }else{
-            return false;
-        }
     }
 
     public function mostrarAutoEvaluacionModal($id) //Mostrar el formulario del alumno
@@ -251,9 +238,7 @@ class AlumnoController extends Controller
         $practicas = Practica::where('id_alumno', $id)->first();
         $autoEvaluacion = Autoevaluacion::where('id_practica', $practicas->id_practica)->first();
 
-        return view('Practicas/Ejecucion/modales/modalAutoEvaluacion')->with('formulario',$autoEvaluacion);
+        return view('Practicas/modales/modalAutoEvaluacion')->with('formulario',$autoEvaluacion);
     }
-
-
 
 }

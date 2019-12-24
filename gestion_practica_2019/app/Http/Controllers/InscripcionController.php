@@ -11,6 +11,7 @@ use SGPP\User;
 use SGPP\Supervisor;
 use SGPP\Empresa;
 use SGPP\Solicitud;
+use Illuminate\Support\Facades\DB;
 
 
 
@@ -79,6 +80,7 @@ class InscripcionController extends Controller
 
         return redirect()->route('descripcionSolicitudDocumentos');
     }
+
     public function storeInscripcion(Request $request)
     {
         $fecha = date("Y-m-d");
@@ -167,18 +169,35 @@ class InscripcionController extends Controller
     }
 
     /* -------Listas de inscripcion -----*/
-    public function listaInscripcionCivil(){
-        $practicas = Practica::orderBy('id_alumno','DESC')->paginate(7);
-        $alumnos = Alumno::orderBy('id_alumno','DESC')->where('carrera', 'Ingeniería Civil Informática')->paginate(7);
+    public function listaInscripcion(Request $request, $carrera)
+    {
+        $alumnosInformatica = DB::table('alumnos')
+            ->join('practicas', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
+            ->where('alumnos.carrera', '=', $carrera)
+            ->where('practicas.f_inscripcion', '!=', null)
+            ->select('alumnos.*', 'practicas.*')
+            ->get();
 
-        return view('2 Inscripcion/listaInscripcion')->with('practicas', $practicas)->with('alumnos',$alumnos);
-    }   
-    public function listaInscripcionEjecucion(){
-        $practicas = Practica::orderBy('id_alumno','DESC')->paginate(7);
-        $alumnos = Alumno::orderBy('id_alumno','DESC')->where('carrera', 'Ingeniería de Ejecución Informática')->paginate(7);
-
-        return view('2 Inscripcion/listaInscripcion')->with('practicas', $practicas)->with('alumnos',$alumnos);
+        if ($request->nombre != null || $request->apellido_paterno != null || $request->rut != null || $request->f_inscripcion != null)
+        {
+            //-----Filtro-----//
+            $listaFiltrada= Alumno::filtrarFechaPractica(
+                $request->get('nombre'),
+                $request->get('apellido_paterno'),
+                $request->get('rut'),
+                $request->get('f_inscripcion'),
+                $carrera
+            );
+            $contador = $listaFiltrada->count();  //mostrara la cantidad de resultados en la tabla filtrada
+            $listaFiltrada = $listaFiltrada->paginate(7);
+            return view('2 Inscripcion/listaInscripcion')->with('alumnos',$listaFiltrada)
+                ->with('contador',$contador)
+                ->with('carrera', $carrera);
+        }
+        $contador = $alumnosInformatica->count();
+        $alumnosInformatica = $alumnosInformatica->paginate(7);
+        return view('2 Inscripcion/listaInscripcion')->with('alumnos',$alumnosInformatica)
+            ->with('contador', $contador)
+            ->with('carrera', $carrera);
     }   
 }
-
-?>

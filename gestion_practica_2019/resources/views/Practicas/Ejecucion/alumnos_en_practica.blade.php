@@ -1,7 +1,5 @@
 @extends('layouts.mainlayout')
 @section('content')
-    <?php use App\Http\Controllers\AlumnoController;?>
-
     <div class="container-fluid text-center">
         <h2>Alumnos</h2>
     </div>
@@ -9,19 +7,23 @@
         <div class="card shadow mb-4">
             <div class="card-header py-3">
                 {!! Form::open(['route'=> 'alumnosPracticaEjecucion', 'method' => 'GET', 'class' => 'row container-fluid', 'role' => 'search' ])  !!}
-                <div class="col-2 mb-2">
+                <div class="col-2">
                     {!! Form::text('nombre', null, ['class' => 'form-control', 'placeholder' => 'Nombre']) !!}
                 </div>
-                <div class="col-2 mb-2">
+                <div class="col-2">
                     {!! Form::text('apellido_paterno', null, ['class' => 'form-control', 'placeholder' => 'Apellido']) !!}
                 </div>
-                <div class="col-2 mb-2">
+                <div class="col-2">
+                    {!! Form::text('rut', null, ['class' => 'form-control', 'placeholder' => 'Rut']) !!}
+                </div>
+                <div class="col-3">
                     {!! Form::text('email', null, ['class' => 'form-control', 'placeholder' => 'Email']) !!}
                 </div>
-                <div class="col-2 mb-2">
+                <div class="col-2">
                     {!! Form::text('anno_ingreso', null, ['class' => 'form-control', 'placeholder' => 'Año de ingreso']) !!}
                 </div>
-                <button type="submit" class="btn btn-info form-group">Buscar</button>
+                <button type="submit" class="btn btn-info form-group col-1">Buscar</button>
+                <p class="col-2">Hay {{ $contador }} Alumnos</p>
                 {!! Form::close() !!}
             </div>
             <div class="card-body">
@@ -55,7 +57,7 @@
                                     <td>
                                         <b> Solicitud :</b>
 
-                                        @if(\SGPP\Http\Controllers\AlumnoController::verificarSolicitudAlumno($alumnos->id_alumno))
+                                        @if($alumnos->id_solicitud)
                                             <a  href="" class='botonModalSolicitud fa fa-check text-success' data-toggle="modal" data-form="{{ route('solicitudModal',['id'=>$alumnos->id_alumno])}}" data-target="#modal-solicitud"></a> <br>
                                         @else
                                             <a class='fa fa-times text-danger'></a><br>
@@ -63,7 +65,7 @@
 
                                         <b> Inscripcion :</b>
 
-                                        @if(\SGPP\Http\Controllers\AlumnoController::verificarInscripcionAlumno($alumnos->id_alumno))
+                                        @if($alumnos->f_inscripcion)
                                             <a  href="" class='botonModalInscripcion fa fa-check text-success' data-toggle="modal" data-form="{{ route('inscripcionModal',['id'=>$alumnos->id_alumno])}}" data-target="#modal-inscripcion"></a><br>
                                         @else
                                             <a class='fa fa-times text-danger'></a><br>
@@ -71,7 +73,7 @@
 
                                         <b> Autoevaluacion :</b>
 
-                                        @if(\SGPP\Http\Controllers\AlumnoController::verificarAutoEvaluacionAlumno($alumnos->id_alumno))
+                                        @if($alumnos->id_autoeval)
                                             <a  href="" class='botonModalAutoEvaluacion fa fa-check text-success' data-toggle="modal" data-form="{{ route('autoEvaluacionModal',['id'=>$alumnos->id_alumno])}}" data-target="#modal-autoEvaluacion"></a><br>
                                          @else
                                             <a class='fa fa-times text-danger'></a><br>
@@ -88,50 +90,38 @@
             </div>
         </div>
     </div>
+    <div class="row d-flex justify-content-center">
+        {{ $lista->links( "pagination::bootstrap-4") }}
+    </div>
 
-    <div class="modal" id="modal-autoEvaluacion"></div>
+    <div class="modal" id="modal-solicitud"></div>
     <div class="modal" id="modal-inscripcion"></div>
+    <div class="modal" id="modal-autoEvaluacion"></div>
 
     <script>
 
-        /*BOTON AUTO EVALUACION*/
-
+        /*BOTON SOLICITUD*/
         $(document).ready(function ()
         {
-            //modal-autoEvaluacion
-            $(".botonModalAutoEvaluacion").click(function (ev) // for each edit contact url
+            //modal-inscripcion
+            $(".botonModalSolicitud").click(function (ev) // for each edit contact url
             {
                 ev.preventDefault(); // prevent navigation
                 var url = $(this).data("form"); // get the contact form url
                 console.log(url);
-                $("#modal-autoEvaluacion").load(url, function () // load the url into the modal
+                $("#modal-solicitud").load(url, function () // load the url into the modal
                 {
                     $(this).modal('show'); // display the modal on url load
                 });
             });
-            $('.autoEvaluacion-form').on('submit', function ()
-            {
-                $.ajax({
-                    type: $(this).attr('method'),
-                    url: $(this).attr('action'),
-                    data: $(this).serialize(),
-                    context: this,
-                    success: function (data, status)
-                    {
-                        $('#modal-autoEvaluacion').html(data);
-                    }
-                });
-            });
 
-            $('#modal-autoEvaluacion').on('hidden.bs.modal', function (e)
+            $('#modal-solicitud').on('hidden.bs.modal', function (e)
             {
                 $(this).find('.modal-content').empty();
             });
-
         });
 
         /*BOTON INSCRIPCION*/
-
         $(document).ready(function ()
         {
             //modal-inscripcion
@@ -145,25 +135,32 @@
                     $(this).modal('show'); // display the modal on url load
                 });
             });
-            $('.inscripcion-form').on('submit', function ()
-            {
-                $.ajax({
-                    type: $(this).attr('method'),
-                    url: $(this).attr('action'),
-                    data: $(this).serialize(),
-                    context: this,
-                    success: function (data, status)
-                    {
-                        $('#modal-inscripcion').html(data);
-                    }
-                });
-            });
 
             $('#modal-inscripcion').on('hidden.bs.modal', function (e)
             {
                 $(this).find('.modal-content').empty();
             });
+        });
 
+        /*BOTON AUTO EVALUACION*/
+        $(document).ready(function ()
+        {
+            //modal-autoEvaluacion
+            $(".botonModalAutoEvaluacion").click(function (ev) // for each edit contact url
+            {
+                ev.preventDefault(); // prevent navigation
+                var url = $(this).data("form"); // get the contact form url
+                console.log(url);
+                $("#modal-autoEvaluacion").load(url, function () // load the url into the modal
+                {
+                    $(this).modal('show'); // display the modal on url load
+                });
+            });
+
+            $('#modal-autoEvaluacion').on('hidden.bs.modal', function (e)
+            {
+                $(this).find('.modal-content').empty();
+            });
         });
     </script>
 @endsection

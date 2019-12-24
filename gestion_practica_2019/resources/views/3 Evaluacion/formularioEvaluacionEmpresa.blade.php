@@ -6,7 +6,7 @@
             <h1 class="h3 mb-0 text-gray-800">FORMULARIO DE EVALUACIÓN DE EMPRESA</h1>
         </div>
         
-        <form action="{{route('agregarEvaluacionEmpresa')}}" enctype="multipart/form-data" method="POST" role="form">
+        <form action="{{route('agregarEvaluacionEmpresa',['id'=>$id])}}" enctype="multipart/form-data" method="POST" role="form">
             {{ csrf_field() }} 
             <div class="card text">
                 <div class="card-body">

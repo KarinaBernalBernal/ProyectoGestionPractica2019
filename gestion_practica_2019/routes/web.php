@@ -114,13 +114,17 @@ Route::get('/descripcionSolicitud', 'SolicitudController@verDescripcion')->name(
 Route::get('/evaluacionSolicitudCivil', 'SolicitudController@evaluacion')->name('evaluacionSolicitud');
 //Ejecucion
 Route::get('/evaluacionSolicitudEjecucion', 'SolicitudController@evaluacionEjecucion')->name('evaluacionSolicitudEjecucion');
+Route::get('/solicitudesPFiltrada/{carrera}', 'SolicitudController@filtroSolicitudesP')->name('solicitudesPFiltrada');
+Route::get('/solicitudesEFiltrada/{carrera}', 'SolicitudController@filtroSolicitudesE')->name('solicitudesEFiltrada');
+
 
 //modals
 
 Route::get('/modal/evaluarSolicitudModal/{id}','SolicitudController@evaluarSolicitudModal')->name('evaluarSolicitudModal');
 Route::post('/evaluacionSolicitud/evaluarSolicitud/{id}','SolicitudController@evaluarSolicitud')->name('evaluarSolicitud');
-    Route::get('/modal/modificarEvaluacionSolicitudModal/{id}','SolicitudController@modificarEvaluacionSolicitudModal')->name('modificarEvaluacionSolicitudModal');
+Route::get('/modal/modificarEvaluacionSolicitudModal/{id}','SolicitudController@modificarEvaluacionSolicitudModal')->name('modificarEvaluacionSolicitudModal');
 Route::post('/evaluacionSolicitud/modificarEvaluacionSolicitud/{id}','SolicitudController@modificarEvaluacionSolicitud')->name('modificarEvaluacionSolicitud');
+
 //---------Validacion de solicitudes
 Route::get('/listaSolicitudEjecucion', 'SolicitudController@listaSolicitudEjecucion')->name('listaSolicitudEjecucion');
 Route::get('/listaSolicitudCivil', 'SolicitudController@listaSolicitudCivil')->name('listaSolicitudCivil');
@@ -142,15 +146,16 @@ Route::post('/agregarSolicitudDocumentos', 'InscripcionController@storeSolicitar
 Route::get('/formularioInscripcion', 'InscripcionController@indexInscripcion')->name('formularioInscripcion');
 Route::post('/agregarInscripcion', 'InscripcionController@storeInscripcion')->name('agregarInscripcion');
 //---------listas
-Route::get('/listaInscripcionEjecucion', 'InscripcionController@listaInscripcionEjecucion')->name('listaInscripcionEjecucion');
-Route::get('/listaInscripcionCivil', 'InscripcionController@listaInscripcionCivil')->name('listaInscripcionCivil');
+Route::get('/listaInscripcion/{carrera}', 'InscripcionController@listaInscripcion')->name('listaInscripcion');
 /*--------------------- Etapa Evaluación ---------------------*/
 Route::get('/descripcionAutoEvaluacion', 'AutoEvaluacionController@verDescripcionAutoEvaluacion')->name('descripcionAutoEvaluacion');
 Route::get('/formularioAutoEvaluacion', 'AutoEvaluacionController@index')->name('formularioAutoEvaluacion');
 Route::post('/agregarAutoEvaluacion', 'AutoEvaluacionController@store')->name('agregarAutoEvaluacion');
 Route::get('/descripcionEvaluacionEmpresa', 'EvaluacionSupervisorController@verDescripcionEvaluacionEmpresa')->name('descripcionEvaluacionEmpresa');
-Route::get('/formularioEvaluacionEmpresa', 'EvaluacionSupervisorController@index')->name('formularioEvaluacionEmpresa');
-Route::post('/agregarEvaluacionEmpresa', 'EvaluacionSupervisorController@store')->name('agregarEvaluacionEmpresa');
+Route::get('/formularioEvaluacionEmpresa/{id}', 'EvaluacionSupervisorController@index')->name('formularioEvaluacionEmpresa');
+Route::post('/agregarEvaluacionEmpresa/{id}', 'EvaluacionSupervisorController@store')->name('agregarEvaluacionEmpresa');
+Route::get('/listaAutoevaluacion/{carrera}', 'AutoEvaluacionController@autoevaluacioneEjecucion')->name('listaAutoevaluacion');
+Route::get('/listaEvaluacionSupervisor/{carrera}', 'EvaluacionSupervisorController@listaEvaluacionSupervisor')->name('listaEvaluacionSupervisor');
 
 /*--------------------- Reportes ---------------------*/
 /* Rutas Reportes alumnos */
@@ -168,11 +173,17 @@ Route::get('/estadisticaCriterios', 'EstadisticaController@verEstadisticaCriteri
 
 /*Informatica*/
 Route::get('/supervisoresPracticaEjecucion', 'SupervisorController@supervisoresEnPracticaEjecucion')->name('supervisoresPracticaEjecucion');
+Route::get('/formularioEvaluacion/{id}', 'SupervisorController@index')->name('formularioEvaluacion');
+
 Route::get('/alumnosPracticaEjecucion', 'AlumnoController@alumnosEnPracticaEjecucion')->name('alumnosPracticaEjecucion');
-Route::get('/modal/solicitudModal/{id}','AlumnoController@mostrarAutoEvaluacionModal')->name('autoEvaluacionModal');
+Route::get('/modal/solicitudModal/{id}','AlumnoController@mostrarSolicitudModal')->name('solicitudModal');
 Route::get('/modal/inscripcionModal/{id}','AlumnoController@mostrarInscripcionModal')->name('inscripcionModal');
 Route::get('/modal/autoEvaluacionModal/{id}','AlumnoController@mostrarAutoEvaluacionModal')->name('autoEvaluacionModal');
 
 /*Civil*/
 Route::get('/supervisoresPracticaCivil', 'SupervisorController@supervisoresEnPracticaCivil')->name('supervisoresPracticaCivil');
 Route::get('/alumnosPracticaCivil', 'AlumnoController@alumnosEnPracticaCivil')->name('alumnosPracticaCivil');
+
+/*Modal evaluacion supervisor*/
+Route::get('/modal/evaluacionModal/{id}','EvaluacionSupervisorController@mostrarEvaluacionModal')->name('evaluacionModal');
+Route::get('/modal/evaluacionModalInformatica/{id}','SupervisorController@mostrarEvaluacionModal')->name('evaluacionModalInformatica');

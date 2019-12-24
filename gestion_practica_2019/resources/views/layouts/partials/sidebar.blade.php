@@ -104,9 +104,9 @@
                         @if(Auth::user()->name == 'Gestionador')
                             <a class="collapse-item" href="{{ route('listaSolicitudCivil')}}">Solicitudes</a>
                         @endif
-                        <a class="collapse-item" href="{{route('listaInscripcionCivil')}}">Inscripciones</a>
-                        <a class="collapse-item" href="#">Autoevaluaciones</a>
-                        <a class="collapse-item" href="#">Evaluaciones de empresas</a>
+                        <a class="collapse-item" href="{{route('listaInscripcion',["Ingeniería Civil Informática"])}}">Inscripciones</a>
+                        <a class="collapse-item" href="{{route('listaAutoevaluacion',["Ingeniería Civil Informática"])}}">Autoevaluaciones</a>
+                        <a class="collapse-item" href="{{route('listaEvaluacionSupervisor',["Ingeniería Civil Informática"])}}">Evaluaciones de empresas</a>
 
                         <!--<h7 class="collapse-header">Asistencia a charlas</h7>
                         <a class="collapse-item" href="#">Explicación introductoria</a>
@@ -133,9 +133,9 @@
                         @if(Auth::user()->name == 'Gestionador') 
                             <a class="collapse-item" href="{{ route('listaSolicitudEjecucion')}}">Solicitudes</a>
                         @endif
-                        <a class="collapse-item" href="{{route('listaInscripcionEjecucion')}}">Inscripciones</a>
-                        <a class="collapse-item" href="#">Autoevaluaciones</a>
-                        <a class="collapse-item" href="#">Evaluaciones de empresas</a>
+                        <a class="collapse-item" href="{{route('listaInscripcion',["Ingeniería de Ejecución Informática"])}}">Inscripciones</a>
+                        <a class="collapse-item" href="{{route('listaAutoevaluacion',["Ingeniería de Ejecución Informática"])}}">Autoevaluaciones</a>
+                        <a class="collapse-item" href="{{route('listaEvaluacionSupervisor',["Ingeniería de Ejecución Informática"])}}">Evaluaciones de empresas</a>
 
                         <!--<h7 class="collapse-header">Asistencia a charlas</h7>
                         <a class="collapse-item" href="#">Explicación introductoria</a>

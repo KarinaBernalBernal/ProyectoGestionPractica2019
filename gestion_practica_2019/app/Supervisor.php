@@ -4,6 +4,9 @@ namespace SGPP;
 
 use Illuminate\Database\Eloquent\Model;
 
+
+
+
 class Supervisor extends Model
 {
     protected $primaryKey = 'id_supervisor';
@@ -75,4 +78,5 @@ class Supervisor extends Model
         }
         return $query;
     }
+
 }

@@ -3,6 +3,7 @@
 namespace SGPP;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class EvaluacionSupervisor extends Model
 {
@@ -31,4 +32,24 @@ class EvaluacionSupervisor extends Model
     public function evalConEmpPractica(){
  		return $this->belongsTo('App\EvalConEmpPractica');
     }
+
+    public static function filtrarEvaluaciones($nombre, $apellido_paterno, $email, $fono, $f_entrega_eval, $carrera)
+    {
+        $evaluacionesFiltradas = DB::table('supervisores')
+            ->join('practicas', 'practicas.id_supervisor', '=', 'supervisores.id_supervisor')
+            ->join('alumnos', 'alumnos.id_alumno', '=', 'practicas.id_alumno')
+            ->join('evaluaciones_supervisor', 'evaluaciones_supervisor.id_practica', 'practicas.id_practica')
+            ->where('practicas.f_inscripcion', '!=', null)
+            ->where('supervisores.nombre', 'LIKE', '%'.$nombre. '%')
+            ->where('supervisores.apellido_paterno', 'LIKE', '%'.$apellido_paterno. '%')
+            ->where('supervisores.email', 'LIKE', '%'.$email. '%')
+            ->where('supervisores.fono', 'LIKE', '%'.$fono. '%')
+            ->where('carrera', 'LIKE', '%'.$carrera. '%')
+            ->where('evaluaciones_supervisor.f_entrega_eval', 'LIKE', '%'.$f_entrega_eval . '%')
+            ->select('supervisores.*', 'evaluaciones_supervisor.*', 'alumnos.nombre as nombre_alumno', 'alumnos.apellido_paterno as apellido_alumno')
+            ->get();
+
+        return $evaluacionesFiltradas;
+    }
+
 }

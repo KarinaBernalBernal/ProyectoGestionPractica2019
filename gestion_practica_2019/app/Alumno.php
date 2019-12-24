@@ -3,6 +3,7 @@
 namespace SGPP;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Alumno extends Model
 {
@@ -25,11 +26,12 @@ class Alumno extends Model
         return $this->belongsTo('App\Practica');    
     }
 
-    public static function filtrarYPaginar($buscador, $nombre, $apellido_paterno, $apellido_materno, $email, $anno_ingreso, $carrera){
+    public static function filtrarYPaginar($buscador, $nombre, $apellido_paterno, $apellido_materno, $rut, $email, $anno_ingreso, $carrera){
         return Alumno::Buscador($buscador)
                     ->Nombre($nombre)
                     ->ApellidoPaterno($apellido_paterno)
                     ->ApellidoMaterno($apellido_materno)
+                    ->Rut($rut)
                     ->Email($email)
                     ->AnnoIngreso($anno_ingreso)
                     ->Carrera($carrera)
@@ -37,12 +39,47 @@ class Alumno extends Model
                     ->paginate();
     }
 
+    public static function filtrarFechaPractica($nombre, $apellido_paterno, $rut, $f_inscripcion, $carrera)
+    {
+        $alumnosPracticaFiltrados = DB::table('alumnos')
+            ->join('practicas', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
+            ->where('practicas.f_inscripcion', '!=', null)
+            ->where('nombre', 'LIKE', '%'.$nombre. '%')
+            ->where('apellido_paterno', 'LIKE', '%'.$apellido_paterno. '%')
+            ->where('rut', 'LIKE', '%'.$rut. '%')
+            ->where('carrera', 'LIKE', '%'.$carrera. '%')
+            ->where('practicas.f_inscripcion', 'LIKE', '%'.$f_inscripcion . '%')
+            ->select('alumnos.*', 'practicas.*')
+            ->get();
+
+        return $alumnosPracticaFiltrados;
+    }
+
+    public static function filtrarFechaAutoevaluacion($nombre, $apellido_paterno, $rut, $f_entrega, $carrera)
+    {
+        $autoevaluacionFiltrada = DB::table('alumnos')
+            ->join('practicas', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
+            ->join('autoevaluaciones', 'autoevaluaciones.id_practica', 'practicas.id_practica')
+            ->where('nombre', 'LIKE', '%'.$nombre. '%')
+            ->where('apellido_paterno', 'LIKE', '%'.$apellido_paterno. '%')
+            ->where('rut', 'LIKE', '%'.$rut. '%')
+            ->where('carrera', 'LIKE', '%'.$carrera. '%')
+            ->where('autoevaluaciones.f_entrega', 'LIKE', '%'.$f_entrega . '%')
+            ->select('alumnos.*',  'practicas.f_inscripcion', 'autoevaluaciones.id_autoeval', 'autoevaluaciones.f_entrega')
+            ->get();
+
+        return $autoevaluacionFiltrada;
+    }
+
+
     public function scopeBuscador($query, $buscador){
 
-        if (  trim($buscador !== '') ) {
+        if (  trim($buscador !== '') )
+        {
             $query->where('nombre', 'LIKE', '%'. $buscador . '%')
                     ->orwhere('apellido_paterno', 'LIKE', '%'. $buscador . '%')
                     ->orwhere('apellido_materno', 'LIKE', '%'. $buscador . '%')
+                    ->orwhere('rut', 'LIKE', '%'. $buscador . '%')
                     ->orwhere('email', 'LIKE', '%'. $buscador . '%')
                     ->orwhere('carrera', 'LIKE', '%'. $buscador . '%')
                     ->orwhere('rut', 'LIKE', '%'. $buscador . '%')
@@ -74,6 +111,14 @@ class Alumno extends Model
 			$query->where('apellido_materno', 'LIKE', '%'. $apellido_materno . '%');
 		}
 		return $query;
+    }
+
+    public function scopeRut($query, $rut){
+
+        if (  trim($rut !== '') ) {
+            $query->where('rut', 'LIKE', '%'. $rut . '%');
+        }
+        return $query;
     }
 
     public function scopeEmail($query, $email){

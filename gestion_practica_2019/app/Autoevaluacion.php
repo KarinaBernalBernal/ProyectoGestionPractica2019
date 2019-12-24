@@ -40,4 +40,23 @@ class Autoevaluacion extends Model
     public function evalConPractica(){
  		return $this->belongsTo('App\EvalConPractica');
     }
+
+    public function scopeBuscador($query, $buscador)
+    {
+        if (  trim($buscador !== '') )
+        {
+            $query->where('f_entrega', 'LIKE', '%'. $buscador . '%');
+        }
+        return $query;
+    }
+
+    public function scopeFechaEntrega($query, $f_entrega)
+    {
+        if (  trim($f_entrega !== '') )
+        {
+            $query->where('f_entrega', 'LIKE', '%'. $f_entrega . '%');
+        }
+        return $query;
+    }
+
 }

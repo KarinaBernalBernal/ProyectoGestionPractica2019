@@ -30,4 +30,23 @@ class Practica extends Model
     public function autoevaluacion(){
         return $this->hasOne('App\Autoevaluacion');
     }
+
+    public function scopeBuscador($query, $buscador)
+    {
+        if (  trim($buscador !== '') )
+        {
+            $query->where('f_inscripcion', 'LIKE', '%'. $buscador . '%');
+        }
+        return $query;
+    }
+
+    public function scopeFechaInscripcion($query, $f_inscripcion)
+    {
+        if (  trim($f_inscripcion !== '') )
+        {
+            $query->where('f_inscripcion', 'LIKE', '%'. $f_inscripcion . '%');
+        }
+        return $query;
+    }
+
 }

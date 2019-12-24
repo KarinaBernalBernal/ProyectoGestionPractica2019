@@ -68,6 +68,7 @@ class SolicitudController extends Controller
         $solicitudes->delete();
         return redirect()->route('home');
     }
+
     public function estado($id)
     {
         $solicitudes = Solicitud::find($id);
@@ -93,6 +94,7 @@ class SolicitudController extends Controller
         $solicitudes = Solicitud::orderBy('rut','DESC')->where('carrera', 'Ingeniería de Ejecución Informática')->where("estado",0)->paginate(7);
         return view('1 Solicitud/listaSolicitudEjecucion')->with('solicitudes', $solicitudes);
     }
+
     public function listaSolicitudCivil()
     {
         $solicitudes = Solicitud::orderBy('rut','DESC')->where('carrera', 'Ingeniería Civil Informática')->where("estado",0)->paginate(7);
@@ -100,36 +102,136 @@ class SolicitudController extends Controller
     }
     /*---------------------------------------------------------------------------*/
     /* ----------- Evaluacion de una Solicitud  ----------  */
-    public function evaluacion(){
+    public function evaluacion()
+    {
         $solicitudesP = Solicitud::all()
             ->where('carrera', 'Ingeniería Civil Informática')
             ->where("estado",1);
         $solicitudesE = Solicitud::all()
             ->where('carrera', 'Ingeniería Civil Informática')
             ->where("estado",2);
+
+        $carrera = 'Ingeniería Civil Informática';
+        $contadorP = $solicitudesP->count();
+        $contadorE = $solicitudesE->count();
+        $solicitudesP = $solicitudesP->paginate(5);
+        $solicitudesE = $solicitudesE->paginate(5);
+
         return view('1 Solicitud/evaluacionSolicitud',[
             'solicitudesP'=>$solicitudesP,
-            'solicitudesE'=>$solicitudesE
+            'solicitudesE'=>$solicitudesE,
+            'carrera'=>$carrera,
+            'contadorP' => $contadorP,
+            'contadorE' => $contadorE
         ]);
     }
-     public function evaluacionEjecucion(){
+
+    public function evaluacionEjecucion()
+    {
         $solicitudesP = Solicitud::all()
             ->where('carrera', 'Ingeniería de Ejecución Informática')
             ->where("estado",1);
+
         $solicitudesE = Solicitud::all()
             ->where('carrera', 'Ingeniería de Ejecución Informática')
             ->where("estado",2);
+
+        $carrera = "Ingeniería de Ejecución Informática";
+        $contadorP = $solicitudesP->count();
+        $contadorE = $solicitudesE->count();
+        $solicitudesP = $solicitudesP->paginate(5);
+        $solicitudesE = $solicitudesE->paginate(5);
+
         return view('1 Solicitud/evaluacionSolicitud',[
             'solicitudesP'=>$solicitudesP,
-            'solicitudesE'=>$solicitudesE
+            'solicitudesE'=>$solicitudesE,
+            'carrera'=>$carrera,
+            'contadorP' => $contadorP,
+            'contadorE' => $contadorE
         ]);
     }
+
+    public function filtroSolicitudesP(Request $request, $carrera )
+    {
+
+        $solicitudesE = Solicitud::all()
+            ->where('carrera', $carrera)
+            ->where("estado",2);
+
+        $contadorE = $solicitudesE->count();
+        $solicitudesE = $solicitudesE->paginate(5);
+
+        //-----Filtro-----//
+        $listaFiltrada = Solicitud::filtrar($request->get('buscador'),
+            $request->get('nombre'),
+            $request->get('apellido_paterno'),
+            $request->get(null),
+            $request->get('rut'),
+            $request->get('anno_ingreso'),
+            $carrera,
+            1
+        );
+
+        $contadorP = $listaFiltrada->count();
+        $listaFiltrada = $listaFiltrada->paginate(5);
+
+        //Retorna los datos filtrados de la lista pendiente y la lista evaluada sin filtrar
+        //Ademas retorna el tipo de carrera para diferenciar que la vista sea de civil y ejecucion
+        //Finalmente retoran los contadores de las tablas para saber la cantidad de resultados/solicitudes
+
+        return view('1 Solicitud/evaluacionSolicitud',[
+            'solicitudesP'=>$listaFiltrada,
+            'solicitudesE'=>$solicitudesE,
+            'carrera' => $carrera,
+            'contadorP' => $contadorP,
+            'contadorE' => $contadorE
+        ]);
+    }
+
+    public function filtroSolicitudesE(Request $request, $carrera)
+    {
+
+        $solicitudesP = Solicitud::all()
+            ->where('carrera', $carrera)
+            ->where("estado",1);
+
+        $contadorP = $solicitudesP->count();
+        $solicitudesP = $solicitudesP->paginate(5);
+
+        //-----Filtro-----//
+        $listaFiltrada = Solicitud::filtrar($request->get('buscador'),
+            $request->get('nombre'),
+            $request->get('apellido_paterno'),
+            $request->get(null),
+            $request->get('rut'),
+            $request->get('anno_ingreso'),
+            $carrera,
+            2
+        );
+
+        $contadorE = $listaFiltrada->count();
+        $listaFiltrada = $listaFiltrada->paginate(5);
+
+        //Retorna los datos filtrados de la lista evaluada y la lista pendiente sin filtrar
+        //Ademas retorna el tipo de carrera para diferenciar que la vista sea de civil y ejecucion
+        //Finalmente retoran los contadores de las tablas para saber la cantidad de resultados/solicitudes
+
+        return view('1 Solicitud/evaluacionSolicitud',[
+            'solicitudesP'=>$solicitudesP,
+            'solicitudesE'=>$listaFiltrada,
+            'carrera' => $carrera,
+            'contadorP' => $contadorP,
+            'contadorE' => $contadorE
+        ]);
+    }
+
     public function evaluarSolicitudModal($id){
         $solicitud=Solicitud::find($id);
         return view('1 Solicitud/modales/modalEvaluarSolicitud',[
             'solicitud'=>$solicitud
         ]);
     }
+
     public function modificarEvaluacionSolicitudModal($id){
         $solicitud=Solicitud::find($id);
         return view('1 Solicitud/modales/modalModificarEvaluacionSolicitud',[
@@ -137,6 +239,7 @@ class SolicitudController extends Controller
         ]);
     }
     /* Funciones modales */
+
     public function evaluarSolicitud(Request $request, $id){
         $solicitud = Solicitud::find($id);
         if(!isset($solicitud))
@@ -174,17 +277,22 @@ class SolicitudController extends Controller
                 $nueva_instancia->save();
                 $nuevo->id_user = $nueva_instancia->id_user;
                 $nuevo->save();
+                $solicitud->id_alumno = $nuevo->id_alumno;
                 $solicitud->save();
                 $nueva_instancia = new Practica;
                 $nueva_instancia->f_solicitud = $fecha;
                 $nueva_instancia->id_alumno = $nuevo->id_alumno;
                 $nueva_instancia->save();
+
             }
             else {
                 $nueva_instancia = new Practica;
                 $nueva_instancia->f_solicitud = $fecha;
                 $nueva_instancia->id_alumno = $alumno->id_alumno;
+                $solicitud->id_alumno = $alumno->id_alumno;
+                $solicitud->save();
                 $nueva_instancia->save();
+
             }
         }
         // Se notifica al Alumno sobre el estado de su solicitud
@@ -202,6 +310,7 @@ class SolicitudController extends Controller
             return redirect()->route('evaluacionSolicitudEjecucion')->with('success','Registro creado satisfactoriamente');
         }
     }
+
     public function modificarEvaluacionSolicitud(Request $request, $id){
        $solicitud = Solicitud::find($id);
         if(!isset($solicitud))
@@ -246,6 +355,7 @@ class SolicitudController extends Controller
             return redirect()->route('evaluacionSolicitudEjecucion')->with('success','Registro creado satisfactoriamente');
         }
     }
+
     public function contact(Request $request){
         $subject = "Formulario de solicitud práctica profesional";
         $for = $request->emailSolicitud;

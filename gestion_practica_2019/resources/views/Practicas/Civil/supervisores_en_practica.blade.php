@@ -19,6 +19,7 @@
                 </div>
                 <button type="submit" class="btn btn-info form-group">Buscar</button>
                 {!! Form::close() !!}
+                <p class="col-2">Hay {{ $contador }} Supervisores</p>
             </div>
             <div class="card-body">
                 @if (count($lista)>0)
@@ -30,6 +31,7 @@
                                 <th class="text-truncate text-center">Trabajo</th>
                                 <th class="text-truncate text-center">Email</th>
                                 <th class="text-truncate text-center">Fono</th>
+                                <th class="text-truncate text-center">Evaluacion</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -45,6 +47,15 @@
                                     </td>
                                     <td class="text-truncate text-center">{{ $supervisores->email }}</td>
                                     <td class="text-truncate text-center">{{ $supervisores->fono }}</td>
+                                    <td>
+                                        @if($supervisores->resultado_eval)
+                                            <strong>{{ $supervisores->nombre_alumno}}  {{$supervisores->apellido_alumno}}: </strong>
+                                            <a href="" class='botonModalEvaluacion fa fa-check text-success' data-toggle="modal" data-form="{{ route('evaluacionModalInformatica',['id'=>$supervisores->id_eval_supervisor])}}" data-target="#modal-evaluacion"></a><br>
+                                        @else
+                                            <strong>{{ $supervisores->nombre_alumno}}  {{$supervisores->apellido_alumno}}: </strong>
+                                            <a class='fa fa-times text-danger'></a><br>
+                                        @endif
+                                    </td>
                                 </tr>
                             @endforeach
                             </tbody>
@@ -56,5 +67,34 @@
             </div>
         </div>
     </div>
+    <div class="row d-flex justify-content-center">
+        {{ $lista->links( "pagination::bootstrap-4") }}
+    </div>
+
+    <div class="modal" id="modal-evaluacion"></div>
+
+    <script>
+        /*BOTON AUTO EVALUACION*/
+
+        $(document).ready(function ()
+        {
+            //modal-autoEvaluacion
+            $(".botonModalEvaluacion").click(function (ev) // for each edit contact url
+            {
+                ev.preventDefault(); // prevent navigation
+                var url = $(this).data("form"); // get the contact form url
+                console.log(url);
+                $("#modal-evaluacion").load(url, function () // load the url into the modal
+                {
+                    $(this).modal('show'); // display the modal on url load
+                });
+            });
+
+            $('#modal-evaluacion').on('hidden.bs.modal', function (e)
+            {
+                $(this).find('.modal-content').empty();
+            });
+        });
+    </script>
     @endsection
 

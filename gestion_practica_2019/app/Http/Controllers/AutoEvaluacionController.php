@@ -20,6 +20,7 @@ use SGPP\EvalActitudinal;
 use SGPP\EvalConPractica;
 use SGPP\EvalConocimiento;
 use Auth;
+use Illuminate\Support\Facades\DB;
 
 class AutoEvaluacionController extends Controller
 {
@@ -38,6 +39,7 @@ class AutoEvaluacionController extends Controller
                 'lista'=>$lista,
             ]);
     }
+
     public function crear()
     {
         return view('Mantenedores/Evaluaciones/Alumno/crear_auto_evaluacion');
@@ -76,6 +78,7 @@ class AutoEvaluacionController extends Controller
             return redirect()->route('lista_auto_evaluaciones');
         }
     }
+
     public function borrarAutoEvaluacion($id_elemento){
         $elemento_eliminar =  Autoevaluacion::find($id_elemento);
         $elemento_eliminar->delete();
@@ -193,4 +196,42 @@ class AutoEvaluacionController extends Controller
 
         return redirect()->route('descripcionAutoEvaluacion');
     }
+
+    public function autoevaluacioneEjecucion(Request $request, $carrera)
+    {
+        //-----Autoevaluaciones de informatica-----//
+        $autoevaluaciones = DB::table('alumnos')
+            ->join('practicas', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
+            ->join('autoevaluaciones', 'autoevaluaciones.id_practica', 'practicas.id_practica')
+            ->where('alumnos.carrera', '=', $carrera)
+            ->select('alumnos.*',  'practicas.f_inscripcion', 'autoevaluaciones.id_autoeval', 'autoevaluaciones.f_entrega')
+            ->get();
+
+        //-----Si no se seleccionaron filtros solo entregamos la consulta de la base-----//
+
+        if ($request->nombre != null || $request->apellido_paterno != null || $request->rut != null || $request->f_entrega != null )
+        {
+            //-----Filtro-----//
+            $listaFiltrada= Alumno::filtrarFechaAutoevaluacion(
+                $request->get('nombre'),
+                $request->get('apellido_paterno'),
+                $request->get('rut'),
+                $request->get('f_entrega'),
+                $carrera
+            );
+            $contador = $listaFiltrada->count();  //mostrara la cantidad de resultados en la tabla filtrada
+            $listaFiltrada = $listaFiltrada->paginate(5);
+            return view('3 Evaluacion/listaAutoevaluacion')->with('autoevaluacion',$listaFiltrada)
+                ->with('contador',$contador)
+                ->with('carrera', $carrera);
+        }
+        $contador = $autoevaluaciones->count(); //mostrara la cantidad de resultados en la tabla
+        $autoevaluaciones = $autoevaluaciones->paginate(5);
+        return view('3 Evaluacion/listaAutoevaluacion')->with('autoevaluacion',$autoevaluaciones)
+            ->with('contador', $contador)
+            ->with('carrera', $carrera);
+    }
+
+
+
 }

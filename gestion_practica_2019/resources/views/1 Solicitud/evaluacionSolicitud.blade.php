@@ -9,27 +9,43 @@
 		  	<li class="nav-item">
 		    	<a class="nav-link" id="evaluadas-tab" data-toggle="tab" href="#evaluadas" role="tab" aria-controls="evaluadas" aria-selected="false">Evaluadas</a>
 			</li>
-		</ul>
+      </ul>
 
 		<br>
 
 		<div class="tab-content" id="myTabContent">
 			<div class="tab-pane fade show active" id="pendientes" role="tabpanel" aria-labelledby="pendientes-tab">
 				<div class="container-fluid">
-				  	<div class="row">
+                    <div class="py-3">
+                        {!! Form::open(['route'=> ['solicitudesPFiltrada', $carrera] , 'method' => 'GET', 'class' => 'row container-fluid', 'role' => 'search' ])!!}
+                        <div class="col-2">
+                            {!! Form::text('nombre', null, ['class' => 'form-control', 'placeholder' => 'Nombre']) !!}
+                        </div>
+                        <div class="col-2">
+                            {!! Form::text('apellido_paterno', null, ['class' => 'form-control', 'placeholder' => 'Apellido']) !!}
+                        </div>
+                        <div class="col-2">
+                            {!! Form::text('rut', null, ['class' => 'form-control', 'placeholder' => 'Rut']) !!}
+                        </div>
+                        <div class="col-2">
+                            {!! Form::text('anno_ingreso', null, ['class' => 'form-control', 'placeholder' => 'Año de ingreso']) !!}
+                        </div>
+                        <button type="submit" class="btn btn-info form-group col-1">Buscar</button>
+                        {!! Form::close() !!}
+						<p class="col-2">Hay {{ $contadorP }} Solicitudes</p></a>
+                    </div>
+                    <div class="row">
 					   <h2>Solicitudes pendientes</h2>
 					</div>
 
 					<br>
 
-					<div class="row d-flex justify-content-center">	
+					<div class="row d-flex justify-content-center">
 						<table class="table table-bordered bg-light table-hover">
-        					<thead class="bg-dark" style="color: white">							
+        					<thead class="bg-dark" style="color: white">
 								<tr class='text-center'>
 									<th style="vertical-align: middle" scope="col">Rut</th>
 									<th style="vertical-align: middle" scope="col">Nombre</th>
-									<th style="vertical-align: middle" scope="col">Apellido Paterno</th>
-									<th style="vertical-align: middle" scope="col">Apellido Materno</th>
 									<th style="vertical-align: middle" scope="col">Año de Ingreso</th>
 									<th style="vertical-align: middle" scope="col">Carrera</th>
 									<th style="vertical-align: middle" scope="col">Segunda Práctica</th>
@@ -41,9 +57,11 @@
 								@foreach($solicitudesP as $solicitudP)
 									<tr>
 										<td>{{ $solicitudP->rut }} </td>
-										<td>{{ $solicitudP->nombre }}</td>
-										<td>{{ $solicitudP->apellido_paterno }}</td>
-										<td>{{ $solicitudP->apellido_materno }}</td>
+										<td class="text-truncate text-center">
+											{{ $solicitudP->nombre }}
+											{{ $solicitudP->apellido_paterno }}
+											{{ $solicitudP->apellido_materno }}
+										</td>
 										<td>{{ $solicitudP->anno_ingreso }}</td>
 										<td>{{ $solicitudP->carrera }}</td>
 										<td>{{ $solicitudP->practica }}</td>
@@ -51,31 +69,49 @@
 											<strong>Año:</strong>	{{ $solicitudP->anno_proyecto }}</td>
 
 										<td><a class='botonModalEvaluarSolicitud btn btn-primary btn-sm' href="" data-toggle="modal" data-form="{{ route('evaluarSolicitudModal',['id'=>$solicitudP->id_solicitud])}}" data-target="#modal-evaluarSolicitud">Evaluar</a></td>
-
 									</tr>
 								@endforeach
 							</tbody>
 						</table>
 					</div>
 				</div>
+				<div class="row d-flex justify-content-center">
+					{{ $solicitudesP->links( "pagination::bootstrap-4") }}
+				</div>
 			</div>
-			
+
 			<div class="tab-pane fade" id="evaluadas" role="tabpanel" aria-labelledby="evaluadas-tab">
 				<div class="container-fluid">
+					<div class="py-3">
+						{!! Form::open([ 'route'=> ['solicitudesEFiltrada', $carrera], 'method' => 'GET', 'class' => 'row container-fluid', 'role' => 'search' ])  !!}
+						<div class="col-2">
+							{!! Form::text('nombre', null, ['class' => 'form-control', 'placeholder' => 'Nombre']) !!}
+						</div>
+						<div class="col-2">
+							{!! Form::text('apellido_paterno', null, ['class' => 'form-control', 'placeholder' => 'Apellido']) !!}
+						</div>
+						<div class="col-2">
+							{!! Form::text('rut', null, ['class' => 'form-control', 'placeholder' => 'Rut']) !!}
+						</div>
+						<div class="col-2">
+							{!! Form::text('anno_ingreso', null, ['class' => 'form-control', 'placeholder' => 'Año de ingreso']) !!}
+						</div>
+						<button type="submit" class="btn btn-info form-group col-1">Buscar</button>
+						{!! Form::close() !!}
+						<p class="col-2">Hay {{ $contadorE }} Solicitudes</p>
+					</div>
 				  	<div class="row">
 					   <h2>Solicitudes evaluadas</h2>
 					</div>
 
 					<br>
 
-					<div class="row d-flex justify-content-center">	
+					<div class="row d-flex justify-content-center">
 						<table class="table table-bordered bg-light table-hover">
         					<thead class="bg-dark" style="color: white">
 								<tr class='text-center'>
 									<th style="vertical-align: middle" scope="col">Rut</th>
 									<th style="vertical-align: middle" scope="col">Nombre</th>
-									<th style="vertical-align: middle" scope="col">Apellido Paterno</th>
-									<th style="vertical-align: middle" scope="col">Apellido Materno</th>
 									<th style="vertical-align: middle" scope="col">Año de Ingreso</th>
 									<th style="vertical-align: middle" scope="col">Carrera</th>
 									<th style="vertical-align: middle" scope="col">Proyecto de Titulo </th>
@@ -88,9 +124,11 @@
 								@foreach($solicitudesE as $solicitudE)
 									<tr>
 										<td>{{ $solicitudE->rut }}</td>
-										<td>{{ $solicitudE->nombre }}</td>
-										<td>{{ $solicitudE->apellido_paterno }}</td>
-										<td>{{ $solicitudE->apellido_materno }}</td>
+										<td>
+											{{ $solicitudE->nombre }}
+											{{ $solicitudE->apellido_paterno }}
+											{{ $solicitudE->apellido_materno }}
+										</td>
 										<td>{{ $solicitudE->anno_ingreso }}</td>
 										<td>{{ $solicitudE->carrera }}</td>
 										<td><strong>Semestre:</strong> {{ $solicitudE->semestre_proyecto }} <br>
@@ -98,18 +136,20 @@
 										<td>{{ $solicitudE->resolucion_solicitud }}</td>
 										<td>{{ $solicitudE->observacion_solicitud }}</td>
 										<td><a href="" class="botonModalmodificarEvaluacionSolicitud" data-toggle="modal" data-form="{{route('modificarEvaluacionSolicitudModal',['id'=>$solicitudE->id_solicitud])}}" data-target="#modal-modificarEvaluacionSolicitud"><span><i class="fas fa-edit"></i></span></a>
-              
 									</tr>
 								@endforeach
-
 							</tbody>
 						</table>
+						<div class="row d-flex justify-content-center">
+							{{ $solicitudesE->links( "pagination::bootstrap-4") }}
+						</div>
 					</div>
 				</div>
 			</div>
-			
+
 		</div>
    	</div>
+
 	
    <div class="modal" id="modal-evaluarSolicitud"></div>
    <div class="modal" id="modal-modificarEvaluacionSolicitud"></div>
@@ -168,8 +208,5 @@
 	        $(this).find('.modal-content').empty();
 	    });
 	});
-
-
 	</script>
-
 @endsection
