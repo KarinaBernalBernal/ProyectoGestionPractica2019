@@ -216,6 +216,7 @@ Route::get('/evaluacionSupervisor/{id}','EstadisticaController@mostrarEvaluacion
 //Busquedas 
 Route::get('estadisticaCriteriosAutoevaluacion/busquedaPorRango', 'EstadisticaController@busquedaAutoeval')->name('busquedaAutoeval');
 Route::get('estadisticaCriteriosEvaluacionSupervisor/busquedaPorRango', 'EstadisticaController@busquedaEvalSup')->name('busquedaEvalSup');
-//Criterios
+//view con graficos
 Route::get('/estadisticaCriteriosAutoevaluacion', 'EstadisticaController@verEstadisticaCriteriosAutoeval')->name('estadisticaCriteriosAutoeval');
 Route::get('/estadisticaCriteriosEvaluacionSupervisor', 'EstadisticaController@verEstadisticaCriteriosEvalSupervisor')->name('estadisticaCriteriosEvalSupervisor');
+Route::get('/estadisticaGeneral', 'EstadisticaController@verEstadisticaGeneral')->name('estadisticaGeneral');

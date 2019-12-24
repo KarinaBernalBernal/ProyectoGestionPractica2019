@@ -68,22 +68,18 @@
         var data_EvalActPractica = google.visualization.arrayToDataTable([
             ['Actitud del alumno','Respuesta alumno','Respuesta supervisor'],
             <?php  
-                //foreach($evalActitudinales as $evalActitudinal){
-                    //if ($evalActitudinal->id_actitudinal == $evalActPractica->id_actitudinal){            
-                        foreach($evalActPractica as $evalActPract){
-                            if($evalActPract->valor_act_practica == 'NA' || $evalActPract->valor_act_practica == 'NL'){
+                foreach($evalActitudinales as $evalActitudinal){
+                    if($evalActPractica[($evalActitudinal->id_actitudinal)-1]->valor_act_practica == 'NA' || $evalActPractica[($evalActitudinal->id_actitudinal)-1]->valor_act_practica == 'NL'){
             ?>
-                                ['<?php echo $evalActitudinales[($evalActPract->id_actitudinal)-1]->n_act; ?>', 'NA' , 0 ],
+                        ['<?php echo $evalActitudinal->n_act; ?>', 'NA' , 0 ],
             <?php
-                            }
-                            else{
+                    }
+                    else{
             ?>
-                                ['<?php echo $evalActitudinales[($evalActPract->id_actitudinal)-1]->n_act; ?>', <?php echo intval($evalActPract->valor_act_practica); ?> , 0 ],
+                        ['<?php echo $evalActitudinal->n_act; ?>', <?php echo intval($evalActPractica[($evalActitudinal->id_actitudinal)-1]->valor_act_practica); ?> , <?php echo intval($evalActEmpPractica[($evalActitudinal->id_actitudinal)-1]->valor_act_emp_practica); ?> ],
             <?php
-                            } 
-                        }
-                    //}
-                //}
+                    } 
+                }
             ?>
         ]);
         
@@ -107,23 +103,19 @@
     function drawChart2() {
         var data_EvalConPractica = google.visualization.arrayToDataTable([
             ['Conocimiento del alumno','Respuesta alumno','Respuesta supervisor'],
-            <?php  
-                //foreach($evalConocimientos as $evalConocimiento){
-                    //if ($evalConocimiento->id_conocimiento == $evalConPractica->id_conocimiento){               
-                        foreach($evalConPractica as $evalConPract){
-                            if($evalConPract->valor_con_practica == 'NA' || $evalConPract->valor_con_practica == 'NL'){
+            <?php               
+                foreach($evalConocimientos as $evalConocimiento){
+                    if($evalConPractica[($evalConocimiento->id_conocimiento)-1]->valor_con_practica == 'NA' || $evalConPractica[($evalConocimiento->id_conocimiento)-1]->valor_con_practica == 'NL'){
             ?>
-                                ['<?php echo $evalConocimientos[($evalConPract->id_conocimiento)-1]->n_con; ?>', 'NA' , 0 ],
+                        ['<?php echo $evalConocimiento->n_con; ?>', 'NA' , 0 ],
             <?php
-                            }
-                            else{
+                    }
+                    else{
             ?>
-                                ['<?php echo $evalConocimientos[($evalConPract->id_conocimiento)-1]->n_con; ?>', <?php echo intval($evalConPract->valor_con_practica); ?> , 0 ],
+                        ['<?php echo $evalConocimiento->n_con; ?>', <?php echo intval($evalConPractica[($evalConocimiento->id_conocimiento)-1]->valor_con_practica); ?> , <?php echo intval($evalConEmpPractica[($evalConocimiento->id_conocimiento)-1]->valor_con_emp_practica); ?> ],
             <?php
-                            } 
-                        }
-                    //}
-                //}
+                    } 
+                }
             ?>
     
         ]);

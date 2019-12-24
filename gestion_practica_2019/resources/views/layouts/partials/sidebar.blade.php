@@ -69,7 +69,7 @@
                                 <a class="collapse-item" href="{{route('estadisticaAlumno')}}">Búsqueda avanzada</a>
                                 <a class="collapse-item" href="{{route('estadisticaCriteriosAutoeval')}}">Búsqueda por año:<br> Autoevaluación del alumno</a>
                                 <a class="collapse-item" href="{{route('estadisticaCriteriosEvalSupervisor')}}">Búsqueda por año:<br> Evaluación del supervisor</a>
-                                
+                                <a class="collapse-item" href="{{route('estadisticaGeneral')}}">Estadísticas Generales</a>
                             </div>
                         </div>
                     <!-- -->

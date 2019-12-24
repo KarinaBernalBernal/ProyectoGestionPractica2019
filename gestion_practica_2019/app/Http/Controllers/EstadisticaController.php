@@ -4,32 +4,32 @@ namespace SGPP\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use SGPP\Practica;
 use SGPP\Alumno;
-use SGPP\Supervisor;
-use SGPP\Empresa;
-
-use SGPP\Autoevaluacion;
-use SGPP\Desempenno;
-use SGPP\Tarea;
-use SGPP\Habilidad;
-use SGPP\Conocimiento;
-use SGPP\HerramientaPractica;
+use SGPP\Area;
 use SGPP\AreaAutoeval;
 use SGPP\AreaEvaluacion;
-use SGPP\EvalActPractica;
-use SGPP\EvalConPractica;
-use SGPP\EvalActitudinal;
-use SGPP\EvalConocimiento;
-use SGPP\Area;
-use SGPP\Herramienta;
+use SGPP\Autoevaluacion;
+use SGPP\Conocimiento;
+use SGPP\Desempenno;
+use SGPP\Empresa;
 use SGPP\EvalActEmpPractica;
+use SGPP\EvalActitudinal;
+use SGPP\EvalActPractica;
 use SGPP\EvalConEmpPractica;
+use SGPP\EvalConocimiento;
+use SGPP\EvalConPractica;
+use SGPP\EvaluacionSupervisor;
+use SGPP\Habilidad;
+use SGPP\Herramienta;
+use SGPP\HerramientaPractica;
+use SGPP\Practica;
+use SGPP\Supervisor;
+use SGPP\Tarea;
 
 class EstadisticaController extends Controller
 {
 
-/////////////////////////////////////////////////////////////////// Estadistica Promedio Autoevaluacion ///////////////////////////////////////////////////////////////
+/////////////////////////////////////////////// Estadisticas del alumno ///////////////////////////////
     public function mostrarEstadisticasAlumno($id){
         $alumno = Alumno::find($id);
         $practicas = Practica::where('id_alumno',$id)->paginate(12);
@@ -71,31 +71,41 @@ class EstadisticaController extends Controller
                                     );
         return view('Estadisticas/alumnosDetalles')->with("lista", $lista);
     }
-    // --------------------------------------------------------------------------------------------------------------
+
     public function mostrarComparativaEvaluaciones($id){
         $autoevaluacion = Autoevaluacion::where('id_practica',$id)->first();
+        $evaluacionSupervisor = EvaluacionSupervisor::where('id_practica',$id)->first();
         
-        if($autoevaluacion != null){
-            $evalActPractica = EvalActPractica::orderby('valor_act_practica', 'DESC')->where('id_autoeval',$autoevaluacion->id_autoeval)->paginate(12);
-            $evalConPractica = EvalConPractica::orderby('valor_con_practica', 'DESC')->where('id_autoeval',$autoevaluacion->id_autoeval)->paginate(12);
+        if($autoevaluacion != null && $evaluacionSupervisor != null ){
+            $evalActPractica = EvalActPractica::orderby('id_actitudinal', 'ASC')->where('id_autoeval',$autoevaluacion->id_autoeval)->paginate(12);
+            $evalConPractica = EvalConPractica::orderby('id_conocimiento', 'ASC')->where('id_autoeval',$autoevaluacion->id_autoeval)->paginate(12);
+
+            $evalActEmpPractica = EvalActEmpPractica::orderby('id_actitudinal', 'ASC')->where('id_eval_supervisor',$evaluacionSupervisor->id_eval_supervisor)->paginate(12);
+            $evalConEmpPractica = EvalConEmpPractica::orderby('id_conocimiento', 'ASC')->where('id_eval_supervisor',$evaluacionSupervisor->id_eval_supervisor)->paginate(12);
 
             $evalActitudinales = EvalActitudinal::orderby('id_actitudinal', 'ASC')->paginate(12);
             $evalConocimientos = EvalConocimiento::orderby('id_conocimiento', 'ASC')->paginate(12);
-
-            $evalActitudinales->toArray();
-            $evalActPractica->toArray();
-
-            $evalConocimientos->toArray();
+            
             $evalConPractica->toArray();
+            $evalActPractica->toArray();
+            
+            $evalActEmpPractica->toArray();
+            $evalConEmpPractica->toArray();
+            
+            $evalActitudinales->toArray();
+            $evalConocimientos->toArray();
             
             return view('Estadisticas/mostrarComparativaEvaluaciones')->with("autoevaluacion", $autoevaluacion)
                     ->with("evalActPractica", $evalActPractica)->with("evalConPractica", $evalConPractica)
+                    ->with("evalActEmpPractica", $evalActEmpPractica)->with("evalConEmpPractica", $evalConEmpPractica)
                     ->with("evalActitudinales", $evalActitudinales)->with("evalConocimientos", $evalConocimientos);
         }
         else{
-            return view('Estadisticas/mostrarComparativaEvaluaciones')->with("autoevaluacion", $autoevaluacion);
+            return view('Estadisticas/mostrarComparativaEvaluaciones')->with("autoevaluacion", $autoevaluacion)
+                            ->with("evaluacionSupervisor", $evaluacionSupervisor);
         }
     }
+
     public function mostrarAutoevaluacionAlumno($id){
         $autoevaluacion = Autoevaluacion::where('id_practica',$id)->first();
         
@@ -111,17 +121,17 @@ class EstadisticaController extends Controller
             $herramientas = Herramienta::orderby('id_herramienta', 'DESC')->paginate(12);
             $areas = Area::orderby('id_area', 'DESC')->paginate(12);
 
-            $evalActPractica = EvalActPractica::orderby('valor_act_practica', 'DESC')->where('id_autoeval',$autoevaluacion->id_autoeval)->paginate(12);
-            $evalConPractica = EvalConPractica::orderby('valor_con_practica', 'DESC')->where('id_autoeval',$autoevaluacion->id_autoeval)->paginate(12);
+            $evalActPractica = EvalActPractica::orderby('id_actitudinal', 'ASC')->where('id_autoeval',$autoevaluacion->id_autoeval)->paginate(12);
+            $evalConPractica = EvalConPractica::orderby('id_conocimiento', 'ASC')->where('id_autoeval',$autoevaluacion->id_autoeval)->paginate(12);
 
             $evalActitudinales = EvalActitudinal::orderby('id_actitudinal', 'ASC')->paginate(12);
             $evalConocimientos = EvalConocimiento::orderby('id_conocimiento', 'ASC')->paginate(12);
 
             $evalActitudinales->toArray();
-            $evalActPractica->toArray();
-
             $evalConocimientos->toArray();
+            
             $evalConPractica->toArray();
+            $evalActPractica->toArray();
 
             $practica = Practica::find($id);
             $alumno = Alumno::find($practica->id_alumno);   
@@ -144,11 +154,43 @@ class EstadisticaController extends Controller
     }
 
     public function mostrarEvaluacionSupervisor($id){
-        $alumno = Alumno::find($id);
+        $evaluacionSupervisor = EvaluacionSupervisor::where('id_practica',$id)->first();
+        
+        if($evaluacionSupervisor != null){
+            $evalActPractica = EvalActEmpPractica::orderby('id_actitudinal', 'ASC')->where('id_eval_supervisor',$evaluacionSupervisor->id_eval_supervisor)->paginate(12);
+            $evalConPractica = EvalConEmpPractica::orderby('id_conocimiento', 'ASC')->where('id_eval_supervisor',$evaluacionSupervisor->id_eval_supervisor)->paginate(12);
 
-        return view('Estadisticas/mostrarEvaluacionSupervisor')->with("alumno", $alumno);
+            $evalActitudinales = EvalActitudinal::orderby('id_actitudinal', 'ASC')->paginate(12);
+            $evalConocimientos = EvalConocimiento::orderby('id_conocimiento', 'ASC')->paginate(12);
+
+            $evalActitudinales->toArray();
+            $evalActPractica->toArray();
+
+            $evalConocimientos->toArray();
+            $evalConPractica->toArray();
+
+            $practica = Practica::find($id);
+            $alumno = Alumno::find($practica->id_alumno);   
+
+            $evalActPromG = $this->calcularActEvalSupPromG($evalActitudinales, $alumno->carrera);
+            $evalConPromG = $this->calcularConEvalSupPromG($evalConocimientos, $alumno->carrera);
+            
+            return view('Estadisticas/mostrarEvaluacionSupervisor')->with("evaluacionSupervisor", $evaluacionSupervisor)
+                    ->with("evalActPractica", $evalActPractica)->with("evalConPractica", $evalConPractica)
+                    ->with("evalActitudinales", $evalActitudinales)->with("evalConocimientos", $evalConocimientos)
+                    ->with("evalActPromG", $evalActPromG)->with("evalConPromG", $evalConPromG);
+        }
+        else{
+
+            return view('Estadisticas/mostrarEvaluacionSupervisor')->with("evaluacionSupervisor", $evaluacionSupervisor);
+        }
     }
 /////////////////////////////////////////////// Estadisticas Generales ////////////////////////////////////////////////////
+    public function verEstadisticaGeneral(){
+        //$alumno = Alumno::find($practica->id_alumno);   
+        return view('Estadisticas/estadisticaGeneral');
+    }
+
     public function verEstadisticaCriteriosAutoeval(){
 
         $evalActitudinales = EvalActitudinal::orderby('id_actitudinal', 'ASC')->paginate(12);
@@ -223,8 +265,6 @@ class EstadisticaController extends Controller
 
         $hasta = $request->busquedaHasta;
         $desde = $request->busquedaDesde;
-
-        $tipoEval = 'Autoevaluación del alumno';
         
         if($request->tipoBusqueda == 1){ // 1: Busqueda por rango. 2: Busqueda por año especifico
             $evalActCivilPromG = $this->calcularActAutoevalPromGRangoAño($evalActitudinales, 'Ingeniería Civil Informática', $request->busquedaDesde, $request->busquedaHasta);
@@ -321,6 +361,8 @@ class EstadisticaController extends Controller
         $evalActPracticas = EvalActPractica::join('autoevaluaciones', 'eval_act_practicas.id_autoeval', '=', 'autoevaluaciones.id_autoeval')
                                 ->join('practicas', 'autoevaluaciones.id_practica', '=', 'practicas.id_practica')
                                 ->join('alumnos', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
+                                ->join('resoluciones','practicas.id_practica','=','resoluciones.id_practica')
+                                ->where('resoluciones.resolucion_practica',2)
                                 ->where('alumnos.carrera',$carrera)
                                 ->select('eval_act_practicas.*')
                                 ->get();
@@ -351,6 +393,8 @@ class EstadisticaController extends Controller
         $evalConPracticas = EvalConPractica::join('autoevaluaciones', 'eval_con_practicas.id_autoeval', '=', 'autoevaluaciones.id_autoeval')
                                 ->join('practicas', 'autoevaluaciones.id_practica', '=', 'practicas.id_practica')
                                 ->join('alumnos', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
+                                ->join('resoluciones','practicas.id_practica','=','resoluciones.id_practica')
+                                ->where('resoluciones.resolucion_practica',2)
                                 ->where('alumnos.carrera',$carrera)
                                 ->select('eval_con_practicas.*')
                                 ->get();
@@ -380,6 +424,8 @@ class EstadisticaController extends Controller
         $evalActPracticas = EvalActEmpPractica::join('evaluaciones_supervisor', 'eval_act_emp_practica.id_eval_supervisor', '=', 'evaluaciones_supervisor.id_eval_supervisor')
                                                 ->join('practicas', 'evaluaciones_supervisor.id_practica', '=', 'practicas.id_practica')
                                                 ->join('alumnos', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
+                                                ->join('resoluciones','practicas.id_practica','=','resoluciones.id_practica')
+                                                ->where('resoluciones.resolucion_practica',2)
                                                 ->where('alumnos.carrera',$carrera)
                                                 ->select('eval_act_emp_practica.*')
                                                 ->get();
@@ -388,8 +434,8 @@ class EstadisticaController extends Controller
                 //foreach($evalActitudinales as $evalActitudinal){
                     //if ($evalActitudinal->id_actitudinal == $evalActPractica->id_actitudinal){
 
-                        if($evalActPractica->valor_act_practica <> 'NA' || $evalActPractica->valor_act_practica <> 'NL'){
-                            $evalActPromG[($evalActPractica->id_actitudinal) -1] += intval($evalActPractica->valor_act_practica);
+                        if($evalActPractica->valor_act_emp_practica <> 'NA' || $evalActPractica->valor_act_emp_practica <> 'NL'){
+                            $evalActPromG[($evalActPractica->id_actitudinal) -1] += intval($evalActPractica->valor_act_emp_practica);
                             $count[($evalActPractica->id_actitudinal) -1] += 1;
                         }
                     //}
@@ -409,6 +455,8 @@ class EstadisticaController extends Controller
         $evalConPracticas = EvalConEmpPractica::join('evaluaciones_supervisor', 'eval_con_emp_practicas.id_eval_supervisor', '=', 'evaluaciones_supervisor.id_eval_supervisor')
                                                 ->join('practicas', 'evaluaciones_supervisor.id_practica', '=', 'practicas.id_practica')
                                                 ->join('alumnos', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
+                                                ->join('resoluciones','practicas.id_practica','=','resoluciones.id_practica')
+                                                ->where('resoluciones.resolucion_practica',2)
                                                 ->where('alumnos.carrera',$carrera)
                                                 ->select('eval_con_emp_practicas.*')
                                                 ->get();
@@ -417,8 +465,8 @@ class EstadisticaController extends Controller
                 //foreach($evalConocimientos as $evalConocimiento){
                     //if ($evalConocimiento->id_conocimiento == $evalConPractica->id_conocimiento){
 
-                        if($evalConPractica->valor_con_practica <> 'NA' || $evalConPractica->valor_con_practica <> 'NL'){
-                            $EvalConPromG[($evalConPractica->id_conocimiento) -1] += intval($evalConPractica->valor_con_practica);
+                        if($evalConPractica->valor_con_emp_practica <> 'NA' || $evalConPractica->valor_con_emp_practica <> 'NL'){
+                            $EvalConPromG[($evalConPractica->id_conocimiento) -1] += intval($evalConPractica->valor_con_emp_practica);
                             $count[($evalConPractica->id_conocimiento) -1] += 1;
                         }
                     //}
@@ -439,6 +487,8 @@ class EstadisticaController extends Controller
                                 ->join('practicas', 'autoevaluaciones.id_practica', '=', 'practicas.id_practica')
                                 ->join('alumnos', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
                                 ->join('herramientas','herramientas_practica.id_herramienta', '=', 'herramientas.id_herramienta')
+                                ->join('resoluciones','practicas.id_practica','=','resoluciones.id_practica')
+                                ->where('resoluciones.resolucion_practica',2)
                                 ->where('alumnos.carrera',$carrera)
                                 ->where('herramientas.vigencia', 1)
                                 ->select('herramientas_practica.*')
@@ -457,6 +507,8 @@ class EstadisticaController extends Controller
                                 ->join('practicas', 'autoevaluaciones.id_practica', '=', 'practicas.id_practica')
                                 ->join('alumnos', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
                                 ->join('areas','areas_autoeval.id_area', '=', 'areas.id_area')
+                                ->join('resoluciones','practicas.id_practica','=','resoluciones.id_practica')
+                                ->where('resoluciones.resolucion_practica',2)
                                 ->where('alumnos.carrera',$carrera)
                                 ->where('areas.vigencia', 1)
                                 ->select('areas_autoeval.*')
@@ -475,6 +527,8 @@ class EstadisticaController extends Controller
                                 ->join('practicas', 'evaluaciones_supervisor.id_practica', '=', 'practicas.id_practica')
                                 ->join('alumnos', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
                                 ->join('areas','area_evaluacion.id_area', '=', 'areas.id_area')
+                                ->join('resoluciones','practicas.id_practica','=','resoluciones.id_practica')
+                                ->where('resoluciones.resolucion_practica',2)
                                 ->where('alumnos.carrera',$carrera)
                                 ->where('areas.vigencia', 1)
                                 ->select('area_evaluacion.*')
@@ -495,6 +549,8 @@ class EstadisticaController extends Controller
         $evalActPracticas = EvalActPractica::join('autoevaluaciones', 'eval_act_practicas.id_autoeval', '=', 'autoevaluaciones.id_autoeval')
                                 ->join('practicas', 'autoevaluaciones.id_practica', '=', 'practicas.id_practica')
                                 ->join('alumnos', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
+                                ->join('resoluciones','practicas.id_practica','=','resoluciones.id_practica')
+                                ->where('resoluciones.resolucion_practica',2)
                                 ->where('alumnos.carrera',$carrera)
                                 ->select('eval_act_practicas.*','autoevaluaciones.f_entrega')
                                 ->get();
@@ -528,6 +584,8 @@ class EstadisticaController extends Controller
         $evalConPracticas = EvalConPractica::join('autoevaluaciones', 'eval_con_practicas.id_autoeval', '=', 'autoevaluaciones.id_autoeval')
                                 ->join('practicas', 'autoevaluaciones.id_practica', '=', 'practicas.id_practica')
                                 ->join('alumnos', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
+                                ->join('resoluciones','practicas.id_practica','=','resoluciones.id_practica')
+                                ->where('resoluciones.resolucion_practica',2)
                                 ->where('alumnos.carrera',$carrera)
                                 ->select('eval_con_practicas.*','autoevaluaciones.f_entrega')
                                 ->get();
@@ -561,6 +619,8 @@ class EstadisticaController extends Controller
         $evalActPracticas = EvalActEmpPractica::join('evaluaciones_supervisor', 'eval_act_emp_practica.id_eval_supervisor', '=', 'evaluaciones_supervisor.id_eval_supervisor')
                                 ->join('practicas', 'evaluaciones_supervisor.id_practica', '=', 'practicas.id_practica')
                                 ->join('alumnos', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
+                                ->join('resoluciones','practicas.id_practica','=','resoluciones.id_practica')
+                                ->where('resoluciones.resolucion_practica',2)
                                 ->where('alumnos.carrera',$carrera)
                                 ->select('eval_act_emp_practica.*','evaluaciones_supervisor.f_entrega_eval')
                                 ->get();
@@ -594,6 +654,8 @@ class EstadisticaController extends Controller
         $evalConPracticas = EvalConEmpPractica::join('evaluaciones_supervisor', 'eval_con_emp_practicas.id_eval_supervisor', '=', 'evaluaciones_supervisor.id_eval_supervisor')
                                 ->join('practicas', 'evaluaciones_supervisor.id_practica', '=', 'practicas.id_practica')
                                 ->join('alumnos', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
+                                ->join('resoluciones','practicas.id_practica','=','resoluciones.id_practica')
+                                ->where('resoluciones.resolucion_practica',2)
                                 ->where('alumnos.carrera',$carrera)
                                 ->select('eval_con_emp_practicas.*','evaluaciones_supervisor.f_entrega_eval')
                                 ->get();
@@ -627,6 +689,8 @@ class EstadisticaController extends Controller
                                 ->join('practicas', 'autoevaluaciones.id_practica', '=', 'practicas.id_practica')
                                 ->join('alumnos', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
                                 ->join('herramientas','herramientas_practica.id_herramienta', '=', 'herramientas.id_herramienta')
+                                ->join('resoluciones','practicas.id_practica','=','resoluciones.id_practica')
+                                ->where('resoluciones.resolucion_practica',2)
                                 ->where('alumnos.carrera',$carrera)
                                 ->where('herramientas.vigencia', 1)
                                 ->select('herramientas_practica.*','autoevaluaciones.f_entrega')
@@ -648,6 +712,8 @@ class EstadisticaController extends Controller
                                 ->join('practicas', 'autoevaluaciones.id_practica', '=', 'practicas.id_practica')
                                 ->join('alumnos', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
                                 ->join('areas','areas_autoeval.id_area', '=', 'areas.id_area')
+                                ->join('resoluciones','practicas.id_practica','=','resoluciones.id_practica')
+                                ->where('resoluciones.resolucion_practica',2)
                                 ->where('alumnos.carrera',$carrera)
                                 ->where('areas.vigencia', 1)
                                 ->select('areas_autoeval.*','autoevaluaciones.f_entrega')
@@ -669,6 +735,8 @@ class EstadisticaController extends Controller
                                 ->join('practicas', 'evaluaciones_supervisor.id_practica', '=', 'practicas.id_practica')
                                 ->join('alumnos', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
                                 ->join('areas','area_evaluacion.id_area', '=', 'areas.id_area')
+                                ->join('resoluciones','practicas.id_practica','=','resoluciones.id_practica')
+                                ->where('resoluciones.resolucion_practica',2)
                                 ->where('alumnos.carrera',$carrera)
                                 ->where('areas.vigencia', 1)
                                 ->select('area_evaluacion.*','evaluaciones_supervisor.f_entrega_eval')
@@ -692,6 +760,8 @@ class EstadisticaController extends Controller
         $evalActPracticas = EvalActPractica::join('autoevaluaciones', 'eval_act_practicas.id_autoeval', '=', 'autoevaluaciones.id_autoeval')
                                 ->join('practicas', 'autoevaluaciones.id_practica', '=', 'practicas.id_practica')
                                 ->join('alumnos', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
+                                ->join('resoluciones','practicas.id_practica','=','resoluciones.id_practica')
+                                ->where('resoluciones.resolucion_practica',2)
                                 ->where('alumnos.carrera',$carrera)
                                 ->select('eval_act_practicas.*','autoevaluaciones.f_entrega')
                                 ->get();
@@ -726,6 +796,8 @@ class EstadisticaController extends Controller
         $evalConPracticas = EvalConPractica::join('autoevaluaciones', 'eval_con_practicas.id_autoeval', '=', 'autoevaluaciones.id_autoeval')
                                 ->join('practicas', 'autoevaluaciones.id_practica', '=', 'practicas.id_practica')
                                 ->join('alumnos', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
+                                ->join('resoluciones','practicas.id_practica','=','resoluciones.id_practica')
+                                ->where('resoluciones.resolucion_practica',2)
                                 ->where('alumnos.carrera',$carrera)
                                 ->select('eval_con_practicas.*','autoevaluaciones.f_entrega')
                                 ->get();
@@ -760,6 +832,8 @@ class EstadisticaController extends Controller
         $evalActPracticas = EvalActEmpPractica::join('evaluaciones_supervisor', 'eval_act_emp_practica.id_eval_supervisor', '=', 'evaluaciones_supervisor.id_eval_supervisor')
                                 ->join('practicas', 'evaluaciones_supervisor.id_practica', '=', 'practicas.id_practica')
                                 ->join('alumnos', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
+                                ->join('resoluciones','practicas.id_practica','=','resoluciones.id_practica')
+                                ->where('resoluciones.resolucion_practica',2)
                                 ->where('alumnos.carrera',$carrera)
                                 ->select('eval_act_emp_practica.*','evaluaciones_supervisor.f_entrega_eval')
                                 ->get();
@@ -771,8 +845,8 @@ class EstadisticaController extends Controller
                 //foreach($evalActitudinales as $evalActitudinal){
                     //if ($evalActitudinal->id_actitudinal == $evalActPractica->id_actitudinal){
 
-                        if($evalActPractica->valor_act_practica <> 'NA' || $evalActPractica->valor_act_practica <> 'NL'){
-                            $evalActPromG[($evalActPractica->id_actitudinal) -1] += intval($evalActPractica->valor_act_practica);
+                        if($evalActPractica->valor_act_emp_practica <> 'NA' || $evalActPractica->valor_act_emp_practica <> 'NL'){
+                            $evalActPromG[($evalActPractica->id_actitudinal) -1] += intval($evalActPractica->valor_act_emp_practica);
                             $count[($evalActPractica->id_actitudinal) -1] += 1;
                         }
                     //}
@@ -794,6 +868,8 @@ class EstadisticaController extends Controller
         $evalConPracticas = EvalConEmpPractica::join('evaluaciones_supervisor', 'eval_con_emp_practicas.id_eval_supervisor', '=', 'evaluaciones_supervisor.id_eval_supervisor')
                                 ->join('practicas', 'evaluaciones_supervisor.id_practica', '=', 'practicas.id_practica')
                                 ->join('alumnos', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
+                                ->join('resoluciones','practicas.id_practica','=','resoluciones.id_practica')
+                                ->where('resoluciones.resolucion_practica',2)
                                 ->where('alumnos.carrera',$carrera)
                                 ->select('eval_con_emp_practicas.*','evaluaciones_supervisor.f_entrega_eval')
                                 ->get();
@@ -805,8 +881,8 @@ class EstadisticaController extends Controller
                 //foreach($evalActitudinales as $evalActitudinal){
                     //if ($evalActitudinal->id_actitudinal == $evalActPractica->id_actitudinal){
 
-                        if($evalConPractica->valor_con_practica <> 'NA' || $evalConPractica->valor_con_practica <> 'NL'){
-                            $evalConPromG[($evalConPractica->id_conocimiento) -1] += intval($evalConPractica->valor_con_practica);
+                        if($evalConPractica->valor_con_emp_practica <> 'NA' || $evalConPractica->valor_con_emp_practica <> 'NL'){
+                            $evalConPromG[($evalConPractica->id_conocimiento) -1] += intval($evalConPractica->valor_con_emp_practica);
                             $count[($evalConPractica->id_conocimiento) -1] += 1;
                         }
                     //}
@@ -828,6 +904,8 @@ class EstadisticaController extends Controller
                                 ->join('practicas', 'autoevaluaciones.id_practica', '=', 'practicas.id_practica')
                                 ->join('alumnos', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
                                 ->join('herramientas','herramientas_practica.id_herramienta', '=', 'herramientas.id_herramienta')
+                                ->join('resoluciones','practicas.id_practica','=','resoluciones.id_practica')
+                                ->where('resoluciones.resolucion_practica',2)
                                 ->where('alumnos.carrera',$carrera)
                                 ->where('herramientas.vigencia', 1)
                                 ->select('herramientas_practica.*','autoevaluaciones.f_entrega')
@@ -850,6 +928,8 @@ class EstadisticaController extends Controller
                                 ->join('practicas', 'autoevaluaciones.id_practica', '=', 'practicas.id_practica')
                                 ->join('alumnos', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
                                 ->join('areas','areas_autoeval.id_area', '=', 'areas.id_area')
+                                ->join('resoluciones','practicas.id_practica','=','resoluciones.id_practica')
+                                ->where('resoluciones.resolucion_practica',2)
                                 ->where('alumnos.carrera',$carrera)
                                 ->where('areas.vigencia', 1)
                                 ->select('areas_autoeval.*','autoevaluaciones.f_entrega')
@@ -872,6 +952,8 @@ class EstadisticaController extends Controller
                                 ->join('practicas', 'evaluaciones_supervisor.id_practica', '=', 'practicas.id_practica')
                                 ->join('alumnos', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
                                 ->join('areas','area_evaluacion.id_area', '=', 'areas.id_area')
+                                ->join('resoluciones','practicas.id_practica','=','resoluciones.id_practica')
+                                ->where('resoluciones.resolucion_practica',2)
                                 ->where('alumnos.carrera',$carrera)
                                 ->where('areas.vigencia', 1)
                                 ->select('area_evaluacion.*','evaluaciones_supervisor.f_entrega_eval')
