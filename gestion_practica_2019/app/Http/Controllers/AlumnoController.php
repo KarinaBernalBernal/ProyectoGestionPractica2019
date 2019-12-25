@@ -117,101 +117,40 @@ class AlumnoController extends Controller
         return redirect()->route('lista_alumnos');
     }
 
-    public function alumnosEnPracticaEjecucion(Request $request)
+    public function alumnosEnPractica(Request $request, $carrera)
     {
         //-----Alumnos de informatica-----//
         $alumnosInformatica = DB::table('alumnos')
             ->join('practicas', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
             ->leftJoin('autoevaluaciones', 'autoevaluaciones.id_practica', 'practicas.id_practica')
             ->leftJoin('solicitudes', 'solicitudes.id_alumno', 'alumnos.id_alumno')
-            ->where('alumnos.carrera', '=', "Ingeniería de Ejecución Informática")
+            ->where('alumnos.carrera', '=', $carrera)
             ->select('alumnos.*', 'solicitudes.id_solicitud', 'autoevaluaciones.id_autoeval', 'practicas.f_inscripcion')
             ->get();
-
-        $contador = $alumnosInformatica->count(); //mostrara la cantidad de resultados en la tabla
-
-
-        //-----Si no se seleccionaron filtros solo entregamos la consulta de la base-----//
-
-        if ($request->nombre != null || $request->apellido_paterno != null || $request->rut != null || $request->email != null || $request->anno_ingreso != null )
-        {
-            $alumnosFiltrados = collect();
-
-            //-----Filtro-----//
-            $listaFiltrada= Alumno::filtrarYPaginar($request->get('buscador'),
-                $request->get('nombre'),
-                $request->get('apellido_paterno'),
-                $request->get(null),
-                $request->get('rut'),
-                $request->get('email'),
-                $request->get('anno_ingreso'),
-                $request->get(null)
-            );
-
-            if(count($listaFiltrada))
-            {
-                for($i = 0; $i<count($listaFiltrada,1); $i++)
-                {
-                    if($alumnosInformatica->where('id_alumno', $listaFiltrada[$i]->id_alumno)->first())
-                    {
-                        $alumnosFiltrados->push($alumnosInformatica->where('id_alumno', $listaFiltrada[$i]->id_alumno)->first());
-                    }
-                }
-            }
-            $contador = $alumnosFiltrados->count();  //mostrara la cantidad de resultados en la tabla filtrada
-            $alumnosFiltrados = $alumnosFiltrados->paginate(5);
-            return view('Practicas/Ejecucion/alumnos_en_practica')->with('lista',$alumnosFiltrados)->with('contador',$contador);
-        }
-        $alumnosInformatica = $alumnosInformatica->paginate(5);
-        return view('Practicas/Ejecucion/alumnos_en_practica')->with('lista',$alumnosInformatica)->with('contador', $contador);
-    }
-
-    public function alumnosEnPracticaCivil(Request $request)
-    {
-        //-----Alumnos de civil informatica-----//
-        $alumnosInformatica = DB::table('alumnos')
-
-            ->join('practicas', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
-            ->leftJoin('autoevaluaciones', 'autoevaluaciones.id_practica', 'practicas.id_practica')
-            ->leftJoin('solicitudes', 'solicitudes.id_alumno', 'alumnos.id_alumno')
-            ->where('alumnos.carrera', '=', "Ingeniería Civil Informática")
-            ->select('alumnos.*', 'solicitudes.id_solicitud', 'autoevaluaciones.id_autoeval', 'practicas.f_inscripcion')
-            ->get();
-
-        $contador = $alumnosInformatica->count(); //mostrara la cantidad de resultados en la tabla
 
         //-----Si no se seleccionaron filtros solo entregamos la consulta de la base-----//
         if ($request->nombre != null || $request->apellido_paterno != null || $request->rut != null || $request->email != null || $request->anno_ingreso != null )
         {
-            $alumnosFiltrados = collect();
-
             //-----Filtro-----//
-            $listaFiltrada= Alumno::filtrarYPaginar($request->get('buscador'),
+            $listaFiltrada= Alumno::filtrarAlumnosEnPractica(
                 $request->get('nombre'),
                 $request->get('apellido_paterno'),
-                $request->get(null),
                 $request->get('rut'),
                 $request->get('email'),
                 $request->get('anno_ingreso'),
-                $request->get(null)
+                $carrera
             );
-
-            if(count($listaFiltrada))
-            {
-                for($i = 0; $i<count($listaFiltrada,1); $i++)
-                {
-                    if($alumnosInformatica->where('id_alumno', $listaFiltrada[$i]->id_alumno)->first())
-                    {
-                        $alumnosFiltrados->push($alumnosInformatica->where('id_alumno', $listaFiltrada[$i]->id_alumno)->first());
-                    }
-                }
-            }
-            $contador = $alumnosFiltrados->count();  //mostrara la cantidad de resultados en la tabla filtrada
-            $alumnosFiltrados = $alumnosFiltrados->paginate(5);
-            return view('Practicas/Civil/alumnos_en_practica')->with('lista',$alumnosFiltrados)->with('contador',$contador);
+            $contador = $listaFiltrada->count();  //mostrara la cantidad de resultados en la tabla filtrada
+            $listaFiltrada = $listaFiltrada->paginate(5);
+            return view('Practicas/alumnos_en_practica')->with('lista',$listaFiltrada)
+                ->with('contador',$contador)
+                ->with('carrera', $carrera);
         }
+        $contador = $alumnosInformatica->count(); //mostrara la cantidad de resultados en la tabla
         $alumnosInformatica = $alumnosInformatica->paginate(5);
-        return view('Practicas/Civil/alumnos_en_practica')->with('lista',$alumnosInformatica)->with('contador',$contador);
+        return view('Practicas/alumnos_en_practica')->with('lista',$alumnosInformatica)
+            ->with('contador', $contador)
+            ->with('carrera', $carrera);
     }
 
     public function mostrarSolicitudModal($id) //Mostrar el formulario del alumno

@@ -6,7 +6,7 @@
     <div class="container-fluid">
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                {!! Form::open(['route'=> 'alumnosPracticaEjecucion', 'method' => 'GET', 'class' => 'row container-fluid', 'role' => 'search' ])  !!}
+                {!! Form::open(['route'=> ['alumnosPractica', $carrera], 'method' => 'GET', 'class' => 'row container-fluid', 'role' => 'search' ])  !!}
                 <div class="col-2">
                     {!! Form::text('nombre', null, ['class' => 'form-control', 'placeholder' => 'Nombre']) !!}
                 </div>

@@ -7,7 +7,7 @@
         <div class="container-fluid">
             <div class="card shadow mb-4">
                 <div class="card-header  ">
-                    {!! Form::open(['route'=> 'supervisoresPracticaEjecucion', 'method' => 'GET', 'class' => 'row container-fluid', 'role' => 'search' ])  !!}
+                    {!! Form::open(['route'=> ['supervisoresPractica', $carrera], 'method' => 'GET', 'class' => 'row container-fluid', 'role' => 'search' ])  !!}
                     <div class="col-2">
                         {!! Form::text('nombre', null, ['class' => 'form-control', 'placeholder' => 'Nombre']) !!}
                     </div>
@@ -16,6 +16,9 @@
                     </div>
                     <div class="col-2">
                         {!! Form::text('email', null, ['class' => 'form-control', 'placeholder' => 'Email']) !!}
+                    </div>
+                    <div class="col-2">
+                        {!! Form::text('fono', null, ['class' => 'form-control', 'placeholder' => 'Fono']) !!}
                     </div>
                     <button type="submit" class="btn btn-info form-group col-1">Buscar</button>
                     {!! Form::close() !!}

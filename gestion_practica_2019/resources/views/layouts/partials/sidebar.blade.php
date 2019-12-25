@@ -98,8 +98,8 @@
                 <div id="collapseIngCivilInf" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Gestión general</h6>
-                        <a class="collapse-item" href="alumnosPracticaCivil">Alumnos en práctica</a>
-                        <a class="collapse-item" href="supervisoresPracticaCivil">Supervisores</a>
+                        <a class="collapse-item" href="{{route('alumnosPractica',["Ingeniería Civil Informática"])}}">Alumnos en práctica</a>
+                        <a class="collapse-item" href="{{route('supervisoresPractica',["Ingeniería Civil Informática"])}}">Supervisores</a>
 
                         <h6 class="collapse-header">Etapas</h6>
                         @if(Auth::user()->name == 'Jefe de docencia')
@@ -126,8 +126,8 @@
                 <div id="collapseIngEjecInf" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Gestión general</h6>
-                        <a class="collapse-item" href="alumnosPracticaEjecucion">Alumnos en práctica</a>
-                        <a class="collapse-item" href="supervisoresPracticaEjecucion">Supervisores</a>
+                        <a class="collapse-item" href="{{route('alumnosPractica',["Ingeniería de Ejecución Informática"])}}">Alumnos en práctica</a>
+                        <a class="collapse-item" href="{{route('supervisoresPractica',["Ingeniería de Ejecución Informática"])}}">Supervisores</a>
 
                         <h6 class="collapse-header">Etapas</h6>
                         @if(Auth::user()->name == 'Jefe de docencia') 
