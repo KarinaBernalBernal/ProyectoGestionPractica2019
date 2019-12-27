@@ -97,7 +97,7 @@
                                                     <td>{{$alumno->carrera}}</td>
                                                     <td>{{$alumno->estimacion_semestre}}</td>
                                                     <td>
-                                                        <a id='botonRevisar' class='btn btn-primary btn-sm' href="{{ route('datosAlumno',['id'=>$alumno->id_alumno])}}" >Revisar</a>
+                                                        <a id='botonRevisar' class='btn btn-primary btn-sm' href="{{ route('datosAlumno',['id'=>$alumno->id_alumno])}}" >Ver</a>
                                                         
                                                     </td>
                                                 </tr>

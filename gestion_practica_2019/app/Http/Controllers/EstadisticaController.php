@@ -21,9 +21,13 @@ use SGPP\EvalConPractica;
 use SGPP\EvalActitudinal;
 use SGPP\EvalConocimiento;
 use SGPP\Area;
+use SGPP\AreaEvaluacion;
+use SGPP\Debilidad;
 use SGPP\Herramienta;
 use SGPP\EvalActEmpPractica;
 use SGPP\EvalConEmpPractica;
+use SGPP\EvaluacionSupervisor;
+use SGPP\Fortaleza;
 
 class EstadisticaController extends Controller
 {
@@ -267,9 +271,23 @@ class EstadisticaController extends Controller
 
     //////////////////////////////////////////////////////////// Evaluacion Supervisor ///////////////////////////////////////////////////////////////////
     public function mostrarEvaluacionSupervisor($id){
-        $alumno = Alumno::find($id);
+        $evaluacion = EvaluacionSupervisor::where('id_practica',$id)->first();
 
-        return view('Estadisticas/mostrarEvaluacionSupervisor')->with("alumno", $alumno);
+        if($evaluacion != null){
+            $fortalezas = Fortaleza::where('id_eval_supervisor',$evaluacion->id_eval_supervisor)->paginate(12);
+            $debilidades = Debilidad::where('id_eval_supervisor',$evaluacion->id_eval_supervisor)->paginate(12);
+            $areaEvals = AreaEvaluacion::where('id_eval_supervisor',$evaluacion->id_eval_supervisor)->paginate(12);
+            $areas = Area::orderby('id_area', 'DESC')->paginate(12);
+         
+        return view('Estadisticas/mostrarEvaluacionSupervisor')->with("evaluacion", $evaluacion)
+                                                                ->with("fortalezas", $fortalezas)
+                                                                ->with("debilidades", $debilidades)
+                                                                ->with("areaEvals", $areaEvals)
+                                                                ->with("areas", $areas);
+        }
+        else{
+            return view('Estadisticas/mostrarEvaluacionSupervisor')->with("evaluacion", $evaluacion);
+        }
     }
 
     public function verEstadisticaCriteriosEvalSupervisor(){
@@ -351,5 +369,6 @@ class EstadisticaController extends Controller
         
         return $EvalConPromG;
     }
+    
 }
 ?>
