@@ -20,12 +20,14 @@ use SGPP\EvalConocimiento;
 use SGPP\EvalConPractica;
 use SGPP\EvaluacionSupervisor;
 use SGPP\Habilidad;
+use SGPP\Debilidad;
 use SGPP\Herramienta;
 use SGPP\HerramientaPractica;
 use SGPP\Practica;
 use SGPP\Resolucion;
 use SGPP\Supervisor;
 use SGPP\Tarea;
+use SGPP\Fortaleza;
 
 class EstadisticaController extends Controller
 {
@@ -527,24 +529,11 @@ class EstadisticaController extends Controller
         return $areasPromG;
     }
 
-    public function calcularAreasEvalSupPromG($areas, $carrera){
-        $areasPromG = array_fill(0, sizeof($areas), 0);
-        
-        $areasEvaluacions = AreaEvaluacion::join('evaluaciones_supervisor', 'area_evaluacion.id_eval_supervisor', '=', 'evaluaciones_supervisor.id_eval_supervisor')
-                                ->join('practicas', 'evaluaciones_supervisor.id_practica', '=', 'practicas.id_practica')
-                                ->join('alumnos', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
-                                ->join('areas','area_evaluacion.id_area', '=', 'areas.id_area')
-                                ->join('resoluciones','practicas.id_practica','=','resoluciones.id_practica')
-                                ->where('resoluciones.resolucion_practica',2)
-                                ->where('alumnos.carrera',$carrera)
-                                ->where('areas.vigencia', 1)
-                                ->select('area_evaluacion.*')
-                                ->get();
+    //////////////////////////////////////////////////////////// Evaluacion Supervisor ///////////////////////////////////////////////////////////////////
+    public function mostrarEvaluacionSupervisor($id){
+        $alumno = Alumno::find($id);
 
-        foreach($areasEvaluacions as $areasEvaluacion){
-            $areasPromG[($areasEvaluacion->id_area) -1] += 1;
-        }
-        return $areasPromG;
+        return view('Estadisticas/mostrarEvaluacionSupervisor')->with("alumno", $alumno);
     }
 
 
@@ -831,150 +820,5 @@ class EstadisticaController extends Controller
         
         return $evalConPromG;
     }
-
-    public function calcularActEvalSupAñoEspecifico($evalActitudinales, $carrera, $fechaDesde){
-        $evalActPromG = array_fill(0, sizeof($evalActitudinales), 0);
-        $count = array_fill(0, sizeof($evalActitudinales), 0);
-
-        $evalActPracticas = EvalActEmpPractica::join('evaluaciones_supervisor', 'eval_act_emp_practica.id_eval_supervisor', '=', 'evaluaciones_supervisor.id_eval_supervisor')
-                                ->join('practicas', 'evaluaciones_supervisor.id_practica', '=', 'practicas.id_practica')
-                                ->join('alumnos', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
-                                ->join('resoluciones','practicas.id_practica','=','resoluciones.id_practica')
-                                ->where('resoluciones.resolucion_practica',2)
-                                ->where('alumnos.carrera',$carrera)
-                                ->select('eval_act_emp_practica.*','evaluaciones_supervisor.f_entrega_eval')
-                                ->get();
-        
-        foreach($evalActPracticas as $evalActPractica){ 
-            $anio = date("Y", strtotime($evalActPractica->f_entrega_eval));
-
-            if($anio == $fechaDesde){
-                //foreach($evalActitudinales as $evalActitudinal){
-                    //if ($evalActitudinal->id_actitudinal == $evalActPractica->id_actitudinal){
-
-                        if($evalActPractica->valor_act_emp_practica <> 'NA' || $evalActPractica->valor_act_emp_practica <> 'NL'){
-                            $evalActPromG[($evalActPractica->id_actitudinal) -1] += intval($evalActPractica->valor_act_emp_practica);
-                            $count[($evalActPractica->id_actitudinal) -1] += 1;
-                        }
-                    //}
-                //}
-            }
-        }
-        for($i=0 ; $i<sizeof($evalActitudinales) ; $i++){
-            if($count[$i] <> 0)
-                $evalActPromG[$i] = $evalActPromG[$i] / $count[$i];
-        }
-        
-        return $evalActPromG;
-    }
-
-    public function calcularConEvalSupAñoEspecifico($evalConocimientos, $carrera, $fechaDesde){
-        $evalConPromG = array_fill(0, sizeof($evalConocimientos), 0);
-        $count = array_fill(0, sizeof($evalConocimientos), 0);
-
-        $evalConPracticas = EvalConEmpPractica::join('evaluaciones_supervisor', 'eval_con_emp_practicas.id_eval_supervisor', '=', 'evaluaciones_supervisor.id_eval_supervisor')
-                                ->join('practicas', 'evaluaciones_supervisor.id_practica', '=', 'practicas.id_practica')
-                                ->join('alumnos', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
-                                ->join('resoluciones','practicas.id_practica','=','resoluciones.id_practica')
-                                ->where('resoluciones.resolucion_practica',2)
-                                ->where('alumnos.carrera',$carrera)
-                                ->select('eval_con_emp_practicas.*','evaluaciones_supervisor.f_entrega_eval')
-                                ->get();
-         
-        foreach($evalConPracticas as $evalConPractica){ 
-            $anio = date("Y", strtotime($evalConPractica->f_entrega_eval));
-
-            if($anio == $fechaDesde){
-                //foreach($evalActitudinales as $evalActitudinal){
-                    //if ($evalActitudinal->id_actitudinal == $evalActPractica->id_actitudinal){
-
-                        if($evalConPractica->valor_con_emp_practica <> 'NA' || $evalConPractica->valor_con_emp_practica <> 'NL'){
-                            $evalConPromG[($evalConPractica->id_conocimiento) -1] += intval($evalConPractica->valor_con_emp_practica);
-                            $count[($evalConPractica->id_conocimiento) -1] += 1;
-                        }
-                    //}
-                //}
-            }
-        }
-        for($i=0 ; $i<sizeof($evalConocimientos) ; $i++){
-            if($count[$i] <> 0)
-                $evalConPromG[$i] = $evalConPromG[$i] / $count[$i];
-        }
-        
-        return $evalConPromG;
-    }
-
-    public function calcularHerramAutoevalAñoEspecifico($herramientas, $carrera, $fechaDesde){
-        $herramientasPromG = array_fill(0, sizeof($herramientas), 0);
-        
-        $herramientasPracticas = HerramientaPractica::join('autoevaluaciones', 'herramientas_practica.id_autoeval', '=', 'autoevaluaciones.id_autoeval')
-                                ->join('practicas', 'autoevaluaciones.id_practica', '=', 'practicas.id_practica')
-                                ->join('alumnos', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
-                                ->join('herramientas','herramientas_practica.id_herramienta', '=', 'herramientas.id_herramienta')
-                                ->join('resoluciones','practicas.id_practica','=','resoluciones.id_practica')
-                                ->where('resoluciones.resolucion_practica',2)
-                                ->where('alumnos.carrera',$carrera)
-                                ->where('herramientas.vigencia', 1)
-                                ->select('herramientas_practica.*','autoevaluaciones.f_entrega')
-                                ->get();
-
-        foreach($herramientasPracticas as $herramientasPractica){
-            $anio = date("Y", strtotime($herramientasPractica->f_entrega));
-
-            if($anio == $fechaDesde){
-                $herramientasPromG[($herramientasPractica->id_herramienta) -1] += 1;
-            }
-        }
-        return $herramientasPromG;
-    }
-
-    public function calcularAreasAutoevalAñoEspecifico($areas, $carrera, $fechaDesde){
-        $areasPromG = array_fill(0, sizeof($areas), 0);
-        
-        $areasAutoevals = AreaAutoeval::join('autoevaluaciones', 'areas_autoeval.id_autoeval', '=', 'autoevaluaciones.id_autoeval')
-                                ->join('practicas', 'autoevaluaciones.id_practica', '=', 'practicas.id_practica')
-                                ->join('alumnos', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
-                                ->join('areas','areas_autoeval.id_area', '=', 'areas.id_area')
-                                ->join('resoluciones','practicas.id_practica','=','resoluciones.id_practica')
-                                ->where('resoluciones.resolucion_practica',2)
-                                ->where('alumnos.carrera',$carrera)
-                                ->where('areas.vigencia', 1)
-                                ->select('areas_autoeval.*','autoevaluaciones.f_entrega')
-                                ->get();
-
-        foreach($areasAutoevals as $areasAutoeval){
-            $anio = date("Y", strtotime($areasAutoeval->f_entrega));
-
-            if($anio == $fechaDesde){
-                $areasPromG[($areasAutoeval->id_area) -1] += 1;
-            }
-        }
-        return $areasPromG;
-    }
-
-    public function calcularAreasEvalSupAñoEspecifico($areas, $carrera, $fechaDesde){
-        $areasPromG = array_fill(0, sizeof($areas), 0);
-        
-        $areasEvaluacions = AreaEvaluacion::join('evaluaciones_supervisor', 'area_evaluacion.id_eval_supervisor', '=', 'evaluaciones_supervisor.id_eval_supervisor')
-                                ->join('practicas', 'evaluaciones_supervisor.id_practica', '=', 'practicas.id_practica')
-                                ->join('alumnos', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
-                                ->join('areas','area_evaluacion.id_area', '=', 'areas.id_area')
-                                ->join('resoluciones','practicas.id_practica','=','resoluciones.id_practica')
-                                ->where('resoluciones.resolucion_practica',2)
-                                ->where('alumnos.carrera',$carrera)
-                                ->where('areas.vigencia', 1)
-                                ->select('area_evaluacion.*','evaluaciones_supervisor.f_entrega_eval')
-                                ->get();
-
-        foreach($areasEvaluacions as $areasEvaluacion){
-            $anio = date("Y", strtotime($areasEvaluacion->f_entrega_eval));
-
-            if($anio == $fechaDesde){
-                $areasPromG[($areasEvaluacion->id_area) -1] += 1;
-            }
-        }
-        return $areasPromG;         
-    }
-
 }
 ?>
