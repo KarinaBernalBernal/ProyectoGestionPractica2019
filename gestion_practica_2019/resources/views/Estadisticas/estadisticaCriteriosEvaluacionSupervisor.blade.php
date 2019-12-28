@@ -44,7 +44,8 @@
             <br>
             <div class="row">
                 <div class="col-md-12">
-                    <div id="barchart_areas" style="height: 300px;"></div> 
+                    <div id="barchart_areas" style="height: 300px;"></div>
+                    
                 </div>
             </div>
         </div>
@@ -57,7 +58,32 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-12">
-                        <div id="columnchart_evalActPractica" style="height: 300px;"></div>                            
+                        <div id="columnchart_evalActPractica" style="height: 300px;"></div>       
+                        <br> 
+                        <table id='tablagraficoAct' class="table table-sm table-responsive">
+                            <thead >
+                                <tr class='text-center'>
+                                    <th></th>
+                                    @foreach($evalActitudinales as $evalActitudinal)
+                                        <th style="vertical-align: middle"> {{ $evalActitudinal->n_act }} </th>
+                                    @endforeach
+                                </tr >
+                            </thead>
+                            <tbody>
+                                <tr class='text-center'>
+                                    <th>Autoevaluación</th>
+                                    @foreach($evalActitudinales as $evalActitudinal)
+                                        <th style=" font-weight: normal;"> {{ $evalActCivilPromG[($evalActitudinal->id_actitudinal)-1] }} </th>
+                                    @endforeach
+                                </tr >
+                                <tr class='text-center'>
+                                    <th>Evaluación del supervisor</th>
+                                    @foreach($evalActitudinales as $evalActitudinal)
+                                        <th style=" font-weight: normal;"> {{ $evalActEjecPromG[($evalActitudinal->id_actitudinal)-1] }} </th>
+                                    @endforeach
+                                </tr >
+                            </tbody>
+                        </table>                     
                     </div>
                 </div>
             </div>
@@ -71,7 +97,32 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-12">
-                        <div id="columnchart_evalConPractica" style="height: 300px;"></div> 
+                        <div id="columnchart_evalConPractica" style="height: 300px;"></div>
+                        <br>
+                        <table id='tablagraficoCon' class="table table-sm table-responsive">
+                            <thead >
+                                <tr class='text-center'>
+                                    <th></th>
+                                    @foreach($evalConocimientos as $evalConocimiento)
+                                        <th style="vertical-align: middle"> {{ $evalConocimiento->n_con }} </th>
+                                    @endforeach
+                                </tr >
+                            </thead>
+                            <tbody>
+                                <tr class='text-center'>
+                                    <th>Autoevaluación</th>
+                                    @foreach($evalConocimientos as $evalConocimiento)
+                                        <th style=" font-weight: normal;"> {{ $evalConCivilPromG[($evalConocimiento->id_conocimiento)-1] }} </th>
+                                    @endforeach
+                                </tr >
+                                <tr class='text-center'>
+                                    <th>Evaluación del supervisor</th>
+                                    @foreach($evalConocimientos as $evalConocimiento)
+                                        <th style=" font-weight: normal;"> {{ $evalConEjecPromG[($evalConocimiento->id_conocimiento)-1] }} </th>
+                                    @endforeach
+                                </tr >
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

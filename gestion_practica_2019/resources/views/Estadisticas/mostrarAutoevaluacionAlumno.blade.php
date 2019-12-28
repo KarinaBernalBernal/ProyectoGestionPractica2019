@@ -248,53 +248,118 @@
                                 </div>                  
                             </div> 
                         </div>
-                        {{-- Autoevaluacion --}}
                         <div class="form-group row justify-content-md-center">
                             <div class="col-md-12">
                                 <h5>Autoevaluación del alumno</h5>
-                                <hr>
-                                <h6>Actitud del alumno</h6>                       
-                                                       
-                            </div>
-                        </div>
 
-                        <div class="form-group row">
-                            <div class="col-md-11">
-                                @if($evalActPractica <> NULL)
-                                    <div id="columnchart_evalActPractica" style="height: 300px;"></div>
-                                @else
-                                    No se puede visualizar el grafico
-                                @endif
                             </div>
                         </div>
-
-                        <div class="form-group row justify-content-md-center">
-                            <div class="col-md-12">
-                                <h6>Conocimiento del alumno</h6>
+                        <div class="card text">
+                            <div class="card-body">
+                                {{-- Autoevaluacion --}}
+                                <div class="form-group row justify-content-md-center">
+                                    <div class="col-md-12">
+                                        <h6>Actitud del alumno</h6>                       
+                                                            
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-md-11">
+                                        @if($evalActPractica <> NULL)
+                                            <div id="columnchart_evalActPractica" style="height: 300px;"></div>
+                                            <br>
+                                            <table id='tablagraficoAct' class="table table-sm table-responsive">
+                                                <thead >
+                                                    <tr class='text-center'>
+                                                        <th></th>
+                                                        @foreach($evalActPractica as $evalActPract)
+                                                            <th style="vertical-align: middle"> {{ $evalActitudinales[($evalActPract->id_actitudinal)-1]->n_act }} </th>
+                                                        @endforeach
+                                                    </tr >
+                                                </thead>
+                                                <tbody>
+                                                    <tr class='text-center'>
+                                                        <th>Promedio general</th>
+                                                        @foreach($evalActPractica as $evalActPract)
+                                                            <th style=" font-weight: normal;"> {{ $evalActPract->valor_act_practica }} </th>
+                                                        @endforeach
+                                                        
+                                                    </tr >
+                                                    <tr class='text-center'>
+                                                        <th>Evaluación del supervisor</th>
+                                                        @foreach($evalActPractica as $evalActPract)
+                                                            <th style=" font-weight: normal;"> {{ $evalActPromG[($evalActPract->id_actitudinal)-1] }} </th>
+                                                        @endforeach
+                                                    </tr >
+                                                </tbody>
+                                            </table>
+                                            <label style="font-size: small"> * NL: No logrado, NA: No aplica. </label>
+                                        @else
+                                            No se puede visualizar el grafico
+                                        @endif
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <div class="col-md-11">
-                                @if($evalConPractica <> NULL)
-                                    <div id="columnchart_evalConPractica" style="height: 300px;"></div>
-                                  
-                                @else
-                                    No se puede visualizar el grafico
-                                @endif
-                            </div>
-                        </div>
-                    @else
-                        No existe la autoevaluación del alumno seleccionado.
-                    @endif
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <a href="{{ URL::previous() }}"><button class="btn btn-secondary">Atrás</button></a>
-                            </div>  
+                        <br> 
+                        <div class="card text">
+                            <div class="card-body">
+                                <div class="form-group row justify-content-md-center">
+                                    <div class="col-md-12">
+                                        <h6>Conocimiento del alumno</h6>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-md-11">
+                                        @if($evalConPractica <> NULL)
+                                            <div id="columnchart_evalConPractica" style="height: 300px;"></div>
+                                            <br>
+                                            <table id='tablagraficoCon' class="table table-sm table-responsive">
+                                                <thead >
+                                                    <tr class='text-center'>
+                                                        <th></th>
+                                                        @foreach($evalConPractica as $evalConPract)
+                                                            <th style="vertical-align: middle"> {{ $evalConocimientos[($evalConPract->id_conocimiento)-1]->n_con }} </th>
+                                                        @endforeach
+                                                    </tr >
+                                                </thead>
+                                                <tbody>
+                                                    <tr class='text-center'>
+                                                        <th>Promedio general</th>
+                                                        @foreach($evalConPractica as $evalConPract)
+                                                            <th style=" font-weight: normal;"> {{ $evalConPract->valor_con_practica }} </th>
+                                                        @endforeach
+                                                        
+                                                    </tr >
+                                                    <tr class='text-center'>
+                                                        <th>Evaluación del supervisor</th>
+                                                        @foreach($evalConPractica as $evalConPract)
+                                                            <th style=" font-weight: normal;"> {{ $evalConPromG[($evalConPract->id_conocimiento)-1] }} </th>
+                                                        @endforeach
+                                                    </tr >
+                                                </tbody>
+                                            </table>
+                                            <label style="font-size: small"> * NL: No logrado, NA: No aplica. </label>
+                                        @else
+                                            No se puede visualizar el grafico
+                                        @endif
+                                    </div>
+                                </div>
+                            @else
+                                No existe la autoevaluación del alumno seleccionado.
+                            @endif
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3">
+                <a href="{{ URL::previous() }}"><button class="btn btn-secondary">Atrás</button></a>
+            </div>  
         </div>
     </div>
 </div>

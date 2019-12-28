@@ -23,6 +23,7 @@ use SGPP\Habilidad;
 use SGPP\Herramienta;
 use SGPP\HerramientaPractica;
 use SGPP\Practica;
+use SGPP\Resolucion;
 use SGPP\Supervisor;
 use SGPP\Tarea;
 
@@ -38,9 +39,15 @@ class EstadisticaController extends Controller
         $supervisores = new Supervisor();
         $supervisores = collect([]);
 
+        $resoluciones = new Resolucion();
+        $resoluciones = collect([]);
+
         foreach($practicas as $practica){
             $resultadoSupervisor = Supervisor::where('id_supervisor', $practica->id_supervisor)->first();
+            $resultadosResolucion = Resolucion::where('id_practica', $practica->id_practica)->first();
+
             $supervisores->push($resultadoSupervisor);
+            $resoluciones->push($resultadosResolucion);
         }
 
         //Lista de empresas del alumno
@@ -56,7 +63,8 @@ class EstadisticaController extends Controller
                     ->with("alumno", $alumno)
                     ->with("practicas", $practicas)
                     ->with('supervisores', $supervisores)
-                    ->with('empresas', $empresas);                      
+                    ->with('empresas', $empresas)
+                    ->with('resoluciones', $resoluciones);                      
     }
 
     public function buscarAlumno(Request $request){
@@ -220,7 +228,6 @@ class EstadisticaController extends Controller
                 ->with('herramientasCivilPromG',$herramientasCivilPromG)->with('herramientasEjecPromG',$herramientasEjecPromG)
                 ->with('areasCivilPromG',$areasCivilPromG)->with('areasEjecPromG',$areasEjecPromG)
                 ->with('herramientas',$herramientas)->with('areas',$areas);
-
     }
 
     public function verEstadisticaCriteriosEvalSupervisor(){
@@ -873,7 +880,7 @@ class EstadisticaController extends Controller
                                 ->where('alumnos.carrera',$carrera)
                                 ->select('eval_con_emp_practicas.*','evaluaciones_supervisor.f_entrega_eval')
                                 ->get();
-        
+         
         foreach($evalConPracticas as $evalConPractica){ 
             $anio = date("Y", strtotime($evalConPractica->f_entrega_eval));
 
@@ -966,7 +973,7 @@ class EstadisticaController extends Controller
                 $areasPromG[($areasEvaluacion->id_area) -1] += 1;
             }
         }
-        return $areasPromG;
+        return $areasPromG;         
     }
 
 }
