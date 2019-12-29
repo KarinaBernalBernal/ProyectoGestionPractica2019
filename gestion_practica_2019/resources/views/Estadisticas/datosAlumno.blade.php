@@ -102,7 +102,11 @@
         {{-- Datos de Practica --}}
             <div class="form-group row justify-content-md-center">
                 <div class="col-md-12">
-                    <h5>Datos de práctica</h5>
+                    <h5>Datos de práctica
+                        @if($alumno->carrera == 'Ingeniería Civil en Informatica')
+                            <a id='avance' class='btn btn-info btn-sm' href="{{ route('avanceCivil',['id'=>$alumno->id_alumno])}}" >Avance</a>
+                        @endif
+                    </h5>
                     <hr>
                 </div>
             </div>
@@ -226,9 +230,7 @@
                             <div class="col-md-12">
                                 <a id='botonMostrarAutoevaluacionAlumno' class='btn btn-info btn-sm' href="{{ route('mostrarAutoevaluacionAlumno',['id'=>$practica->id_practica])}}" >Ver autoevaluación</a>
                                 <a id='botonMostrarAutoevaluacionAlumno' class='btn btn-info btn-sm' href="{{ route('mostrarEvaluacionSupervisor',['id'=>$practica->id_practica])}}" >Ver evaluación del supervisor</a>
-                                <a id='botonMostrarComparativaEvaluaciones' class='btn btn-info btn-sm' href="{{ route('mostrarComparativaEvaluaciones',['id'=>$practica->id_practica])}}" >Comparativa de criterios de evaluaciones</a>
-                                
-                                
+                                <a id='botonMostrarComparativaEvaluaciones' class='btn btn-info btn-sm' href="{{ route('mostrarComparativaEvaluaciones',['id'=>$practica->id_practica])}}" >Comparativa de criterios de evaluaciones</a>    
                             </div>
                         </div>
                     </div> 

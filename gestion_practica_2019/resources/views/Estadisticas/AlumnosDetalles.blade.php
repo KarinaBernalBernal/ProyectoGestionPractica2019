@@ -95,15 +95,15 @@
                                                     <td>{{$alumno->estimacion_semestre}}</td>
                                                     <td>
                                                         <a id='botonRevisar' class='btn btn-primary btn-sm' href="{{ route('datosAlumno',['id'=>$alumno->id_alumno])}}" >Ver</a>
-                                                        @if($alumno->carrera == 'Ingeniería Civil en Informatica')
-                                                            <a id='avance' class='btn btn-info btn-sm' href="{{ route('avanceCivil',['id'=>$alumno->id_alumno])}}" >Avance</a>
-                                                        @endif
                                                     </td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
                                     </table>
-                                    {{ $lista->links() }}
+                                    <div class="row d-flex justify-content-center">
+                                        {{ $lista->links() }}
+                                    </div>
+                                    
                                 </div>
                             </div>
                         @else
