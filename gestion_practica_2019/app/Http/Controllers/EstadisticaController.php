@@ -530,11 +530,7 @@ class EstadisticaController extends Controller
     }
 
     //////////////////////////////////////////////////////////// Evaluacion Supervisor ///////////////////////////////////////////////////////////////////
-    public function mostrarEvaluacionSupervisor($id){
-        $alumno = Alumno::find($id);
 
-        return view('Estadisticas/mostrarEvaluacionSupervisor')->with("alumno", $alumno);
-    }
 
 
 //--------------------------------------- Rango de año ------------------------------------------//

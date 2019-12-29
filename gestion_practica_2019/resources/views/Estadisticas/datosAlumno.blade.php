@@ -228,9 +228,7 @@
                                 <a id='botonMostrarAutoevaluacionAlumno' class='btn btn-info btn-sm' href="{{ route('mostrarEvaluacionSupervisor',['id'=>$practica->id_practica])}}" >Ver evaluación del supervisor</a>
                                 <a id='botonMostrarComparativaEvaluaciones' class='btn btn-info btn-sm' href="{{ route('mostrarComparativaEvaluaciones',['id'=>$practica->id_practica])}}" >Comparativa de criterios de evaluaciones</a>
                                 
-                                @if($alumno->carrera == 'Ingeniería Civil en Informatica')
-                                    <a id='avance' class='btn btn-info btn-sm' href="{{ route('avanceCivil',['id'=>$practica->id_practica])}}" >Avance</a>
-                                @endif
+                                
                             </div>
                         </div>
                     </div> 
