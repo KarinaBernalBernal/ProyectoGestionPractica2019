@@ -6,10 +6,10 @@
   	<div class="d-sm-flex align-items-center justify-content-between mb-4">
     	<h3 class="h3 mb-0 text-gray-800">Autoevaluación del alumno</h3>
   	</div>
-
-    <form class="form-horizontal" action="{{route('busquedaAutoeval')}}" method="get">    
-        <div class="card text">
-            <div class="card-body">     
+     
+    <div class="card text">
+        <div class="card-body">        
+             <form class="form-horizontal" action="{{route('busquedaAutoeval')}}" method="get">   
                 {{ csrf_field() }} 
                 <div class="input-group input-group-md mb-3">
                     <label for="tipoBusqueda" class="col-form-label">{{ __('Tipo búsqueda:') }}</label>
@@ -23,7 +23,7 @@
                     
                     <label for="busquedaDesde" class="col-form-label">Ingrese año: </label>
                     <div class="col-md-2">
-                        <input id="busquedaDesde" type="number" placeholder="Desde"class="form-control" name="busquedaDesde" value="{{ old('busquedaHasta') }}" required>
+                        <input id="busquedaDesde" min="1" type="number" placeholder="Desde"class="form-control" name="busquedaDesde" value="{{ old('busquedaHasta') }}" required>
                     </div>
 
                     <div class="col-md-2">
@@ -35,112 +35,114 @@
                     </div>
                 </div>
                 <br>
-            <div>
-        </div>
-    <form>
-    <div class="card text">
-    	<div class="card-body">   
-            <h4>Herramientas más utilizadas</h4>
-            <br>
-            <div class="row">
-                <div class="col-md-12">
-                    <div id="barchart_herramientas" style="height: 300px;"></div> 
-                </div>
-            </div>
-        </div>
-    </div>
-    <br>
-    <div class="card text">
-    	<div class="card-body">   
-            <h4>Áreas más solicitadas</h4>
-            <br>
-            <div class="row">
-                <div class="col-md-12">
-                    <div id="barchart_areas" style="height: 300px;"></div> 
-                </div>
-            </div>
-        </div>
-    </div>
-    <br>
-	<div class="card text">
-    	<div class="card-body">                 
-      		<h4>Criterios por Actitud del alumno</h4> 
-            <br>
-            <div class="row">
-                <div class="col-md-12">
-                    <div id="columnchart_evalActPractica" style="height: 300px;"></div>    
-                    <br> 
-                    <table id='tablagraficoAct' class="table table-sm table-responsive">
-                        <thead >
-                            <tr class='text-center'>
-                                <th></th>
-                                @foreach($evalActitudinales as $evalActitudinal)
-                                    <th style="vertical-align: middle"> {{ $evalActitudinal->n_act }} </th>
-                                @endforeach
-                            </tr >
-                        </thead>
-                        <tbody>
-                            <tr class='text-center'>
-                                <th>Autoevaluación</th>
-                                @foreach($evalActitudinales as $evalActitudinal)
-                                    <th style=" font-weight: normal;"> {{ $evalActCivilPromG[($evalActitudinal->id_actitudinal)-1] }} </th>
-                                @endforeach
-                            </tr >
-                            <tr class='text-center'>
-                                <th>Evaluación del supervisor</th>
-                                @foreach($evalActitudinales as $evalActitudinal)
-                                    <th style=" font-weight: normal;"> {{ $evalActEjecPromG[($evalActitudinal->id_actitudinal)-1] }} </th>
-                                @endforeach
-                            </tr >
-                        </tbody>
-                    </table>                                           
-                </div>
-            </div>
-        </div>
-    </div>
-    <br>
-    <div class="card text">
-    	<div class="card-body">   
-            <h4>Criterios por Conocimiento del alumno</h4>
-            <br>
-            <div class="row">
-                <div class="col-md-12">
-                    <div id="columnchart_evalConPractica" style="height: 300px;"></div>
+            </form>
+       
+    
+            <div class="card text">
+                <div class="card-body">   
+                    <h4>Herramientas más utilizadas</h4>
                     <br>
-                    <table id='tablagraficoCon' class="table table-sm table-responsive">
-                        <thead >
-                            <tr class='text-center'>
-                                <th></th>
-                                @foreach($evalConocimientos as $evalConocimiento)
-                                    <th style="vertical-align: middle"> {{ $evalConocimiento->n_con }} </th>
-                                @endforeach
-                            </tr >
-                        </thead>
-                        <tbody>
-                            <tr class='text-center'>
-                                <th>Autoevaluación</th>
-                                @foreach($evalConocimientos as $evalConocimiento)
-                                    <th style=" font-weight: normal;"> {{ $evalConCivilPromG[($evalConocimiento->id_conocimiento)-1] }} </th>
-                                @endforeach
-                            </tr >
-                            <tr class='text-center'>
-                                <th>Evaluación del supervisor</th>
-                                @foreach($evalConocimientos as $evalConocimiento)
-                                    <th style=" font-weight: normal;"> {{ $evalConEjecPromG[($evalConocimiento->id_conocimiento)-1] }} </th>
-                                @endforeach
-                            </tr >
-                        </tbody>
-                    </table>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="barchart_herramientas" style="height: 300px;"></div> 
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <br>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-3">
-                <a href="{{ URL::previous() }}"><button class="btn btn-secondary">Atrás</button></a>
-            </div>  
+            <br>
+            <div class="card text">
+                <div class="card-body">   
+                    <h4>Áreas más solicitadas</h4>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="barchart_areas" style="height: 300px;"></div> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="card text">
+                <div class="card-body">                 
+                    <h4>Criterios por Actitud del alumno</h4> 
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="columnchart_evalActPractica" style="height: 300px;"></div>    
+                            <br> 
+                            <table id='tablagraficoAct' class="table table-sm table-responsive">
+                                <thead >
+                                    <tr class='text-center'>
+                                        <th></th>
+                                        @foreach($evalActitudinales as $evalActitudinal)
+                                            <th style="vertical-align: middle"> {{ $evalActitudinal->n_act }} </th>
+                                        @endforeach
+                                    </tr >
+                                </thead>
+                                <tbody>
+                                    <tr class='text-center'>
+                                        <th>Ingeniería Civil Infornática</th>
+                                        @foreach($evalActitudinales as $evalActitudinal)
+                                            <th style=" font-weight: normal;"> {{ $evalActCivilPromG[($evalActitudinal->id_actitudinal)-1] }} </th>
+                                        @endforeach
+                                    </tr >
+                                    <tr class='text-center'>
+                                        <th>Ingeniería de Ejecución Informática</th>
+                                        @foreach($evalActitudinales as $evalActitudinal)
+                                            <th style=" font-weight: normal;"> {{ $evalActEjecPromG[($evalActitudinal->id_actitudinal)-1] }} </th>
+                                        @endforeach
+                                    </tr >
+                                </tbody>
+                            </table>                                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="card text">
+                <div class="card-body">   
+                    <h4>Criterios por Conocimiento del alumno</h4>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="columnchart_evalConPractica" style="height: 300px;"></div>
+                            <br>
+                            <table id='tablagraficoCon' class="table table-sm table-responsive">
+                                <thead >
+                                    <tr class='text-center'>
+                                        <th></th>
+                                        @foreach($evalConocimientos as $evalConocimiento)
+                                            <th style="vertical-align: middle"> {{ $evalConocimiento->n_con }} </th>
+                                        @endforeach
+                                    </tr >
+                                </thead>
+                                <tbody>
+                                    <tr class='text-center'>
+                                        <th>Ingeniería Civil Infornática</th>
+                                        @foreach($evalConocimientos as $evalConocimiento)
+                                            <th style=" font-weight: normal;"> {{ $evalConCivilPromG[($evalConocimiento->id_conocimiento)-1] }} </th>
+                                        @endforeach
+                                    </tr >
+                                    <tr class='text-center'>
+                                        <th>Ingeniería de Ejecución Informática</th>
+                                        @foreach($evalConocimientos as $evalConocimiento)
+                                            <th style=" font-weight: normal;"> {{ $evalConEjecPromG[($evalConocimiento->id_conocimiento)-1] }} </th>
+                                        @endforeach
+                                    </tr >
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-3">
+                        <a id="botonAtras" href="{{ route('home') }}"><button class="btn btn-secondary">Atrás</button></a>
+                    </div>  
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -166,6 +168,11 @@
                     $("#busquedaHasta").prop("required", true);
                 }
             }
+        });
+        $("#botonAtras").click(function (ev) { 
+            $("#busquedaDesde").removeAttr("required");
+            $("#busquedaHasta").removeAttr("required");
+            $("#tipoBusqueda").removeAttr("required");
         });
     });
 

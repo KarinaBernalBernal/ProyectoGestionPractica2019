@@ -24,7 +24,7 @@
                                 <label class="col-form-label text-md-right" >:</label>
                             </div>
                             <div class="col-md-7">
-                                <label class="col-form-label text-md-left">{{$evaluacion->f_entrega_eval}}</label>
+                                <label class="col-form-label text-md-left">{{$evaluacionSupervisor->f_entrega_eval}}</label>
                             </div>
                         </div>
                         
@@ -190,7 +190,7 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-md-3">
-                                <a href="{{ URL::previous() }}"><button class="btn btn-secondary">Atrás</button></a>
+                                <a href="{{  route('datosAlumno',['id'=>$evaluacionSupervisor->id_practica]) }}"><button class="btn btn-secondary">Atrás</button></a>
                             </div>  
                         </div>
                     </div>

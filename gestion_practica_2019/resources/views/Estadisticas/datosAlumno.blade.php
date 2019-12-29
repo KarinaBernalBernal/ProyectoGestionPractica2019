@@ -238,7 +238,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-3">
-                        <a href="{{ URL::previous() }}"><button class="btn btn-secondary">Atrás</button></a>
+                        <a href="{{ route('estadisticaAlumno') }}"><button class="btn btn-secondary">Atrás</button></a>
                     </div>  
                 </div>
             <div>      

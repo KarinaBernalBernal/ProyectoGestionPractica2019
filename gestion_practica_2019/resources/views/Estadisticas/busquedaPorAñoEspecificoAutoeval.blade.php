@@ -50,13 +50,13 @@
                         </thead>
                         <tbody>
                             <tr class='text-center'>
-                                <th>Autoevaluación</th>
+                                <th>Ingeniería Civil Infornática</th>
                                 @foreach($evalActitudinales as $evalActitudinal)
                                     <th style=" font-weight: normal;"> {{ $evalActCivilPromG[($evalActitudinal->id_actitudinal)-1] }} </th>
                                 @endforeach
                             </tr >
                             <tr class='text-center'>
-                                <th>Evaluación del supervisor</th>
+                                <th>Ingeniería de Ejecución Informática</th>
                                 @foreach($evalActitudinales as $evalActitudinal)
                                     <th style=" font-weight: normal;"> {{ $evalActEjecPromG[($evalActitudinal->id_actitudinal)-1] }} </th>
                                 @endforeach
@@ -87,13 +87,13 @@
                         </thead>
                         <tbody>
                             <tr class='text-center'>
-                                <th>Autoevaluación</th>
+                                <th>Ingeniería Civil Infornática</th>
                                 @foreach($evalConocimientos as $evalConocimiento)
                                     <th style=" font-weight: normal;"> {{ $evalConCivilPromG[($evalConocimiento->id_conocimiento)-1] }} </th>
                                 @endforeach
                             </tr >
                             <tr class='text-center'>
-                                <th>Evaluación del supervisor</th>
+                                <th>Ingeniería de Ejecución Informática</th>
                                 @foreach($evalConocimientos as $evalConocimiento)
                                     <th style=" font-weight: normal;"> {{ $evalConEjecPromG[($evalConocimiento->id_conocimiento)-1] }} </th>
                                 @endforeach
@@ -108,7 +108,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-3">
-                <a href="{{ URL::previous() }}"><button class="btn btn-secondary">Atrás</button></a>
+                <a href="{{ route('estadisticaCriteriosAutoeval') }}"><button class="btn btn-secondary">Atrás</button></a>
             </div>  
         </div>
     <div>

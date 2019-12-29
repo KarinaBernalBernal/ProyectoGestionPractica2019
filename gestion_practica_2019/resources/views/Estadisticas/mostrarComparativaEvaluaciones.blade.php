@@ -38,7 +38,7 @@
                                                 @foreach($evalActitudinales as $evalActitudinal)
                                                     <th style=" font-weight: normal;"> {{ $evalActPractica[($evalActitudinal->id_actitudinal)-1]->valor_act_practica }} </th>
                                                 @endforeach
-                                            </tr >
+                                            </tr>
                                             <tr class='text-center'>
                                                 <th>Evaluación del supervisor</th>
                                                 @foreach($evalActitudinales as $evalActitudinal)
@@ -111,7 +111,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-3">
-                <a href="{{ URL::previous() }}"><button class="btn btn-secondary">Atrás</button></a>
+                <a href="{{  route('datosAlumno',['id'=>$autoevaluacion->id_practica]) }}"><button class="btn btn-secondary">Atrás</button></a>
             </div>  
         </div>
     </div>
