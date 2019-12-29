@@ -167,6 +167,11 @@ class EstadisticaController extends Controller
         $evaluacionSupervisor = EvaluacionSupervisor::where('id_practica',$id)->first();
         
         if($evaluacionSupervisor != null){
+            $fortalezas = Fortaleza::where('id_eval_supervisor',$evaluacionSupervisor->id_eval_supervisor)->paginate(12);
+            $debilidades = Debilidad::where('id_eval_supervisor',$evaluacionSupervisor->id_eval_supervisor)->paginate(12);
+            $areaEvals = AreaEvaluacion::where('id_eval_supervisor',$evaluacionSupervisor->id_eval_supervisor)->paginate(12);
+            $areas = Area::orderby('id_area', 'DESC')->paginate(12);
+
             $evalActPractica = EvalActEmpPractica::orderby('id_actitudinal', 'ASC')->where('id_eval_supervisor',$evaluacionSupervisor->id_eval_supervisor)->paginate(12);
             $evalConPractica = EvalConEmpPractica::orderby('id_conocimiento', 'ASC')->where('id_eval_supervisor',$evaluacionSupervisor->id_eval_supervisor)->paginate(12);
 
@@ -186,6 +191,8 @@ class EstadisticaController extends Controller
             $evalConPromG = $this->calcularConEvalSupPromG($evalConocimientos, $alumno->carrera);
             
             return view('Estadisticas/mostrarEvaluacionSupervisor')->with("evaluacionSupervisor", $evaluacionSupervisor)
+                    ->with("fortalezas", $fortalezas)->with("debilidades", $debilidades)
+                    ->with("areaEvals", $areaEvals)->with("areas", $areas)
                     ->with("evalActPractica", $evalActPractica)->with("evalConPractica", $evalConPractica)
                     ->with("evalActitudinales", $evalActitudinales)->with("evalConocimientos", $evalConocimientos)
                     ->with("evalActPromG", $evalActPromG)->with("evalConPromG", $evalConPromG);
@@ -229,7 +236,8 @@ class EstadisticaController extends Controller
                 ->with("evalActEjecPromG", $evalActEjecPromG)->with("evalConEjecPromG", $evalConEjecPromG)
                 ->with('herramientasCivilPromG',$herramientasCivilPromG)->with('herramientasEjecPromG',$herramientasEjecPromG)
                 ->with('areasCivilPromG',$areasCivilPromG)->with('areasEjecPromG',$areasEjecPromG)
-                ->with('herramientas',$herramientas)->with('areas',$areas);
+                ->with('herramientas',$herramientas)->with('areas',$areas)
+                ->with('totalPractCivil', $totalPractCivil)->with('totalPractEjec', $totalPractEjec);
     }
 
     public function verEstadisticaCriteriosEvalSupervisor(){
@@ -276,15 +284,15 @@ class EstadisticaController extends Controller
         $desde = $request->busquedaDesde;
         
         if($request->tipoBusqueda == 1){ // 1: Busqueda por rango. 2: Busqueda por año especifico
-            $evalActCivilPromG = $this->calcularActAutoevalPromGRangoAño($evalActitudinales, 'Ingeniería Civil Informática', $request->busquedaDesde, $request->busquedaHasta);
-            $evalConCivilPromG = $this->calcularConAutoevalPromGRangoAño($evalConocimientos, 'Ingeniería Civil Informática', $request->busquedaDesde, $request->busquedaHasta);
-            $herramientasCivilPromG = $this->calcularHerramAutoevalPromGRangoAño($herramientas,'Ingeniería Civil Informática',$request->busquedaDesde, $request->busquedaHasta);
-            $areasCivilPromG = $this->calcularAreasAutoevalPromGRangoAño($areas ,'Ingeniería Civil Informática',$request->busquedaDesde, $request->busquedaHasta);
+            $evalActCivilPromG = $this->calcularActAutoevalPromGRangoAño($evalActitudinales, 'Ingeniería Civil Informática', $desde, $hasta);
+            $evalConCivilPromG = $this->calcularConAutoevalPromGRangoAño($evalConocimientos, 'Ingeniería Civil Informática', $desde,$hasta);
+            $herramientasCivilPromG = $this->calcularHerramAutoevalPromGRangoAño($herramientas,'Ingeniería Civil Informática',$desde, $hasta);
+            $areasCivilPromG = $this->calcularAreasAutoevalPromGRangoAño($areas ,'Ingeniería Civil Informática',$desde, $hasta);
 
-            $evalActEjecPromG = $this->calcularActAutoevalPromGRangoAño($evalActitudinales, 'Ingeniería de Ejecución Informática', $request->busquedaDesde, $request->busquedaHasta);
-            $evalConEjecPromG = $this->calcularConAutoevalPromGRangoAño($evalConocimientos, 'Ingeniería de Ejecución Informática', $request->busquedaDesde, $request->busquedaHasta);
-            $herramientasEjecPromG = $this->calcularHerramAutoevalPromGRangoAño($herramientas, 'Ingeniería de Ejecución Informática',$request->busquedaDesde, $request->busquedaHasta);
-            $areasEjecPromG = $this->calcularAreasAutoevalPromGRangoAño($areas, 'Ingeniería de Ejecución Informática',$request->busquedaDesde, $request->busquedaHasta);
+            $evalActEjecPromG = $this->calcularActAutoevalPromGRangoAño($evalActitudinales, 'Ingeniería de Ejecución Informática', $desde, $hasta);
+            $evalConEjecPromG = $this->calcularConAutoevalPromGRangoAño($evalConocimientos, 'Ingeniería de Ejecución Informática', $desde, $hasta);
+            $herramientasEjecPromG = $this->calcularHerramAutoevalPromGRangoAño($herramientas, 'Ingeniería de Ejecución Informática',$desde, $hasta);
+            $areasEjecPromG = $this->calcularAreasAutoevalPromGRangoAño($areas, 'Ingeniería de Ejecución Informática',$desde, $hasta);
             
             return view('Estadisticas/busquedaPorRangoAñoAutoeval')
                 ->with('evalActitudinales', $evalActitudinales)->with('evalConocimientos',$evalConocimientos)
@@ -296,15 +304,15 @@ class EstadisticaController extends Controller
                 ->with("desde", $desde)->with("hasta", $hasta);
         }
         else{
-            $evalActCivilPromG = $this->calcularActAutoevalAñoEspecifico($evalActitudinales, 'Ingeniería Civil Informática', $request->busquedaDesde );
-            $evalConCivilPromG = $this->calcularConAutoevalAñoEspecifico($evalConocimientos, 'Ingeniería Civil Informática', $request->busquedaDesde);
-            $herramientasCivilPromG = $this->calcularHerramAutoevalAñoEspecifico($herramientas,'Ingeniería Civil Informática',$request->busquedaDesde);
-            $areasCivilPromG = $this->calcularAreasAutoevalAñoEspecifico($areas ,'Ingeniería Civil Informática',$request->busquedaDesde);
+            $evalActCivilPromG = $this->calcularActAutoevalAñoEspecifico($evalActitudinales, 'Ingeniería Civil Informática',$desde );
+            $evalConCivilPromG = $this->calcularConAutoevalAñoEspecifico($evalConocimientos, 'Ingeniería Civil Informática', $desde);
+            $herramientasCivilPromG = $this->calcularHerramAutoevalAñoEspecifico($herramientas,'Ingeniería Civil Informática',$desde);
+            $areasCivilPromG = $this->calcularAreasAutoevalAñoEspecifico($areas ,'Ingeniería Civil Informática',$desde);
 
-            $evalActEjecPromG = $this->calcularActAutoevalAñoEspecifico($evalActitudinales, 'Ingeniería de Ejecución Informática', $request->busquedaDesde );
-            $evalConEjecPromG = $this->calcularConAutoevalAñoEspecifico($evalConocimientos, 'Ingeniería de Ejecución Informática', $request->busquedaDesde );
-            $herramientasEjecPromG = $this->calcularHerramAutoevalAñoEspecifico($herramientas, 'Ingeniería de Ejecución Informática',$request->busquedaDesde, $request->busquedaHasta);
-            $areasEjecPromG = $this->calcularAreasAutoevalAñoEspecifico($areas, 'Ingeniería de Ejecución Informática',$request->busquedaDesde);
+            $evalActEjecPromG = $this->calcularActAutoevalAñoEspecifico($evalActitudinales, 'Ingeniería de Ejecución Informática', $desde );
+            $evalConEjecPromG = $this->calcularConAutoevalAñoEspecifico($evalConocimientos, 'Ingeniería de Ejecución Informática', $desde );
+            $herramientasEjecPromG = $this->calcularHerramAutoevalAñoEspecifico($herramientas, 'Ingeniería de Ejecución Informática',$desde);
+            $areasEjecPromG = $this->calcularAreasAutoevalAñoEspecifico($areas, 'Ingeniería de Ejecución Informática',$desde);
 
             return view('Estadisticas/busquedaPorAñoEspecificoAutoeval')
                 ->with('evalActitudinales', $evalActitudinales)->with('evalConocimientos',$evalConocimientos)
@@ -328,15 +336,15 @@ class EstadisticaController extends Controller
 
         $hasta = $request->busquedaHasta;
         $desde = $request->busquedaDesde;
-        
+
         if($request->tipoBusqueda == 1){ // 1: Busqueda por rango. 2: Busqueda por año especifico
-            $evalActCivilPromG = $this->calcularActEvalSupPromGRangoAño($evalActitudinales, 'Ingeniería Civil Informática', $request->busquedaDesde, $request->busquedaHasta);
-            $evalConCivilPromG = $this->calcularConEvalSupPromGRangoAño($evalConocimientos, 'Ingeniería Civil Informática', $request->busquedaDesde, $request->busquedaHasta);
-            $areasCivilPromG = $this->calcularAreasEvalSupPromGRangoAño($areas ,'Ingeniería Civil Informática',$request->busquedaDesde, $request->busquedaHasta);
+            $evalActCivilPromG = $this->calcularActEvalSupPromGRangoAño($evalActitudinales, 'Ingeniería Civil Informática', $desde, $hasta);
+            $evalConCivilPromG = $this->calcularConEvalSupPromGRangoAño($evalConocimientos, 'Ingeniería Civil Informática', $desde, $hasta);
+            $areasCivilPromG = $this->calcularAreasEvalSupPromGRangoAño($areas ,'Ingeniería Civil Informática',$desde, $hasta);
             
-            $evalActEjecPromG = $this->calcularActEvalSupPromGRangoAño($evalActitudinales, 'Ingeniería de Ejecución Informática', $request->busquedaDesde, $request->busquedaHasta);
-            $evalConEjecPromG = $this->calcularConEvalSupPromGRangoAño($evalConocimientos, 'Ingeniería de Ejecución Informática', $request->busquedaDesde, $request->busquedaHasta);
-            $areasEjecPromG = $this->calcularAreasEvalSupPromGRangoAño($areas, 'Ingeniería de Ejecución Informática',$request->busquedaDesde, $request->busquedaHasta);
+            $evalActEjecPromG = $this->calcularActEvalSupPromGRangoAño($evalActitudinales, 'Ingeniería de Ejecución Informática', $desde, $hasta);
+            $evalConEjecPromG = $this->calcularConEvalSupPromGRangoAño($evalConocimientos, 'Ingeniería de Ejecución Informática', $desde, $hasta);
+            $areasEjecPromG = $this->calcularAreasEvalSupPromGRangoAño($areas, 'Ingeniería de Ejecución Informática',$desde, $hasta);
 
             return view('Estadisticas/busquedaPorRangoAñoEvalSup')
                 ->with('evalActitudinales', $evalActitudinales)->with('evalConocimientos',$evalConocimientos)
@@ -346,13 +354,13 @@ class EstadisticaController extends Controller
                 ->with('areas',$areas)->with("desde", $desde)->with("hasta", $hasta);
         }
         else{
-            $evalActCivilPromG = $this->calcularActEvalSupAñoEspecifico($evalActitudinales, 'Ingeniería Civil Informática', $request->busquedaDesde );
-            $evalConCivilPromG = $this->calcularConEvalSupAñoEspecifico($evalConocimientos, 'Ingeniería Civil Informática', $request->busquedaDesde);
-            $areasCivilPromG = $this->calcularAreasAutoevalAñoEspecifico($areas ,'Ingeniería Civil Informática',$request->busquedaDesde);
+            $evalActCivilPromG = $this->calcularActEvalSupAñoEspecifico($evalActitudinales, 'Ingeniería Civil Informática', $desde);
+            $evalConCivilPromG = $this->calcularConEvalSupAñoEspecifico($evalConocimientos, 'Ingeniería Civil Informática', $desde);
+            $areasCivilPromG = $this->calcularAreasAutoevalAñoEspecifico($areas ,'Ingeniería Civil Informática',$desde);
 
-            $evalActEjecPromG = $this->calcularActEvalSupAñoEspecifico($evalActitudinales, 'Ingeniería de Ejecución Informática', $request->busquedaDesde );
-            $evalConEjecPromG = $this->calcularConEvalSupAñoEspecifico($evalConocimientos, 'Ingeniería de Ejecución Informática', $request->busquedaDesde );
-            $areasEjecPromG = $this->calcularAreasAutoevalAñoEspecifico($areas, 'Ingeniería de Ejecución Informática',$request->busquedaDesde);
+            $evalActEjecPromG = $this->calcularActEvalSupAñoEspecifico($evalActitudinales, 'Ingeniería de Ejecución Informática', $desde );
+            $evalConEjecPromG = $this->calcularConEvalSupAñoEspecifico($evalConocimientos, 'Ingeniería de Ejecución Informática', $desde );
+            $areasEjecPromG = $this->calcularAreasAutoevalAñoEspecifico($areas, 'Ingeniería de Ejecución Informática',$desde);
 
             return view('Estadisticas/busquedaPorAñoEspecificoEvalSup')
                 ->with('evalActitudinales', $evalActitudinales)->with('evalConocimientos',$evalConocimientos)
@@ -377,16 +385,15 @@ class EstadisticaController extends Controller
                                 ->get();
     
         foreach($evalActPracticas as $evalActPractica){ 
-
-                //foreach($evalActitudinales as $evalActitudinal){
-                    //if ($evalActitudinal->id_actitudinal == $evalActPractica->id_actitudinal){
-
-                        if($evalActPractica->valor_act_practica <> 'NA' || $evalActPractica->valor_act_practica <> 'NL'){
-                            $evalActPromG[($evalActPractica->id_actitudinal) -1] += intval($evalActPractica->valor_act_practica);
-                            $count[($evalActPractica->id_actitudinal) -1] += 1;
-                        }
-                    //}
-                //}
+            if($evalActPractica->valor_act_practica <> 'NA'){
+                if($evalActPractica->valor_act_practica == 'NL'){  //NL = 0 puntos
+                    $count[($evalActPractica->id_actitudinal) -1] += 1;
+                            
+                }else{
+                    $evalActPromG[($evalActPractica->id_actitudinal) -1] += intval($evalActPractica->valor_act_practica);
+                    $count[($evalActPractica->id_actitudinal) -1] += 1;
+                }
+            }
         }
         for($i=0 ; $i<sizeof($evalActitudinales) ; $i++){
             if($count[$i] <> 0)
@@ -407,23 +414,22 @@ class EstadisticaController extends Controller
                                 ->where('alumnos.carrera',$carrera)
                                 ->select('eval_con_practicas.*')
                                 ->get();
+
         foreach($evalConPracticas as $evalConPractica){
-
-                //foreach($evalConocimientos as $evalConocimiento){
-                    //if ($evalConocimiento->id_conocimiento == $evalConPractica->id_conocimiento){
-
-                        if($evalConPractica->valor_con_practica <> 'NA' || $evalConPractica->valor_con_practica <> 'NL'){
-                            $EvalConPromG[($evalConPractica->id_conocimiento) -1] += intval($evalConPractica->valor_con_practica);
-                            $count[($evalConPractica->id_conocimiento) -1] += 1;
-                        }
-                    //}
-                //}
+            if($evalConPractica->valor_con_practica <> 'NA'){
+                if($evalConPractica->valor_con_practica == 'NL'){ //NL = 0 puntos
+                    $count[($evalConPractica->id_conocimiento) -1] += 1;
+                }else{
+                    $EvalConPromG[($evalConPractica->id_conocimiento) -1] += intval($evalConPractica->valor_con_practica);
+                    $count[($evalConPractica->id_conocimiento) -1] += 1;
+                }
+            }
         }
+        
         for($i=0 ; $i<sizeof($evalConocimientos) ; $i++){
             if($count[$i] <> 0)
                 $EvalConPromG[$i] = $EvalConPromG[$i] / $count[$i];
         }
-        
         return $EvalConPromG;
     }   
     public function calcularActEvalSupPromG($evalActitudinales, $carrera){
@@ -440,15 +446,14 @@ class EstadisticaController extends Controller
                                                 ->get();
 
         foreach($evalActPracticas as $evalActPractica){ 
-                //foreach($evalActitudinales as $evalActitudinal){
-                    //if ($evalActitudinal->id_actitudinal == $evalActPractica->id_actitudinal){
-
-                        if($evalActPractica->valor_act_emp_practica <> 'NA' || $evalActPractica->valor_act_emp_practica <> 'NL'){
-                            $evalActPromG[($evalActPractica->id_actitudinal) -1] += intval($evalActPractica->valor_act_emp_practica);
-                            $count[($evalActPractica->id_actitudinal) -1] += 1;
-                        }
-                    //}
-                //}
+            if($evalActPractica->valor_act_emp_practica <> 'NA'){
+                if($evalActPractica->valor_act_emp_practica == 'NL'){ //NL: 0 puntos
+                    $count[($evalActPractica->id_actitudinal) -1] += 1;
+                }else{
+                    $evalActPromG[($evalActPractica->id_actitudinal) -1] += intval($evalActPractica->valor_act_emp_practica);
+                    $count[($evalActPractica->id_actitudinal) -1] += 1;
+                }
+            }
         }
         for($i=0 ; $i<sizeof($evalActitudinales) ; $i++){
             if($count[$i] <> 0)
@@ -471,15 +476,14 @@ class EstadisticaController extends Controller
                                                 ->get();
 
         foreach($evalConPracticas as $evalConPractica){
-                //foreach($evalConocimientos as $evalConocimiento){
-                    //if ($evalConocimiento->id_conocimiento == $evalConPractica->id_conocimiento){
-
-                        if($evalConPractica->valor_con_emp_practica <> 'NA' || $evalConPractica->valor_con_emp_practica <> 'NL'){
-                            $EvalConPromG[($evalConPractica->id_conocimiento) -1] += intval($evalConPractica->valor_con_emp_practica);
-                            $count[($evalConPractica->id_conocimiento) -1] += 1;
-                        }
-                    //}
-                //}
+            if($evalConPractica->valor_con_emp_practica <> 'NA'){ 
+                if($evalConPractica->valor_con_emp_practica == 'NL'){ //NL: 0 puntos
+                    $count[($evalConPractica->id_conocimiento) -1] += 1;
+                }else{
+                    $EvalConPromG[($evalConPractica->id_conocimiento) -1] += intval($evalConPractica->valor_con_emp_practica);
+                    $count[($evalConPractica->id_conocimiento) -1] += 1;
+                }
+            }
         }
         for($i=0 ; $i<sizeof($evalConocimientos) ; $i++){
             if($count[$i] <> 0)
@@ -529,13 +533,25 @@ class EstadisticaController extends Controller
         return $areasPromG;
     }
 
-    //////////////////////////////////////////////////////////// Evaluacion Supervisor ///////////////////////////////////////////////////////////////////
-    public function mostrarEvaluacionSupervisor($id){
-        $alumno = Alumno::find($id);
+    public function calcularAreasEvalSupPromG($areas, $carrera){
+        $areasPromG = array_fill(0, sizeof($areas), 0);
+        
+        $areasEvaluacions = AreaEvaluacion::join('evaluaciones_supervisor', 'area_evaluacion.id_eval_supervisor', '=', 'evaluaciones_supervisor.id_eval_supervisor')
+                                ->join('practicas', 'evaluaciones_supervisor.id_practica', '=', 'practicas.id_practica')
+                                ->join('alumnos', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
+                                ->join('areas','area_evaluacion.id_area', '=', 'areas.id_area')
+                                ->join('resoluciones','practicas.id_practica','=','resoluciones.id_practica')
+                                ->where('resoluciones.resolucion_practica',2)
+                                ->where('alumnos.carrera',$carrera)
+                                ->where('areas.vigencia', 1)
+                                ->select('area_evaluacion.*')
+                                ->get();
 
-        return view('Estadisticas/mostrarEvaluacionSupervisor')->with("alumno", $alumno);
+        foreach($areasEvaluacions as $areasEvaluacion){
+            $areasPromG[($areasEvaluacion->id_area) -1] += 1;
+        }
+        return $areasPromG;
     }
-
 
 //--------------------------------------- Rango de año ------------------------------------------//
     public function calcularActAutoevalPromGRangoAño($evalActitudinales, $carrera, $fechaDesde, $fechaHasta){
@@ -548,22 +564,21 @@ class EstadisticaController extends Controller
                                 ->join('resoluciones','practicas.id_practica','=','resoluciones.id_practica')
                                 ->where('resoluciones.resolucion_practica',2)
                                 ->where('alumnos.carrera',$carrera)
-                                ->select('eval_act_practicas.*','autoevaluaciones.f_entrega')
+                                ->select('eval_act_practicas.*','resoluciones.f_resolucion')
                                 ->get();
         
         foreach($evalActPracticas as $evalActPractica){ 
-            $anio = date("Y", strtotime($evalActPractica->f_entrega));
+            $anio = date("Y", strtotime($evalActPractica->f_resolucion));
 
             if($anio >= $fechaDesde && $anio <= $fechaHasta){
-                //foreach($evalActitudinales as $evalActitudinal){
-                    //if ($evalActitudinal->id_actitudinal == $evalActPractica->id_actitudinal){
-
-                        if($evalActPractica->valor_act_practica <> 'NA' || $evalActPractica->valor_act_practica <> 'NL'){
-                            $evalActPromG[($evalActPractica->id_actitudinal) -1] += intval($evalActPractica->valor_act_practica);
-                            $count[($evalActPractica->id_actitudinal) -1] += 1;
-                        }
-                    //}
-                //}
+                if($evalActPractica->valor_act_practica <> 'NA'){ 
+                    if($evalActPractica->valor_act_practica == 'NL'){ //NL: 0 puntos
+                        $count[($evalActPractica->id_actitudinal) -1] += 1;
+                    }else{
+                        $evalActPromG[($evalActPractica->id_actitudinal) -1] += intval($evalActPractica->valor_act_practica);
+                        $count[($evalActPractica->id_actitudinal) -1] += 1;
+                    }
+                }
             }
         }
         for($i=0 ; $i<sizeof($evalActitudinales) ; $i++){
@@ -583,22 +598,21 @@ class EstadisticaController extends Controller
                                 ->join('resoluciones','practicas.id_practica','=','resoluciones.id_practica')
                                 ->where('resoluciones.resolucion_practica',2)
                                 ->where('alumnos.carrera',$carrera)
-                                ->select('eval_con_practicas.*','autoevaluaciones.f_entrega')
+                                ->select('eval_con_practicas.*','resoluciones.f_resolucion')
                                 ->get();
         
         foreach($evalConPracticas as $evalConPractica){ 
-            $anio = date("Y", strtotime($evalConPractica->f_entrega));
+            $anio = date("Y", strtotime($evalConPractica->f_resolucion));
 
             if($anio >= $fechaDesde && $anio <= $fechaHasta){
-                //foreach($evalActitudinales as $evalActitudinal){
-                    //if ($evalActitudinal->id_actitudinal == $evalActPractica->id_actitudinal){
-
-                        if($evalConPractica->valor_con_practica <> 'NA' || $evalConPractica->valor_con_practica <> 'NL'){
-                            $evalConPromG[($evalConPractica->id_conocimiento) -1] += intval($evalConPractica->valor_con_practica);
-                            $count[($evalConPractica->id_conocimiento) -1] += 1;
-                        }
-                    //}
-                //}
+                if($evalConPractica->valor_con_practica <> 'NA' ){
+                    if($evalConPractica->valor_con_practica == 'NL'){ //NL: puntos
+                        $count[($evalConPractica->id_conocimiento) -1] += 1;
+                    }else{
+                        $evalConPromG[($evalConPractica->id_conocimiento) -1] += intval($evalConPractica->valor_con_practica);
+                        $count[($evalConPractica->id_conocimiento) -1] += 1;
+                    }
+                }
             }
         }
         for($i=0 ; $i<sizeof($evalConocimientos) ; $i++){
@@ -618,22 +632,21 @@ class EstadisticaController extends Controller
                                 ->join('resoluciones','practicas.id_practica','=','resoluciones.id_practica')
                                 ->where('resoluciones.resolucion_practica',2)
                                 ->where('alumnos.carrera',$carrera)
-                                ->select('eval_act_emp_practica.*','evaluaciones_supervisor.f_entrega_eval')
+                                ->select('eval_act_emp_practica.*','resoluciones.f_resolucion')
                                 ->get();
         
         foreach($evalActPracticas as $evalActPractica){ 
-            $anio = date("Y", strtotime($evalActPractica->f_entrega_eval));
+            $anio = date("Y", strtotime($evalActPractica->f_resolucion));
 
             if($anio >= $fechaDesde && $anio <= $fechaHasta){
-                //foreach($evalActitudinales as $evalActitudinal){
-                    //if ($evalActitudinal->id_actitudinal == $evalActPractica->id_actitudinal){
-
-                        if($evalActPractica->valor_act_emp_practica <> 'NA' || $evalActPractica->valor_act_emp_practica <> 'NL'){
-                            $evalActPromG[($evalActPractica->id_actitudinal) -1] += intval($evalActPractica->valor_act_emp_practica);
-                            $count[($evalActPractica->id_actitudinal) -1] += 1;
-                        }
-                    //}
-                //}
+                if($evalActPractica->valor_act_emp_practica <> 'NA'){
+                    if($evalActPractica->valor_act_emp_practica == 'NL'){ //NL: 0 puntos
+                        $count[($evalActPractica->id_actitudinal) -1] += 1;
+                    }else{
+                        $evalActPromG[($evalActPractica->id_actitudinal) -1] += intval($evalActPractica->valor_act_emp_practica);
+                        $count[($evalActPractica->id_actitudinal) -1] += 1;
+                    }
+                }
             }
         }
         for($i=0 ; $i<sizeof($evalActitudinales) ; $i++){
@@ -653,22 +666,21 @@ class EstadisticaController extends Controller
                                 ->join('resoluciones','practicas.id_practica','=','resoluciones.id_practica')
                                 ->where('resoluciones.resolucion_practica',2)
                                 ->where('alumnos.carrera',$carrera)
-                                ->select('eval_con_emp_practicas.*','evaluaciones_supervisor.f_entrega_eval')
+                                ->select('eval_con_emp_practicas.*','resoluciones.f_resolucion')
                                 ->get();
         
         foreach($evalConPracticas as $evalConPractica){ 
-            $anio = date("Y", strtotime($evalConPractica->f_entrega_eval));
+            $anio = date("Y", strtotime($evalConPractica->f_resolucion));
 
             if($anio >= $fechaDesde && $anio <= $fechaHasta){
-                //foreach($evalActitudinales as $evalActitudinal){
-                    //if ($evalActitudinal->id_actitudinal == $evalActPractica->id_actitudinal){
-
-                        if($evalConPractica->valor_con_emp_practica <> 'NA' || $evalConPractica->valor_con_emp_practica <> 'NL'){
-                            $evalConPromG[($evalConPractica->id_conocimiento) -1] += intval($evalConPractica->valor_con_emp_practica);
-                            $count[($evalConPractica->id_conocimiento) -1] += 1;
-                        }
-                    //}
-                //}
+                if($evalConPractica->valor_con_emp_practica <> 'NA'){
+                    if($evalConPractica->valor_con_emp_practica == 'NL'){ //NL: 0 puntos
+                        $count[($evalConPractica->id_conocimiento) -1] += 1;
+                    }else{
+                        $evalConPromG[($evalConPractica->id_conocimiento) -1] += intval($evalConPractica->valor_con_emp_practica);
+                        $count[($evalConPractica->id_conocimiento) -1] += 1;
+                    }
+                }
             }
         }
         for($i=0 ; $i<sizeof($evalConocimientos) ; $i++){
@@ -689,11 +701,11 @@ class EstadisticaController extends Controller
                                 ->where('resoluciones.resolucion_practica',2)
                                 ->where('alumnos.carrera',$carrera)
                                 ->where('herramientas.vigencia', 1)
-                                ->select('herramientas_practica.*','autoevaluaciones.f_entrega')
+                                ->select('herramientas_practica.*','resoluciones.f_resolucion')
                                 ->get();
 
         foreach($herramientasPracticas as $herramientasPractica){
-            $anio = date("Y", strtotime($herramientasPractica->f_entrega));
+            $anio = date("Y", strtotime($herramientasPractica->f_resolucion));
 
             if($anio >= $fechaDesde && $anio <= $fechaHasta){
                 $herramientasPromG[($herramientasPractica->id_herramienta) -1] += 1;
@@ -712,11 +724,11 @@ class EstadisticaController extends Controller
                                 ->where('resoluciones.resolucion_practica',2)
                                 ->where('alumnos.carrera',$carrera)
                                 ->where('areas.vigencia', 1)
-                                ->select('areas_autoeval.*','autoevaluaciones.f_entrega')
+                                ->select('areas_autoeval.*','resoluciones.f_resolucion')
                                 ->get();
 
         foreach($areasAutoevals as $areasAutoeval){
-            $anio = date("Y", strtotime($areasAutoeval->f_entrega));
+            $anio = date("Y", strtotime($areasAutoeval->f_resolucion));
 
             if($anio >= $fechaDesde && $anio <= $fechaHasta){
                 $areasPromG[($areasAutoeval->id_area) -1] += 1;
@@ -735,11 +747,11 @@ class EstadisticaController extends Controller
                                 ->where('resoluciones.resolucion_practica',2)
                                 ->where('alumnos.carrera',$carrera)
                                 ->where('areas.vigencia', 1)
-                                ->select('area_evaluacion.*','evaluaciones_supervisor.f_entrega_eval')
+                                ->select('area_evaluacion.*','resoluciones.f_resolucion')
                                 ->get();
 
         foreach($areasEvaluacions as $areasEvaluacion){
-            $anio = date("Y", strtotime($areasEvaluacion->f_entrega_eval));
+            $anio = date("Y", strtotime($areasEvaluacion->f_resolucion));
 
             if($anio >= $fechaDesde && $anio <= $fechaHasta){
                 $areasPromG[($areasEvaluacion->id_area) -1] += 1;
@@ -759,24 +771,24 @@ class EstadisticaController extends Controller
                                 ->join('resoluciones','practicas.id_practica','=','resoluciones.id_practica')
                                 ->where('resoluciones.resolucion_practica',2)
                                 ->where('alumnos.carrera',$carrera)
-                                ->select('eval_act_practicas.*','autoevaluaciones.f_entrega')
+                                ->select('eval_act_practicas.*','resoluciones.f_resolucion')
                                 ->get();
         
         foreach($evalActPracticas as $evalActPractica){ 
-            $anio = date("Y", strtotime($evalActPractica->f_entrega));
+            $anio = date("Y", strtotime($evalActPractica->f_resolucion));
 
             if($anio == $fechaDesde){
-                //foreach($evalActitudinales as $evalActitudinal){
-                    //if ($evalActitudinal->id_actitudinal == $evalActPractica->id_actitudinal){
-
-                        if($evalActPractica->valor_act_practica <> 'NA' || $evalActPractica->valor_act_practica <> 'NL'){
-                            $evalActPromG[($evalActPractica->id_actitudinal) -1] += intval($evalActPractica->valor_act_practica);
-                            $count[($evalActPractica->id_actitudinal) -1] += 1;
-                        }
-                    //}
-                //}
+                if($evalActPractica->valor_act_practica <> 'NA'){
+                    if($evalActPractica->valor_act_practica == 'NL'){ //NL: 0 puntos
+                        $count[($evalActPractica->id_actitudinal) -1] += 1;
+                    }else{
+                        $evalActPromG[($evalActPractica->id_actitudinal) -1] += intval($evalActPractica->valor_act_practica);
+                        $count[($evalActPractica->id_actitudinal) -1] += 1;
+                    }
+                }
             }
         }
+
         for($i=0 ; $i<sizeof($evalActitudinales) ; $i++){
             if($count[$i] <> 0)
                 $evalActPromG[$i] = $evalActPromG[$i] / $count[$i];
@@ -795,22 +807,21 @@ class EstadisticaController extends Controller
                                 ->join('resoluciones','practicas.id_practica','=','resoluciones.id_practica')
                                 ->where('resoluciones.resolucion_practica',2)
                                 ->where('alumnos.carrera',$carrera)
-                                ->select('eval_con_practicas.*','autoevaluaciones.f_entrega')
+                                ->select('eval_con_practicas.*','resoluciones.f_resolucion')
                                 ->get();
         
         foreach($evalConPracticas as $evalConPractica){ 
-            $anio = date("Y", strtotime($evalConPractica->f_entrega));
+            $anio = date("Y", strtotime($evalConPractica->f_resolucion));
 
             if($anio == $fechaDesde){
-                //foreach($evalActitudinales as $evalActitudinal){
-                    //if ($evalActitudinal->id_actitudinal == $evalActPractica->id_actitudinal){
-
-                        if($evalConPractica->valor_con_practica <> 'NA' || $evalConPractica->valor_con_practica <> 'NL'){
-                            $evalConPromG[($evalConPractica->id_conocimiento) -1] += intval($evalConPractica->valor_con_practica);
-                            $count[($evalConPractica->id_conocimiento) -1] += 1;
-                        }
-                    //}
-                //}
+                if($evalConPractica->valor_con_practica <> 'NA' ){
+                    if($evalConPractica->valor_con_practica == 'NL'){ //NL: 0 puntos
+                        $count[($evalConPractica->id_conocimiento) -1] += 1;
+                    }else{
+                        $evalConPromG[($evalConPractica->id_conocimiento) -1] += intval($evalConPractica->valor_con_practica);
+                        $count[($evalConPractica->id_conocimiento) -1] += 1;
+                    }
+                }
             }
         }
         for($i=0 ; $i<sizeof($evalConocimientos) ; $i++){
@@ -819,6 +830,147 @@ class EstadisticaController extends Controller
         }
         
         return $evalConPromG;
+    }
+    public function calcularActEvalSupAñoEspecifico($evalActitudinales, $carrera, $fechaDesde){
+        $evalActPromG = array_fill(0, sizeof($evalActitudinales), 0);
+        $count = array_fill(0, sizeof($evalActitudinales), 0);
+
+        $evalActPracticas = EvalActEmpPractica::join('evaluaciones_supervisor', 'eval_act_emp_practica.id_eval_supervisor', '=', 'evaluaciones_supervisor.id_eval_supervisor')
+                                ->join('practicas', 'evaluaciones_supervisor.id_practica', '=', 'practicas.id_practica')
+                                ->join('alumnos', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
+                                ->join('resoluciones','practicas.id_practica','=','resoluciones.id_practica')
+                                ->where('resoluciones.resolucion_practica',2)
+                                ->where('alumnos.carrera',$carrera)
+                                ->select('eval_act_emp_practica.*','resoluciones.f_resolucion')
+                                ->get();
+        
+        foreach($evalActPracticas as $evalActPractica){ 
+            $anio = date("Y", strtotime($evalActPractica->f_resolucion));
+
+            if($anio == $fechaDesde){
+                if($evalActPractica->valor_act_emp_practica <> 'NA'){
+                    if($evalActPractica->valor_act_emp_practica == 'NL'){ //NL: 0 puntos
+                        $count[($evalActPractica->id_actitudinal) -1] += 1;
+                    }else{
+                        $evalActPromG[($evalActPractica->id_actitudinal) -1] += intval($evalActPractica->valor_act_emp_practica);
+                        $count[($evalActPractica->id_actitudinal) -1] += 1;
+                    }
+                }
+            }
+        }
+
+        for($i=0 ; $i<sizeof($evalActitudinales) ; $i++){
+            if($count[$i] <> 0)
+                $evalActPromG[$i] = $evalActPromG[$i] / $count[$i];
+        }
+        
+        return $evalActPromG;
+    }
+
+    public function calcularConEvalSupAñoEspecifico($evalConocimientos, $carrera, $fechaDesde){
+        $evalConPromG = array_fill(0, sizeof($evalConocimientos), 0);
+        $count = array_fill(0, sizeof($evalConocimientos), 0);
+
+        $evalConPracticas = EvalConEmpPractica::join('evaluaciones_supervisor', 'eval_con_emp_practicas.id_eval_supervisor', '=', 'evaluaciones_supervisor.id_eval_supervisor')
+                                ->join('practicas', 'evaluaciones_supervisor.id_practica', '=', 'practicas.id_practica')
+                                ->join('alumnos', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
+                                ->join('resoluciones','practicas.id_practica','=','resoluciones.id_practica')
+                                ->where('resoluciones.resolucion_practica',2)
+                                ->where('alumnos.carrera',$carrera)
+                                ->select('eval_con_emp_practicas.*','resoluciones.f_resolucion')
+                                ->get();
+        
+        foreach($evalConPracticas as $evalConPractica){ 
+            $anio = date("Y", strtotime($evalConPractica->f_resolucion));
+
+            if($anio == $fechaDesde){
+                if($evalConPractica->valor_con_emp_practica <> 'NA' ){
+                    if($evalConPractica->valor_con_emp_practica == 'NL'){ //NL: 0 puntos
+                        $count[($evalConPractica->id_conocimiento) -1] += 1;
+                    }else{
+                        $evalConPromG[($evalConPractica->id_conocimiento) -1] += intval($evalConPractica->valor_con_emp_practica);
+                        $count[($evalConPractica->id_conocimiento) -1] += 1;
+                    }
+                }
+            }
+        }
+        for($i=0 ; $i<sizeof($evalConocimientos) ; $i++){
+            if($count[$i] <> 0)
+                $evalConPromG[$i] = $evalConPromG[$i] / $count[$i];
+        }
+        
+        return $evalConPromG;
+    }
+    public function calcularHerramAutoevalAñoEspecifico($herramientas, $carrera, $fechaDesde){
+        $herramientasPromG = array_fill(0, sizeof($herramientas), 0);
+        
+        $herramientasPracticas = HerramientaPractica::join('autoevaluaciones', 'herramientas_practica.id_autoeval', '=', 'autoevaluaciones.id_autoeval')
+                                ->join('practicas', 'autoevaluaciones.id_practica', '=', 'practicas.id_practica')
+                                ->join('alumnos', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
+                                ->join('herramientas','herramientas_practica.id_herramienta', '=', 'herramientas.id_herramienta')
+                                ->join('resoluciones','practicas.id_practica','=','resoluciones.id_practica')
+                                ->where('resoluciones.resolucion_practica',2)
+                                ->where('alumnos.carrera',$carrera)
+                                ->where('herramientas.vigencia', 1)
+                                ->select('herramientas_practica.*','autoevaluaciones.f_entrega')
+                                ->get();
+
+        foreach($herramientasPracticas as $herramientasPractica){
+            $anio = date("Y", strtotime($herramientasPractica->f_entrega));
+
+            if($anio == $fechaDesde){
+                $herramientasPromG[($herramientasPractica->id_herramienta) -1] += 1;
+            }
+        }
+        return $herramientasPromG;
+    }
+
+    public function calcularAreasAutoevalAñoEspecifico($areas, $carrera, $fechaDesde){
+        $areasPromG = array_fill(0, sizeof($areas), 0);
+        
+        $areasAutoevals = AreaAutoeval::join('autoevaluaciones', 'areas_autoeval.id_autoeval', '=', 'autoevaluaciones.id_autoeval')
+                                ->join('practicas', 'autoevaluaciones.id_practica', '=', 'practicas.id_practica')
+                                ->join('alumnos', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
+                                ->join('areas','areas_autoeval.id_area', '=', 'areas.id_area')
+                                ->join('resoluciones','practicas.id_practica','=','resoluciones.id_practica')
+                                ->where('resoluciones.resolucion_practica',2)
+                                ->where('alumnos.carrera',$carrera)
+                                ->where('areas.vigencia', 1)
+                                ->select('areas_autoeval.*','autoevaluaciones.f_entrega')
+                                ->get();
+
+        foreach($areasAutoevals as $areasAutoeval){
+            $anio = date("Y", strtotime($areasAutoeval->f_entrega));
+
+            if($anio == $fechaDesde){
+                $areasPromG[($areasAutoeval->id_area) -1] += 1;
+            }
+        }
+        return $areasPromG;
+    }
+
+    public function calcularAreasEvalSupAñoEspecifico($areas, $carrera, $fechaDesde){
+        $areasPromG = array_fill(0, sizeof($areas), 0);
+        
+        $areasEvaluacions = AreaEvaluacion::join('evaluaciones_supervisor', 'area_evaluacion.id_eval_supervisor', '=', 'evaluaciones_supervisor.id_eval_supervisor')
+                                ->join('practicas', 'evaluaciones_supervisor.id_practica', '=', 'practicas.id_practica')
+                                ->join('alumnos', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
+                                ->join('areas','area_evaluacion.id_area', '=', 'areas.id_area')
+                                ->join('resoluciones','practicas.id_practica','=','resoluciones.id_practica')
+                                ->where('resoluciones.resolucion_practica',2)
+                                ->where('alumnos.carrera',$carrera)
+                                ->where('areas.vigencia', 1)
+                                ->select('area_evaluacion.*','evaluaciones_supervisor.f_entrega_eval')
+                                ->get();
+
+        foreach($areasEvaluacions as $areasEvaluacion){
+            $anio = date("Y", strtotime($areasEvaluacion->f_entrega_eval));
+
+            if($anio == $fechaDesde){
+                $areasPromG[($areasEvaluacion->id_area) -1] += 1;
+            }
+        }
+        return $areasPromG;
     }
 }
 ?>
