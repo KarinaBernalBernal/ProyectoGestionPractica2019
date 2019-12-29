@@ -370,5 +370,49 @@ class EstadisticaController extends Controller
         return $EvalConPromG;
     }
     
+    public function avance($id){
+
+        $practica1 = Practica::where('id_alumno',$id)->first();
+        $id1 = $practica1->id_practica;
+
+        $practica2 = Practica::where('id_alumno',$id)->first();
+
+        $autoevaluacion1 = Autoevaluacion::where('id_practica',$practica1->id_practica)->first();
+        $autoevaluacion2 = Autoevaluacion::where('id_practica',$practica2->id_practica)->first();
+        
+        if($autoevaluacion1 != null && $autoevaluacion2 != null){
+            $evalActPractica1 = EvalActPractica::orderby('valor_act_practica', 'DESC')->where('id_autoeval',$autoevaluacion1->id_autoeval)->paginate(12);
+            $evalConPractica1 = EvalConPractica::orderby('valor_con_practica', 'DESC')->where('id_autoeval',$autoevaluacion1->id_autoeval)->paginate(12);
+
+            $evalActPractica2 = EvalActPractica::orderby('valor_act_practica', 'DESC')->where('id_autoeval',$autoevaluacion2->id_autoeval)->paginate(12);
+            $evalConPractica2 = EvalConPractica::orderby('valor_con_practica', 'DESC')->where('id_autoeval',$autoevaluacion2->id_autoeval)->paginate(12);
+
+            $evalActitudinales = EvalActitudinal::orderby('id_actitudinal', 'ASC')->paginate(12);
+            $evalConocimientos = EvalConocimiento::orderby('id_conocimiento', 'ASC')->paginate(12);
+
+            $evalActitudinales->toArray();
+            $evalConocimientos->toArray();
+
+            $evalActPractica1->toArray();
+            $evalConPractica1->toArray();
+
+            
+            $evalActPractica2->toArray();
+            $evalConPractica2->toArray();
+            
+            return view('Estadisticas/avanceCivil')->with("autoevaluacion1", $autoevaluacion1)
+                                                    ->with("autoevaluacion2", $autoevaluacion2)
+                                                    ->with("evalActPractica1", $evalActPractica1)
+                                                    ->with("evalConPractica1", $evalConPractica1)
+                                                    ->with("evalActPractica2", $evalActPractica2)
+                                                    ->with("evalConPractica2", $evalConPractica2)
+                                                    ->with("evalActitudinales", $evalActitudinales)
+                                                    ->with("evalConocimientos", $evalConocimientos);
+        }
+        else{
+            return view('Estadisticas/avanceCivil')->with("autoevaluacion", $autoevaluacion1)
+                                                    ->with("autoevaluacion", $autoevaluacion2);
+        }
+    }
 }
 ?>
