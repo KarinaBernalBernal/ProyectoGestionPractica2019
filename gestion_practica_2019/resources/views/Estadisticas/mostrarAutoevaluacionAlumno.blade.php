@@ -3,10 +3,6 @@
 @section('content')
 
 <div class="container-fluid">
-<div class="d-sm-flex align-items-center justify-content-between mb-4">
-       
-    </div>
-            
     <div class="card text">
         <div class="card-body">
             {{-- Autoevaluacion --}}
@@ -252,50 +248,118 @@
                                 </div>                  
                             </div> 
                         </div>
-                        {{-- Autoevaluacion --}}
                         <div class="form-group row justify-content-md-center">
                             <div class="col-md-12">
                                 <h5>Autoevaluación del alumno</h5>
-                                <hr>
-                                <h6>Actitud del alumno</h6>
+
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <div class="col-md-11">
-                                @if($evalActPractica <> NULL)
-                                    <div id="columnchart_evalActPractica" style="height: 300px;"></div>
-                                @else
-                                    No se puede visualizar el grafico
-                                @endif
+                        <div class="card text">
+                            <div class="card-body">
+                                {{-- Autoevaluacion --}}
+                                <div class="form-group row justify-content-md-center">
+                                    <div class="col-md-12">
+                                        <h6>Actitud del alumno</h6>                       
+                                                            
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-md-11">
+                                        @if($evalActPractica <> NULL)
+                                            <div id="columnchart_evalActPractica" style="height: 300px;"></div>
+                                            <br>
+                                            <table id='tablagraficoAct' class="table table-sm table-responsive">
+                                                <thead >
+                                                    <tr class='text-center'>
+                                                        <th></th>
+                                                        @foreach($evalActPractica as $evalActPract)
+                                                            <th style="vertical-align: middle"> {{ $evalActitudinales[($evalActPract->id_actitudinal)-1]->n_act }} </th>
+                                                        @endforeach
+                                                    </tr >
+                                                </thead>
+                                                <tbody>
+                                                    <tr class='text-center'>
+                                                        <th>Promedio general</th>
+                                                        @foreach($evalActPractica as $evalActPract)
+                                                            <th style=" font-weight: normal;"> {{ $evalActPract->valor_act_practica }} </th>
+                                                        @endforeach
+                                                        
+                                                    </tr >
+                                                    <tr class='text-center'>
+                                                        <th>Evaluación del supervisor</th>
+                                                        @foreach($evalActPractica as $evalActPract)
+                                                            <th style=" font-weight: normal;"> {{ $evalActPromG[($evalActPract->id_actitudinal)-1] }} </th>
+                                                        @endforeach
+                                                    </tr >
+                                                </tbody>
+                                            </table>
+                                            <label style="font-size: small"> * NL: No logrado, NA: No aplica. </label>
+                                        @else
+                                            No se puede visualizar el grafico
+                                        @endif
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="form-group row justify-content-md-center">
-                            <div class="col-md-12">
-                                <h6>Conocimiento del alumno</h6>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-md-11">
-                                @if($evalConPractica <> NULL)
-                                    <div id="columnchart_evalConPractica" style="height: 300px;"></div>
-                                  
-                                @else
-                                    No se puede visualizar el grafico
-                                @endif
-                            </div>
-                        </div>
-                    @else
-                        No existe la autoevaluación del alumno seleccionado.
-                    @endif
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <a href="{{ URL::previous() }}"><button class="btn btn-secondary">Atrás</button></a>
-                            </div>  
+                        <br> 
+                        <div class="card text">
+                            <div class="card-body">
+                                <div class="form-group row justify-content-md-center">
+                                    <div class="col-md-12">
+                                        <h6>Conocimiento del alumno</h6>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-md-11">
+                                        @if($evalConPractica <> NULL)
+                                            <div id="columnchart_evalConPractica" style="height: 300px;"></div>
+                                            <br>
+                                            <table id='tablagraficoCon' class="table table-sm table-responsive">
+                                                <thead >
+                                                    <tr class='text-center'>
+                                                        <th></th>
+                                                        @foreach($evalConPractica as $evalConPract)
+                                                            <th style="vertical-align: middle"> {{ $evalConocimientos[($evalConPract->id_conocimiento)-1]->n_con }} </th>
+                                                        @endforeach
+                                                    </tr >
+                                                </thead>
+                                                <tbody>
+                                                    <tr class='text-center'>
+                                                        <th>Promedio general</th>
+                                                        @foreach($evalConPractica as $evalConPract)
+                                                            <th style=" font-weight: normal;"> {{ $evalConPract->valor_con_practica }} </th>
+                                                        @endforeach
+                                                        
+                                                    </tr >
+                                                    <tr class='text-center'>
+                                                        <th>Evaluación del supervisor</th>
+                                                        @foreach($evalConPractica as $evalConPract)
+                                                            <th style=" font-weight: normal;"> {{ $evalConPromG[($evalConPract->id_conocimiento)-1] }} </th>
+                                                        @endforeach
+                                                    </tr >
+                                                </tbody>
+                                            </table>
+                                            <label style="font-size: small"> * NL: No logrado, NA: No aplica. </label>
+                                        @else
+                                            No se puede visualizar el grafico
+                                        @endif
+                                    </div>
+                                </div>
+                            @else
+                                No existe la autoevaluación del alumno seleccionado.
+                            @endif
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3">
+                <a href="{{ URL::previous() }}"><button class="btn btn-secondary">Atrás</button></a>
+            </div>  
         </div>
     </div>
 </div>
@@ -304,6 +368,8 @@
 
 <script type="text/javascript">
 
+    //graficos
+
     google.charts.load('current', {'packages':['bar']});
     google.charts.setOnLoadCallback(drawChart);
 
@@ -311,22 +377,20 @@
         var data_EvalActPractica = google.visualization.arrayToDataTable([
             ['Actitud del Alumno','Respuesta alumno','Promedio General'],
             <?php  
-                //foreach($evalActitudinales as $evalActitudinal){
-                    //if ($evalActitudinal->id_actitudinal == $evalActPractica->id_actitudinal){            
-                        foreach($evalActPractica as $evalActPract){
-                            if($evalActPract->valor_act_practica == 'NA' || $evalActPract->valor_act_practica == 'NL'){
+                foreach($evalActPractica as $evalActPract){
+                    if ($evalActitudinales[($evalActPract->id_actitudinal)-1]->id_actitudinal == $evalActPract->id_actitudinal){  
+                        if($evalActPract->valor_act_practica == 'NA' || $evalActPract->valor_act_practica == 'NL'){
             ?>
-                                ['<?php echo $evalActitudinales[($evalActPract->id_actitudinal)-1]->n_act; ?>', 'NA' , <?php echo $evalActPromG[($evalActPract->id_actitudinal)-1];?> ],
+                            ['<?php echo $evalActitudinales[($evalActPract->id_actitudinal)-1]->n_act; ?>', 'NA' , <?php echo $evalActPromG[($evalActPract->id_actitudinal)-1];?> ],
             <?php
-                            }
-                            else{
-            ?>
-                                ['<?php echo $evalActitudinales[($evalActPract->id_actitudinal)-1]->n_act; ?>', <?php echo intval($evalActPract->valor_act_practica); ?> , <?php echo $evalActPromG[($evalActPract->id_actitudinal)-1];?> ],
-            <?php
-                            } 
                         }
-                    //}
-                //}
+                        else{
+            ?>
+                            ['<?php echo $evalActitudinales[($evalActPract->id_actitudinal)-1]->n_act; ?>', <?php echo intval($evalActPract->valor_act_practica); ?> , <?php echo $evalActPromG[($evalActPract->id_actitudinal)-1];?> ],
+            <?php
+                        } 
+                    }
+                }
             ?>
         ]);
         
@@ -338,8 +402,10 @@
             legend: { position: 'bottom', alignment: 'end' },
             responsive: true,
         };
+        
 		var eval_act_practica= new google.charts.Bar(document.getElementById('columnchart_evalActPractica'));
         eval_act_practica.draw(data_EvalActPractica, google.charts.Bar.convertOptions(options1));
+
     }
 
     // ----------------------------------------- Conociminto del alumno ------------------------------------
@@ -351,22 +417,20 @@
         var data_EvalConPractica = google.visualization.arrayToDataTable([
             ['Conocimiento del Alumno','Respuesta alumno','Promedio General'],
             <?php  
-                //foreach($evalConocimientos as $evalConocimiento){
-                    //if ($evalConocimiento->id_conocimiento == $evalConPractica->id_conocimiento){               
-                        foreach($evalConPractica as $evalConPract){
-                            if($evalConPract->valor_con_practica == 'NA' || $evalConPract->valor_con_practica == 'NL'){
+                foreach($evalConPractica as $evalConPract){
+                     if ($evalConocimientos[($evalConPract->id_conocimiento)-1]->id_conocimiento == $evalConPract->id_conocimiento){
+                        if($evalConPract->valor_con_practica == 'NA' || $evalConPract->valor_con_practica == 'NL'){
             ?>
-                                ['<?php echo $evalConocimientos[($evalConPract->id_conocimiento)-1]->n_con; ?>', 'NA' , <?php echo $evalConPromG[($evalConPract->id_conocimiento)-1];?> ],
+                            ['<?php echo $evalConocimientos[($evalConPract->id_conocimiento)-1]->n_con; ?>', 'NA' , <?php echo $evalConPromG[($evalConPract->id_conocimiento)-1];?> ],
             <?php
-                            }
-                            else{
-            ?>
-                                ['<?php echo $evalConocimientos[($evalConPract->id_conocimiento)-1]->n_con; ?>', <?php echo intval($evalConPract->valor_con_practica); ?> , <?php echo $evalConPromG[($evalConPract->id_conocimiento)-1];?> ],
-            <?php
-                            } 
                         }
-                    //}
-                //}
+                        else{
+            ?>
+                            ['<?php echo $evalConocimientos[($evalConPract->id_conocimiento)-1]->n_con; ?>', <?php echo intval($evalConPract->valor_con_practica); ?> , <?php echo $evalConPromG[($evalConPract->id_conocimiento)-1];?> ],
+            <?php
+                        } 
+                    }
+                }
             ?>
     
         ]);

@@ -53,7 +53,7 @@
                         <div class="text-center">
                             @if (count($lista)>0)
                                 <!-- DATA TABLES -->
-                                <div class="row d-flex justify-content-center">
+                                <div class="row d-flex justify-content-center container-fluid">
                                     <div class="table-responsive">
                                         <table class="table table-bordered " id="dataTable">
                                             <thead class="bg-dark" style="color: white">
@@ -65,7 +65,7 @@
                                                 <th>Datos de contacto</th>
                                                 <th>Año ingreso</th>
                                                 <th>Carrera</th>
-                                                <th>Estimación semestres</th>
+                                                <th>Estimación Proyecto de Título</th>
                                                 <th>Opción</th>
                                             </tr >
                                             </thead>
@@ -80,13 +80,15 @@
                                                         </td>
                                                         <td>{{$alumno->rut}}</td>
                                                         <td>
-                                                            Email : {{$alumno->email}}<br>
-                                                            Dirección : {{$alumno->direccion}}<br>
-                                                            Fono : {{$alumno->fono}}
+                                                            <strong>Email :</strong> {{$alumno->email}}<br>
+                                                            <strong>Dirección :</strong> {{$alumno->direccion}}<br>
+                                                            <strong>Fono :</strong> {{$alumno->fono}}
                                                         </td>
                                                         <td>{{$alumno->anno_ingreso}}</td>
                                                         <td>{{$alumno->carrera}}</td>
-                                                        <td>{{$alumno->estimacion_semestre}}</td>
+                                                        <td class="text-truncate text-center">
+                                                            <strong>Semestre:</strong> {{ $alumno->semestre_proyecto }} <br>
+                                                            <strong>Año:</strong>	{{ $alumno->anno_proyecto }}</td>
                                                         <td>
                                                             <a href="{{route('editar_alumno',[$alumno->id_alumno])}} "><button id="{{$alumno->id_alumno}}" class="btn btn-warning">Editar</button></a>
                                                             <a href="#"><button id="{{$alumno->id_alumno}}" class="btn btn-danger" onclick="borrar('{{$alumno->id_alumno}}', '{{$alumno->nombre}}', '{{route('borrar_alumno',[$alumno->id_alumno])}}')">Borrar</button></a>

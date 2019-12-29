@@ -117,6 +117,20 @@
                 <div class="form-group row justify-content-md-center">
                     <div class="col-md-11">
                         
+                        {{-- Fecha inscripción --}}
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <label class="col-form-label text-md-right" >{{ __('Fecha de inscripción') }}</label>
+                            </div>
+                            <div class="col-md-1">
+                                <label class="col-form-label text-md-right" >:</label>
+                            </div>
+                            <div class="col-md-8">
+                                <label class="col-form-label text-md-right">{{$practica->f_inscripcion}}</label>
+                            </div>
+                        </div>
+                        <br>
+
                         @foreach($supervisores as $supervisor)
                             @if($practica->id_supervisor == $supervisor->id_supervisor)
 
@@ -153,19 +167,6 @@
                             @endif                            
                         @endforeach
 
-                        {{-- Fecha inscripción --}}
-                        <div class="form-group row">
-                            <div class="col-md-3">
-                                <label class="col-form-label text-md-right" >{{ __('Fecha de inscripción') }}</label>
-                            </div>
-                            <div class="col-md-1">
-                                <label class="col-form-label text-md-right" >:</label>
-                            </div>
-                            <div class="col-md-8">
-                                <label class="col-form-label text-md-right">{{$practica->f_inscripcion}}</label>
-                            </div>
-                        </div>
-
                         {{-- Fecha inicio --}}
                         <div class="form-group row">
                             <div class="col-md-3">
@@ -191,6 +192,35 @@
                                 <label class="col-form-label text-md-right">{{$practica->f_hasta}}</label>
                             </div>
                         </div>
+                        <br>
+                        @foreach($resoluciones as $resolucion)
+                            @if($resolucion->id_practica == $practica->id_practica )
+                                {{-- Resultados practica --}}
+                                <div class="form-group row">
+                                    <div class="col-md-3">
+                                        <label class="col-form-label text-md-right" >{{ __('Resultado práctica') }}</label>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <label class="col-form-label text-md-right" >:</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <label class="col-form-label text-md-right">{{$resolucion->resolucion_practica}}</label>
+                                    </div>
+                                </div>
+                                {{-- observacion practica --}}
+                                <div class="form-group row">
+                                    <div class="col-md-3">
+                                        <label class="col-form-label text-md-right" >{{ __('Observación práctica') }}</label>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <label class="col-form-label text-md-right" >:</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <label class="col-form-label text-md-right">{{$resolucion->observacion_resolucion}}</label>
+                                    </div>
+                                </div>
+                            @endif
+                        @endforeach
                         
                         <div class="row">
                             <div class="col-md-12">

@@ -9,7 +9,7 @@ class Alumno extends Model
     protected $primaryKey = 'id_alumno';
 
     protected $fillable = [
-        'nombre','apellido_paterno','apellido_materno','rut','email','direccion','fono','anno_ingreso','carrera','estimacion_semestre','id_user'
+        'nombre','apellido_paterno','apellido_materno','rut','email','direccion','fono','anno_ingreso','carrera','semestre_proyecto', 'anno_proyecto','id_user'
     ];
 
     public function user(){

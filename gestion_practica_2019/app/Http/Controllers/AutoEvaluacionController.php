@@ -19,6 +19,8 @@ use SGPP\EvalActPractica;
 use SGPP\EvalActitudinal;
 use SGPP\EvalConPractica;
 use SGPP\EvalConocimiento;
+use SGPP\OtrosAreas;
+use SGPP\OtrosHerramientas;
 use Auth;
 
 class AutoEvaluacionController extends Controller
@@ -207,7 +209,25 @@ class AutoEvaluacionController extends Controller
             ]);
         }
 
+        if($request->areasOtros != null)
+        {
+            for ($i = 0; $i < count($request->areasOtros, 1); $i++)
+            {
+                OtrosAreas::create([
+                    'n_area' => $request->areasOtros[$i]
+                ]);
+            }
+        }
 
+        if($request->herramientasOtros != null)
+        {
+            for($i = 0; $i<count($request->herramientasOtros,1); $i++)
+            {
+                OtrosHerramientas::create([
+                    'n_herramienta' => $request->herramientasOtros[$i]
+                ]);
+            }
+        }
         return redirect()->route('descripcionAutoEvaluacion');
     }
 }

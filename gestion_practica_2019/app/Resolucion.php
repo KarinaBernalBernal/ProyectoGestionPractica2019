@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Resolucion extends Model
 {
     protected $primaryKey = 'id_resolucion';
+    protected $table = 'resoluciones';
 
     protected $fillable = [
        'f_resolucion','observacion_resolucion','resolucion_practica','id_practica','id_admin'

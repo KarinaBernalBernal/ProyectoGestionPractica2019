@@ -45,13 +45,15 @@
                             <!--<a class="collapse-item" href="{{route('lista_recursos')}}">recursos</a>-->
                             <!--<a class="collapse-item" href="{{route('lista_perfiles')}}">perfiles</a>-->
                             <a class="collapse-item" href="{{route('lista_alumnos')}}">Alumnos</a>
+                            <a class="collapse-item" href="{{route('lista_administradores')}}">Administradores</a>
                             <a class="collapse-item" href="{{route('lista_supervisores')}}">Supervisores</a>
                             <a class="collapse-item" href="{{route('lista_practicas')}}">Prácticas</a>
-                            <a class="collapse-item" href="{{route('lista_evaluaciones_supervisor')}}">Evaluaciones supervisor</a>
                             <a class="collapse-item" href="{{route('lista_empresas')}}">Empresas</a>
                             <a class="collapse-item" href="{{route('lista_auto_evaluaciones')}}">Autoevaluaciones</a>
+                            <a class="collapse-item" href="{{route('lista_evaluaciones_supervisor')}}">Evaluaciones supervisor</a>
                             <h6 class="collapse-header">Formularios</h6>
                             <a class="collapse-item" href="{{route('lista_elementos_dinamicos')}}">Elementos dinámicos</a>
+                            <a class="collapse-item" href="{{route('lista_otros')}}">Respuestas "otro"</a>
                         </div>
                     </div>
                 </li>
@@ -65,9 +67,9 @@
                             <div class="bg-white py-2 collapse-inner rounded">
 
                                 <a class="collapse-item" href="{{route('estadisticaAlumno')}}">Búsqueda avanzada</a>
-                                <a class="collapse-item" href="{{route('estadisticaCriteriosAutoeval')}}">Promedio general:<br> Autoevaluación del alumno</a>
-                                <a class="collapse-item" href="{{route('estadisticaCriteriosEvalSupervisor')}}">Promedio general:<br> Evaluación del supervisor</a>
-                                
+                                <a class="collapse-item" href="{{route('estadisticaCriteriosAutoeval')}}">Búsqueda por año:<br> Autoevaluación del alumno</a>
+                                <a class="collapse-item" href="{{route('estadisticaCriteriosEvalSupervisor')}}">Búsqueda por año:<br> Evaluación del supervisor</a>
+                                <a class="collapse-item" href="{{route('estadisticaGeneral')}}">Estadísticas Generales</a>
                             </div>
                         </div>
                     <!-- -->

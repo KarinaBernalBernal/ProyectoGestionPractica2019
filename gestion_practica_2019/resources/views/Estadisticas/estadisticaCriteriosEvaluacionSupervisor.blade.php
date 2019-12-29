@@ -4,42 +4,53 @@
 
 <div class="container-fluid">
   	<div class="d-sm-flex align-items-center justify-content-between mb-4">
-    	<h3 class="h3 mb-0 text-gray-800">Promedio general: Evaluación del supervisor</h3>
+    	<h3 class="h3 mb-0 text-gray-800">Evaluación del supervisor</h3>
   	</div>
 
-    <form class="form-horizontal" action="{{route('buscarPorRango')}}" method="get">    
+    <form class="form-horizontal" action="{{route('busquedaEvalSup')}}" method="get">    
         <div class="card text">
             <div class="card-body">     
-                {{ csrf_field() }} 
+            {{ csrf_field() }} 
                 <div class="input-group input-group-md mb-3">
-                    <label for="busquedaDesde" class="col-form-label">Ingrese año: </label>
-                    <div class="col-md-2">
-                        <input id="busquedaDesde" type="number" placeholder="Desde"class="form-control" name="busquedaDesde" value="{{ old('busquedaHasta') }}" required>
-                    </div>
-
-                    <label for="busquedaHasta" class="col-form-label">y</label>
-                    <div class="col-md-2">
-                        <input id="busquedaHasta" type="number" placeholder="Hasta" class="form-control" name="busquedaHasta" value="{{ old('busquedaHasta') }}" required disabled>
-                    </div>
-
                     <label for="tipoBusqueda" class="col-form-label">{{ __('Tipo búsqueda:') }}</label>
                     <div class="col-md-3">
                             <select id="tipoBusqueda" name="tipoBusqueda" class="custom-select" required>
                                 <option selected value="">Selecciona...</option>
                                 <option value ="1">Búsqueda por rango de año</option>
-                                <option value ="2">Búsqueda por año especifico</option>
+                                <option value ="2">Búsqueda por año específico</option>
                             </select>
                     </div>
+                    
+                    <label for="busquedaDesde" class="col-form-label">Ingrese año: </label>
+                    <div class="col-md-2">
+                        <input id="busquedaDesde" type="number" placeholder="Desde"class="form-control" name="busquedaDesde" value="{{ old('busquedaHasta') }}" required>
+                    </div>
+
+                    <div class="col-md-2">
+                        <input id="busquedaHasta" type="number" placeholder="Hasta" class="form-control" name="busquedaHasta" value="{{ old('busquedaHasta') }}" style="display: none;" required disabled>
+                    </div>
+                    
                     <div class="col-md-2">
                         <a href=""><button class="btn btn-primary" type="submit" ><i class="fas fa-search"></i></button></a>
                     </div>
                 </div>
                 <br>
-                
             <div>
         </div>
     <form>
-
+    <div class="card text">
+    	<div class="card-body">   
+            <h4>Áreas más solicitadas</h4>
+            <br>
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="barchart_areas" style="height: 300px;"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
 	<div class="card text">
     	<div class="card-body">                 
       		<h4>Criterios por Actitud del alumno</h4> 
@@ -47,7 +58,32 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-12">
-                        <div id="columnchart_evalActPractica" style="height: 300px;"></div>                            
+                        <div id="columnchart_evalActPractica" style="height: 300px;"></div>       
+                        <br> 
+                        <table id='tablagraficoAct' class="table table-sm table-responsive">
+                            <thead >
+                                <tr class='text-center'>
+                                    <th></th>
+                                    @foreach($evalActitudinales as $evalActitudinal)
+                                        <th style="vertical-align: middle"> {{ $evalActitudinal->n_act }} </th>
+                                    @endforeach
+                                </tr >
+                            </thead>
+                            <tbody>
+                                <tr class='text-center'>
+                                    <th>Autoevaluación</th>
+                                    @foreach($evalActitudinales as $evalActitudinal)
+                                        <th style=" font-weight: normal;"> {{ $evalActCivilPromG[($evalActitudinal->id_actitudinal)-1] }} </th>
+                                    @endforeach
+                                </tr >
+                                <tr class='text-center'>
+                                    <th>Evaluación del supervisor</th>
+                                    @foreach($evalActitudinales as $evalActitudinal)
+                                        <th style=" font-weight: normal;"> {{ $evalActEjecPromG[($evalActitudinal->id_actitudinal)-1] }} </th>
+                                    @endforeach
+                                </tr >
+                            </tbody>
+                        </table>                     
                     </div>
                 </div>
             </div>
@@ -61,7 +97,32 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-12">
-                        <div id="columnchart_evalConPractica" style="height: 300px;"></div> 
+                        <div id="columnchart_evalConPractica" style="height: 300px;"></div>
+                        <br>
+                        <table id='tablagraficoCon' class="table table-sm table-responsive">
+                            <thead >
+                                <tr class='text-center'>
+                                    <th></th>
+                                    @foreach($evalConocimientos as $evalConocimiento)
+                                        <th style="vertical-align: middle"> {{ $evalConocimiento->n_con }} </th>
+                                    @endforeach
+                                </tr >
+                            </thead>
+                            <tbody>
+                                <tr class='text-center'>
+                                    <th>Autoevaluación</th>
+                                    @foreach($evalConocimientos as $evalConocimiento)
+                                        <th style=" font-weight: normal;"> {{ $evalConCivilPromG[($evalConocimiento->id_conocimiento)-1] }} </th>
+                                    @endforeach
+                                </tr >
+                                <tr class='text-center'>
+                                    <th>Evaluación del supervisor</th>
+                                    @foreach($evalConocimientos as $evalConocimiento)
+                                        <th style=" font-weight: normal;"> {{ $evalConEjecPromG[($evalConocimiento->id_conocimiento)-1] }} </th>
+                                    @endforeach
+                                </tr >
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -81,11 +142,25 @@
 
 <script type="text/javascript">
 
-    $('#busquedaDesde').change(function(){
-        $('#busquedaHasta').removeAttr('disabled');
-        $('#busquedaHasta').attr('min', $('#busquedaDesde').val() );
-    });
+    $(function(){
+        $('#busquedaDesde').change(function(){
+            $('#busquedaHasta').removeAttr('disabled');
+            $('#busquedaHasta').attr('min', $('#busquedaDesde').val() );
+        });
 
+        $("#tipoBusqueda").change( function() {
+            if ($(this).val() === "2") {
+                $("#busquedaHasta").removeAttr("required");
+                document.getElementById('busquedaHasta').style.display = "none";
+                
+            }else{
+                if ($(this).val() === "1") {
+                    document.getElementById('busquedaHasta').style.display = "block";
+                    $("#busquedaHasta").prop("required", true);
+                }
+            }
+        });
+    });
     google.charts.load('current', {'packages':['bar']});
     google.charts.setOnLoadCallback(drawChart);
 
@@ -141,6 +216,39 @@
 		var eval_con_practica= new google.charts.Bar(document.getElementById('columnchart_evalConPractica'));
         eval_con_practica.draw(data_EvalConPractica, google.charts.Bar.convertOptions(options2));
     }
+
+    //Areas
+
+    google.charts.load('current', {'packages':['bar']});
+      google.charts.setOnLoadCallback(drawChart4);
+
+      function drawChart4() {
+        var data = google.visualization.arrayToDataTable([
+            ['Áreas', 'Ingeniería Civil Informática', 'Ingeniería de Ejecución Informática'],
+            <?php  
+                foreach($areas as $area){
+            ?>
+                    ['<?php echo $area->n_area; ?>' , <?php echo $areasCivilPromG[($area->id_area)-1];?> , <?php echo $areasEjecPromG[($area->id_area)-1];?> ],
+            <?php
+                }
+            ?>
+        ]);
+
+        var options = {
+            chart: {
+                title: 'Company Performance',
+                subtitle: 'Sales, Expenses, and Profit: 2014-2017',
+            },
+            bars: 'horizontal', // Required for Material Bar Charts.
+            legend: { position: 'bottom', alignment: 'end' },
+            responsive: true,
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('barchart_areas'));
+
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+      }
+
 
 </script>
 

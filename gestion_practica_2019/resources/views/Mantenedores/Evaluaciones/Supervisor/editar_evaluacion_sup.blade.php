@@ -23,18 +23,17 @@
                              <div class="form-group{{ $errors->has('resultado_eval') ? ' has-error' : '' }}">
                                 <label for="resultado_eval" class="col-md-4 control-label">Resultado de evaluación</label>
                                 <div class="col-md-6">
-                                    <input id="resultado_eval" type="text" class="form-control" name="resultado_eval" value="{{ old('resultado_eval', $elemento->resultado_eval) }}"  required autofocus>
-                                    @if ($errors->has('resultado_eval'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('resultado_eval') }}</strong>
-                                        </span>
-                                    @endif
+                                    <select name="resultado_eval" id="resultado_eval" class="form-control">
+                                        <option value="" disabled >Elige una opcion...</option>
+                                        <option value="aprobada" @if(old("resultado_eval", $elemento->resultado_eval) == 'aprobada') {{'selected'}} @endif>Aprobada</option>
+                                        <option value="rechazada" @if(old("resultado_eval",$elemento->resultado_eval) == 'rechazada') {{'selected'}} @endif>Rechazada</option>
+                                    </select>
                                 </div>
                             </div>
                              <div class="form-group{{ $errors->has('f_entrega_eval') ? ' has-error' : '' }}">
                                 <label for="f_entrega_eval" class="col-md-4 control-label">Fecha entrega evaluación</label>
                                 <div class="col-md-6">
-                                    <input id="f_entrega_eval" type="text" class="form-control" name="f_entrega_eval" value="{{ old('f_entrega_eval', $elemento->f_entrega_eval) }}"  required autofocus>
+                                    <input id="f_entrega_eval" type="date" class="form-control" name="f_entrega_eval" value="{{ old('f_entrega_eval', $elemento->f_entrega_eval) }}"  required autofocus>
                                     @if ($errors->has('f_entrega_eval'))
                                         <span class="help-block">
                                             <strong>{{ $errors->first('f_entrega_eval') }}</strong>
@@ -58,7 +57,7 @@
                                     <button type="submit" class="btn btn-primary">
                                         Guardar
                                     </button>
-                                    <a href="{{route('lista_evaluaciones_supervisor')}}"><button class="btn btn-secondary">Cancelar</button></a>
+                                    <a href="{{route('lista_evaluaciones_supervisor')}}"><button class="btn btn-secondary" type="button">Cancelar</button></a>
                                 </div>
                             </div>
                         </form>

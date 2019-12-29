@@ -21,6 +21,15 @@
                             </div>
                         @endforeach
                     </div>
+                    <hr>
+                    <div class="form-group row container-fluid" >
+                        <label for="areasOtros[]" class="col-lg-1 col-form-label"><strong>{{ __('Otro:') }}</strong></label>
+                        {{--<input type="text" name="areasOtros[]" placeholder="Area" class="form-control name_list col-lg-2"/>--}}
+                        <div class="col-lg-11">
+                            <button type="button" name="addAreasOtros" id="addAreasOtros" class="btn btn-success"><span class="fas fa-plus" aria-hidden="true"></span></button>
+                        </div>
+                    </div>
+                    <div class="form-group row container-fluid" id="areasOtros"></div>
                 </div>
             </div>
             <br>
@@ -31,9 +40,9 @@
                     <hr>
                     <div id="tablaTareas">
                         <div class="form-group row container-fluid">
-                            <input type="text" name="tarea[]" placeholder="Nombre" class="form-control name_list col-lg-2" required/>
+                            <input type="text" name="tarea[]" placeholder="Nombre tarea" class="form-control name_list col-lg-2" required/>
                             <div class="col-9">
-                                <input type="text" name="dptarea[]" placeholder="Descripción de tarea" class="form-control name_list" required/>
+                                <input type="text" name="dptarea[]" placeholder="Explicación de tarea" class="form-control name_list" required/>
                             </div>
                             <div class="col-1">
                                 <button type="button" name="addTarea" id="addTarea" class="btn btn-success"><span class="fas fa-plus" aria-hidden="true"></span></button>
@@ -58,6 +67,15 @@
                             </div>
                         @endforeach
                     </div>
+                    <hr>
+                    <div class="form-group row container-fluid">
+                        <label for="herramientasOtros" class="col-lg-1 col-form-label"><strong>{{ __('Otro:') }}</strong></label>
+                        {{--<input type="text" name="herramientasOtros[]" placeholder="Herramienta" class="form-control name_list col-lg-2"/>--}}
+                        <div class="col-lg-1">
+                            <button type="button" name="addHerramientasOtros" id="addHerramientasOtros" class="btn btn-success"><span class="fas fa-plus" aria-hidden="true"></span></button>
+                        </div>
+                    </div>
+                    <div class="form-group row container-fluid" id="herramientasOtros"></div>
                 </div>
             </div>
             <br>
@@ -157,7 +175,7 @@
                         <div class="form-group row container-fluid">
                             <input type="text" name="conocimiento[]" placeholder="Nombre" class="form-control name_list col-sm-2" required/>
                             <div class="col-9">
-                                <input type="text" name="dpConocimiento[]" placeholder="Descripción del conocimiento" class="form-control name_list" required/>
+                                <input type="text" name="dpConocimiento[]" placeholder="Explicación del conocimiento" class="form-control name_list" required/>
                             </div>
                             <div class="col-1">
                                 <button type="button" name="ddConocimiento" id="addConocimiento" class="btn btn-success"><span class="fas fa-plus" aria-hidden="true"></span></button>
@@ -312,6 +330,22 @@
                 $('#row'+button_id+'').remove();
             });
 
+            $('#addAreasOtros').click(function(){
+                i++;
+                $('#areasOtros').append('<div id="row'+i+'" class="col-lg-4"><div class="form-group row" ><input type="text" name="areasOtros[]" placeholder="Area" class="form-control name_list col-lg-6" required/><div class="col-1"><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove"><span class="fas fa-trash-alt" aria-hidden="true"></span></button></div></div></div>');
+            });
+            $(document).on('click', '.btn_remove', function(){
+                var button_id = $(this).attr("id");
+                $('#row'+button_id+'').remove();
+            });
+            $('#addHerramientasOtros').click(function(){
+                i++;
+                $('#herramientasOtros').append('<div id="row'+i+'" class="col-4"><div class="form-group row" ><input type="text" name="herramientasOtros[]" placeholder="Herramienta" class="form-control name_list col-lg-6" required/><div class="col-1"><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove"><span class="fas fa-trash-alt" aria-hidden="true"></span></button></div></div></div>');
+            });
+            $(document).on('click', '.btn_remove', function(){
+                var button_id = $(this).attr("id");
+                $('#row'+button_id+'').remove();
+            });
             $('#addConocimientoA').click(function(){
                 i++;
                 $('#tablaConocimientosA').append('<div class="form-group row container-fluid" id="row'+i+'"><label for="conocimientoA" class="col-lg-2 col-form-label text-md-right"></label><div class="col-2"><input type="text" name="conocimientoA[]" placeholder="Nombre" class="form-control name_list" required/></div><div class="col-7"><input type="text" name="dpConocimientoA[]" placeholder="Explicación de conocimiento aprendido" class="form-control name_list" required/></div><div class="col-1"><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove"><span class="fas fa-trash-alt" aria-hidden="true"></span></button></div></div>');
@@ -360,7 +394,7 @@
         });
 
 
-        $("#formularioAutoevaluacion").submit(function(e) {
+        $("#formularioAutoevaluacionn").submit(function(e) {
 
             e.preventDefault(); // avoid to execute the actual submit of the form.
 

@@ -20,6 +20,15 @@
                             </div>
                         @endforeach
                     </div>
+                    <hr>
+                    <div class="form-group row container-fluid">
+                        <label for="areasOtros" class="col-lg-1 col-form-label"><strong>{{ __('Otro:') }}</strong></label>
+                       {{-- <input type="text" name="areasOtros[]" placeholder="Tarea" class="form-control name_list col-lg-2"/>--}}
+                        <div class="col-lg-11">
+                            <button type="button" name="addAreasOtros" id="addAreasOtros" class="btn btn-success"><span class="fas fa-plus" aria-hidden="true"></span></button>
+                        </div>
+                    </div>
+                    <div class="form-group row container-fluid" id="areasOtros"></div>
                 </div>
             </div>
             <br>
@@ -103,7 +112,7 @@
                         @endforeach
                     </table>
                     <div class="col-md-auto">
-                        <h6><strong>3.- ¿De las tareas asignadas cúal fue el porcentaje de tareas efectivamente realziado?</strong></h6>
+                        <h6><strong>3.- ¿De las tareas asignadas cúal fue el porcentaje de tareas efectivamente realizado?</strong></h6>
                     </div>
                     <br>
 
@@ -125,9 +134,13 @@
 
                     <div id="tablaFortalezas" class="container-fluid">
                         <div class="form-group row container-fluid">
-                            <input type="text" name="fortaleza[]" placeholder="Nombre" class="form-control name_list col-sm-2" required/>
+                            <div class="col-2">
+                                <input type="text" name="fortaleza[]" placeholder="Nombre" class="form-control name_list" required/>
+                                <label for="fortaleza" class="font-italic">Ej."Proactivo"</label>
+                            </div>
                             <div class="col-9">
-                                <input type="text" name="dpFortaleza[]" placeholder="Descripción de fortaleza" class="form-control name_list" required/>
+                                <input type="text" name="dpFortaleza[]" placeholder="Explicación de fortaleza" class="form-control name_list" required/>
+                                <label for="dpFortaleza" class="font-italic">Ej."Tiene iniciativa y capacidad de anticiparse a problemas"</label>
                             </div>
                             <div class="col-1">
                                 <button type="button" name="addFortaleza" id="addFortaleza" class="btn btn-success"><span class="fas fa-plus" aria-hidden="true"></span></button>
@@ -144,9 +157,13 @@
 
                     <div id="tablaDebilidades" class="container-fluid">
                         <div class="form-group row container-fluid">
-                            <input type="text" name="debilidad[]" placeholder="Nombre" class="form-control name_list col-sm-2" required/>
+                            <div class="col-2">
+                                <input type="text" name="debilidad[]" placeholder="Nombre" class="form-control name_list" required/>
+                                <label for="debilidad" class="font-italic">Ej."Tímido"</label>
+                            </div>
                             <div class="col-9">
-                                <input type="text" name="dpDebilidad[]" placeholder="Descripción de la debilidad" class="form-control name_list" required/>
+                                <input type="text" name="dpDebilidad[]" placeholder="Explicación de la debilidad" class="form-control name_list" required/>
+                                <label for="dpDebilidad" class="font-italic">Ej."Tiene problemas para relacionarse con sus compañeros de trabajo"</label>
                             </div>
                             <div class="col-1">
                                 <button type="button" name="addDebilidad" id="addDebilidad" class="btn btn-success"><span class="fas fa-plus" aria-hidden="true"></span></button>
@@ -154,14 +171,6 @@
                         </div>
                     </div>
 
-                    {{-- Conocimientos/habilidades faltantes
-                    <div class="form-group row">
-                        <label for="debilidades" class="col-md-3 col-form-label text-md-right"></label>
-                        <div class="col-md-6">
-                            <textarea id="debilidades" name="debilidades" class="form-control" rows="10" cols="40">Escribe aquí tu comentario</textarea>
-                        </div>
-                    </div>
-                    --}}
                     <br>
                     <div class="col-md-auto">
                         <h6><strong>7.- De acuerdo al desempeño del alumno, usted recomendaría que la práctica sea </strong></h6>
@@ -171,7 +180,7 @@
                     {{-- Conocimientos/habilidades adquiridas --}}
                     <div class="form-group row">
                         <label for="recomendacion" class="col-md-3 col-form-label text-md-right">{{ __('Recomiendo que sea:') }}</label>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <select id="recomendacion" name="recomendacion" class="custom-select">
                                 <option selected value="">Selecciona...</option>
                                 <option>Aprobada</option>
@@ -202,7 +211,16 @@
             var i=1;
             $('#addFortaleza').click(function(){
                 i++;
-                $('#tablaFortalezas').append('<div class="form-group row container-fluid" id="row'+i+'"><input type="text" name="fortaleza[]" placeholder="Nombre" class="form-control name_list col-sm-2" required/><div class="col-9"><input type="text" name="dpFortaleza[]" placeholder="Descripción de la fortaleza" class="form-control name_list" required/></div><div class="col-1"><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove"><span class="fas fa-trash-alt" aria-hidden="true"></span></button></div></div>');
+                $('#tablaFortalezas').append('<div class="form-group row container-fluid" id="row'+i+'"><div class="col-2"><input type="text" name="fortaleza[]" placeholder="Nombre" class="form-control name_list" required/></div><div class="col-9"><input type="text" name="dpFortaleza[]" placeholder="Descripción de la fortaleza" class="form-control name_list" required/></div><div class="col-1"><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove"><span class="fas fa-trash-alt" aria-hidden="true"></span></button></div></div>');
+            });
+            $(document).on('click', '.btn_remove', function(){
+                var button_id = $(this).attr("id");
+                $('#row'+button_id+'').remove();
+            });
+
+            $('#addAreasOtros').click(function(){
+                i++;
+                $('#areasOtros').append('<div id="row'+i+'" class="col-4"><div class="form-group row" ><input type="text" name="areasOtros[]" placeholder="Area" class="form-control name_list col-lg-6" required/><div class="col-1"><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove"><span class="fas fa-trash-alt" aria-hidden="true"></span></button></div></div></div>');
             });
             $(document).on('click', '.btn_remove', function(){
                 var button_id = $(this).attr("id");
@@ -211,7 +229,7 @@
 
             $('#addDebilidad').click(function(){
                 i++;
-                $('#tablaDebilidades').append('<div class="form-group row container-fluid" id="row'+i+'"><input type="text" name="debilidad[]" placeholder="Nombre" class="form-control name_list col-sm-2" required/><div class="col-9"><input type="text" name="dpDebilidad[]" placeholder="Descripción de la debilidad" class="form-control name_list" required/></div><div class="col-1"><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove"><span class="fas fa-trash-alt" aria-hidden="true"></span></button></div></div>');
+                $('#tablaDebilidades').append('<div class="form-group row container-fluid" id="row'+i+'"><div class="col-2"><input type="text" name="debilidad[]" placeholder="Nombre" class="form-control name_list" required/></div><div class="col-9"><input type="text" name="dpDebilidad[]" placeholder="Descripción de la debilidad" class="form-control name_list" required/></div><div class="col-1"><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove"><span class="fas fa-trash-alt" aria-hidden="true"></span></button></div></div>');
             });
             $(document).on('click', '.btn_remove', function(){
                 var button_id = $(this).attr("id");

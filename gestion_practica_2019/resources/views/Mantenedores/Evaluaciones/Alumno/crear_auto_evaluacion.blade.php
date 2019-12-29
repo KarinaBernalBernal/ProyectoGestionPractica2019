@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-md col-md-offset-2">
                 <div class="card">
-                    <div class="card-header"><h1>Agregar auto evaluación</h1></div>
+                    <div class="card-header"><h1>Agregar Autoevaluación</h1></div>
                     <div class="card-body">
                         <form class="form-horizontal" action="{{route('agregar_auto_evaluacion')}}" method="post">
                             {{ csrf_field() }}
@@ -13,7 +13,7 @@
                                 <label for="f_entrega" class="col-md-4 control-label">Fecha entrega</label>
 
                                 <div class="col-md-6">
-                                    <input id="f_entrega" type="text" class="form-control" name="f_entrega" required autofocus>
+                                    <input id="f_entrega" type="date" class="form-control" name="f_entrega" required autofocus>
 
                                     @if ($errors->has('f_entrega'))
                                         <span class="help-block">
@@ -40,7 +40,7 @@
                                     <button type="submit" class="btn btn-primary">
                                         Guardar
                                     </button>
-                                    <a href="{{route('lista_auto_evaluaciones')}}"><button class="btn btn-secondary">Cancelar</button></a>
+                                    <a href="{{route('lista_auto_evaluaciones')}}"><button class="btn btn-secondary" type="button">Cancelar</button></a>
                                 </div>
                             </div>
                         </form>

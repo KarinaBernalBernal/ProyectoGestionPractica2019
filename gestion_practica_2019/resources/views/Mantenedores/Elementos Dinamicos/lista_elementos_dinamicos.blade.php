@@ -2,9 +2,9 @@
 
 @section('content')
    <div class="container-fluid">
-      <ul class="nav nav-tabs" id="myTab" role="tablist">
+      <ul class="nav nav-tabs active" id="myTab" role="tablist">
 		<li class="nav-item">
-			<a class="nav-link active" id="areas-tab" data-toggle="tab" href="#areas" role="tab" aria-controls="areas" aria-selected="true">Áreas</a>
+			<a class="nav-link" id="areas-tab" data-toggle="tab" href="#areas" role="tab" aria-controls="areas" aria-selected="true">Áreas</a>
 		</li>
 		<li class="nav-item">
 			<a class="nav-link" id="herramientas-tab" data-toggle="tab" href="#herramientas" role="tab" aria-controls="herramientas" aria-selected="false">Herramientas</a>
@@ -20,7 +20,7 @@
 		<br>
 
 		<div class="tab-content" id="myTabContent">
-            <div class="tab-pane fade show active" id="areas" role="tabpanel" aria-labelledby="areas-tab">
+            <div class="tab-pane fade show" id="areas" role="tabpanel" aria-labelledby="areas-tab">
 				<h2>Áreas de Autoevaluación/Evaluación Supervisor</h2>
 				<br>
 				<input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
@@ -157,7 +157,7 @@
 					<div class="row justify-content-center">
 						<div class="text-center">
 							@if (count($evalActitudinal)>0)
-								<div class="row d-flex justify-content-center">
+								<div class="container-fluid">
 									<div class="table-responsive">
 										<table class="table table-bordered" id="MyTable">
 											<thead class="bg-dark" style="color: white">
@@ -222,7 +222,7 @@
 					<div class="row justify-content-center">
 						<div class="text-center">
 							@if (count($evalConocimiento)>0)
-								<div class="row d-flex justify-content-center">
+								<div class=" container-fluid">
 									<div class="table-responsive">
 										<table class="table table-bordered" id="MyTable">
 											<thead class="bg-dark" style="color: white">
@@ -277,11 +277,26 @@
 						</div>
 					</div>
 				</div>
-				{{--{id: $(this).data('id'), name: $(this).data('name'), tipo: $(this).data('title')},--}}
 			</div>
 		</div>
    	</div>
    <script>
+       $(document).ready(function()
+	   {
+           $('a[data-toggle="tab"]').on('shown.bs.tab', function(e)
+		   {
+               sessionStorage.setItem('activeTab', $(e.target).attr('href'));
+           });
+           var activeTab = sessionStorage.getItem('activeTab');
+           if(activeTab)
+           {
+			   $('#myTab a[href="' + activeTab + '"]').click();
+           }else
+		   {
+               $('#myTab a[href="#areas"]').attr('class','nav-link active');
+               $('#areas').attr('class','tab-pane fade show active');
+           }
+       });
        $.ajaxSetup({
 
            headers: {
