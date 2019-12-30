@@ -394,7 +394,7 @@
         });
 
 
-        $("#formularioAutoevaluacionn").submit(function(e) {
+        $("#formularioAutoevaluacion").submit(function(e) {
 
             e.preventDefault(); // avoid to execute the actual submit of the form.
 

@@ -82,8 +82,8 @@
                 <div id="collapseResolucionPracticas" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
 
-                        <a class="collapse-item" href="#">Ing. Civil Informatica</a>
-                        <a class="collapse-item" href="#">Ing. Ejec. Informatica</a>
+                        <a class="collapse-item" href="{{route('ResolucionPracticaCivil')}}">Ing. Civil Informática</a>
+                        <a class="collapse-item" href="{{route('ResolucionPracticaEjecucion')}}">Ing. Ejec. Informática</a>
 
                     </div>
                 </div>
@@ -99,7 +99,7 @@
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                @if(Auth::user()->name == 'Gestionador') 
+                @if(Auth::user()->name == 'Gestionador')
                     <a class="nav-link collapsed" href="{{route('lista_solicitudes_documentos')}}">
                         <i class="fas fa-arrow-right"></i><span>Solicitudes documentos</span>
                     </a>        
@@ -109,7 +109,7 @@
 
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseIngCivilInf" aria-expanded="true" aria-controls="collapseIngCivilInf"><i class="fas fa-users"></i>
-                <span>Ing. Civil Informatica:</span>
+                <span>Ing. Civil Informática:</span>
                 </a>
                 <div id="collapseIngCivilInf" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
@@ -139,7 +139,7 @@
 
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseIngEjecInf" aria-expanded="true" aria-controls="collapseIngEjecInf"><i class="fas fa-users"></i>
-                <span>Ing. Ejec. Informatica</span>
+                <span>Ing. Ejec. Informática</span>
                 </a>
                 <div id="collapseIngEjecInf" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
