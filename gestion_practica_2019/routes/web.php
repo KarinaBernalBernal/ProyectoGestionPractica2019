@@ -210,6 +210,7 @@ Route::get('/estadisticaAlumno', 'EstadisticaController@buscarAlumno')->name('es
 Route::get('/datosAlumno/{id}', 'EstadisticaController@mostrarEstadisticasAlumno')->name('datosAlumno');
 
 Route::get('/mostrarComparativaEvaluaciones/{id}','EstadisticaController@mostrarComparativaEvaluaciones')->name('mostrarComparativaEvaluaciones');
+Route::get('/AvanceCivil/{id}','EstadisticaController@avance')->name('avanceCivil');
 Route::get('/autoevaluacionAlumno/{id}','EstadisticaController@mostrarAutoevaluacionAlumno')->name('mostrarAutoevaluacionAlumno');
 Route::get('/evaluacionSupervisor/{id}','EstadisticaController@mostrarEvaluacionSupervisor')->name('mostrarEvaluacionSupervisor');
 /* --------------  Estadisticas Generales --------------- */

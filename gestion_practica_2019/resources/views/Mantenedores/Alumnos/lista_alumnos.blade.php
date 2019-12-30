@@ -55,7 +55,7 @@
                                 <!-- DATA TABLES -->
                                 <div class="row d-flex justify-content-center container-fluid">
                                     <div class="table-responsive">
-                                        <table class="table table-bordered " id="MyTable">
+                                        <table class="table table-bordered " id="dataTable">
                                             <thead class="bg-dark" style="color: white">
 
                                             <tr >
@@ -97,6 +97,9 @@
                                                 @endforeach
                                             </tbody>
                                         </table>
+                                        <div class="row">
+                                            {{ $lista->links() }}
+                                        </div>
                                     </div>
                                 </div>
                             @else

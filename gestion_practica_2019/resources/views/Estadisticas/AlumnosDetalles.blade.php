@@ -41,10 +41,7 @@
                             <option value="Ingeniería de Ejecución en Informatica">Ingeniería de Ejecución en Informatica</option>
                         </select>
                     </div>
-                    <div class="col-3 mb-2">
-                        <label>Dirección</label>
-                        <input id="direccion" type="text" class="form-control" name="direccion" placeholder="Ingrese dirección...">
-                    </div>
+                    
                 </div>
     
                 <div class="row">
@@ -98,12 +95,15 @@
                                                     <td>{{$alumno->estimacion_semestre}}</td>
                                                     <td>
                                                         <a id='botonRevisar' class='btn btn-primary btn-sm' href="{{ route('datosAlumno',['id'=>$alumno->id_alumno])}}" >Ver</a>
-                                                        
                                                     </td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
                                     </table>
+                                    <div class="row d-flex justify-content-center">
+                                        {{ $lista->links() }}
+                                    </div>
+                                    
                                 </div>
                             </div>
                         @else

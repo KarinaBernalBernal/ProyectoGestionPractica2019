@@ -34,7 +34,7 @@ class Alumno extends Model
                     ->Carrera($carrera)
                     ->Direccion($direccion)
                     ->orderBy('id_alumno', 'ASC')
-                    ->paginate(1);
+                    ->paginate(25);
     }
 
     public function scopeDireccion($query, $direccion){
