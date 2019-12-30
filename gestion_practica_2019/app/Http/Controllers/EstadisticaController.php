@@ -204,9 +204,31 @@ class EstadisticaController extends Controller
     }
 /////////////////////////////////////////////// Estadisticas Generales ////////////////////////////////////////////////////
     public function verEstadisticaGeneral(){
-        //$alumno = Alumno::find($practica->id_alumno);   
-        return view('Estadisticas/estadisticaGeneral');
-    }
+        $fechas = Practica::join('alumnos', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
+                    ->join('resoluciones','practicas.id_practica','=','resoluciones.id_practica')
+                    ->where('resoluciones.resolucion_practica',2)
+                    ->select('resoluciones.f_resolucion')
+                    ->get();
+        $arrayFechas = array();
+
+        foreach($fechas as $fecha){
+            $anio = date("Y", strtotime($fecha->f_resolucion));
+
+            if($arrayFechas == null){
+                $arrayFechas = array($anio);
+            }else{
+                if(in_array($anio,$arrayFechas) == false){
+                    array_push($arrayFechas,$anio);
+                }
+            }
+        }
+
+        $totalCivil = $this->totalPracticantes($arrayFechas ,'Ingeniería Civil Informática' );
+        $totalEjec= $this->totalPracticantes($arrayFechas ,'Ingeniería de Ejecución Informática');
+
+        return view('Estadisticas/estadisticaGeneral')->with('arrayFechas',$arrayFechas)
+                                        ->with('totalCivil',$totalCivil)->with('totalEjec',$totalEjec);
+    }           
 
     public function verEstadisticaCriteriosAutoeval(){
 
@@ -236,8 +258,26 @@ class EstadisticaController extends Controller
                 ->with("evalActEjecPromG", $evalActEjecPromG)->with("evalConEjecPromG", $evalConEjecPromG)
                 ->with('herramientasCivilPromG',$herramientasCivilPromG)->with('herramientasEjecPromG',$herramientasEjecPromG)
                 ->with('areasCivilPromG',$areasCivilPromG)->with('areasEjecPromG',$areasEjecPromG)
-                ->with('herramientas',$herramientas)->with('areas',$areas)
-                ->with('totalPractCivil', $totalPractCivil)->with('totalPractEjec', $totalPractEjec);
+                ->with('herramientas',$herramientas)->with('areas',$areas);
+    }
+    public function totalPracticantes($arrayFechas ,$carrera){
+        $fechas = Practica::join('alumnos', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
+                                ->join('resoluciones','practicas.id_practica','=','resoluciones.id_practica')
+                                ->where('resoluciones.resolucion_practica',2)
+                                ->where('alumnos.carrera',$carrera)
+                                ->select('resoluciones.f_resolucion')
+                                ->get();
+        $arrayTotal = array_fill(0, sizeof($arrayFechas), 0);
+
+        foreach($fechas as $fecha){
+            $anio = date("Y", strtotime($fecha->f_resolucion));
+
+            if(in_array($anio,$arrayFechas)==true){
+                $key = array_search ($anio,$arrayFechas);
+                $arrayTotal[$key] += 1;
+            }
+        }
+        return $arrayTotal;
     }
 
     public function verEstadisticaCriteriosEvalSupervisor(){
@@ -912,11 +952,11 @@ class EstadisticaController extends Controller
                                 ->where('resoluciones.resolucion_practica',2)
                                 ->where('alumnos.carrera',$carrera)
                                 ->where('herramientas.vigencia', 1)
-                                ->select('herramientas_practica.*','autoevaluaciones.f_entrega')
+                                ->select('herramientas_practica.*','resoluciones.f_resolucion')
                                 ->get();
 
         foreach($herramientasPracticas as $herramientasPractica){
-            $anio = date("Y", strtotime($herramientasPractica->f_entrega));
+            $anio = date("Y", strtotime($herramientasPractica->f_resolucion));
 
             if($anio == $fechaDesde){
                 $herramientasPromG[($herramientasPractica->id_herramienta) -1] += 1;
@@ -936,11 +976,11 @@ class EstadisticaController extends Controller
                                 ->where('resoluciones.resolucion_practica',2)
                                 ->where('alumnos.carrera',$carrera)
                                 ->where('areas.vigencia', 1)
-                                ->select('areas_autoeval.*','autoevaluaciones.f_entrega')
+                                ->select('areas_autoeval.*','resoluciones.f_resolucion')
                                 ->get();
 
         foreach($areasAutoevals as $areasAutoeval){
-            $anio = date("Y", strtotime($areasAutoeval->f_entrega));
+            $anio = date("Y", strtotime($areasAutoeval->f_resolucion));
 
             if($anio == $fechaDesde){
                 $areasPromG[($areasAutoeval->id_area) -1] += 1;
@@ -960,11 +1000,11 @@ class EstadisticaController extends Controller
                                 ->where('resoluciones.resolucion_practica',2)
                                 ->where('alumnos.carrera',$carrera)
                                 ->where('areas.vigencia', 1)
-                                ->select('area_evaluacion.*','evaluaciones_supervisor.f_entrega_eval')
+                                ->select('area_evaluacion.*','resoluciones.f_resolucion')
                                 ->get();
 
         foreach($areasEvaluacions as $areasEvaluacion){
-            $anio = date("Y", strtotime($areasEvaluacion->f_entrega_eval));
+            $anio = date("Y", strtotime($areasEvaluacion->f_resolucion));
 
             if($anio == $fechaDesde){
                 $areasPromG[($areasEvaluacion->id_area) -1] += 1;

@@ -31,39 +31,53 @@
                         {{-- fortalezas --}}
                         <div class="form-group row justify-content-md-center">
                             <div class="col-md-12">
-                                <h5>fortalezas</h5>
+                                <h5>Fortalezas</h5>
                                 <hr>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <ol>
-                                @foreach($fortalezas as $fortaleza)
-                                    <li>
-                                        <label class="col-form-label text-md-right">{{$fortaleza->n_fortaleza}}</label>
-                                        <!--<label class="col-form-label text-md-justify">{{$fortaleza->dp_fortaleza}}</label> 
-                                            -->
-                                    </li>
-                                @endforeach                   
-                            </ol> 
+                            <div class="col-md-11">
+                                <ul>
+                                    @foreach($fortalezas as $fortaleza)
+                                        <li>
+                                            <p>
+                                                <a class="col-form-label text-md-left" data-toggle="collapse" href="#collapseFortalezas" aria-expanded="false" aria-controls="collapseExample">{{$fortaleza->n_fortaleza}}</a>
+                                            </p>
+                                            <div class="collapse" id="collapseFortalezas">
+                                                <div class="card card-body">
+                                                    <label class="col-form-label text-md-justify">{{$fortaleza->dp_fortaleza}}</label> 
+                                                </div>
+                                            </div>                                            
+                                        </li>    
+                                    @endforeach                   
+                                </ul> 
+                            </div>
                         </div>
 
                         {{-- debilidades --}}
                         <div class="form-group row justify-content-md-center">
                             <div class="col-md-12">
-                                <h5>debilidades</h5>
+                                <h5>Debilidades</h5>
                                 <hr>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <ol>
-                                @foreach($debilidades as $debilidad)
-                                    <li>
-                                        <label class="col-form-label text-md-right">{{$debilidad->n_debilidad}}</label>
-                                        <!--<label class="col-form-label text-md-justify">{{$debilidad->dp_debilidad}}</label> 
-                                            -->
-                                    </li>
-                                @endforeach                   
-                            </ol> 
+                            <div class="col-md-11">
+                                <ul>
+                                    @foreach($debilidades as $debilidad)
+                                        <li>
+                                            <p>
+                                                <a class="col-form-label text-md-left" data-toggle="collapse" href="#collapseDebilidades" aria-expanded="false" aria-controls="collapseExample">{{$fortaleza->n_fortaleza}}</a>
+                                            </p>
+                                            <div class="collapse" id="collapseDebilidades">
+                                                <div class="card card-body">
+                                                    <label class="col-form-label text-md-justify">{{$debilidad->dp_debilidad}}</label> 
+                                                </div>
+                                            </div>                                            
+                                        </li>    
+                                    @endforeach                   
+                                </ul>
+                            </div>
                         </div>
 
                         {{-- Areas --}}
