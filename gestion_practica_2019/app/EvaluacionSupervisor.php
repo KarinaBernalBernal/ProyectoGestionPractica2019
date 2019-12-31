@@ -52,4 +52,21 @@ class EvaluacionSupervisor extends Model
         return $evaluacionesFiltradas;
     }
 
+    public static function filtrarEvaluacionesMantenedor($email, $rut, $porcent_tareas_realizadas, $resultado_eval, $f_entrega_eval)
+    {
+        $evaluacionesFiltradas = DB::table('evaluaciones_supervisor')
+            ->join('practicas', 'practicas.id_practica', '=', 'evaluaciones_supervisor.id_practica')
+            ->join('alumnos', 'alumnos.id_alumno', '=', 'practicas.id_alumno')
+            ->join('supervisores', 'supervisores.id_supervisor', '=', 'practicas.id_supervisor')
+            ->where('supervisores.email', 'LIKE', '%'.$email. '%')
+            ->where('alumnos.rut', 'LIKE', '%'.$rut. '%')
+            ->where('porcent_tareas_realizadas', 'LIKE', '%'.$porcent_tareas_realizadas. '%')
+            ->where('resultado_eval', 'LIKE', '%'.$resultado_eval. '%')
+            ->where('f_entrega_eval', 'LIKE', '%'.$f_entrega_eval. '%')
+            ->select('evaluaciones_supervisor.*','supervisores.email', 'alumnos.rut')
+            ->get();
+
+        return $evaluacionesFiltradas;
+    }
+
 }

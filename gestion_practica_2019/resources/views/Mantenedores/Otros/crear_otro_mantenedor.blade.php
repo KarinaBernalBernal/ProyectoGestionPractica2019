@@ -28,7 +28,7 @@
                                     <button type="submit" class="btn btn-primary">
                                         Guardar
                                     </button>
-                                    <a href="{{route('lista_otros')}}"><button class="btn btn-secondary" type="button">Cancelar</button></a>
+                                    <a href="{{route('lista_otros', $tipo)}}"><button class="btn btn-secondary" type="button">Cancelar</button></a>
 
                                 </div>
                             </div>

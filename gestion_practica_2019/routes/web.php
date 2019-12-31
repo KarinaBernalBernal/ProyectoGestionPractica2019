@@ -67,6 +67,7 @@ Route::post('/Administradores/eliminar/{id_elemento}','AdministradorController@b
 /* Rutas mantenedor recursos */
 // Rutas tipo GET
 Route::get('/Practicas/lista', 'PracticaController@lista')->name('lista_practicas');
+Route::get('/lista_practicasNoInscritos', 'PracticaController@listaNoInscritos')->name('lista_practicasNoInscritos');
 Route::get('/Practicas/crear', 'PracticaController@crear')->name('crear_practica');
 Route::get('/Practicas/editar/{id_elemento}', 'PracticaController@editar')->name('editar_practica');
 //Rutas tipo POST
@@ -113,7 +114,7 @@ Route::post('/Supervisores/eliminar/{id_elemento}','SupervisorController@borrarS
 /* Rutas mantenedor elementos dinamicos */
 // Rutas tipo GET
 Route::get('/ElementosDinamicos/crear/{tipo}', 'ElementosDinamicosController@crear')->name('crear_elemento_dinamico');
-Route::get('/ElementosDinamicos/lista', 'ElementosDinamicosController@lista')->name('lista_elementos_dinamicos');
+Route::get('/ElementosDinamicos/lista/{elemento}', 'ElementosDinamicosController@lista')->name('lista_elementos_dinamicos');
 Route::get('/ElementosDinamicos/editar/{id_elemento},{tipo}', 'ElementosDinamicosController@editar')->name('editar_elemento');
 //Rutas tipo POST
 Route::post('/ElementosDinamicos/agregar/{tipo}', 'ElementosDinamicosController@crearElemento')->name('agregar_elemento_dinamico');
@@ -124,7 +125,7 @@ Route::post('/ElementosDinamicos/vigencia', 'ElementosDinamicosController@modifi
 /* Rutas mantenedor otros */
 // Rutas tipo GET
 Route::get('/Otros/crear/{tipo}', 'OtroController@crear')->name('crear_otro');
-Route::get('/Otros/lista', 'OtroController@lista')->name('lista_otros');
+Route::get('/Otros/lista/{tipo}', 'OtroController@lista')->name('lista_otros');
 Route::get('/Otros/editar/{id_elemento},{tipo}', 'OtroController@editar')->name('editar_otro');
 //Rutas tipo POST
 Route::post('/Otros/agregar/{tipo}', 'OtroController@crearElemento')->name('agregar_otro');
@@ -186,8 +187,8 @@ Route::get('/formularioAutoEvaluacion', 'AutoEvaluacionController@index')->name(
 Route::post('/agregarAutoEvaluacion', 'AutoEvaluacionController@store')->name('agregarAutoEvaluacion');
 Route::get('/descripcionEvaluacionEmpresa', 'EvaluacionSupervisorController@verDescripcionEvaluacionEmpresa')->name('descripcionEvaluacionEmpresa');
 Route::get('/formularioEvaluacionEmpresa/{id}', 'EvaluacionSupervisorController@index')->name('formularioEvaluacionEmpresa');
-Route::post('/agregarEvaluacionEmpresa/{id}', 'EvaluacionSupervisorController@store')->name('agregarEvaluacionEmpresa');
-Route::get('/listaAutoevaluacion/{carrera}', 'AutoEvaluacionController@autoevaluacioneEjecucion')->name('listaAutoevaluacion');
+Route::post('/agregarEvaluacionEmpresa', 'EvaluacionSupervisorController@store')->name('agregarEvaluacionEmpresa');
+Route::get('/listaAutoevaluacion/{carrera}', 'AutoEvaluacionController@autoevaluacion')->name('listaAutoevaluacion');
 Route::get('/listaEvaluacionSupervisor/{carrera}', 'EvaluacionSupervisorController@listaEvaluacionSupervisor')->name('listaEvaluacionSupervisor');
 
 /*--------------------- Reportes ---------------------*/

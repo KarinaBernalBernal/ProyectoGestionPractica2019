@@ -3,6 +3,7 @@
 namespace SGPP;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class EvalConocimiento extends Model
 {
@@ -19,4 +20,14 @@ class EvalConocimiento extends Model
  		return $this->belongsTo('App\EvalConEmpPractica');
     }
 
+    public static function filtrarEvalConocimiento($nombre, $vigencia)
+    {
+        $evalConocimiento = DB::table('eval_conocimientos')
+            ->where('n_con', 'LIKE', '%'.$nombre. '%')
+            ->where('vigencia', 'LIKE', '%'.$vigencia. '%')
+            ->select('eval_conocimientos.*')
+            ->get();
+
+        return $evalConocimiento;
+    }
 }

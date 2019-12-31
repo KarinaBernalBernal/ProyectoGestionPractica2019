@@ -2,9 +2,9 @@
 
 @section('content')
    <div class="container-fluid">
-      <ul class="nav nav-tabs" id="myTab" role="tablist">
+      <ul class="nav nav-tabs active" id="myTab" role="tablist">
 		  	<li class="nav-item">
-		    	<a class="nav-link active" id="pendientes-tab" data-toggle="tab" href="#pendientes" role="tab" aria-controls="pendientes" aria-selected="true">Pendientes</a>
+		    	<a class="nav-link " id="pendientes-tab" data-toggle="tab" href="#pendientes" role="tab" aria-controls="pendientes" aria-selected="true">Pendientes</a>
 		  	</li>
 		  	<li class="nav-item">
 		    	<a class="nav-link" id="evaluadas-tab" data-toggle="tab" href="#evaluadas" role="tab" aria-controls="evaluadas" aria-selected="false">Evaluadas</a>
@@ -14,32 +14,44 @@
 		<br>
 
 		<div class="tab-content" id="myTabContent">
-			<div class="tab-pane fade show active" id="pendientes" role="tabpanel" aria-labelledby="pendientes-tab">
+			<div class="tab-pane fade show" id="pendientes" role="tabpanel" aria-labelledby="pendientes-tab">
 				<div class="container-fluid">
-                    <div class="py-3">
-                        {!! Form::open(['route'=> ['solicitudesPFiltrada', $carrera] , 'method' => 'GET', 'class' => 'row container-fluid', 'role' => 'search' ])!!}
-                        <div class="col-2">
-                            {!! Form::text('nombre', null, ['class' => 'form-control', 'placeholder' => 'Nombre']) !!}
-                        </div>
-                        <div class="col-2">
-                            {!! Form::text('apellido_paterno', null, ['class' => 'form-control', 'placeholder' => 'Apellido']) !!}
-                        </div>
-                        <div class="col-2">
-                            {!! Form::text('rut', null, ['class' => 'form-control', 'placeholder' => 'Rut']) !!}
-                        </div>
-                        <div class="col-2">
-                            {!! Form::text('anno_ingreso', null, ['class' => 'form-control', 'placeholder' => 'Año de ingreso']) !!}
-                        </div>
-                        <button type="submit" class="btn btn-info form-group col-1">Buscar</button>
-                        {!! Form::close() !!}
-						<p class="col-2">Hay {{ $contadorP }} Solicitudes</p></a>
-                    </div>
+					<form class="form-horizontal" action="{{route('solicitudesPFiltrada',[$carrera])}}" method="get">
+						<div class="row">
+							<div class="col-2">
+								<input id="nombre" type="text" class="form-control" name="nombre" placeholder="Nombre">
+							</div>
+							<div class="col-2">
+								<input id="apellido_paterno" type="text" class="form-control" name="apellido_paterno" placeholder="Apellido">
+							</div>
+							<div class="col-2">
+								<input id="rut" type="text" class="form-control" name="rut" placeholder="Rut">
+							</div>
+							<div class="col-2">
+								<input id="anno_ingreso" type="text" class="form-control" name="anno_ingreso" placeholder="Año de ingreso">
+							</div>
+							@if( $carrera == "Ingeniería Civil Informática")
+							<div class="col-2">
+								<select id="practica" type="text" class="form-control" name="practica">
+									<option value="">Seleccione Resolucion</option>
+									<option value="No">Primera Practica</option>
+									<option value="Si">Segunda Practica</option>
+								</select>
+							</div>
+							@endif
+							<div class="form-group">
+								<button type="submit" class="btn btn-info"><span class="fa fa-search"></span></button>
+							</div>
+						</div>
+						<div class="text-left">Se encontraron {{ $contadorP }} Solicitudes</div>
+						<hr>
+					</form>
                     <div class="row">
-					   <h2>Solicitudes pendientes</h2>
+					   <h2>Solicitudes Pendientes</h2>
 					</div>
 					@if (count($solicitudesP)>0)
 					<br>
-					<div class="row d-flex justify-content-center">	
+					<div class="row d-flex justify-content-center text-center">
 						<table class="table table-bordered bg-light table-hover table-responsive">
         					<thead class="bg-dark" style="color: white">							
 								<tr class='text-center'>
@@ -47,7 +59,9 @@
 									<th style="vertical-align: middle" scope="col">Nombre</th>
 									<th style="vertical-align: middle" scope="col">Año de Ingreso</th>
 									<th style="vertical-align: middle" scope="col">Carrera</th>
+									@if( $carrera == "Ingeniería Civil Informática")
 									<th style="vertical-align: middle" scope="col">Segunda Práctica</th>
+									@endif
 									<th style="vertical-align: middle" scope="col">Proyecto de Titulo </th>
 									<th style="vertical-align: middle" scope="col"></th>
 								</tr>
@@ -63,7 +77,9 @@
 										</td>
 										<td>{{ $solicitudP->anno_ingreso }}</td>
 										<td>{{ $solicitudP->carrera }}</td>
+										@if( $carrera == "Ingeniería Civil Informática")
 										<td>{{ $solicitudP->practica }}</td>
+										@endif
 										<td><strong>Semestre:</strong> {{ $solicitudP->semestre_proyecto }} <br>
 											<strong>Año:</strong>	{{ $solicitudP->anno_proyecto }}</td>
 
@@ -81,36 +97,47 @@
 					@endif
 				</div>
 				<div class="row d-flex justify-content-center">
-					{{ $solicitudesP->links( "pagination::bootstrap-4") }}
+					{{ $solicitudesP->appends(Request::except("pendiente"))->render("pagination::bootstrap-4") }}
 				</div>
 			</div>
 
 			<div class="tab-pane fade" id="evaluadas" role="tabpanel" aria-labelledby="evaluadas-tab">
 				<div class="container-fluid">
-					<div class="py-3">
-						{!! Form::open([ 'route'=> ['solicitudesEFiltrada', $carrera], 'method' => 'GET', 'class' => 'row container-fluid', 'role' => 'search' ])  !!}
-						<div class="col-2">
-							{!! Form::text('nombre', null, ['class' => 'form-control', 'placeholder' => 'Nombre']) !!}
+					<form class="form-horizontal" action="{{route('solicitudesEFiltrada',[$carrera])}}" method="get">
+						<div class="row">
+							<div class="col-2">
+								<input id="nombre" type="text" class="form-control" name="nombre" placeholder="Nombre">
+							</div>
+							<div class="col-2">
+								<input id="apellido_paterno" type="text" class="form-control" name="apellido_paterno" placeholder="Apellido">
+							</div>
+							<div class="col-2">
+								<input id="rut" type="text" class="form-control" name="rut" placeholder="Rut">
+							</div>
+							<div class="col-2">
+								<input id="anno_ingreso" type="text" class="form-control" name="anno_ingreso" placeholder="Año de ingreso">
+							</div>
+							<div class="col-2">
+								<select id="resolucion_solicitud" type="text" class="form-control" name="resolucion_solicitud">
+									<option value="">Seleccione Resolucion</option>
+									<option value="Autorizada">Autorizada</option>
+									<option value="Rechazada">Rechazada</option>
+									<option value="Pendiente">Pendiente</option>
+								</select>
+							</div>
+							<div class="form-group">
+								<button type="submit" class="btn btn-info"><span class="fa fa-search"></span></button>
+							</div>
 						</div>
-						<div class="col-2">
-							{!! Form::text('apellido_paterno', null, ['class' => 'form-control', 'placeholder' => 'Apellido']) !!}
-						</div>
-						<div class="col-2">
-							{!! Form::text('rut', null, ['class' => 'form-control', 'placeholder' => 'Rut']) !!}
-						</div>
-						<div class="col-2">
-							{!! Form::text('anno_ingreso', null, ['class' => 'form-control', 'placeholder' => 'Año de ingreso']) !!}
-						</div>
-						<button type="submit" class="btn btn-info form-group col-1">Buscar</button>
-						{!! Form::close() !!}
-						<p class="col-2">Hay {{ $contadorE }} Solicitudes</p>
-					</div>
-				  	<div class="row">
-					   <h2>Solicitudes evaluadas</h2>
+						<div class="text-left">Se encontraron {{ $contadorE }} Solicitudes</div>
+						<hr>
+					</form>
+					<div class="row">
+					   <h2>Solicitudes Evaluadas</h2>
 					</div>
 					@if (count($solicitudesE)>0)
 					<br>
-					<div class="row d-flex justify-content-center">	
+					<div class="row d-flex justify-content-center text-center">
 						<table class="table table-bordered bg-light table-hover table-responsive">
         					<thead class="bg-dark" style="color: white">
 								<tr class='text-center'>
@@ -145,7 +172,7 @@
 							</tbody>
 						</table>
 						<div class="row d-flex justify-content-center">
-							{{ $solicitudesE->links( "pagination::bootstrap-4") }}
+							{{ $solicitudesE->appends(Request::except("evaluada"))->render("pagination::bootstrap-4") }}
 						</div>
 					</div>
 					@else
@@ -156,15 +183,30 @@
 					@endif
 				</div>
 			</div>
-
 		</div>
-   	</div>
+   </div>
 
-	
    <div class="modal" id="modal-evaluarSolicitud"></div>
    <div class="modal" id="modal-modificarEvaluacionSolicitud"></div>
 
    <script>
+       $(document).ready(function()
+       {
+           $('a[data-toggle="tab"]').on('shown.bs.tab', function(e)
+           {
+               sessionStorage.setItem('evalActiveTab', $(e.target).attr('href'));
+           });
+           var evalActiveTab = sessionStorage.getItem('evalActiveTab');
+           if(evalActiveTab)
+           {
+               $('#myTab a[href="' + evalActiveTab + '"]').click();
+           }else
+           {
+               $('#myTab a[href="#pendientes"]').attr('class','nav-link active');
+               $('#pendientes').attr('class','tab-pane fade show active');
+           }
+       });
+
    $(document).ready(function () {
 
     	//modal-evaluarSolicitud
@@ -217,5 +259,5 @@
 	        $(this).find('.modal-content').empty();
 	    });
 	});
-	</script>
+</script>
 @endsection

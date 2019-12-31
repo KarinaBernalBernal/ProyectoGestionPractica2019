@@ -60,7 +60,7 @@ class Alumno extends Model
 
     public static function filtrarAlumnosEnPractica($nombre, $apellido_paterno, $rut, $email, $anno_ingreso, $carrera)
     {
-        $alumnosFiltrada = DB::table('alumnos')
+        $alumnosFiltrados = DB::table('alumnos')
             ->join('practicas', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
             ->leftJoin('autoevaluaciones', 'autoevaluaciones.id_practica', 'practicas.id_practica')
             ->leftJoin('solicitudes', 'solicitudes.id_alumno', 'alumnos.id_alumno')
@@ -73,11 +73,12 @@ class Alumno extends Model
             ->select('alumnos.*', 'solicitudes.id_solicitud', 'autoevaluaciones.id_autoeval', 'practicas.f_inscripcion')
             ->get();
 
-        return $alumnosFiltrada;
+        return $alumnosFiltrados;
     }
 
 
-    public static function filtrarYPaginar($buscador, $nombre, $apellido_paterno, $apellido_materno, $rut, $email, $anno_ingreso, $carrera){
+    public static function filtrarYPaginar($buscador, $nombre, $apellido_paterno, $apellido_materno, $rut, $email, $anno_ingreso, $carrera)
+    {
         return Alumno::Buscador($buscador)
                     ->Nombre($nombre)
                     ->ApellidoPaterno($apellido_paterno)
@@ -87,7 +88,7 @@ class Alumno extends Model
                     ->AnnoIngreso($anno_ingreso)
                     ->Carrera($carrera)
                     ->orderBy('id_alumno', 'ASC')
-                    ->paginate();
+                    ->get();
     }
 
     public function scopeBuscador($query, $buscador){

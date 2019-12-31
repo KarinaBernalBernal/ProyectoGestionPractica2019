@@ -9,6 +9,32 @@
         <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
         <div class="card text">
             <div class="card-body">
+                <form class="form-horizontal" action="{{route('lista_administradores')}}" method="get">
+                    <div class="row">
+                        <div class="col-2">
+                            <input id="nombre" type="text" class="form-control" name="nombre" placeholder="Nombre">
+                        </div>
+                        <div class="col-3">
+                            <input id="rut" type="text" class="form-control" name="rut" placeholder="Rut">
+                        </div>
+                        <div class="col-3">
+                            <input id="email" type="text" class="form-control" name="email" placeholder="Email">
+                        </div>
+                        <div class="col-3">
+                            <select id="cargo" type="text" class="form-control" name="cargo">
+                                <option value="">Seleccione un Tipo</option>
+                                <option value="profesor">Profesor</option>
+                                <option value="gestionador">Gestionador</option>
+                                <option value="jefe de docencia">Jefe de docencia</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-info"><span class="fa fa-search"></span></button>
+                        </div>
+                    </div>
+                    <div class="text-left">Se encontraron {{ $contador }} Administradores</div>
+                    <hr>
+                </form>
                 <div class="container-fluid">
                     <div class="row justify-content-center">
                         <div class="text-center">
@@ -41,7 +67,7 @@
                                                         <td>{{$administrador->cargo}}</td>
                                                         <td>
                                                             <a href="{{route('editar_administrador',[$administrador->id_admin])}} "><button id="{{$administrador->id_admin}}" class="btn btn-warning">Editar</button></a>
-                                                            <a href="#"><button id="{{$administrador->id_admin}}" class="btn btn-danger" onclick="borrar('{{$administrador->id_administrador}}', '{{$administrador->nombre}}', '{{route('borrar_administrador',[$administrador->id_admin])}}')">Borrar</button></a>
+                                                            <a href="#"><button id="{{$administrador->id_admin}}" class="btn btn-danger" onclick="borrar('{{$administrador->id_admin}}', '{{$administrador->nombre}}', '{{route('borrar_administrador',[$administrador->id_admin])}}')">Borrar</button></a>
                                                         </td>
                                                     </tr>
                                                 @endforeach
@@ -52,13 +78,10 @@
                             @else
                                 <p>No existen Administradores en este momento</p>
                             @endif
-                            <!-- FIN DATA TABLES -->
                         </div>
                     </div>
                 </div>
-
                 <br>
-
                 <div class="container">
                     <div class="row">
                         <div class="col-md-2">
@@ -70,6 +93,9 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="row d-flex justify-content-center">
+            {{ $administradores->appends(Request::except('page'))->render("pagination::bootstrap-4") }}
         </div>
     </div>
 

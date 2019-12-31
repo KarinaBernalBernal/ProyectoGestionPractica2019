@@ -3,6 +3,7 @@
 namespace SGPP;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Area extends Model
 {
@@ -17,5 +18,16 @@ class Area extends Model
     }
     public function areaEvaluacion(){
  		return $this->belongsTo('App\AreaEvaluacion');
+    }
+
+    public static function filtrarArea($nombre, $vigencia)
+    {
+        $areas = DB::table('areas')
+            ->where('n_area', 'LIKE', '%'.$nombre. '%')
+            ->where('vigencia', 'LIKE', '%'.$vigencia. '%')
+            ->select('areas.*')
+            ->get();
+
+        return $areas;
     }
 }

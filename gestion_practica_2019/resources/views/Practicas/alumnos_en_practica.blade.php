@@ -1,7 +1,7 @@
 @extends('layouts.mainlayout')
 @section('content')
     <div class="container-fluid text-center">
-        <h2>Alumnos</h2>
+        <h2>Alumnos en Práctica</h2>
     </div>
     <div class="container-fluid">
         <div class="card shadow mb-4">
@@ -22,8 +22,8 @@
                 <div class="col-2">
                     {!! Form::text('anno_ingreso', null, ['class' => 'form-control', 'placeholder' => 'Año de ingreso']) !!}
                 </div>
-                <button type="submit" class="btn btn-info form-group col-1">Buscar</button>
-                <p class="col-2">Hay {{ $contador }} Alumnos</p>
+                <button type="submit" class="btn btn-info"><span class="fa fa-search"></span></button>
+                <div class="container-fluid">Se encontraron {{ $contador }} Alumnos</div>
                 {!! Form::close() !!}
             </div>
             <div class="card-body">
@@ -85,13 +85,13 @@
                         </table>
                     </div>
                 @else
-                    <p class="text-danger text-center">No se encontraron Alumnos</p>
+                    <p class="text-center">No se encontraron Alumnos</p>
                 @endif
             </div>
         </div>
     </div>
     <div class="row d-flex justify-content-center">
-        {{ $lista->links( "pagination::bootstrap-4") }}
+        {{ $lista->appends(Request::except("page"))->render("pagination::bootstrap-4") }}
     </div>
 
     <div class="modal" id="modal-solicitud"></div>

@@ -7,6 +7,7 @@ use SGPP\Notifications\ResetPasswordNotification;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use SGPP\Recurso;
 use SGPP\Perfil;
+use Illuminate\Support\Facades\DB;
 
 class User extends Authenticatable
 {
@@ -73,4 +74,18 @@ class User extends Authenticatable
       return $permissions;
 
     }
+
+    public static function filtrarUsuarios($nombre, $email, $type)
+    {
+        $usuariosFiltrados = DB::table('users')
+            ->where('name', 'LIKE', '%'.$nombre. '%')
+            ->where('email', 'LIKE', '%'.$email. '%')
+            ->where('type', 'LIKE', '%'.$type. '%')
+            ->select('users.*' )
+            ->get();
+
+        return $usuariosFiltrados;
+    }
+
+
 }

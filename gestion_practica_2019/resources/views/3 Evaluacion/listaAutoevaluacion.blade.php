@@ -20,54 +20,56 @@
                 <div class="col-2">
                     {!! Form::text('f_entrega', null, ['class' => 'form-control', 'placeholder' => 'Fecha Entrega']) !!}
                 </div>
-                <button type="submit" class="btn btn-info form-group col-1">Buscar</button>
+                <button type="submit" class="btn btn-info"><span class="fa fa-search"></span></button>
+                <div class="container-fluid ">Se encontraron {{ $contador }} Autoevaluaciones</div>
                 {!! Form::close() !!}
-                <p class="col-3">Hay {{ $contador }} Autoevaluaciones</p>
             </div>
             <div class="card-body">
-                @if (count($autoevaluacion)>0)
-                    <div class="table-responsive">
-                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                            <thead class="bg-dark" style="color: white">
-                            <tr>
-                                <th class="text-truncate text-center">Nombre</th>
-                                <th class="text-truncate text-center">Rut</th>
-                                <th class="text-truncate text-center">Fecha entrega</th>
-                                <th class="text-truncate text-center">Autoevaluacion</th>
+            @if (count($autoevaluacion)>0)
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead class="bg-dark" style="color: white">
+                        <tr>
+                            <th class="text-truncate text-center">Nombre</th>
+                            <th class="text-truncate text-center">Rut</th>
+                            <th class="text-truncate text-center">Fecha entrega</th>
+                            <th class="text-truncate text-center">Autoevaluacion</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach ($autoevaluacion as $autoevaluaciones)
+                            <tr id="{{$autoevaluaciones->id_alumno}}">
+                                <td class="text-truncate text-center">
+                                    {{$autoevaluaciones->nombre}}<br>
+                                    {{$autoevaluaciones->apellido_paterno}}<br>
+                                    {{$autoevaluaciones->apellido_materno}}
+                                </td>
+                                <td class="text-truncate text-center">{{$autoevaluaciones->rut}}</td>
+                                <td class="text-truncate text-center">{{date('d-m-Y', strtotime($autoevaluaciones->f_entrega))}}</td>
+                                <td class="text-center">
+                                    @if($autoevaluaciones->id_autoeval)
+                                        <a  href="" class='botonModalAutoEvaluacion fa fa-file text-success' data-toggle="modal" data-form="{{ route('autoEvaluacionModal',['id'=>$autoevaluaciones->id_alumno])}}" data-target="#modal-autoEvaluacion"></a><br>
+                                    @else
+                                        <a class='fa fa-times text-danger'></a><br>
+                                    @endif
+                                </td>
                             </tr>
-                            </thead>
-                            <tbody>
-                            @foreach ($autoevaluacion as $autoevaluaciones)
-                                <tr id="{{$autoevaluaciones->id_alumno}}">
-                                    <td class="text-truncate text-center">
-                                        {{$autoevaluaciones->nombre}}<br>
-                                        {{$autoevaluaciones->apellido_paterno}}<br>
-                                        {{$autoevaluaciones->apellido_materno}}
-                                    </td>
-                                    <td class="text-truncate text-center">{{$autoevaluaciones->rut}}</td>
-                                    <td class="text-truncate text-center">{{date('d-m-Y', strtotime($autoevaluaciones->f_entrega))}}</td>
-                                    <td class="text-center">
-                                        @if($autoevaluaciones->id_autoeval)
-                                            <a  href="" class='botonModalAutoEvaluacion fa fa-file text-success' data-toggle="modal" data-form="{{ route('autoEvaluacionModal',['id'=>$autoevaluaciones->id_alumno])}}" data-target="#modal-autoEvaluacion"></a><br>
-                                        @else
-                                            <a class='fa fa-times text-danger'></a><br>
-                                        @endif
-                                    </td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
-                    </div>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
-        @else
-            <p class="text-danger text-center">No se encontraron Autoevaluaciones</p>
-        @endif
-    <div class="row d-flex justify-content-center">
-        {{ $autoevaluacion->links( "pagination::bootstrap-4") }}
+            @else
+                <p class="text-center">No se encontraron Autoevaluaciones</p>
+            @endif
+        <div class="row d-flex justify-content-center">
+            {{ $autoevaluacion->appends(Request::except("page"))->render("pagination::bootstrap-4") }}
+        </div>
     </div>
-    </div>
+
     <div class="modal" id="modal-autoEvaluacion"></div>
+
     <script>
         /*BOTON AUTO EVALUACION*/
         $(document).ready(function ()

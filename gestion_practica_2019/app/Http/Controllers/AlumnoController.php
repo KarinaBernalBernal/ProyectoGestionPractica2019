@@ -14,20 +14,24 @@ use Illuminate\Support\Facades\DB;
 
 class AlumnoController extends Controller
 {
-
     //vista principal de un elemento en especifico
     public function lista(Request $request)
     {
         $lista= Alumno::filtrarYPaginar($request->get('buscador'),
-                                        $request->get('nombre'), 
+                                        $request->get('nombre'),
                                         $request->get('apellido_paterno'),
                                         $request->get('apellido_materno'),
                                         $request->get('rut'),
                                         $request->get('email'),
                                         $request->get('anno_ingreso'),
-                                        $request->get('carrera')
-                                    )->paginate(3);
-        return view('Mantenedores.Alumnos.lista_alumnos')->with("lista", $lista);
+                                        $request->get('carrera'));
+
+        $contador = $lista->count();
+        $lista = $lista->paginate(10);
+
+        return view('Mantenedores/Alumnos/lista_alumnos')
+            ->with("lista", $lista)
+            ->with('contador',$contador);
     }
 
     public function crear()
@@ -141,7 +145,7 @@ class AlumnoController extends Controller
                 $carrera
             );
             $contador = $listaFiltrada->count();  //mostrara la cantidad de resultados en la tabla filtrada
-            $listaFiltrada = $listaFiltrada->paginate(5);
+            $listaFiltrada = $listaFiltrada->paginate(1);
             return view('Practicas/alumnos_en_practica')->with('lista',$listaFiltrada)
                 ->with('contador',$contador)
                 ->with('carrera', $carrera);

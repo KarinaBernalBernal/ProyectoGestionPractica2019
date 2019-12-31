@@ -1,7 +1,5 @@
 @extends('layouts.mainlayout')
 @section('content')
-    <?php use App\Http\Controllers\EvaluacionSupervisorController;?>
-
     <div class="container">
         <div class="row">
             <div class="col col-md-offset">
@@ -57,7 +55,7 @@
                             </td>
                             <td class="text-center">
 
-                                @if(\SGPP\Http\Controllers\EvaluacionSupervisorController::verificarEvaluacionAlumno($alumnos->id_alumno))
+                                @if($alumnos->f_entrega_eval)
                                     <a  href="" class='botonModalEvaluacion fa fa-check text-success' data-toggle="modal" data-form="{{ route('evaluacionModal',['id'=>$alumnos->id_alumno])}}" data-target="#modal-evaluacion"></a><br>
                                 @else
                                     <a href="{{route('formularioEvaluacionEmpresa', ['id'=>$alumnos->id_alumno])}}" class="btn btn-secondary"> <span>Evaluar al alumno</span></a>
@@ -73,8 +71,8 @@
             <p class="text-danger text-center">No se encontraron Alumnos</p>
         @endif
     </div>
-    <div class="modal" id="modal-evaluacion"></div>
 
+    <div class="modal" id="modal-evaluacion"></div>
     <script>
         /*BOTON EVALUACION SUPERVISOR*/
 

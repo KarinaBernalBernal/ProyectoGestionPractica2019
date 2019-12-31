@@ -6,6 +6,7 @@ use SGPP\Alumno;
 use SGPP\User;
 use SGPP\Practica;
 use Mail;
+use Illuminate\Support\Facades\DB;
 
 class SolicitudController extends Controller
 {
@@ -89,16 +90,66 @@ class SolicitudController extends Controller
             ->where('estado',1)
             ->paginate(5);
     /* ----------- Validar una solicitud ----------  */
-    public function listaSolicitudEjecucion()
+    public function listaSolicitudEjecucion( Request $request)
     {
-        $solicitudes = Solicitud::orderBy('rut','DESC')->where('carrera', 'Ingeniería de Ejecución Informática')->paginate(7);
-        return view('1 Solicitud/listaSolicitudEjecucion')->with('solicitudes', $solicitudes);
+        //$solicitudes = Solicitud::orderBy('rut','DESC')->where('carrera', 'Ingeniería de Ejecución Informática')->paginate(7);
+        $solicitudes = DB::table('solicitudes')
+            ->where('carrera', 'LIKE', '%'."Ingeniería de Ejecución Informática". '%')
+            ->select('solicitudes.*')
+            ->get();
+        $contador = $solicitudes->count();
+
+        if ($request->rut != null)
+        {
+            //-----Filtro-----//
+            $listaFiltrada= Solicitud::filtrarSolicitudGestionador(
+                $request->get('rut'),
+                "Ingeniería de Ejecución Informática"
+            );
+            $contador = $listaFiltrada->count();
+            $listaFiltrada = $listaFiltrada->paginate(10);
+
+            return view('1 Solicitud/listaSolicitudEjecucion')
+                ->with('solicitudes',$listaFiltrada)
+                ->with('contador',$contador);
+        }
+
+        $solicitudes = $solicitudes->paginate(10);
+        return view('1 Solicitud/listaSolicitudEjecucion')
+            ->with('solicitudes', $solicitudes)
+            ->with('contador', $contador);
     }
 
-    public function listaSolicitudCivil()
+    public function listaSolicitudCivil(Request $request)
     {
-        $solicitudes = Solicitud::orderBy('rut','DESC')->where('carrera', 'Ingeniería Civil Informática')->paginate(7);
-        return view('1 Solicitud/listaSolicitudCivil')->with('solicitudes', $solicitudes);
+        //$solicitudes = Solicitud::orderBy('rut','DESC')->where('carrera', 'Ingeniería Civil Informática')->paginate(7);
+        $solicitudes = DB::table('solicitudes')
+            ->where('carrera', 'LIKE', '%'."Ingeniería Civil Informática". '%')
+            ->select('solicitudes.*')
+            ->get();
+
+        $contador = $solicitudes->count();
+
+        if ($request->rut != null)
+        {
+
+            //-----Filtro-----//
+            $listaFiltrada= Solicitud::filtrarSolicitudGestionador(
+                $request->get('rut'),
+                "Ingeniería Civil Informática"
+            );
+            $contador = $listaFiltrada->count();
+            $listaFiltrada = $listaFiltrada->paginate(10);
+
+            return view('1 Solicitud/listaSolicitudCivil')
+                ->with('solicitudes',$listaFiltrada)
+                ->with('contador',$contador);
+        }
+
+        $solicitudes = $solicitudes->paginate(10);
+        return view('1 Solicitud/listaSolicitudCivil')
+            ->with('solicitudes', $solicitudes)
+            ->with('contador', $contador);
     }
     /*---------------------------------------------------------------------------*/
     /* ----------- Evaluacion de una Solicitud  ----------  */
@@ -114,8 +165,8 @@ class SolicitudController extends Controller
         $carrera = 'Ingeniería Civil Informática';
         $contadorP = $solicitudesP->count();
         $contadorE = $solicitudesE->count();
-        $solicitudesP = $solicitudesP->paginate(5);
-        $solicitudesE = $solicitudesE->paginate(5);
+        $solicitudesP = $solicitudesP->paginateEspecial(10, null, null, "pendiente");
+        $solicitudesE = $solicitudesE->paginateEspecial(10, null, null, "evaluada");
        
         return view('1 Solicitud/evaluacionSolicitud',[
             'solicitudesP'=>$solicitudesP,
@@ -138,8 +189,8 @@ class SolicitudController extends Controller
         $carrera = "Ingeniería de Ejecución Informática";
         $contadorP = $solicitudesP->count();
         $contadorE = $solicitudesE->count();
-        $solicitudesP = $solicitudesP->paginate(5);
-        $solicitudesE = $solicitudesE->paginate(5);
+        $solicitudesP = $solicitudesP->paginateEspecial(10, null, null, "pendiente");
+        $solicitudesE = $solicitudesE->paginateEspecial(10, null, null, "evaluada");
         
         return view('1 Solicitud/evaluacionSolicitud',[
             'solicitudesP'=>$solicitudesP,
@@ -150,29 +201,46 @@ class SolicitudController extends Controller
         ]);
     }
 
-    public function filtroSolicitudesP(Request $request, $carrera )
+    public function filtroSolicitudesP(Request $request, $carrera)
     {
 
         $solicitudesE = Solicitud::all()
             ->where('carrera', $carrera)
-            ->where("estado",2);
+            ->where("estado",1);
 
         $contadorE = $solicitudesE->count();
-        $solicitudesE = $solicitudesE->paginate(5);
+        $solicitudesE = $solicitudesE->paginateEspecial(10, null, null, "evaluada");
 
-        //-----Filtro-----//
-        $listaFiltrada = Solicitud::filtrar($request->get('buscador'),
-            $request->get('nombre'),
-            $request->get('apellido_paterno'),
-            $request->get(null),
-            $request->get('rut'),
-            $request->get('anno_ingreso'),
-            $carrera,
-            1
-        );
+        if( $carrera == "Ingeniería de Ejecución Informática")
+        {
+            //-----Filtro-----//
+            $listaFiltrada = Solicitud::filtrarSolicitudP($request->get('buscador'),
+                $request->get('nombre'),
+                $request->get('apellido_paterno'),
+                $request->get(null),
+                $request->get('rut'),
+                $request->get('anno_ingreso'),
+                $carrera,
+                0,
+                ""
+            );
+        }
+        else{
+            //-----Filtro-----//
+            $listaFiltrada = Solicitud::filtrarSolicitudP($request->get('buscador'),
+                $request->get('nombre'),
+                $request->get('apellido_paterno'),
+                $request->get(null),
+                $request->get('rut'),
+                $request->get('anno_ingreso'),
+                $carrera,
+                0,
+                $request->get('practica')
+            );
+        }
 
         $contadorP = $listaFiltrada->count();
-        $listaFiltrada = $listaFiltrada->paginate(5);
+        $listaFiltrada = $listaFiltrada->paginateEspecial(10, null, null, "pendiente");
 
         //Retorna los datos filtrados de la lista pendiente y la lista evaluada sin filtrar
         //Ademas retorna el tipo de carrera para diferenciar que la vista sea de civil y ejecucion
@@ -192,10 +260,10 @@ class SolicitudController extends Controller
 
         $solicitudesP = Solicitud::all()
             ->where('carrera', $carrera)
-            ->where("estado",1);
+            ->where("estado",0);
 
         $contadorP = $solicitudesP->count();
-        $solicitudesP = $solicitudesP->paginate(5);
+        $solicitudesP = $solicitudesP->paginate(10, null, null, "pendiente");
 
         //-----Filtro-----//
         $listaFiltrada = Solicitud::filtrar($request->get('buscador'),
@@ -205,11 +273,12 @@ class SolicitudController extends Controller
             $request->get('rut'),
             $request->get('anno_ingreso'),
             $carrera,
-            2
+            1.,
+            $request->get('resolucion_solicitud')
         );
 
         $contadorE = $listaFiltrada->count();
-        $listaFiltrada = $listaFiltrada->paginate(5);
+        $listaFiltrada = $listaFiltrada->paginate(10, null, null, "evaluada");
 
         //Retorna los datos filtrados de la lista evaluada y la lista pendiente sin filtrar
         //Ademas retorna el tipo de carrera para diferenciar que la vista sea de civil y ejecucion

@@ -3,6 +3,8 @@
 namespace SGPP;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
+use PhpParser\Node\Stmt\DeclareDeclare;
 
 class Solicitud extends Model
 {
@@ -17,9 +19,8 @@ class Solicitud extends Model
         return $this->hasMany('App\Alumno');
     }
 
-    public static function filtrar($buscador, $nombre, $apellido_paterno, $apellido_materno, $rut, $anno_ingreso, $carrera, $estado)
+    public static function filtrar($buscador, $nombre, $apellido_paterno, $apellido_materno, $rut, $anno_ingreso, $carrera, $estado, $resolucion_solicitud)
     {
-
         return Solicitud::Buscador($buscador)
             ->Nombre($nombre)
             ->ApellidoPaterno($apellido_paterno)
@@ -28,6 +29,22 @@ class Solicitud extends Model
             ->AnnoIngreso($anno_ingreso)
             ->Carrera($carrera)
             ->Estado($estado)
+            ->ResolucionSolicitud($resolucion_solicitud)
+            ->orderBy('id_solicitud', 'ASC')
+            ->get();
+    }
+
+    public static function filtrarSolicitudP($buscador, $nombre, $apellido_paterno, $apellido_materno, $rut, $anno_ingreso, $carrera, $estado, $practica)
+    {
+        return Solicitud::Buscador($buscador)
+            ->Nombre($nombre)
+            ->ApellidoPaterno($apellido_paterno)
+            ->ApellidoMaterno($apellido_materno)
+            ->Rut($rut)
+            ->AnnoIngreso($anno_ingreso)
+            ->Carrera($carrera)
+            ->Estado($estado)
+            ->Practica($practica)
             ->orderBy('id_solicitud', 'ASC')
             ->get();
     }
@@ -43,7 +60,9 @@ class Solicitud extends Model
                 ->orwhere('rut', 'LIKE', '%'. $buscador . '%')
                 ->orwhere('anno_ingreso', 'LIKE', '%'. $buscador . '%')
                 ->orwhere('carrera', 'LIKE', '%'. $buscador . '%')
-                ->orwhere('estado', 'LIKE', '%'. $buscador . '%');
+                ->orwhere('estado', 'LIKE', '%'. $buscador . '%')
+                ->orwhere('resolucion_solicitud', 'LIKE', '%'. $buscador . '%')
+                ->orwhere('practica', 'LIKE', '%'. $buscador . '%');
         }
         return $query;
     }
@@ -104,4 +123,30 @@ class Solicitud extends Model
         return $query;
     }
 
+    public static function filtrarSolicitudGestionador($rut, $carrera)
+    {
+        $areas = DB::table('solicitudes')
+            ->where('rut', 'LIKE', '%'.$rut. '%')
+            ->where('carrera', 'LIKE', '%'.$carrera. '%')
+            ->select('solicitudes.*')
+            ->get();
+
+        return $areas;
+    }
+
+    public function scopeResolucionSolicitud($query, $resolucion_solicitud){
+
+        if (  trim($resolucion_solicitud !== '') ) {
+            $query->where('resolucion_solicitud', 'LIKE', '%'. $resolucion_solicitud . '%');
+        }
+        return $query;
+    }
+
+    public function scopePractica($query, $practica){
+
+        if (  trim($practica !== '') ) {
+            $query->where('practica', 'LIKE', '%'. $practica . '%');
+        }
+        return $query;
+    }
 }

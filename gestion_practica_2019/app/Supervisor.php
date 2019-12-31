@@ -32,6 +32,19 @@ class Supervisor extends Model
 
     //----------------FILTROS------------
 
+    public static function filtrarSupervisores($nombre, $apellido_paterno, $email, $fono)
+    {
+        $supervisoresFiltrados = DB::table('supervisores')
+            ->where('nombre', 'LIKE', '%'.$nombre. '%')
+            ->where('apellido_paterno', 'LIKE', '%'.$apellido_paterno. '%')
+            ->where('email', 'LIKE', '%'.$email. '%')
+            ->where('fono', 'LIKE', '%'.$fono. '%')
+            ->select('supervisores.*' )
+            ->get();
+
+        return $supervisoresFiltrados;
+    }
+
     public static function filtrarSupervisoresEnPractica($nombre, $apellido_paterno, $email, $fono, $carrera)
     {
         $supervisoresFiltrados = DB::table('supervisores')

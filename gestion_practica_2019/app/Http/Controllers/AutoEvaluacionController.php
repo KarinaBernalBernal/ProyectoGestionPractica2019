@@ -42,12 +42,36 @@ class AutoEvaluacionController extends Controller
     public function verDescripcionAutoEvaluacion(){
         return view('3 Evaluacion/autoEvaluacion');
     }
-     //vista principal de un elemento en especifico
-    public function lista()
+
+    //vista principal de un elemento en especifico
+    public function lista(Request $request)
     {
-        $lista= Autoevaluacion::all();
+        $lista = DB::table('autoevaluaciones')
+            ->join('practicas', 'practicas.id_practica', '=', 'autoevaluaciones.id_practica')
+            ->join('alumnos', 'alumnos.id_alumno', '=', 'practicas.id_alumno')
+            ->select('autoevaluaciones.*', 'alumnos.rut')
+            ->get();
+
+        $contador = $lista->count();
+
+        if ($request->f_entrega != null || $request->rut != null)
+        {
+            //-----Filtro-----//
+            $listaFiltrada = Autoevaluacion::filtrarAutoevaluacion(
+                $request->get('f_entrega'),
+                $request->get('rut')
+            );
+            $contador = $listaFiltrada->count();  //mostrara la cantidad de resultados en la tabla filtrada
+            $listaFiltrada = $listaFiltrada->paginate(10);
+
+            return view('Mantenedores/Evaluaciones/Alumno/lista_auto_evaluaciones')
+                ->with('lista', $listaFiltrada)
+                ->with('contador', $contador);
+        }
+        $lista = $lista->paginate(10);
         return view('Mantenedores/Evaluaciones/Alumno/lista_auto_evaluaciones',[
                 'lista'=>$lista,
+                'contador'=>$contador,
             ]);
     }
 
@@ -234,7 +258,7 @@ class AutoEvaluacionController extends Controller
         return redirect()->route('descripcionAutoEvaluacion');
     }
 
-    public function autoevaluacioneEjecucion(Request $request, $carrera)
+    public function autoevaluacion(Request $request, $carrera)
     {
         //-----Autoevaluaciones de informatica-----//
         $autoevaluaciones = DB::table('alumnos')
@@ -257,13 +281,13 @@ class AutoEvaluacionController extends Controller
                 $carrera
             );
             $contador = $listaFiltrada->count();  //mostrara la cantidad de resultados en la tabla filtrada
-            $listaFiltrada = $listaFiltrada->paginate(5);
+            $listaFiltrada = $listaFiltrada->paginate(10);
             return view('3 Evaluacion/listaAutoevaluacion')->with('autoevaluacion',$listaFiltrada)
                 ->with('contador',$contador)
                 ->with('carrera', $carrera);
         }
         $contador = $autoevaluaciones->count(); //mostrara la cantidad de resultados en la tabla
-        $autoevaluaciones = $autoevaluaciones->paginate(5);
+        $autoevaluaciones = $autoevaluaciones->paginate(10);
         return view('3 Evaluacion/listaAutoevaluacion')->with('autoevaluacion',$autoevaluaciones)
             ->with('contador', $contador)
             ->with('carrera', $carrera);

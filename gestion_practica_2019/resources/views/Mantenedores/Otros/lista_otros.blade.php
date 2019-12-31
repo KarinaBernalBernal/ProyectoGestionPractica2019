@@ -18,9 +18,21 @@
 				<h2>Áreas de Autoevaluación/Evaluación Supervisor</h2>
 				<br>
 				<input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
-				<div class="container">
-					<div class="row justify-content-center">
-						<div class="text-center">
+				<div class="card text">
+					<div class="card-body">
+						<form class="form-horizontal" action="{{route('lista_otros',["Área"])}}" method="get">
+							<div class="row">
+								<div class="col-2">
+									<input id="nombre" type="text" class="form-control" name="nombre" placeholder="Nombre">
+								</div>
+								<div class="form-group">
+									<button type="submit" class="btn btn-info"><span class="fa fa-search"></span></button>
+								</div>
+							</div>
+							<div class="text-left">Se encontraron {{ $contadorAreas }} Areas</div>
+							<hr>
+						</form>
+						<div class="text-center container-fluid">
 						@if (count($otrosAreas)>0)
 							<div class="row d-flex justify-content-center">
 								<div class="table-responsive">
@@ -57,17 +69,20 @@
 							</div>
 						@endif
 						</div>
+						<div class="container">
+							<div class="row">
+								<div class="col-md-2">
+									<a href="/"><button class="btn btn-primary btn-lg">Atras</button></a>
+								</div>
+								<div class='ml-auto'>
+									<a href="{{route ('crear_otro',["Área"])}}"><button id="boton_agregar" class="btn btn-primary btn-lg">Agregar</button></a>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
-				<div class="container">
-					<div class="row">
-						<div class="col-md-2">
-							<a href="/"><button class="btn btn-primary btn-lg">Atras</button></a>
-						</div>
-						<div class='ml-auto'>
-							<a href="{{route ('crear_otro',["Área"])}}"><button id="boton_agregar" class="btn btn-primary btn-lg">Agregar</button></a>
-						</div>
-					</div>
+				<div class="row d-flex justify-content-center">
+					{{ $otrosAreas->appends(Request::except('area'))->render("pagination::bootstrap-4") }}
 				</div>
 			</div>
 
@@ -75,9 +90,21 @@
 				<h2>Herramientas de Formulario Autoevaluación</h2>
 				<br>
 				<input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
-				<div class="container">
-					<div class="row justify-content-center">
-						<div class="text-center">
+				<div class="card text">
+					<div class="card-body">
+						<form class="form-horizontal" action="{{route('lista_otros',["Herramienta"])}}" method="get">
+							<div class="row">
+								<div class="col-2">
+									<input id="nombre" type="text" class="form-control" name="nombre" placeholder="Nombre">
+								</div>
+								<div class="form-group">
+									<button type="submit" class="btn btn-info"><span class="fa fa-search"></span></button>
+								</div>
+							</div>
+							<div class="text-left">Se encontraron {{ $contadorHerramientas }} Herramientas</div>
+							<hr>
+						</form>
+						<div class="text-center container-fluid">
 							@if (count($otrosHerramientas)>0)
 								<div class="row d-flex justify-content-center">
 									<div class="table-responsive">
@@ -115,17 +142,20 @@
 								</div>
 						@endif
 						</div>
+						<div class="container">
+							<div class="row">
+								<div class="col-md-2">
+									<a href="/"><button class="btn btn-primary btn-lg">Atras</button></a>
+								</div>
+								<div class='ml-auto'>
+									<a href="{{route ('crear_otro',["Herramienta"])}}"><button id="boton_agregar" class="btn btn-primary btn-lg">Agregar</button></a>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
-				<div class="container">
-					<div class="row">
-						<div class="col-md-2">
-							<a href="/"><button class="btn btn-primary btn-lg">Atras</button></a>
-						</div>
-						<div class='ml-auto'>
-							<a href="{{route ('crear_otro',["Herramienta"])}}"><button id="boton_agregar" class="btn btn-primary btn-lg">Agregar</button></a>
-						</div>
-					</div>
+				<div class="row d-flex justify-content-center">
+					{{ $otrosHerramientas->appends(Request::except('herramienta'))->render("pagination::bootstrap-4") }}
 				</div>
 			</div>
 		</div>

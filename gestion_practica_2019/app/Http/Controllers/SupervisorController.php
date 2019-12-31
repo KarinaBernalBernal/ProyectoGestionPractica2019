@@ -15,23 +15,31 @@ class SupervisorController extends Controller
 {
 
     //vista principal de un elemento en especifico
-    public function lista()
+    public function lista( Request $request)
     {
         $lista= Supervisor::all();
+        $contador = $lista->count();
+
+        if ($request->nombre != null || $request->apellido_paterno != null || $request->email != null || $request->fono != null )
+        {
+            //-----Filtro-----//
+            $listaFiltrada= Supervisor::filtrarSupervisores(
+                $request->get('nombre'),
+                $request->get('apellido_paterno'),
+                $request->get('email'),
+                $request->get('fono')
+            );
+            $contador = $listaFiltrada->count();  //mostrara la cantidad de resultados en la tabla filtrada
+            $listaFiltrada = $listaFiltrada->paginate(10);
+
+            return view('Mantenedores/Supervisores/lista_supervisores')->with('lista',$listaFiltrada)->with('contador',$contador);
+        }
+
+        $lista = $lista->paginate(10);
         return view('Mantenedores/Supervisores/lista_supervisores',[
                 'lista'=>$lista,
+                'contador'=>$contador,
             ]);
-    }
-
-    //vista principal de un elemento en especifico
-    public function listaSupervisores(Request $request)
-    {
-        $lista= Supervisor::filtrarYPaginar($request->get('buscador'),
-            $request->get('nombre'),
-            $request->get('apellido_paterno'),
-            $request->get('email')
-        );
-        return view('Practicas.Ejecucion.supervisores_en_practica')->with("lista", $lista);
     }
 
     public function crear()
@@ -137,13 +145,13 @@ class SupervisorController extends Controller
                 $carrera
             );
             $contador = $listaFiltrada->count();  //mostrara la cantidad de resultados en la tabla filtrada
-            $listaFiltrada = $listaFiltrada->paginate(5);
+            $listaFiltrada = $listaFiltrada->paginate(10);
             return view('Practicas/supervisores_en_practica')->with('lista',$listaFiltrada)
                 ->with('contador', $contador)
                 ->with('carrera', $carrera);
         }
         $contador = $supervisoresInformatica->count(); //mostrara la cantidad de resultados en la tabla
-        $supervisoresInformatica = $supervisoresInformatica->paginate(5);
+        $supervisoresInformatica = $supervisoresInformatica->paginate(10);
         return view('Practicas/supervisores_en_practica')->with('lista',$supervisoresInformatica)
             ->with('contador', $contador)
             ->with('carrera', $carrera);

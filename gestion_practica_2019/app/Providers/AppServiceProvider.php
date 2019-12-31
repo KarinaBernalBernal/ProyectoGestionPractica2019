@@ -41,6 +41,23 @@ class AppServiceProvider extends ServiceProvider
                 ]
             );
         });
+
+        //PARA PODER PAGINAR MAS DE UN PAGINATE POR VIEW (SE NECESITA EL NUMERO DE PAGINACION, 2 NULL Y UN NOMBRE PARA EL PAGINATE)
+
+        Collection::macro('paginateEspecial', function($perPage, $total = null, $page = null, $pageName)
+        {
+            $page = $page ?: LengthAwarePaginator::resolveCurrentPage($pageName);
+            return new LengthAwarePaginator(
+                $this->forPage($page, $perPage),
+                $total ?: $this->count(),
+                $perPage,
+                $page,
+                [
+                    'path' => LengthAwarePaginator::resolveCurrentPath(),
+                    'pageName' => $pageName,
+                ]
+            );
+        });
     }
 
     /**

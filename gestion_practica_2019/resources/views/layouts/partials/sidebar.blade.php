@@ -52,8 +52,8 @@
                             <a class="collapse-item" href="{{route('lista_auto_evaluaciones')}}">Autoevaluaciones</a>
                             <a class="collapse-item" href="{{route('lista_evaluaciones_supervisor')}}">Evaluaciones supervisor</a>
                             <h6 class="collapse-header">Formularios</h6>
-                            <a class="collapse-item" href="{{route('lista_elementos_dinamicos')}}">Elementos dinámicos</a>
-                            <a class="collapse-item" href="{{route('lista_otros')}}">Respuestas "otro"</a>
+                            <a class="collapse-item" href="{{route('lista_elementos_dinamicos',["Área"])}}">Elementos dinámicos</a>
+                            <a class="collapse-item" href="{{route('lista_otros',["Área"])}}">Respuestas "otro"</a>
                         </div>
                     </div>
                 </li>
