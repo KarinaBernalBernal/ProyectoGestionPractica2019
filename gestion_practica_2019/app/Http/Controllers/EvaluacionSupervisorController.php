@@ -20,7 +20,13 @@ use Illuminate\Support\Facades\DB;
 class EvaluacionSupervisorController extends Controller
 {
 
-    public function index($id)
+    public function __construct(){
+        $this->middleware('auth');
+        $this->middleware('is_administrador')->except('index', 'verDescripcionEvaluacionEmpresa', 'store');
+        $this->middleware('is_supervisor')->only('store');
+    }
+    
+    public function index()
     {
   		$area = Area::all()->where('vigencia',"1");
         $actitud = EvalActitudinal::all()->where('vigencia',"1");

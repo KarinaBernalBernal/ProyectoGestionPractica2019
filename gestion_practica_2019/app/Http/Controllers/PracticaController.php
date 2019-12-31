@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\DB;
 
 class PracticaController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth');
+        $this->middleware('is_administrador');
+
+    }
     //vista principal de un elemento en especifico
     public function lista( Request $request)
     {

@@ -191,6 +191,17 @@ Route::post('/agregarEvaluacionEmpresa', 'EvaluacionSupervisorController@store')
 Route::get('/listaAutoevaluacion/{carrera}', 'AutoEvaluacionController@autoevaluacion')->name('listaAutoevaluacion');
 Route::get('/listaEvaluacionSupervisor/{carrera}', 'EvaluacionSupervisorController@listaEvaluacionSupervisor')->name('listaEvaluacionSupervisor');
 
+/*--------------------- Etapa Resolucion ---------------------*/
+//Civil
+Route::get('/ResolucionCivil', 'ResolucionPracticaController@resolucionCivil')->name('ResolucionPracticaCivil');
+//Ejecucion
+Route::get('/ResolucionEjecucion', 'ResolucionPracticaController@resolucionEjecucion')->name('ResolucionPracticaEjecucion');
+//modals
+Route::get('/modal/resolucionPracticaModal/{id}','ResolucionPracticaController@resolucionPracticaModal')->name('resolucionPracticaModal');
+Route::post('/resolucionPractica/evaluarPractica/{id},{email},{name}','ResolucionPracticaController@evaluarPractica')->name('evaluarPractica');
+Route::get('/modal/modificarResolucionPracticaModal/{id}','ResolucionPracticaController@modificarResolucionPracticaModal')->name('modificarResolucionPracticaModal');
+Route::post('/resolucionPractica/modificarResolucionPractica/{id},{email},{nombre}','ResolucionPracticaController@modificarResolucionPractica')->name('modificarResolucionPractica');
+
 /*--------------------- Reportes ---------------------*/
 /* Rutas Reportes alumnos */
 // Rutas tipo GET

@@ -5,7 +5,7 @@
             <h1 class="h3 mb-0 text-gray-800">FORMULARIO DE EVALUACIÓN DE EMPRESA</h1>
         </div>
         
-        <form action="{{route('agregarEvaluacionEmpresa')}}" enctype="multipart/form-data" method="POST" role="form">
+        <form id="formularioEvaluacionEmpresa" action="{{route('agregarEvaluacionEmpresa')}}" enctype="multipart/form-data" method="POST" role="form">
             {{ csrf_field() }}
             <div class="card text">
                 <div class="card-body">
@@ -191,7 +191,7 @@
                 <br>
                 <div class="row justify-content-end ">
                     <div class="col-md-4">
-                        <a href="" class="btn btn-secondary">Cancelar</a>
+                        <a id="cancelar" href="" class="btn btn-secondary">Cancelar</a>
                     </div>
                     <div class="col-md-4">
                         <input class="btn btn-primary" type="submit" value="Aceptar">
@@ -233,6 +233,81 @@
                 $('#row'+button_id+'').remove();
             });
         });
+
+        $("#formularioEvaluacionEmpresa").submit(function(e) {
+
+            e.preventDefault(); // avoid to execute the actual submit of the form.
+
+            var form = $(this);
+            var url = form.attr('action');
+
+            Swal({
+                title: '¿Estás seguro?',
+                text: "Es imporante revisar si todo está correcto!",
+                type: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si!'
+            }).then((result) => {
+
+                if (result.value) {
+
+                    window.swal({
+                        title: "Por favor espere",
+                        showConfirmButton: false,
+                        allowOutsideClick: false
+                    });
+                    $.ajax({
+                        url: url,
+                        method: "POST",
+                        data: form.serialize(), // serializes the form's elements.
+                        success: function(){
+                            Swal(
+                                'Listo!',
+                                'El formulario ha sido enviado.',
+                                'success'
+                            ).then((result) =>
+                            {
+                                if (result.value)
+                                {
+                                    window.location.href = "{{route('descripcionEvaluacionEmpresa')}}"
+                                }
+                            })
+                        },
+                        error:function() {
+                            Swal.fire({
+                                type: 'error',
+                                title: 'Opps...!',
+                                text: 'No se pudo enviar el formulario',
+                            });
+                        }
+                    });
+                }
+            });
+        });
+
+        $('#cancelar').click(function()
+        {
+            Swal({
+                title: '¿Estás seguro?',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                cancelButtonText: 'No!',
+                confirmButtonText:'Si!'
+
+            }).then((result) =>
+            {
+                if (result.value)
+                {
+                    window.location.href = "{{route('descripcionEvaluacionEmpresa')}}"
+                }
+            })
+        });
+
+
     </script>
 
 @endsection
