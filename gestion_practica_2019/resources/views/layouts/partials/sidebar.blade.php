@@ -1,5 +1,5 @@
 <!-- Sidebar -->
-
+<?php   use SGPP\Administrador; ?>
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar" style="position: fixed; z-index: 1; width: 100%; height: 100%; overflow-x: hidden;">  <!-- style="position: fixed; z-index: 1;"  -->
     <!-- Sidebar - Brand -->
     <li class="nav-item">
@@ -21,6 +21,11 @@
 
     @if (Route::has('login'))
         @auth
+        <?php
+            $gestionador = Administrador::where('id_user', Auth::user()->id_user)->where('nombre', Auth::user()->name)->where('email', Auth::user()->email)->where('cargo', 'gestionador')->first();
+            $jefeDocencia = Administrador::where('id_user', Auth::user()->id_user)->where('nombre', Auth::user()->name)->where('email', Auth::user()->email)->where('cargo', 'jefe de docencia')->first();
+            $profesor = Administrador::where('id_user', Auth::user()->id_user)->where('nombre', Auth::user()->name)->where('email', Auth::user()->email)->where('cargo', 'profesor')->first();?>
+
         <?php if (Auth::user()->type == 'administrador'): ?>
 
         <!--Administrador-->
@@ -33,6 +38,7 @@
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
+            @if(Auth::user()->type == 'administrador' && $jefeDocencia != null || $gestionador !=null)
             <li class="nav-item">
 
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseGestionCuentas" aria-expanded="true" aria-controls="collapseGestionCuentas"><i class="fas fa-users"></i>
@@ -57,7 +63,7 @@
                     </div>
                 </div>
             </li>
-                
+            @endif
             <li class="nav-item">
                 <!-- Solo profesores -->
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseVerEstadisticas" aria-expanded="true" aria-controls="collapseVerEstadisticas"><i class="fas fa-users"></i>
@@ -73,7 +79,7 @@
                     </div>
                 <!-- -->
             </li>
-
+            @if(Auth::user()->type == 'administrador' && $jefeDocencia != null || $profesor !=null)
             <li class="nav-item">
                 <!-- Solo profesores -->
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseResolucionPracticas" aria-expanded="true" aria-controls="collapseResolucionPracticas"><i class="fas fa-archive"></i>
@@ -89,6 +95,7 @@
                 </div>
                 <!-- -->
             </li>
+            @endif
              
             <hr class="sidebar-divider">
 
@@ -99,12 +106,12 @@
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                @if(Auth::user()->name == 'Gestionador')
+                @if(Auth::user()->type == 'administrador' && $gestionador != null)
                     <a class="nav-link collapsed" href="{{route('lista_solicitudes_documentos')}}">
                         <i class="fas fa-arrow-right"></i><span>Solicitudes documentos</span>
                     </a>        
                 @endif
-                
+
             </li>
 
             <li class="nav-item">
@@ -118,17 +125,17 @@
                         <a class="collapse-item" href="supervisoresPracticaCivil">Supervisores</a>
 
                         <h6 class="collapse-header">Etapas</h6>
-                        @if(Auth::user()->name == 'Jefe de docencia')
+                        @if(Auth::user()->type == 'administrador' && $jefeDocencia != null)
                             <a class="collapse-item" href="{{route('evaluacionSolicitud')}}">Solicitudes</a>
                         @endif
-                        @if(Auth::user()->name == 'Gestionador')
+                        @if(Auth::user()->type == 'administrador' && $gestionador != null)
                             <a class="collapse-item" href="{{ route('listaSolicitudCivil')}}">Solicitudes</a>
                         @endif
                         <a class="collapse-item" href="{{route('listaInscripcionCivil')}}">Inscripciones</a>
                         <a class="collapse-item" href="#">Autoevaluaciones</a>
                         <a class="collapse-item" href="#">Evaluaciones de <br> Empresas</a>
 
-                        @if(Auth::user()->name == 'Gestionador')
+                        @if(Auth::user()->type == 'administrador' && $gestionador != null)
                             <h7 class="collapse-header">Gestión de Charlas</h7>
                             <a class="collapse-item" href="#">Charlas de Presentación</a>
                         @endif
@@ -148,18 +155,18 @@
                         <a class="collapse-item" href="supervisoresPracticaEjecucion">Supervisores</a>
 
                         <h6 class="collapse-header">Etapas</h6>
-                        @if(Auth::user()->name == 'Jefe de docencia') 
+                        @if(Auth::user()->type == 'administrador' && $jefeDocencia != null)
                             <a class="collapse-item" href="{{route('evaluacionSolicitudEjecucion')}}">
                             Solicitudes</a>
                         @endif
-                        @if(Auth::user()->name == 'Gestionador') 
+                        @if(Auth::user()->type == 'administrador' && $gestionador != null)
                             <a class="collapse-item" href="{{ route('listaSolicitudEjecucion')}}">Solicitudes</a>
                         @endif
                         <a class="collapse-item" href="{{route('listaInscripcionEjecucion')}}">Inscripciones</a>
                         <a class="collapse-item" href="#">Autoevaluaciones</a>
                         <a class="collapse-item" href="#">Evaluaciones de <br> Empresas</a>
 
-                        @if(Auth::user()->name == 'Gestionador')
+                        @if(Auth::user()->type == 'administrador' && $gestionador != null)
                             <h7 class="collapse-header">Gestión de Charlas</h7>
                             <a class="collapse-item" href="#">Charlas de Presentación</a>
                         @endif

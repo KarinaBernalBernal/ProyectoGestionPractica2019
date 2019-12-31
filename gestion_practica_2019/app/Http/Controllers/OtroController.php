@@ -8,6 +8,10 @@ use SGPP\OtrosAreas;
 
 class OtroController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth');
+        $this->middleware('is_administrador');
+    }
     public function lista()
     {
         $otrosHerramientas = OtrosHerramientas::all();

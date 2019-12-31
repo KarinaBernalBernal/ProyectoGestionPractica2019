@@ -5,20 +5,18 @@ namespace SGPP\Http\Controllers;
 use function Couchbase\defaultDecoder;
 use Illuminate\Http\Request;
 use SGPP\Administrador;
-use SGPP\EvalActEmpPractica;
-use SGPP\EvalConEmpPractica;
 use SGPP\Practica;
-use SGPP\EvalActitudinal;
-use SGPP\EvalConocimiento;
 use SGPP\Resolucion;
 use SGPP\Alumno;
-use SGPP\EvaluacionSupervisor;
 use Illuminate\Support\Facades\DB;
-use SGPP\User;
 use Mail;
 
 class ResolucionPracticaController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth');
+        $this->middleware('is_administrador');
+    }
     public function resolucionCivil()
     {
         $practicasP = DB::table('practicas')

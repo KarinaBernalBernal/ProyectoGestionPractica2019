@@ -17,6 +17,11 @@ class InscripcionController extends Controller
 {
     /* ----- Solicitar Documentos ----*/
 
+    public function __construct(){
+        $this->middleware('auth');
+        $this->middleware('is_administrador')->only('lista', 'listaInscripcionCivil', 'listaInscripcionEjecucion');
+        $this->middleware('is_alumno')->except('lista', 'listaInscripcionCivil', 'listaInscripcionEjecucion');
+    }
     /**
      * Display a listing of the resource.
      *

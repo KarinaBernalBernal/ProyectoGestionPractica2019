@@ -9,6 +9,11 @@ use Mail;
 
 class SolicitudController extends Controller
 {
+
+    public function __construct(){
+        $this->middleware('auth')->except('index', 'store', 'verDescripcion');
+        $this->middleware('is_administrador')->except('index', 'store', 'verDescripcion');
+    }
     /**
      * Display a listing of the resource.
      *
