@@ -7,13 +7,13 @@ use SGPP\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
-
+use Mail;
 
 class UsuarioController extends Controller
 {
     public function __construct(){
         $this->middleware('auth');
-        $this->middleware('is_administrador');
+        $this->middleware('is_administrador')->except('contraseña', 'modificarContraseña');
     }
     //vista principal de un elemento en especifico
     public function lista()
@@ -76,4 +76,26 @@ class UsuarioController extends Controller
             return redirect()->route('lista_usuarios');
 
     }
+
+    public function contraseña()
+    {
+        $id = auth()->user()->id_user;
+        $user = User::find($id);
+        return view('Mantenedores/Usuarios/editar_contraseña',[
+            'user'=>$user,
+        ]);
+    }
+
+    public function modificarContraseña(Request $request, $id_elemento)
+    {
+        $elemento_editar=User::find($id_elemento);
+        if(isset($elemento_editar))
+        {
+            $elemento_editar->password = bcrypt($request['nuevaPassword']);
+            $elemento_editar->save();
+
+            return redirect()->route('home');
+        }
+    }
+
 }

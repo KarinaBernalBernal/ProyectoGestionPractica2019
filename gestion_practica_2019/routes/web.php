@@ -212,3 +212,7 @@ Route::get('/estadisticaCriterios', 'EstadisticaController@verEstadisticaCriteri
 
 Route::get('/supervisoresPracticaEjecucion', 'SupervisorController@supervisoresEnPracticaEjecucion')->name('supervisoresPracticaEjecucion');
 Route::get('/supervisoresPracticaCivil', 'SupervisorController@supervisoresEnPracticaCivil')->name('supervisoresPracticaCivil');
+
+/* ----------------- Modificar Contraseña ---------------------------- */
+Route::get('/Usuario/contraseña', 'UsuarioController@contraseña')->name('contraseña');
+Route::post('/Usuario/actualizar_contraseña/{id_elemento}', 'UsuarioController@modificarContraseña')->name('actualizar_contraseña');

@@ -99,16 +99,11 @@
               <tr>
                 <td class="bodycopy">
                   Te informamos que para poder completar el formulario de “Solicitud autorización práctica profesional” es necesario que ingreses al enlace a continuación.
-
-                  http://localhost:8000/formularioSolicitud
+                  <br><br>
+                  {{$url}}
                 </td>
               </tr>
             </table>
-          </td>
-        </tr>
-        <tr>
-          <td class="innerpadding borderbottom">
-            <img class="fix" src="images/wide.png" width="100%" border="0" alt="" />
           </td>
         </tr>
         <tr>

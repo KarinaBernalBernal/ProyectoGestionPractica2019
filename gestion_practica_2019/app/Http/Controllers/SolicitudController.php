@@ -11,8 +11,8 @@ class SolicitudController extends Controller
 {
 
     public function __construct(){
-        $this->middleware('auth')->except('index', 'store', 'verDescripcion');
-        $this->middleware('is_administrador')->except('index', 'store', 'verDescripcion');
+        $this->middleware('auth')->except('index', 'store', 'verDescripcion', 'contact');
+        $this->middleware('is_administrador')->except('index', 'store', 'verDescripcion', 'contact');
     }
     /**
      * Display a listing of the resource.
@@ -301,9 +301,15 @@ class SolicitudController extends Controller
         }
     }
     public function contact(Request $request){
+
+        $url = url(route('formularioSolicitud'));
         $subject = "Formulario de solicitud práctica profesional";
         $for = $request->emailSolicitud;
-        Mail::send('Emails.solicitud',$request->all(), function($msj) use($subject,$for){
+        $data = [
+            'url' => $url,
+            'request'=> $request
+        ];
+        Mail::send('Emails.solicitud',$data, function($msj) use($subject,$for){
             $msj->from("practicaprofesionalpucv@gmail.com","Docencia Escuela de Ingeniería Informática");
             $msj->subject($subject);
             $msj->to($for);

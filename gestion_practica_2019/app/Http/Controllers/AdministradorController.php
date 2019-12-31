@@ -88,7 +88,9 @@ class AdministradorController extends Controller
     public function borrarAdministrador($id_elemento)
     {
         $elemento_eliminar =  Administrador::find($id_elemento);
+        $user = User::find($elemento_eliminar->id_user);
         $elemento_eliminar->delete();
+        $user->delete();
         return redirect()->route('lista_administradores');
     }
 }
