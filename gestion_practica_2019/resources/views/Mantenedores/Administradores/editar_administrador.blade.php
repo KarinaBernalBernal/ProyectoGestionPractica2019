@@ -71,9 +71,9 @@
                                 <div class="col-md-6">
                                     <select name="cargo" id="cargo" class="form-control">
                                         <option value="" disabled >Elige una opcion...</option>
-                                        <option value="Gestionador" @if(old("cargo", $elemento->cargo) == 'gestionador') {{'selected'}} @endif>Gestionador</option>
-                                        <option value="Profesor" @if(old("cargo",$elemento->cargo) == 'profesor') {{'selected'}} @endif>Profesor</option>
-                                        <option value="Jefe de Docencia" @if(old("cargo", $elemento->cargo) == 'jefe de docencia') {{'selected'}} @endif>Jefe de Docencia</option>
+                                        <option value="gestionador" @if(old("cargo", $elemento->cargo) == 'gestionador') {{'selected'}} @endif>Gestionador</option>
+                                        <option value="profesor" @if(old("cargo",$elemento->cargo) == 'profesor') {{'selected'}} @endif>Profesor</option>
+                                        <option value="jefe de docencia" @if(old("cargo", $elemento->cargo) == 'jefe de docencia') {{'selected'}} @endif>Jefe de Docencia</option>
                                     </select>
                                 </div>
                             </div>

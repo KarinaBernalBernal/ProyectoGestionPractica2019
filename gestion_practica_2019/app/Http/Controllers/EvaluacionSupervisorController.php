@@ -18,6 +18,11 @@ use Auth;
 class EvaluacionSupervisorController extends Controller
 {
 
+    public function __construct(){
+        $this->middleware('auth');
+        $this->middleware('is_administrador')->except('index', 'verDescripcionEvaluacionEmpresa', 'store');
+        $this->middleware('is_supervisor')->only('store');
+    }
     public function index()
     {
         $area = Area::all()->where('vigencia',"1");

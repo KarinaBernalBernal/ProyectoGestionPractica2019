@@ -9,6 +9,11 @@ use Mail;
 
 class SolicitudController extends Controller
 {
+
+    public function __construct(){
+        $this->middleware('auth')->except('index', 'store', 'verDescripcion');
+        $this->middleware('is_administrador')->except('index', 'store', 'verDescripcion');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -184,15 +189,19 @@ class SolicitudController extends Controller
             }
         }
         // Se notifica al Alumno sobre el estado de su solicitud
-        /* Por mientras para no mandar tanto correo cuando se esté probando
+/*POR MIENTRAS PARA NO ESTAR MANDANDO CORREOS A CADA RATO
         $subject = "Estado solicitud de práctica";
         $for = $solicitud->email;
-        Mail::send('Emails.notificacion',$request->all(), function($msj) use($subject,$for){
+        $data = [
+            'solicitud' => $solicitud,
+            'request'=> $request
+        ];
+        Mail::send('Emails.notificacion',$data, function($msj) use($subject,$for){
             $msj->from("practicaprofesionalpucv@gmail.com","Docencia Escuela de Ingeniería Informática");
             $msj->subject($subject);
             $msj->to($for);
         });
-        */
+*/
         if($solicitud->carrera == "Ingeniería Civil Informática"){
             return redirect()->route('evaluacionSolicitud')->with('success','Registro creado satisfactoriamente');
         }
@@ -267,16 +276,20 @@ class SolicitudController extends Controller
         $solicitud->resolucion_solicitud = $request->resolucion;
         $solicitud->observacion_solicitud = $request->observacion;
         $solicitud->save();
-        /* Por mientras para no mandar tanto correo cuando se esté probando
+/* POR MIENTRAS PARA NO ESTAR MANDANDO CORREOS A CADA RATO
         $subject = "Estado solicitud de práctica";
-        $for = $nuevo->email;
-        Mail::send('Emails.notificacion', $request->all(), function($msj) use($subject,$for){
+        $for = $solicitud->email;
+        $data = [
+            'solicitud' => $solicitud,
+            'request'=> $request
+        ];
+        Mail::send('Emails.notificacion',$data, function($msj) use($subject,$for){
             $msj->from("practicaprofesionalpucv@gmail.com","Docencia Escuela de Ingeniería Informática");
             $msj->subject($subject);
             $msj->to($for);
         });
-        */
-       if($solicitud->carrera == "Ingeniería Civil Informática"){
+*/
+        if($solicitud->carrera == "Ingeniería Civil Informática"){
             return redirect()->route('evaluacionSolicitud')->with('success','Registro creado satisfactoriamente');
         }
         else{

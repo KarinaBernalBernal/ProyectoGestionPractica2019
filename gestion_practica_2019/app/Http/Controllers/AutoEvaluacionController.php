@@ -25,6 +25,11 @@ use Auth;
 
 class AutoEvaluacionController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth');
+        $this->middleware('is_administrador')->except('index', 'verDescripcionAutoEvaluacion', 'store');
+        $this->middleware('is_alumno')->only('store');
+    }
     public function index()
     {
         $area = Area::all()->where('vigencia',"1");
