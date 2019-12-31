@@ -103,7 +103,7 @@
             <div class="form-group row justify-content-md-center">
                 <div class="col-md-12">
                     <h5>Datos de práctica
-                        @if($alumno->carrera == 'Ingeniería Civil en Informatica')
+                        @if($alumno->carrera == 'Ingeniería Civil Informática')
                             <a id='avance' class='btn btn-info btn-sm' href="{{ route('avanceCivil',['id'=>$alumno->id_alumno])}}" >Avance</a>
                         @endif
                     </h5>

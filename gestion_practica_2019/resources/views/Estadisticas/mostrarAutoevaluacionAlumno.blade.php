@@ -13,7 +13,7 @@
                 </div>
             </div> 
             <div class="form-group row">
-                <div class="col-md-11">
+                <div class="col-md-12">
                     @if($autoevaluacion <> NULL)
                         {{-- Autoevaluacion --}}
                         <div class="form-group row">
@@ -120,7 +120,7 @@
                                     <div class="col-md-6">
                                         <h6>Habilidades faltantes</h6>
                                         <div class="row">
-                                            <div class="col-md-12">
+                                            <div class="col-md-11">
                                                 <ul>
                                                     @foreach($habilidades as $habilidad)
                                                         @if($habilidad->tipo_habilidad == 'faltante')
@@ -206,7 +206,7 @@
                                     <div class="col-md-12">
                                         <h6>Conocimientos adqueridos en la práctica</h6>
                                         <div class="row">
-                                            <div class="col-md-12">
+                                            <div class="col-md-11">
                                                 <ul>
                                                     @foreach($conocimientos as $conocimiento)
                                                         @if($conocimiento->tipo_conocimiento == 'adquerido')
@@ -238,7 +238,7 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <div class="col-md-12">
+                            <div class="col-md-11">
                                 @foreach($herramientaPracticas as $herramientaPractica)
                                     @foreach($herramientas as $herramienta)
                                         @if($herramientaPractica->id_herramienta == $herramienta->id_herramienta )
@@ -289,7 +289,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <div class="col-md-11">
+                                    <div class="col-md-12">
                                         @if($evalActPractica <> NULL)
                                             <div id="columnchart_evalActPractica" style="height: 300px;"></div>
                                             <br>
@@ -335,7 +335,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <div class="col-md-11">
+                                    <div class="col-md-12">
                                         @if($evalConPractica <> NULL)
                                             <div id="columnchart_evalConPractica" style="height: 300px;"></div>
                                             <br>
@@ -377,14 +377,13 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-3">
-                <a href="{{ route('datosAlumno',['id'=>$autoevaluacion->id_practica]) }}"><button class="btn btn-secondary">Atrás</button></a>
-            </div>  
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-3">
+                        <a href="{{ route('datosAlumno',['id'=>$autoevaluacion->id_practica]) }}"><button class="btn btn-secondary">Atrás</button></a>
+                    </div>  
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -404,16 +403,9 @@
             <?php  
                 foreach($evalActPractica as $evalActPract){
                     if ($evalActitudinales[($evalActPract->id_actitudinal)-1]->id_actitudinal == $evalActPract->id_actitudinal){  
-                        if($evalActPract->valor_act_practica == 'NA' || $evalActPract->valor_act_practica == 'NL'){
             ?>
-                            ['<?php echo $evalActitudinales[($evalActPract->id_actitudinal)-1]->n_act; ?>', 'NA' , <?php echo $evalActPromG[($evalActPract->id_actitudinal)-1];?> ],
+                        ['<?php echo $evalActitudinales[($evalActPract->id_actitudinal)-1]->n_act; ?>', <?php echo intval($evalActPract->valor_act_practica); ?> , <?php echo $evalActPromG[($evalActPract->id_actitudinal)-1];?> ],
             <?php
-                        }
-                        else{
-            ?>
-                            ['<?php echo $evalActitudinales[($evalActPract->id_actitudinal)-1]->n_act; ?>', <?php echo intval($evalActPract->valor_act_practica); ?> , <?php echo $evalActPromG[($evalActPract->id_actitudinal)-1];?> ],
-            <?php
-                        } 
                     }
                 }
             ?>
@@ -421,8 +413,8 @@
         
         var options1 = {
             chart: {
-                title: 'Escuela de Ingeniería en Informática',
-                subtitle: 'Autoevaluación, Actitud del alumno',
+                title:  'Comparativa actitud del alumno en la Autoevaluación',
+                subtitle: 'Escuela de Ingeniería en Informática'
             },
             legend: { position: 'bottom', alignment: 'end' },
             responsive: true,
@@ -443,17 +435,10 @@
             ['Conocimiento del Alumno','Respuesta alumno','Promedio General'],
             <?php  
                 foreach($evalConPractica as $evalConPract){
-                     if ($evalConocimientos[($evalConPract->id_conocimiento)-1]->id_conocimiento == $evalConPract->id_conocimiento){
-                        if($evalConPract->valor_con_practica == 'NA' || $evalConPract->valor_con_practica == 'NL'){
-            ?>
-                            ['<?php echo $evalConocimientos[($evalConPract->id_conocimiento)-1]->n_con; ?>', 'NA' , <?php echo $evalConPromG[($evalConPract->id_conocimiento)-1];?> ],
-            <?php
-                        }
-                        else{
+                    if ($evalConocimientos[($evalConPract->id_conocimiento)-1]->id_conocimiento == $evalConPract->id_conocimiento){
             ?>
                             ['<?php echo $evalConocimientos[($evalConPract->id_conocimiento)-1]->n_con; ?>', <?php echo intval($evalConPract->valor_con_practica); ?> , <?php echo $evalConPromG[($evalConPract->id_conocimiento)-1];?> ],
             <?php
-                        } 
                     }
                 }
             ?>
