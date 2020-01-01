@@ -17,26 +17,25 @@
                     <hr>
 
                     <div class="form-group row">
-                        <div class="col-md-5">
-                            <label for="cartaPresentacion" class="col-md-5 col-form-label">{{ __('Carta presentación') }}</label>
-                            <input type="checkbox" name="cartaPresentacion" required>
+                        <div class="col-md-6">
+                            <label for="cartaPresentacion" class="col-form-label col-4">{{ __('Carta Presentación') }}</label>
+                            <input type="checkbox" class="col-form-label text-md-right col-1" name="cartaPresentacion">
                         </div>
 
-                        <div class="col-md-4">
-                            <label for="seguroEscolar" class="col-md-5 col-form-label">{{ __('Seguro escolar') }}</label>
-                            <input type="checkbox" name="seguroEscolar">
+                        <div class="col-md-6">
+                            <label for="seguroEscolar" class="col-form-label col-4">{{ __('Seguro Escolar') }}</label>
+                            <input type="checkbox" class="col-form-label text-md-left col-1" name="seguroEscolar">
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <div class="col-md-5">
+                        <div class="col-md-6">
                             <label for="fechaDesde" class="col-md-3 col-form-label">{{ __('Desde') }}</label>
-                            <input type="date" name="fechaDesde" required>
+                            <input id="fechaDesde" type="date" name="fechaDesde" min="<?php echo date("Y-m-d");?>" required >
                         </div>
-
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <label for="fechaHasta" class="col-md-3 col-form-label">{{ __('Hasta') }}</label>
-                            <input type="date" name="fechaHasta" required>
+                            <input id="fechaHasta" type="date" name="fechaHasta" required disabled>
                         </div>
                     </div>
                 </div>                
@@ -53,53 +52,53 @@
 
                     <hr>
 
-                    {{-- Nombre --}}   
-                    <div class="form-group row">
-                        <label for="n_destinatario" class="col-md-3 col-form-label text-md-right">{{ __('Nombre a quien se dirige la carta') }}</label>
-                        
-                        <div class="col-md-7">
+                    {{-- Nombre --}}
+                    <div class="form-group form-row">
+                        <label for="n_destinatario" class="col-md-3 col-form-label text-right">Nombre a quien se dirige la carta</label>
+
+                        <div class="col-md-6">
                             <input id="n_destinatario" type="text" class="form-control" name="n_destinatario" value="{{ old('n_destinatario') }}" required>
                         </div>
                     </div>
 
                     {{-- Cargo --}}   
-                    <div class="form-group row">
+                    <div class="form-group form-row">
                         <label for="cargo" class="col-md-3 col-form-label text-md-right">{{ __('Cargo') }}</label>
                         
-                        <div class="col-md-7">
+                        <div class="col-md-6">
                             <input id="cargo" type="text" class="form-control" name="cargo" value="{{ old('cargo') }}" required>
                         </div>
                     </div>
 
                     {{-- Departamento --}}   
-                    <div class="form-group row">
+                    <div class="form-group form-row">
                         <label for="departamento" class="col-md-3 col-form-label text-md-right">{{ __('Departamento') }}</label>
-                        
-                        <div class="col-md-7">
+
+                        <div class="col-md-6">
                             <input id="departamento" type="text" class="form-control" name="departamento" value="{{ old('departamento') }}" required>
                         </div>
                     </div>
 
                     {{-- Empresa --}}   
-                    <div class="form-group row">
+                    <div class="form-group form-row">
                         <label for="empresa" class="col-md-3 col-form-label text-md-right">{{ __('Empresa') }}</label>
                         
-                        <div class="col-md-7">
+                        <div class="col-md-6">
                             <input id="empresa" type="text" class="form-control" name="empresa" value="{{ old('empresa') }}" required>
                         </div>
                     </div>
 
                     {{-- Ciudad --}}  
-                    <div class="form-group row">
+                    <div class="form-group form-row">
                         <label for="ciudad" class="col-md-3 col-form-label text-md-right">{{ __('Ciudad') }}</label>
                         
-                        <div class="col-md-7">
+                        <div class="col-md-6">
                             <input id="ciudad" type="text" class="form-control" name="ciudad" value="{{ old('ciudad') }}" required>
                         </div>
                     </div>
 
                     <br>
-                    
+
                     <div class="row justify-content-end ">
                         <div class="col-md-4">
                             <a href="{{route('descripcionSolicitudDocumentos')}} " class="btn btn-secondary">Cancelar</a>
@@ -112,4 +111,12 @@
             </div>
         </form>
     </div>
+    <script>
+        {{--Metodo para validar el rango de las fechas--}}
+        $('#fechaDesde').change(function()
+        {
+            $('#fechaHasta').removeAttr('disabled');
+            $('#fechaHasta').attr('min', $('#fechaDesde').val());
+        });
+    </script>
 @endsection 

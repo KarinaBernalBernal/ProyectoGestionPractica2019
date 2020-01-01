@@ -179,6 +179,7 @@ class SolicitudController extends Controller
                 $nueva_instancia->save();
                 $nuevo->id_user = $nueva_instancia->id_user;
                 $nuevo->save();
+                $solicitud->id_alumno = $nuevo->id_alumno;
                 $solicitud->save();
                 $nueva_instancia = new Practica;
                 $nueva_instancia->f_solicitud = $fecha;

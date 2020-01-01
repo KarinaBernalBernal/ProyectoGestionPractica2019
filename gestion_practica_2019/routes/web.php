@@ -165,6 +165,11 @@ Route::get('/aceptarSolicitud/{id_solicitud}', 'SolicitudController@estado')->na
 //solicitudDocumentos
 Route::get('/descripcionSolicitudDocumentos', 'InscripcionController@verDescripcionSolicitudDoc')->name('descripcionSolicitudDocumentos');
 Route::get('/lista_solicitudes_documentos', 'InscripcionController@lista')->name('lista_solicitudes_documentos');
+Route::get('/lista_solicitudes_documentos/aviso', 'InscripcionController@aviso')->name('aviso');
+//-------------Post-----------
+Route::post('/lista_solicitudes_documentos/eliminar/{id_elemento}','InscripcionController@borrarSolicitud')->name('borrar_solicitud_documentos');
+//----------------------modals----------------//
+Route::get('/modal/solicitudDocumentosModal/{id}','InscripcionController@solicitudDocumentosModal')->name('solicitudDocumentosModal');
 //formularioInscripcion
 Route::get('/descripcionInscripcion', 'InscripcionController@verDescripcionInscripcion')->name('descripcionInscripcion');
 //-------formulario de solicitud de documentos

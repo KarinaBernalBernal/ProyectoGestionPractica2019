@@ -10,6 +10,8 @@ use SGPP\User;
 use SGPP\Supervisor;
 use SGPP\Empresa;
 use SGPP\Solicitud;
+use Illuminate\Support\Facades\DB;
+use Mail;
 
 
 
@@ -20,7 +22,7 @@ class InscripcionController extends Controller
     public function __construct(){
         $this->middleware('auth');
         $this->middleware('is_administrador')->only('lista', 'listaInscripcionCivil', 'listaInscripcionEjecucion');
-        $this->middleware('is_alumno')->except('lista', 'listaInscripcionCivil', 'listaInscripcionEjecucion');
+        $this->middleware('is_alumno')->except('lista', 'listaInscripcionCivil', 'listaInscripcionEjecucion', 'solicitudDocumentosModal','aviso', 'borrarSolicitud');
     }
     /**
      * Display a listing of the resource.
@@ -158,7 +160,11 @@ class InscripcionController extends Controller
 
     public function lista()
     {
-        $lista=DocSolicitado::all();
+        $lista = DB::table('documentos_solicitados')
+            ->join('alumnos', 'alumnos.id_alumno', 'documentos_solicitados.id_alumno')
+            ->join('solicitudes', 'solicitudes.id_alumno', 'alumnos.id_alumno')
+            ->select('documentos_solicitados.*', 'alumnos.*', 'solicitudes.resolucion_solicitud')
+            ->get();
         return view('2 Inscripcion/lista_solicitudes_documentos',[
                 'lista'=>$lista,
             ]);
@@ -186,7 +192,40 @@ class InscripcionController extends Controller
         $alumnos = Alumno::orderBy('id_alumno','DESC')->where('carrera', 'Ingeniería de Ejecución Informática')->paginate(7);
 
         return view('2 Inscripcion/listaInscripcion')->with('practicas', $practicas)->with('alumnos',$alumnos);
-    }   
+    }
+
+    public function solicitudDocumentosModal($id)
+    {
+        $solicitudD = DB::table('documentos_solicitados')
+            ->join('alumnos', 'alumnos.id_alumno', 'documentos_solicitados.id_alumno')
+            ->join('solicitudes', 'solicitudes.id_alumno', 'alumnos.id_alumno')
+            ->where('documentos_solicitados.id_doc_solicitado', $id)
+            ->select('documentos_solicitados.*', 'alumnos.*', 'solicitudes.resolucion_solicitud')
+            ->get();
+
+
+        return view('2 Inscripcion/modales/modalSolicitudDocumentos',[
+            'solicitudD'=>$solicitudD,
+        ]);
+    }
+    public function aviso(Request $request)
+    {
+        $alumno = Alumno::find($request->id);
+        $subject = "Carta presentación/Seguro escolar";
+        $for = $alumno->email;
+        Mail::send('Emails.solicitudDocumentos', $request->all(), function($msj) use($subject,$for){
+            $msj->from("practicaprofesionalpucv@gmail.com","Docencia Escuela de Ingeniería Informática");
+            $msj->subject($subject);
+            $msj->to($for);
+        });
+    }
+    public function borrarSolicitud($id_elemento)
+    {
+        $elemento_eliminar =  DocSolicitado::find($id_elemento);
+        $elemento_eliminar->delete();
+        return redirect()->route('lista_solicitudes_documentos');
+    }
+
 }
 
 ?>
