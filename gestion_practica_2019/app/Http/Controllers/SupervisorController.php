@@ -3,6 +3,7 @@
 namespace SGPP\Http\Controllers;
 
 use Illuminate\Http\Request;
+use SGPP\EvaluacionSupervisor;
 use SGPP\Supervisor;
 use SGPP\User;
 use SGPP\Empresa;
@@ -19,105 +20,31 @@ class SupervisorController extends Controller
     }
 
     //vista principal de un elemento en especifico
-    public function lista()
+    public function lista( Request $request)
     {
         $lista= Supervisor::all();
+        $contador = $lista->count();
+
+        if ($request->nombre != null || $request->apellido_paterno != null || $request->email != null || $request->fono != null )
+        {
+            //-----Filtro-----//
+            $listaFiltrada= Supervisor::filtrarSupervisores(
+                $request->get('nombre'),
+                $request->get('apellido_paterno'),
+                $request->get('email'),
+                $request->get('fono')
+            );
+            $contador = $listaFiltrada->count();  //mostrara la cantidad de resultados en la tabla filtrada
+            $listaFiltrada = $listaFiltrada->paginate(10);
+
+            return view('Mantenedores/Supervisores/lista_supervisores')->with('lista',$listaFiltrada)->with('contador',$contador);
+        }
+
+        $lista = $lista->paginate(10);
         return view('Mantenedores/Supervisores/lista_supervisores',[
                 'lista'=>$lista,
+                'contador'=>$contador,
             ]);
-    }
-
-    public function supervisoresEnPracticaEjecucion(Request $request)
-    {
-
-        //-----Supervisores de informatica-----//
-        $supervisoresInformatica = DB::table('supervisores')
-            ->join('practicas', 'practicas.id_supervisor', '=', 'supervisores.id_supervisor')
-            ->join('alumnos', 'alumnos.id_alumno', '=', 'practicas.id_alumno')
-            ->where('alumnos.carrera', '=', "Ingeniería de Ejecución Informática")
-            ->select('supervisores.*')
-            ->get();
-
-        //-----Si no se seleccionaron filtros solo entregamos la consulta de la base-----//
-
-        if ($request->nombre != null || $request->apellido_paterno != null || $request->email != null)
-        {
-            $supervisoresFiltrados = collect();
-
-            //-----Filtro-----//
-            $listaFiltrada= Supervisor::filtrarYPaginar($request->get('buscador'),
-                $request->get('nombre'),
-                $request->get('apellido_paterno'),
-                $request->get('email')
-            );
-
-            if(count($listaFiltrada))
-            {
-                for($i = 0; $i<count($listaFiltrada,1); $i++)
-                {
-                    if($supervisoresInformatica->where('id_supervisor', $listaFiltrada[$i]->id_supervisor)->first())
-                    {
-                        $supervisoresFiltrados->push($supervisoresInformatica->where('id_supervisor', $listaFiltrada[$i]->id_supervisor)->first());
-                    }
-                }
-            }
-            return view('Practicas/Ejecucion/supervisores_en_practica')->with('lista',$supervisoresFiltrados);
-        }
-
-        return view('Practicas/Ejecucion/supervisores_en_practica')->with('lista',$supervisoresInformatica);
-    }
-
-
-    public function supervisoresEnPracticaCivil(Request $request)
-    {
-
-        //-----Supervisores de informatica-----//
-        $supervisoresInformatica = DB::table('supervisores')
-            ->join('practicas', 'practicas.id_supervisor', '=', 'supervisores.id_supervisor')
-            ->join('alumnos', 'alumnos.id_alumno', '=', 'practicas.id_alumno')
-            ->where('alumnos.carrera', '=', "Ingeniería Civil Informática")
-            ->select('supervisores.*')
-            ->get();
-
-        //-----Si no se seleccionaron filtros solo entregamos la consulta de la base-----//
-
-        if ($request->nombre != null || $request->apellido_paterno != null || $request->email != null)
-        {
-            $supervisoresFiltrados = collect();
-
-            //-----Filtro-----//
-            $listaFiltrada= Supervisor::filtrarYPaginar($request->get('buscador'),
-                $request->get('nombre'),
-                $request->get('apellido_paterno'),
-                $request->get('email')
-            );
-
-            if(count($listaFiltrada))
-            {
-                for($i = 0; $i<count($listaFiltrada,1); $i++)
-                {
-                    if($supervisoresInformatica->where('id_supervisor', $listaFiltrada[$i]->id_supervisor)->first())
-                    {
-                        $supervisoresFiltrados->push($supervisoresInformatica->where('id_supervisor', $listaFiltrada[$i]->id_supervisor)->first());
-                    }
-                }
-            }
-            return view('Practicas/Civil/supervisores_en_practica')->with('lista',$supervisoresFiltrados);
-        }
-
-        return view('Practicas/Civil/supervisores_en_practica')->with('lista',$supervisoresInformatica);
-    }
-
-
-    //vista principal de un elemento en especifico
-    public function listaSupervisores(Request $request)
-    {
-        $lista= Supervisor::filtrarYPaginar($request->get('buscador'),
-            $request->get('nombre'),
-            $request->get('apellido_paterno'),
-            $request->get('email')
-        );
-        return view('Practicas.Ejecucion.supervisores_en_practica')->with("lista", $lista);
     }
 
     public function crear()
@@ -193,14 +120,55 @@ class SupervisorController extends Controller
             return redirect()->route('lista_supervisores');
         }
     }
+
     public function borrarSupervisor($id_elemento){
         $elemento_eliminar =  Empresa::find($id_elemento);
         $elemento_eliminar->delete();
         return redirect()->route('lista_supervisores');
     }
 
-    public function probando()
+    public function supervisoresEnPractica(Request $request, $carrera)
     {
-        return view('Practicas/Ejecucion/supervisores_en_practica');
+        //-----Supervisores de informatica-----//
+        $supervisoresInformatica = DB::table('supervisores')
+            ->join('practicas', 'practicas.id_supervisor', '=', 'supervisores.id_supervisor')
+            ->join('alumnos', 'alumnos.id_alumno', '=', 'practicas.id_alumno')
+            ->leftJoin('resoluciones', 'resoluciones.id_practica', 'practicas.id_practica')
+            ->leftJoin('evaluaciones_supervisor', 'evaluaciones_supervisor.id_practica', 'practicas.id_practica')
+            ->where('alumnos.carrera', '=', $carrera)
+            ->where('resoluciones.resolucion_practica', '=', null)
+            ->select('supervisores.*', 'evaluaciones_supervisor.*', 'alumnos.nombre as nombre_alumno', 'alumnos.apellido_paterno as apellido_alumno')
+            ->get();
+
+        //-----Si no se seleccionaron filtros solo entregamos la consulta de la base-----//
+        if ($request->nombre != null || $request->apellido_paterno != null || $request->email != null || $request->fono != null)
+        {
+            //-----Filtro-----//
+            $listaFiltrada= Supervisor::filtrarSupervisoresEnPractica(
+                $request->get('nombre'),
+                $request->get('apellido_paterno'),
+                $request->get('email'),
+                $request->get('fono'),
+                $carrera
+            );
+            $contador = $listaFiltrada->count();  //mostrara la cantidad de resultados en la tabla filtrada
+            $listaFiltrada = $listaFiltrada->paginate(10);
+            return view('Practicas/supervisores_en_practica')->with('lista',$listaFiltrada)
+                ->with('contador', $contador)
+                ->with('carrera', $carrera);
+        }
+        $contador = $supervisoresInformatica->count(); //mostrara la cantidad de resultados en la tabla
+        $supervisoresInformatica = $supervisoresInformatica->paginate(10);
+        return view('Practicas/supervisores_en_practica')->with('lista',$supervisoresInformatica)
+            ->with('contador', $contador)
+            ->with('carrera', $carrera);
     }
+
+    public function mostrarEvaluacionModal($id)
+    {
+        $evaluacion = EvaluacionSupervisor::where('id_practica', $id)->first();
+
+        return view('Practicas/modales/modalEvaluacion')->with('formulario',$evaluacion);
+    }
+
 }

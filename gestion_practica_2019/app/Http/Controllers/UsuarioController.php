@@ -16,11 +16,28 @@ class UsuarioController extends Controller
         $this->middleware('is_administrador')->except('contraseña', 'modificarContraseña');
     }
     //vista principal de un elemento en especifico
-    public function lista()
+    public function lista(Request $request)
     {
         $lista=User::all();
+        $contador = $lista->count();
+
+        if ($request->nombre != null || $request->email != null || $request->type != null )
+        {
+            //-----Filtro-----//
+            $listaFiltrada= User::filtrarUsuarios(
+                $request->get('nombre'),
+                $request->get('email'),
+                $request->get('type')
+            );
+            $contador = $listaFiltrada->count();  //mostrara la cantidad de resultados en la tabla filtrada
+            $listaFiltrada = $listaFiltrada->paginate(10);
+
+            return view('Mantenedores/Usuarios/lista_usuarios')->with('lista',$listaFiltrada)->with('contador',$contador);
+        }
+        $lista = $lista->paginate(10);
         return view('Mantenedores/Usuarios/lista_usuarios',[
                 'lista'=>$lista,
+                'contador' =>$contador,
             ]);
     }
 
@@ -97,5 +114,4 @@ class UsuarioController extends Controller
             return redirect()->route('home');
         }
     }
-
 }

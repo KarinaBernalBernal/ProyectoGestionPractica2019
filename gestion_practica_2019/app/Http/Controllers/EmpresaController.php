@@ -4,6 +4,7 @@ namespace SGPP\Http\Controllers;
 
 use Illuminate\Http\Request;
 use SGPP\Empresa;
+use Illuminate\Support\Facades\DB;
 
 class EmpresaController extends Controller
 {
@@ -13,13 +14,35 @@ class EmpresaController extends Controller
         $this->middleware('is_administrador');
     }
     //vista principal de un elemento en especifico
-    public function lista()
+    public function lista( Request $request)
     {
         $lista= Empresa::all();
+        $contador = $lista->count();
+
+        if ($request->nombre != null || $request->rut != null || $request->ciudad || $request->direccion != null || $request->email)
+        {
+            //-----Filtro-----//
+            $listaFiltrada= Empresa::filtrarEmpresa(
+                $request->get('nombre'),
+                $request->get('rut'),
+                $request->get('ciudad'),
+                $request->get('direccion'),
+                $request->get('email')
+            );
+            $contador = $listaFiltrada->count();  //mostrara la cantidad de resultados en la tabla filtrada
+            $listaFiltrada = $listaFiltrada->paginate(10);
+
+            return view('Mantenedores/Empresas/lista_empresas')
+                ->with('lista',$listaFiltrada)
+                ->with('contador',$contador);
+        }
+        $lista = $lista->paginate(10);
         return view('Mantenedores/Empresas/lista_empresas',[
                 'lista'=>$lista,
+                'contador'=>$contador,
             ]);
     }
+
     public function crear()
     {
         return view('Mantenedores/Empresas/crear_empresa');
@@ -68,6 +91,7 @@ class EmpresaController extends Controller
             return redirect()->route('lista_empresas');
         }
     }
+
     public function borrarEmpresa($id_elemento){
         $elemento_eliminar =  Empresa::find($id_elemento);
         $elemento_eliminar->delete();

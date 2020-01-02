@@ -1,5 +1,4 @@
 @extends('layouts.mainlayout')
-
 @section('content')
     <div class="container-fluid">
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -217,7 +216,6 @@
                 var button_id = $(this).attr("id");
                 $('#row'+button_id+'').remove();
             });
-
             $('#addAreasOtros').click(function(){
                 i++;
                 $('#areasOtros').append('<div id="row'+i+'" class="col-4"><div class="form-group row" ><input type="text" name="areasOtros[]" placeholder="Area" class="form-control name_list col-lg-6" required/><div class="col-1"><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove"><span class="fas fa-trash-alt" aria-hidden="true"></span></button></div></div></div>');
@@ -226,7 +224,6 @@
                 var button_id = $(this).attr("id");
                 $('#row'+button_id+'').remove();
             });
-
             $('#addDebilidad').click(function(){
                 i++;
                 $('#tablaDebilidades').append('<div class="form-group row container-fluid" id="row'+i+'"><div class="col-2"><input type="text" name="debilidad[]" placeholder="Nombre" class="form-control name_list" required/></div><div class="col-9"><input type="text" name="dpDebilidad[]" placeholder="Descripción de la debilidad" class="form-control name_list" required/></div><div class="col-1"><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove"><span class="fas fa-trash-alt" aria-hidden="true"></span></button></div></div>');
@@ -235,7 +232,6 @@
                 var button_id = $(this).attr("id");
                 $('#row'+button_id+'').remove();
             });
-
         });
 
         $("#formularioEvaluacionEmpresa").submit(function(e) {
@@ -315,5 +311,3 @@
     </script>
 
 @endsection
-
-

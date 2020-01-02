@@ -3,6 +3,7 @@
 namespace SGPP;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class EvalActitudinal extends Model
 {
@@ -19,4 +20,16 @@ class EvalActitudinal extends Model
     public function evalActEmpPractica(){
  		return $this->belongsTo('App\EvalActEmpPractica');
     }
+
+    public static function filtrarEvalActitudinal($nombre, $vigencia)
+    {
+        $evaluacionActitudinal = DB::table('eval_actitudinales')
+            ->where('n_act', 'LIKE', '%'.$nombre. '%')
+            ->where('vigencia', 'LIKE', '%'.$vigencia. '%')
+            ->select('eval_actitudinales.*')
+            ->get();
+
+        return $evaluacionActitudinal;
+    }
+
 }

@@ -22,6 +22,7 @@ use SGPP\EvalConocimiento;
 use SGPP\OtrosAreas;
 use SGPP\OtrosHerramientas;
 use Auth;
+use Illuminate\Support\Facades\DB;
 
 class AutoEvaluacionController extends Controller
 {
@@ -43,17 +44,58 @@ class AutoEvaluacionController extends Controller
             'conocimiento'=>$conocimiento,
         ]);
     }
-    public function verDescripcionAutoEvaluacion(){
-        return view('3 Evaluacion/autoEvaluacion');
-    }
-     //vista principal de un elemento en especifico
-    public function lista()
+    public function verDescripcionAutoEvaluacion()
     {
-        $lista= Autoevaluacion::all();
+        $id = auth()->user()->id_user;
+        $alumnos = Alumno::where('id_user', $id)->first();
+
+        $autoevaluaciones = DB::table('practicas')
+            ->join('alumnos', 'alumnos.id_alumno', '=', 'practicas.id_alumno')
+            ->leftJoin('autoevaluaciones', 'autoevaluaciones.id_practica', 'practicas.id_practica')
+            ->where('alumnos.id_alumno', '=', $alumnos->id_alumno)
+            ->select('practicas.*', 'autoevaluaciones.*')
+            ->get();
+
+        $fechaActual = date("Y-m-d");
+
+        //Se retornan todas las practicas del alumno con su autoevaluacion del alumno
+        return view('3 Evaluacion/autoEvaluacion')
+            ->with('autoevaluacion', $autoevaluaciones)
+            ->with('fechaActual', $fechaActual);
+    }
+
+    //vista principal de un elemento en especifico
+    public function lista(Request $request)
+    {
+        $lista = DB::table('autoevaluaciones')
+            ->join('practicas', 'practicas.id_practica', '=', 'autoevaluaciones.id_practica')
+            ->join('alumnos', 'alumnos.id_alumno', '=', 'practicas.id_alumno')
+            ->select('autoevaluaciones.*', 'alumnos.rut')
+            ->get();
+
+        $contador = $lista->count();
+
+        if ($request->f_entrega != null || $request->rut != null)
+        {
+            //-----Filtro-----//
+            $listaFiltrada = Autoevaluacion::filtrarAutoevaluacion(
+                $request->get('f_entrega'),
+                $request->get('rut')
+            );
+            $contador = $listaFiltrada->count();  //mostrara la cantidad de resultados en la tabla filtrada
+            $listaFiltrada = $listaFiltrada->paginate(10);
+
+            return view('Mantenedores/Evaluaciones/Alumno/lista_auto_evaluaciones')
+                ->with('lista', $listaFiltrada)
+                ->with('contador', $contador);
+        }
+        $lista = $lista->paginate(10);
         return view('Mantenedores/Evaluaciones/Alumno/lista_auto_evaluaciones',[
                 'lista'=>$lista,
+                'contador'=>$contador,
             ]);
     }
+
     public function crear()
     {
         return view('Mantenedores/Evaluaciones/Alumno/crear_auto_evaluacion');
@@ -92,6 +134,7 @@ class AutoEvaluacionController extends Controller
             return redirect()->route('lista_auto_evaluaciones');
         }
     }
+
     public function borrarAutoEvaluacion($id_elemento){
         $elemento_eliminar =  Autoevaluacion::find($id_elemento);
         $elemento_eliminar->delete();
@@ -103,13 +146,20 @@ class AutoEvaluacionController extends Controller
         $fecha= date("Y-m-d H:i:s");
         $id = auth()->user()->id_user;
         $alumnos = Alumno::where('id_user', $id)->first();
-        $practicas = Practica::where('id_alumno', $alumnos->id_alumno)->first();
+        //$practicas = Practica::where('id_alumno', $alumnos->id_alumno)->first();
+
+        $practicas = DB::table('practicas')
+            ->join('alumnos', 'alumnos.id_alumno', 'practicas.id_alumno')
+            ->leftJoin('resoluciones', 'resoluciones.id_practica', 'practicas.id_practica')
+            ->where('resoluciones.resolucion_practica', '=', null)
+            ->where('alumnos.id_alumno', '=', $alumnos->id_alumno)
+            ->select('practicas.*')
+            ->first();
 
         $autoevaluaciones = Autoevaluacion::create([
             'id_practica' => $practicas->id_practica,
             'f_entrega' => $fecha
         ]);
-
 
         Desempenno::create([
             'id_autoeval' => $autoevaluaciones->id_autoeval,
@@ -235,4 +285,42 @@ class AutoEvaluacionController extends Controller
         }
         return redirect()->route('descripcionAutoEvaluacion');
     }
+
+    public function autoevaluacion(Request $request, $carrera)
+    {
+        //-----Autoevaluaciones de informatica-----//
+        $autoevaluaciones = DB::table('alumnos')
+            ->join('practicas', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
+            ->join('autoevaluaciones', 'autoevaluaciones.id_practica', 'practicas.id_practica')
+            ->where('alumnos.carrera', '=', $carrera)
+            ->select('alumnos.*',  'practicas.f_inscripcion', 'practicas.id_practica', 'autoevaluaciones.id_autoeval', 'autoevaluaciones.f_entrega')
+            ->get();
+
+        //-----Si no se seleccionaron filtros solo entregamos la consulta de la base-----//
+
+        if ($request->nombre != null || $request->apellido_paterno != null || $request->rut != null || $request->f_entrega != null )
+        {
+            //-----Filtro-----//
+            $listaFiltrada= Alumno::filtrarFechaAutoevaluacion(
+                $request->get('nombre'),
+                $request->get('apellido_paterno'),
+                $request->get('rut'),
+                $request->get('f_entrega'),
+                $carrera
+            );
+            $contador = $listaFiltrada->count();  //mostrara la cantidad de resultados en la tabla filtrada
+            $listaFiltrada = $listaFiltrada->paginate(10);
+            return view('3 Evaluacion/listaAutoevaluacion')->with('autoevaluacion',$listaFiltrada)
+                ->with('contador',$contador)
+                ->with('carrera', $carrera);
+        }
+        $contador = $autoevaluaciones->count(); //mostrara la cantidad de resultados en la tabla
+        $autoevaluaciones = $autoevaluaciones->paginate(10);
+        return view('3 Evaluacion/listaAutoevaluacion')->with('autoevaluacion',$autoevaluaciones)
+            ->with('contador', $contador)
+            ->with('carrera', $carrera);
+    }
+
+
+
 }

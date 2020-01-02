@@ -67,6 +67,7 @@ Route::post('/Administradores/eliminar/{id_elemento}','AdministradorController@b
 /* Rutas mantenedor recursos */
 // Rutas tipo GET
 Route::get('/Practicas/lista', 'PracticaController@lista')->name('lista_practicas');
+Route::get('/lista_practicasNoInscritos', 'PracticaController@listaNoInscritos')->name('lista_practicasNoInscritos');
 Route::get('/Practicas/crear', 'PracticaController@crear')->name('crear_practica');
 Route::get('/Practicas/editar/{id_elemento}', 'PracticaController@editar')->name('editar_practica');
 //Rutas tipo POST
@@ -113,7 +114,7 @@ Route::post('/Supervisores/eliminar/{id_elemento}','SupervisorController@borrarS
 /* Rutas mantenedor elementos dinamicos */
 // Rutas tipo GET
 Route::get('/ElementosDinamicos/crear/{tipo}', 'ElementosDinamicosController@crear')->name('crear_elemento_dinamico');
-Route::get('/ElementosDinamicos/lista', 'ElementosDinamicosController@lista')->name('lista_elementos_dinamicos');
+Route::get('/ElementosDinamicos/lista/{elemento}', 'ElementosDinamicosController@lista')->name('lista_elementos_dinamicos');
 Route::get('/ElementosDinamicos/editar/{id_elemento},{tipo}', 'ElementosDinamicosController@editar')->name('editar_elemento');
 //Rutas tipo POST
 Route::post('/ElementosDinamicos/agregar/{tipo}', 'ElementosDinamicosController@crearElemento')->name('agregar_elemento_dinamico');
@@ -124,7 +125,7 @@ Route::post('/ElementosDinamicos/vigencia', 'ElementosDinamicosController@modifi
 /* Rutas mantenedor otros */
 // Rutas tipo GET
 Route::get('/Otros/crear/{tipo}', 'OtroController@crear')->name('crear_otro');
-Route::get('/Otros/lista', 'OtroController@lista')->name('lista_otros');
+Route::get('/Otros/lista/{tipo}', 'OtroController@lista')->name('lista_otros');
 Route::get('/Otros/editar/{id_elemento},{tipo}', 'OtroController@editar')->name('editar_otro');
 //Rutas tipo POST
 Route::post('/Otros/agregar/{tipo}', 'OtroController@crearElemento')->name('agregar_otro');
@@ -147,6 +148,9 @@ Route::get('/descripcionSolicitud', 'SolicitudController@verDescripcion')->name(
 Route::get('/evaluacionSolicitudCivil', 'SolicitudController@evaluacion')->name('evaluacionSolicitud');
 //Ejecucion
 Route::get('/evaluacionSolicitudEjecucion', 'SolicitudController@evaluacionEjecucion')->name('evaluacionSolicitudEjecucion');
+Route::get('/solicitudesPFiltrada/{carrera}', 'SolicitudController@filtroSolicitudesP')->name('solicitudesPFiltrada');
+Route::get('/solicitudesEFiltrada/{carrera}', 'SolicitudController@filtroSolicitudesE')->name('solicitudesEFiltrada');
+
 
 //modals
 
@@ -154,6 +158,7 @@ Route::get('/modal/evaluarSolicitudModal/{id}','SolicitudController@evaluarSolic
 Route::post('/evaluacionSolicitud/evaluarSolicitud/{id}','SolicitudController@evaluarSolicitud')->name('evaluarSolicitud');
 Route::get('/modal/modificarEvaluacionSolicitudModal/{id}','SolicitudController@modificarEvaluacionSolicitudModal')->name('modificarEvaluacionSolicitudModal');
 Route::post('/evaluacionSolicitud/modificarEvaluacionSolicitud/{id}','SolicitudController@modificarEvaluacionSolicitud')->name('modificarEvaluacionSolicitud');
+
 //---------Validacion de solicitudes
 Route::get('/listaSolicitudEjecucion', 'SolicitudController@listaSolicitudEjecucion')->name('listaSolicitudEjecucion');
 Route::get('/listaSolicitudCivil', 'SolicitudController@listaSolicitudCivil')->name('listaSolicitudCivil');
@@ -180,21 +185,24 @@ Route::post('/agregarSolicitudDocumentos', 'InscripcionController@storeSolicitar
 Route::get('/formularioInscripcion', 'InscripcionController@indexInscripcion')->name('formularioInscripcion');
 Route::post('/agregarInscripcion', 'InscripcionController@storeInscripcion')->name('agregarInscripcion');
 //---------listas
-Route::get('/listaInscripcionEjecucion', 'InscripcionController@listaInscripcionEjecucion')->name('listaInscripcionEjecucion');
-Route::get('/listaInscripcionCivil', 'InscripcionController@listaInscripcionCivil')->name('listaInscripcionCivil');
+Route::get('/listaInscripcion/{carrera}', 'InscripcionController@listaInscripcion')->name('listaInscripcion');
 /*--------------------- Etapa Evaluación ---------------------*/
 Route::get('/descripcionAutoEvaluacion', 'AutoEvaluacionController@verDescripcionAutoEvaluacion')->name('descripcionAutoEvaluacion');
 Route::get('/formularioAutoEvaluacion', 'AutoEvaluacionController@index')->name('formularioAutoEvaluacion');
 Route::post('/agregarAutoEvaluacion', 'AutoEvaluacionController@store')->name('agregarAutoEvaluacion');
 Route::get('/descripcionEvaluacionEmpresa', 'EvaluacionSupervisorController@verDescripcionEvaluacionEmpresa')->name('descripcionEvaluacionEmpresa');
-Route::get('/formularioEvaluacionEmpresa', 'EvaluacionSupervisorController@index')->name('formularioEvaluacionEmpresa');
+Route::get('/formularioEvaluacionEmpresa/{id}', 'EvaluacionSupervisorController@index')->name('formularioEvaluacionEmpresa');
 Route::post('/agregarEvaluacionEmpresa', 'EvaluacionSupervisorController@store')->name('agregarEvaluacionEmpresa');
+Route::get('/listaAutoevaluacion/{carrera}', 'AutoEvaluacionController@autoevaluacion')->name('listaAutoevaluacion');
+Route::get('/listaEvaluacionSupervisor/{carrera}', 'EvaluacionSupervisorController@listaEvaluacionSupervisor')->name('listaEvaluacionSupervisor');
 
 /*--------------------- Etapa Resolucion ---------------------*/
-//Civil
-Route::get('/ResolucionCivil', 'ResolucionPracticaController@resolucionCivil')->name('ResolucionPracticaCivil');
-//Ejecucion
-Route::get('/ResolucionEjecucion', 'ResolucionPracticaController@resolucionEjecucion')->name('ResolucionPracticaEjecucion');
+
+//Ejecucion / Civil
+Route::get('/resolucionPractica/{carrera}', 'ResolucionPracticaController@resolucion')->name('resolucionPractica');
+//Filtros
+Route::get('/filtrarResolucionP/{carrera}', 'ResolucionPracticaController@filtrarResolucionP')->name('filtrarResolucionP');
+Route::get('/filtrarResolucionE/{carrera}', 'ResolucionPracticaController@filtrarResolucionE')->name('filtrarResolucionE');
 //modals
 Route::get('/modal/resolucionPracticaModal/{id}','ResolucionPracticaController@resolucionPracticaModal')->name('resolucionPracticaModal');
 Route::post('/resolucionPractica/evaluarPractica/{id},{email},{name}','ResolucionPracticaController@evaluarPractica')->name('evaluarPractica');
@@ -213,11 +221,22 @@ Route::get('/estadisticaAlumno', 'EstadisticaController@buscarAlumno')->name('es
 //Criterios
 Route::get('/estadisticaCriterios', 'EstadisticaController@verEstadisticaCriterios')->name('estadisticaCriterios');
 
-/* ----------------- Supevisores en practica ---------------------------- */
+/* ----------------- Supevisores y alumnos en practica ---------------------------- */
 
-Route::get('/supervisoresPracticaEjecucion', 'SupervisorController@supervisoresEnPracticaEjecucion')->name('supervisoresPracticaEjecucion');
-Route::get('/supervisoresPracticaCivil', 'SupervisorController@supervisoresEnPracticaCivil')->name('supervisoresPracticaCivil');
+/*Informatica*/
+Route::get('/supervisoresPractica/{carrera}', 'SupervisorController@supervisoresEnPractica')->name('supervisoresPractica');
+Route::get('/formularioEvaluacion/{id}', 'SupervisorController@index')->name('formularioEvaluacion');
+
+Route::get('/alumnosPractica/{carrera}', 'AlumnoController@alumnosEnPractica')->name('alumnosPractica');
+Route::get('/modal/solicitudModal/{id}','AlumnoController@mostrarSolicitudModal')->name('solicitudModal');
+Route::get('/modal/inscripcionModal/{id}','AlumnoController@mostrarInscripcionModal')->name('inscripcionModal');
+Route::get('/modal/autoEvaluacionModal/{id}','AlumnoController@mostrarAutoEvaluacionModal')->name('autoEvaluacionModal');
+
+/*Modal evaluacion supervisor*/
+Route::get('/modal/evaluacionModal/{id}','EvaluacionSupervisorController@mostrarEvaluacionModal')->name('evaluacionModal');
+Route::get('/modal/evaluacionModalInformatica/{id}','SupervisorController@mostrarEvaluacionModal')->name('evaluacionModalInformatica');
 
 /* ----------------- Modificar Contraseña ---------------------------- */
 Route::get('/Usuario/contraseña', 'UsuarioController@contraseña')->name('contraseña');
 Route::post('/Usuario/actualizar_contraseña/{id_elemento}', 'UsuarioController@modificarContraseña')->name('actualizar_contraseña');
+

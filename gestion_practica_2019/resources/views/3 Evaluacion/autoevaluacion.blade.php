@@ -24,15 +24,60 @@
                             </li>
                         </ul>
                         </p>
-
-                        <div class="form-group">
-                            <div class="row d-flex justify-content-center"> 
-                                    <a href="{{route('formularioAutoEvaluacion')}}" class="btn btn-secondary"> <span>Acceder al formulario</span></a>
-                                </div>
-                            </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <div class="card-body">
+        <h4 class="card-header">Autoevaluaciones</h4>
+        @if (count($autoevaluacion)>0)
+            <div class="table-responsive text-center">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead class="bg-dark" style="color: white">
+                    <tr>
+                        <th class="text-truncate text-center">Fecha Inscripcion Practica</th>
+                        <th class="text-truncate text-center">Fecha de entrega</th>
+                        <th class="text-truncate text-center">Autoevaluacion</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach ($autoevaluacion as $autoevaluaciones)
+                        <tr id="{{$autoevaluaciones->id_practica}}">
+                            @if($autoevaluaciones->f_inscripcion)
+                                <td>{{date('d-m-Y', strtotime($autoevaluaciones->f_inscripcion))}}</td>
+                            @else
+                                <td>La Práctica no esta inscrita</td>
+                            @endif
+                            @if($autoevaluaciones->f_entrega)
+                                <td>{{date('d-m-Y', strtotime($autoevaluaciones->f_entrega))}}</td>
+                            @else
+                                <td>La Autoevaluacion no esta terminada</td>
+                            @endif
+                            <td class="text-center">
+                                @if($autoevaluaciones->f_inscripcion)
+                                    @if($autoevaluaciones->id_autoeval)
+                                        <a  href="" class='botonModalAutoEvaluacion fa fa-file text-success' data-toggle="modal" data-form="{{ route('autoEvaluacionModal',['id'=>$autoevaluaciones->id_practica])}}" data-target="#modal-autoEvaluacion"></a><br>
+                                    @else
+                                        @if( $fechaActual >= $autoevaluaciones->f_hasta)
+                                            <a href="{{route('formularioAutoEvaluacion')}}" class="btn btn-secondary"> <span>Acceder al formulario</span></a>
+                                        @else
+                                            <span>El periodo de tu Práctica aun no termina</span>
+                                        @endif()
+                                    @endif
+                                @else
+                                    <span>La Práctica no esta inscrita</span>
+                                @endif
+                            </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+            </div>
+        @else
+            <p class="text-center">No se encontraron Autoevaluaciones</p>
+        @endif
+    </div>
+
+
 @endsection

@@ -13,13 +13,12 @@ use SGPP\Solicitud;
 use Illuminate\Support\Facades\DB;
 use Mail;
 
-
-
 class InscripcionController extends Controller
 {
     /* ----- Solicitar Documentos ----*/
 
-    public function __construct(){
+    public function __construct()
+    {
         $this->middleware('auth');
         $this->middleware('is_administrador')->only('lista', 'listaInscripcionCivil', 'listaInscripcionEjecucion');
         $this->middleware('is_alumno')->except('lista', 'listaInscripcionCivil', 'listaInscripcionEjecucion', 'solicitudDocumentosModal','aviso', 'borrarSolicitud');
@@ -31,9 +30,7 @@ class InscripcionController extends Controller
      */
     public function indexSolicitarDocumentos()
     {
-
         return view('2 Inscripcion/formularioSolicitarDocumentos');
-
     }
 
     public function indexInscripcion()
@@ -85,6 +82,7 @@ class InscripcionController extends Controller
 
         return redirect()->route('descripcionSolicitudDocumentos');
     }
+
     public function storeInscripcion(Request $request)
     {
         $fecha = date("Y-m-d");
@@ -114,7 +112,7 @@ class InscripcionController extends Controller
             User::create([
                 'name' => $request->nombreSupervisor,
                 'email' => $request->emailSupervisor,
-                'password' => bcrypt('supervisor123'), //str_random(8) Para el value
+                'password' => str_random(8),
                 'type' => 'Supervisor'
             ]);
             $usuarioS = User::where('email',$request->emailSupervisor)->first();
@@ -176,24 +174,27 @@ class InscripcionController extends Controller
         return view('2 Inscripcion/solicitudDocumentos');
     }
 
-    public function verDescripcionInscripcion(){
-        return view('2 Inscripcion/inscripcion');
+    public function verDescripcionInscripcion()
+    {
+        $id = auth()->user()->id_user;
+        $alumnos = Alumno::where('id_user', $id)->first();
+
+        $practicas = DB::table('practicas')
+            ->join('alumnos', 'alumnos.id_alumno', '=','practicas.id_alumno')
+            ->join('supervisores', 'supervisores.id_supervisor', '=', 'practicas.id_supervisor')
+            ->leftJoin('resoluciones', 'resoluciones.id_practica', 'practicas.id_practica')
+            ->where('practicas.id_alumno', '=', $alumnos->id_alumno)
+            ->select('practicas.*', 'supervisores.nombre', 'supervisores.apellido_paterno', 'supervisores.email', 'resoluciones.resolucion_practica')
+            ->get();
+
+        //Se retornan las practicas asociadas al alumno, el supervisor asociado a cada practica y el estado de la practica
+
+        return view('2 Inscripcion/inscripcion')
+            ->with('practica', $practicas)
+            ->with('alumno', $alumnos);
     }
 
     /* -------Listas de inscripcion -----*/
-    public function listaInscripcionCivil(){
-        $practicas = Practica::orderBy('id_alumno','DESC')->where('f_inscripcion','!=', 'NULL')->paginate(7);
-        $alumnos = Alumno::orderBy('id_alumno','DESC')->where('carrera', 'Ingeniería Civil Informática')->paginate(7);
-
-        return view('2 Inscripcion/listaInscripcion')->with('practicas', $practicas)->with('alumnos',$alumnos);
-    }   
-    public function listaInscripcionEjecucion(){
-        $practicas = Practica::orderBy('id_alumno','DESC')->where('f_inscripcion','!=', 'NULL')->paginate(7);
-        $alumnos = Alumno::orderBy('id_alumno','DESC')->where('carrera', 'Ingeniería de Ejecución Informática')->paginate(7);
-
-        return view('2 Inscripcion/listaInscripcion')->with('practicas', $practicas)->with('alumnos',$alumnos);
-    }
-
     public function solicitudDocumentosModal($id)
     {
         $solicitudD = DB::table('documentos_solicitados')
@@ -226,6 +227,36 @@ class InscripcionController extends Controller
         return redirect()->route('lista_solicitudes_documentos');
     }
 
+    public function listaInscripcion(Request $request, $carrera)
+    {
+        $alumnosInformatica = DB::table('alumnos')
+            ->join('practicas', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
+            ->where('alumnos.carrera', '=', $carrera)
+            ->where('practicas.f_inscripcion', '!=', null)
+            ->select('alumnos.*', 'practicas.*')
+            ->get();
+
+        if ($request->nombre != null || $request->apellido_paterno != null || $request->rut != null || $request->f_inscripcion != null)
+        {
+            //-----Filtro-----//
+            $listaFiltrada= Alumno::filtrarFechaPractica(
+                $request->get('nombre'),
+                $request->get('apellido_paterno'),
+                $request->get('rut'),
+                $request->get('f_inscripcion'),
+                $carrera
+            );
+            $contador = $listaFiltrada->count();  //mostrara la cantidad de resultados en la tabla filtrada
+            $listaFiltrada = $listaFiltrada->paginate(7);
+            return view('2 Inscripcion/listaInscripcion')->with('alumnos',$listaFiltrada)
+                ->with('contador',$contador)
+                ->with('carrera', $carrera);
+        }
+        $contador = $alumnosInformatica->count();
+        $alumnosInformatica = $alumnosInformatica->paginate(7);
+        return view('2 Inscripcion/listaInscripcion')->with('alumnos',$alumnosInformatica)
+            ->with('contador', $contador)
+            ->with('carrera', $carrera);
+    }   
 }
 
-?>

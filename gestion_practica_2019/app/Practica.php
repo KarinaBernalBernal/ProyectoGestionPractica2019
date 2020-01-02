@@ -3,6 +3,7 @@
 namespace SGPP;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Practica extends Model
 {
@@ -30,4 +31,53 @@ class Practica extends Model
     public function autoevaluacion(){
         return $this->hasOne('App\Autoevaluacion');
     }
+
+    public function scopeBuscador($query, $buscador)
+    {
+        if (  trim($buscador !== '') )
+        {
+            $query->where('f_inscripcion', 'LIKE', '%'. $buscador . '%');
+        }
+        return $query;
+    }
+
+    public function scopeFechaInscripcion($query, $f_inscripcion)
+    {
+        if (  trim($f_inscripcion !== '') )
+        {
+            $query->where('f_inscripcion', 'LIKE', '%'. $f_inscripcion . '%');
+        }
+        return $query;
+    }
+
+    public static function filtrarPracticasInscritas($f_solicitud, $f_inscripcion, $rutAlumno, $emailSupervisor)
+    {
+        $practicasFiltradas = DB::table('practicas')
+            ->join('alumnos', 'alumnos.id_alumno', '=', 'practicas.id_alumno')
+            ->join('supervisores', 'supervisores.id_supervisor', '=', 'practicas.id_supervisor')
+            ->where('f_solicitud', 'LIKE', '%'.$f_solicitud.'%')
+            ->where('f_inscripcion', 'LIKE', '%'.$f_inscripcion.'%')
+            ->where('alumnos.rut', 'LIKE', '%'.$rutAlumno.'%')
+            ->where('supervisores.email', 'LIKE', '%'.$emailSupervisor.'%')
+            ->select('practicas.*', 'alumnos.rut', 'supervisores.email' )
+            ->get();
+
+        return $practicasFiltradas;
+    }
+
+    public static function filtrarPracticasNoInscritas($f_solicitud, $rutAlumno)
+    {
+        $practicasFiltradas = DB::table('practicas')
+            ->join('alumnos', 'alumnos.id_alumno', '=', 'practicas.id_alumno')
+            ->leftJoin('supervisores', 'supervisores.id_supervisor', '=', 'practicas.id_supervisor')
+            ->where('practicas.f_inscripcion', '=', null)
+            ->where('f_solicitud', 'LIKE', '%'.$f_solicitud.'%')
+            ->where('alumnos.rut', 'LIKE', '%'.$rutAlumno.'%')
+            ->select('practicas.*', 'alumnos.rut' )
+            ->get();
+
+        return $practicasFiltradas;
+    }
+
 }
+

@@ -2,16 +2,25 @@
 
 @section('content')
     <div class="container-fluid">
-        <div class="row">
-            <div class="col col-md-offset">
-                <div class="tab-content" id="myTabContent">
-                    <div class="container-fluid">
-                        <h2>Nuevas Solicitudes</h2>
+        <div class="container-fluid text-center">
+            <h2>Solicitudes</h2>
+        </div>
+        <div class="card text">
+            <div class="card-body">
+                <form class="form-horizontal container-fluid" action="{{route('listaSolicitudCivil')}}" method="get">
+                    <div class="row">
+                        <div class="col-2">
+                            <input id="rut" type="text" class="form-control" name="rut" placeholder="Rut Alumno">
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-info"><span class="fa fa-search"></span></button>
+                        </div>
                     </div>
-
-                    <br>
+                    <div>Se encontraron {{ $contador }} Solicitudes</div>
+                </form>
+                <div class="tab-content" id="myTabContent">
+                    <hr>
                     @if (count($solicitudes)>0)
-
                         <div class="container-fluid">
                             <div class="table-responsive">
                                 <table class="table table-bordered table-sm" id="MyTable">
@@ -42,7 +51,6 @@
                                             <td class="text-truncate text-center">{{ $solicitud->anno_ingreso }}</td>
                                             <td class="text-truncate text-center"><strong>Semestre:</strong> {{ $solicitud->semestre_proyecto }} <br>
                                                 <strong>Año:</strong>	{{ $solicitud->anno_proyecto }}</td>
-
                                         {{--        Estos son los botones de aceptar o denergar en la lista. Se omitieron ya que no se están usando actualmente
 
                                                 <td class="text-center">
@@ -56,20 +64,20 @@
                                                     </div>
                                                 </td>
                                           --}}
-                                            </tr>
-                                        @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
                             </div>
-                        @else
-                        <p class="container-fluid">No existen solicitudes en este momento</p>
-                        @endif
-                    </div>
+                        </div>
+                    @else
+                    <p class="text-center">No existen solicitudes en este momento</p>
+                    @endif
                 </div>
             </div>
         </div>
-        <div class="row d-flex justify-content-center">
-            {{ $solicitudes->links() }}
-        </div>
+    </div>
+    <<div class="row d-flex justify-content-center">
+        {{ $solicitudes->appends(Request::except("page"))->render("pagination::bootstrap-4") }}
+    </div>
     @endsection

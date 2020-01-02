@@ -1,63 +1,77 @@
 @extends('layouts.mainlayout')
-
 @section('content')
     <div class="container-fluid">
         <div class="row">
             <div class="col col-md-offset">
-                <div class="tab-content" id="myTabContent">
-                    <div class="container-fluid">
-                        <h2>Inscripciones</h2>
+                <div class="container-fluid text-center">
+                    <h2>Inscripciones</h2>
+                </div>
+                <div class="card shadow mb-4">
+                    <div class="card-header">
+                        {!! Form::open(['route'=> ['listaInscripcion', $carrera], 'method' => 'GET', 'class' => 'row container-fluid', 'role' => 'search' ])  !!}
+                        <div class="col-2">
+                            {!! Form::text('rut', null, ['class' => 'form-control', 'placeholder' => 'Rut']) !!}
+                        </div>
+                        <div class="col-2">
+                            {!! Form::text('nombre', null, ['class' => 'form-control', 'placeholder' => 'Nombre']) !!}
+                        </div>
+                        <div class="col-2">
+                            {!! Form::text('apellido_paterno', null, ['class' => 'form-control', 'placeholder' => 'Apellido']) !!}
+                        </div>
+                        <div class="col-2">
+                            {!! Form::text('f_inscripcion', null, ['class' => 'form-control', 'placeholder' => 'Fecha Inscripcion']) !!}
+                        </div>
+                        <button type="submit" class="btn btn-info form-group col-1">Buscar</button>
+                        {!! Form::close() !!}
+                        <p class="col-2">Hay {{ $contador }} Inscripciones</p>
                     </div>
-
-                    <br>
-
-                    @if (count($practicas)>0)
-                        <div class="container-fluid">{{--row d-flex justify-content-center--}}
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="MyTable">
-                                    <thead class="bg-dark" style="color: white">
-                                          <tr>
-                                            <th class="text-truncate text-center">rut</th>
-                                            <th class="text-truncate text-center">Nombre</th>
-                                            <th class="text-truncate text-center">Apellido Paterno</th>
-                                            <th class="text-truncate text-center">Apellido Materno</th>
-                                            <th class="text-truncate text-center">Fecha Inscripcion</th>
-                                            <th class="text-truncate text-center">Inicio</th>
-                                            <th class="text-truncate text-center">Termino</th>
-                                            <th class="text-truncate text-center">Detalles</th>
-                                            <!--<th class="text-truncate text-center">Supervisor</th>-->
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach($practicas as $practica)
+                    <div class="card-body">
+                        @if (count($alumnos)>0)
+                            <div class="row d-flex justify-content-center container-fluid">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="MyTable">
+                                        <thead class="bg-dark" style="color: white">
+                                              <tr>
+                                                <th class="text-truncate text-center">rut</th>
+                                                <th class="text-truncate text-center">Nombre</th>
+                                                <th class="text-truncate text-center">Fecha</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
                                                 @foreach($alumnos as $alumno)
-                                                    @if($practica->id_alumno === $alumno->id_alumno)
-                                                        <tr>
-                                                            <td class="text-truncate text-center">{{ $alumno->rut }}</td>
-                                                            <td class="text-truncate text-center">{{ $alumno->nombre }}</td>
-                                                            <td class="text-truncate text-center">{{ $alumno->apellido_paterno }}</td>
-                                                            <td class="text-truncate text-center">{{ $alumno->apellido_materno }}</td>
-                                                            <td class="text-truncate text-center">{{ date('d-m-Y', strtotime($practica->f_inscripcion)) }}</td>
-                                                            <td class="text-truncate text-center">{{ date('d-m-Y', strtotime($practica->f_desde)) }}</td>
-                                                            <td class="text-truncate text-center">{{ date('d-m-Y', strtotime($practica->f_hasta)) }}</td>
-                                                            <td class="text-truncate text-center"><a href="" class="botonModalmodificarEvaluacionSolicitud" data-toggle="modal" data-form="" data-target="#modal-modificarEvaluacionSolicitud"><span><i class="fas fa-search-plus"></i></span></a>
-
-                                                        </tr>
-                                                    @endif
+                                                    <tr>
+                                                        <td class="text-truncate text-center">{{ $alumno->rut }}</td>
+                                                        <td class="text-truncate text-center">
+                                                            {{ $alumno->nombre }}
+                                                            {{ $alumno->apellido_paterno }}
+                                                            {{ $alumno->apellido_materno }}
+                                                        </td>
+                                                        <td class="text-truncate text-center">
+                                                            @if($alumno->f_inscripcion)
+                                                                <b> Fecha inscripcion :</b>  {{date('d-m-Y', strtotime($alumno->f_inscripcion))}}<br>
+                                                            @endif
+                                                            @if($alumno->f_desde)
+                                                                <b> Desde :</b>  {{date('d-m-Y', strtotime($alumno->f_desde))}}
+                                                            @endif
+                                                            @if($alumno->f_hasta)
+                                                                <b> Hasta :</b>  {{date('d-m-Y', strtotime($alumno->f_hasta))}}
+                                                            @endif
+                                                        </td>
+                                                    </tr>
                                                 @endforeach
-                                            @endforeach
-                                        </tbody>
-                                    </table>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
-                            </div>
-                    @else
-                        <p class="container-fluid">No existen inscripciones en este momento</p>
-                    @endif
+                            @else
+                         <p class="text-danger text-center">No se encontraron Inscripciones</p>
+                        @endif
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row d-flex justify-content-center">
-        {{ $alumnos->links() }}
+        <div class="row d-flex justify-content-center">
+            {{ $alumnos->links() }}
+        </div>
     </div>
 @endsection

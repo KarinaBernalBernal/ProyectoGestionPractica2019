@@ -3,6 +3,10 @@
 namespace SGPP;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
+
+
+
 
 class Supervisor extends Model
 {
@@ -27,6 +31,37 @@ class Supervisor extends Model
     }
 
     //----------------FILTROS------------
+
+    public static function filtrarSupervisores($nombre, $apellido_paterno, $email, $fono)
+    {
+        $supervisoresFiltrados = DB::table('supervisores')
+            ->where('nombre', 'LIKE', '%'.$nombre. '%')
+            ->where('apellido_paterno', 'LIKE', '%'.$apellido_paterno. '%')
+            ->where('email', 'LIKE', '%'.$email. '%')
+            ->where('fono', 'LIKE', '%'.$fono. '%')
+            ->select('supervisores.*' )
+            ->get();
+
+        return $supervisoresFiltrados;
+    }
+
+    public static function filtrarSupervisoresEnPractica($nombre, $apellido_paterno, $email, $fono, $carrera)
+    {
+        $supervisoresFiltrados = DB::table('supervisores')
+            ->join('practicas', 'practicas.id_supervisor', '=', 'supervisores.id_supervisor')
+            ->join('alumnos', 'alumnos.id_alumno', '=', 'practicas.id_alumno')
+            ->leftJoin('evaluaciones_supervisor', 'evaluaciones_supervisor.id_practica', 'practicas.id_practica')
+            ->where('practicas.f_inscripcion', '!=', null)
+            ->where('supervisores.nombre', 'LIKE', '%'.$nombre. '%')
+            ->where('supervisores.apellido_paterno', 'LIKE', '%'.$apellido_paterno. '%')
+            ->where('supervisores.email', 'LIKE', '%'.$email. '%')
+            ->where('supervisores.fono', 'LIKE', '%'.$fono. '%')
+            ->where('carrera', 'LIKE', '%'.$carrera. '%')
+            ->select('supervisores.*', 'evaluaciones_supervisor.*', 'alumnos.nombre as nombre_alumno', 'alumnos.apellido_paterno as apellido_alumno')
+            ->get();
+
+        return $supervisoresFiltrados;
+    }
 
     public static function filtrarYPaginar($buscador, $nombre, $apellido_paterno,$email)
     {

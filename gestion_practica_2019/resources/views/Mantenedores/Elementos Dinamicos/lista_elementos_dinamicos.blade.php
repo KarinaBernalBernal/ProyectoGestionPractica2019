@@ -24,9 +24,28 @@
 				<h2>Áreas de Autoevaluación/Evaluación Supervisor</h2>
 				<br>
 				<input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
-				<div class="container">
-					<div class="row justify-content-center">
-						<div class="text-center">
+				<div class="card text">
+					<div class="card-body">
+						<form class="form-horizontal" action="{{route('lista_elementos_dinamicos',["Área"])}}" method="get">
+							<div class="row">
+								<div class="col-2">
+									<input id="nombre" type="text" class="form-control" name="nombre" placeholder="Nombre">
+								</div>
+								<div class="col-2">
+									<select id="vigencia" type="text" class="form-control" name="vigencia">
+										<option value="">Seleccione Estado</option>
+										<option value="1">Vigente</option>
+										<option value="2">No Vigente</option>
+									</select>
+								</div>
+								<div class="form-group">
+									<button type="submit" class="btn btn-info"><span class="fa fa-search"></span></button>
+								</div>
+							</div>
+							<div class="text-left">Se encontraron {{ $contadorAreas }} Areas</div>
+							<hr>
+						</form>
+						<div class="text-center container-fluid">
 						@if (count($area)>0)
 							<div class="row d-flex justify-content-center">
 								<div class="table-responsive">
@@ -58,7 +77,6 @@
 																		<span class="fas fa-trash-alt" aria-hidden="true"></span>
 																	</button></a>
 													</td>
-
 												</tr>
 											@endforeach
 										</tbody>
@@ -71,17 +89,20 @@
 							</div>
 						@endif
 						</div>
+						<div class="container">
+							<div class="row">
+								<div class="col-md-2">
+									<a href="/"><button class="btn btn-primary btn-lg">Atras</button></a>
+								</div>
+								<div class='ml-auto'>
+									<a href="{{route ('crear_elemento_dinamico',["Área"])}}"><button id="boton_agregar" class="btn btn-primary btn-lg">Agregar</button></a>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
-				<div class="container">
-					<div class="row">
-						<div class="col-md-2">
-							<a href="/"><button class="btn btn-primary btn-lg">Atras</button></a>
-						</div>
-						<div class='ml-auto'>
-							<a href="{{route ('crear_elemento_dinamico',["Área"])}}"><button id="boton_agregar" class="btn btn-primary btn-lg">Agregar</button></a>
-						</div>
-					</div>
+				<div class="row d-flex justify-content-center">
+					{{ $area->appends(Request::except('area'))->render("pagination::bootstrap-4") }}
 				</div>
 			</div>
 
@@ -89,9 +110,28 @@
 				<h2>Herramientas de Formulario Autoevaluación</h2>
 				<br>
 				<input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
-				<div class="container">
-					<div class="row justify-content-center">
-						<div class="text-center">
+				<div class="card text">
+					<div class="card-body">
+						<form class="form-horizontal" action="{{route('lista_elementos_dinamicos',["Herramienta"])}}" method="get">
+							<div class="row">
+								<div class="col-2">
+									<input id="nombre" type="text" class="form-control" name="nombre" placeholder="Nombre">
+								</div>
+								<div class="col-2">
+									<select id="vigencia" type="text" class="form-control" name="vigencia">
+										<option value="">Seleccione Estado</option>
+										<option value="1">Vigente</option>
+										<option value="2">No Vigente</option>
+									</select>
+								</div>
+								<div class="form-group">
+									<button type="submit" class="btn btn-info"><span class="fa fa-search"></span></button>
+								</div>
+							</div>
+							<div class="text-left">Se encontraron {{ $contadorHerramientas }} Herramientas</div>
+							<hr>
+						</form>
+						<div class="text-center container-fluid">
 							@if (count($herramienta)>0)
 								<div class="row d-flex justify-content-center">
 									<div class="table-responsive">
@@ -135,17 +175,20 @@
 								</div>
 						@endif
 						</div>
+						<div class="container">
+							<div class="row">
+								<div class="col-md-2">
+									<a href="/"><button class="btn btn-primary btn-lg">Atras</button></a>
+								</div>
+								<div class='ml-auto'>
+									<a href="{{route ('crear_elemento_dinamico',["Herramienta"])}}"><button id="boton_agregar" class="btn btn-primary btn-lg">Agregar</button></a>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
-				<div class="container">
-					<div class="row">
-						<div class="col-md-2">
-							<a href="/"><button class="btn btn-primary btn-lg">Atras</button></a>
-						</div>
-						<div class='ml-auto'>
-							<a href="{{route ('crear_elemento_dinamico',["Herramienta"])}}"><button id="boton_agregar" class="btn btn-primary btn-lg">Agregar</button></a>
-						</div>
-					</div>
+				<div class="row d-flex justify-content-center">
+					{{ $herramienta->appends(Request::except('herramienta'))->render("pagination::bootstrap-4") }}
 				</div>
 			</div>
 
@@ -153,9 +196,28 @@
 				<h2>Actitudes de Autoevaluación/Evaluación Supervisor</h2>
 				<br>
 				<input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
-				<div class="container">
-					<div class="row justify-content-center">
-						<div class="text-center">
+				<div class="card text">
+					<div class="card-body">
+						<form class="form-horizontal" action="{{route('lista_elementos_dinamicos',["Actitud"])}}" method="get">
+							<div class="row">
+								<div class="col-2">
+									<input id="nombre" type="text" class="form-control" name="nombre" placeholder="Nombre">
+								</div>
+								<div class="col-2">
+									<select id="vigencia" type="text" class="form-control" name="vigencia">
+										<option value="">Seleccione Estado</option>
+										<option value="1">Vigente</option>
+										<option value="2">No Vigente</option>
+									</select>
+								</div>
+								<div class="form-group">
+									<button type="submit" class="btn btn-info"><span class="fa fa-search"></span></button>
+								</div>
+							</div>
+							<div class="text-left">Se encontraron {{ $contadorActitudinal }} Actitudes</div>
+							<hr>
+						</form>
+						<div class="text-center container-fluid">
 							@if (count($evalActitudinal)>0)
 								<div class="container-fluid">
 									<div class="table-responsive">
@@ -200,17 +262,20 @@
 								</div>
 							@endif
 						</div>
+						<div class="container">
+							<div class="row">
+								<div class="col-md-2">
+									<a href="/"><button class="btn btn-primary btn-lg">Atras</button></a>
+								</div>
+								<div class='ml-auto'>
+									<a href="{{route ('crear_elemento_dinamico',["Actitud"])}}"><button id="boton_agregar" class="btn btn-primary btn-lg">Agregar</button></a>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
-				<div class="container">
-					<div class="row">
-						<div class="col-md-2">
-							<a href="/"><button class="btn btn-primary btn-lg">Atras</button></a>
-						</div>
-						<div class='ml-auto'>
-							<a href="{{route ('crear_elemento_dinamico',["Actitud"])}}"><button id="boton_agregar" class="btn btn-primary btn-lg">Agregar</button></a>
-						</div>
-					</div>
+				<div class="row d-flex justify-content-center">
+					{{ $evalActitudinal->appends(Request::except('actitudinal'))->render("pagination::bootstrap-4") }}
 				</div>
 			</div>
 
@@ -218,9 +283,28 @@
 				<h2>Conocimientos de Autoevaluación/Evaluación Supervisor</h2>
 				<br>
 				<input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
-				<div class="container">
-					<div class="row justify-content-center">
-						<div class="text-center">
+				<div class="card text">
+					<div class="card-body">
+						<form class="form-horizontal" action="{{route('lista_elementos_dinamicos',["Conocimiento"])}}" method="get">
+							<div class="row">
+								<div class="col-2">
+									<input id="nombre" type="text" class="form-control" name="nombre" placeholder="Nombre">
+								</div>
+								<div class="col-2">
+									<select id="vigencia" type="text" class="form-control" name="vigencia">
+										<option value="">Seleccione Estado</option>
+										<option value="1">Vigente</option>
+										<option value="2">No Vigente</option>
+									</select>
+								</div>
+								<div class="form-group">
+									<button type="submit" class="btn btn-info"><span class="fa fa-search"></span></button>
+								</div>
+							</div>
+							<div class="text-left">Se encontraron {{ $contadorConocimiento }} Conocimientos</div>
+							<hr>
+						</form>
+						<div class="text-center container-fluid">
 							@if (count($evalConocimiento)>0)
 								<div class=" container-fluid">
 									<div class="table-responsive">
@@ -265,17 +349,20 @@
 								</div>
 							@endif
 						</div>
+						<div class="container">
+							<div class="row">
+								<div class="col-md-2">
+									<a href="/"><button class="btn btn-primary btn-lg">Atras</button></a>
+								</div>
+								<div class='ml-auto'>
+									<a href="{{route ('crear_elemento_dinamico',["Conocimiento"])}}"><button id="boton_agregar" class="btn btn-primary btn-lg">Agregar</button></a>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
-				<div class="container">
-					<div class="row">
-						<div class="col-md-2">
-							<a href="/"><button class="btn btn-primary btn-lg">Atras</button></a>
-						</div>
-						<div class='ml-auto'>
-							<a href="{{route ('crear_elemento_dinamico',["Conocimiento"])}}"><button id="boton_agregar" class="btn btn-primary btn-lg">Agregar</button></a>
-						</div>
-					</div>
+				<div class="row d-flex justify-content-center">
+					{{ $evalConocimiento->appends(Request::except('conocimiento'))->render("pagination::bootstrap-4") }}
 				</div>
 			</div>
 		</div>

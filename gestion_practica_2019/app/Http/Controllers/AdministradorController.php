@@ -12,10 +12,28 @@ class AdministradorController extends Controller
         $this->middleware('auth');
         $this->middleware('is_administrador');
     }
-    public function lista()
+
+    public function lista(Request $request)
     {
         $administradores = Administrador::all();
-        return view('Mantenedores.Administradores.lista_administradores')->with("administradores", $administradores);
+        $contador = $administradores->count();
+
+        if ($request->nombre != null || $request->email != null || $request->rut != null || $request->cargo != null )
+        {
+            //-----Filtro-----//
+            $listaFiltrada= Administrador::filtrarAdministradores(
+                $request->get('nombre'),
+                $request->get('email'),
+                $request->get('rut'),
+                $request->get('cargo')
+            );
+            $contador = $listaFiltrada->count();  //mostrara la cantidad de resultados en la tabla filtrada
+            $listaFiltrada = $listaFiltrada->paginate(10);
+
+            return view('Mantenedores.Administradores.lista_administradores')->with('administradores',$listaFiltrada)->with('contador',$contador);
+        }
+        $administradores = $administradores->paginate(10);
+        return view('Mantenedores.Administradores.lista_administradores')->with("administradores", $administradores)->with('contador', $contador);
     }
 
     public function crear()
@@ -85,6 +103,7 @@ class AdministradorController extends Controller
             return redirect()->route('lista_administradores');
         }
     }
+
     public function borrarAdministrador($id_elemento)
     {
         $elemento_eliminar =  Administrador::find($id_elemento);

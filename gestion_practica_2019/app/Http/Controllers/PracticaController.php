@@ -3,7 +3,9 @@
 namespace SGPP\Http\Controllers;
 
 use Illuminate\Http\Request;
+use PhpParser\Node\Stmt\DeclareDeclare;
 use SGPP\Practica;
+use Illuminate\Support\Facades\DB;
 
 class PracticaController extends Controller
 {
@@ -13,14 +15,99 @@ class PracticaController extends Controller
 
     }
     //vista principal de un elemento en especifico
-    public function lista()
+    public function lista( Request $request)
     {
-        $lista= Practica::all();
+        $lista = DB::table('practicas')
+            ->join('alumnos', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
+            ->join('supervisores', 'practicas.id_supervisor', '=', 'supervisores.id_supervisor')
+            ->select('practicas.*', 'alumnos.rut', 'supervisores.email' )
+            ->get();
+
+        $listaNoInscritos =DB::table('practicas')
+            ->join('alumnos', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
+            ->leftJoin('supervisores', 'practicas.id_supervisor', '=', 'supervisores.id_supervisor')
+            ->where('practicas.f_inscripcion', '=', null)
+            ->select('practicas.*', 'alumnos.rut')
+            ->get();
+
+        $contadorNoInscritos = $listaNoInscritos->count();
+
+        if ($request->f_solicitud != null || $request->f_inscripcion != null || $request->asistenciaCharla || $request->rutAlumno != null || $request->emailSupervisor)
+        {
+            //-----Filtro-----//
+            $listaFiltrada= Practica::filtrarPracticasInscritas(
+                $request->get('f_solicitud'),
+                $request->get('f_inscripcion'),
+                $request->get('rutAlumno'),
+                $request->get('emailSupervisor')
+            );
+            $contador = $listaFiltrada->count();  //mostrara la cantidad de resultados en la tabla filtrada
+            $listaFiltrada = $listaFiltrada->paginateEspecial(10, null, null, "page1");
+            $listaNoInscritos = $listaNoInscritos->paginateEspecial(10, null, null, "page2");
+            return view('Mantenedores/Practicas/lista_practicas')
+                ->with('lista',$listaFiltrada)
+                ->with('contador',$contador)
+                ->with('listaNoInscritos',$listaNoInscritos)
+                ->with('contadorNoInscritos',$contadorNoInscritos);
+        }
+        $contador = $lista->count();
+        $lista = $lista->paginateEspecial(10, null, null, "page1");
+        $listaNoInscritos = $listaNoInscritos->paginateEspecial(10, null, null, "page2");
         return view('Mantenedores/Practicas/lista_practicas',[
                 'lista'=>$lista,
+                'contador'=>$contador,
+                'listaNoInscritos'=>$listaNoInscritos,
+                'contadorNoInscritos'=>$contadorNoInscritos,
             ]);
     }
-     public function crear()
+
+    public function listaNoInscritos( Request $request)
+    {
+        $lista = DB::table('practicas')
+            ->join('alumnos', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
+            ->join('supervisores', 'practicas.id_supervisor', '=', 'supervisores.id_supervisor')
+            ->select('practicas.*', 'alumnos.rut', 'supervisores.email' )
+            ->get();
+
+        $listaNoInscritos = DB::table('practicas')
+            ->join('alumnos', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
+            ->leftJoin('supervisores', 'practicas.id_supervisor', '=', 'supervisores.id_supervisor')
+            ->where('practicas.f_inscripcion', '=', null)
+            ->select('practicas.*', 'alumnos.rut', 'supervisores.email' )
+            ->get();
+
+        $contador = $lista->count();
+
+        if ($request->f_solicitud != null|| $request->rutAlumno != null)
+        {
+            //-----Filtro-----//
+            $listaFiltrada= Practica::filtrarPracticasNoInscritas(
+                $request->get('f_solicitud'),
+                $request->get('rutAlumno')
+            );
+            $contadorNoInscritos = $listaFiltrada->count();  //mostrara la cantidad de resultados en la tabla filtrada
+            $lista= $lista->paginateEspecial(10, null, null, "page1");
+            $listaFiltrada = $listaFiltrada->paginateEspecial(10, null, null, "page2");
+            return view('Mantenedores/Practicas/lista_practicas')
+                ->with('listaNoInscritos',$listaFiltrada)
+                ->with('contadorNoInscritos',$contadorNoInscritos)
+                ->with('lista', $lista)
+                ->with('contador',$contador);
+        }
+
+        $contadorNoInscritos = $listaNoInscritos->count();
+        $lista = $lista->paginateEspecial(10, null, null, "page1");
+        $listaNoInscritos = $listaNoInscritos->paginateEspecial(10, null, null, "page2");
+        return view('Mantenedores/Practicas/lista_practicas',[
+            'lista'=>$lista,
+            'contador'=>$contador,
+            'listaNoInscritos'=>$listaNoInscritos,
+            'contadorNoInscritos'=>$contadorNoInscritos,
+        ]);
+    }
+
+
+    public function crear()
     {
         return view('Mantenedores/Practicas/crear_practica');
     }

@@ -4,7 +4,13 @@ namespace SGPP\Http\Controllers;
 
 use Illuminate\Http\Request;
 use SGPP\Alumno;
+use SGPP\Autoevaluacion;
+use SGPP\Empresa;
+use SGPP\Solicitud;
+use SGPP\Supervisor;
 use SGPP\User;
+use SGPP\Practica;
+use Illuminate\Support\Facades\DB;
 
 class AlumnoController extends Controller
 {
@@ -12,18 +18,25 @@ class AlumnoController extends Controller
         $this->middleware('auth');
         $this->middleware('is_administrador');
     }
+
     //vista principal de un elemento en especifico
     public function lista(Request $request)
     {
         $lista= Alumno::filtrarYPaginar($request->get('buscador'),
-                                        $request->get('nombre'), 
+                                        $request->get('nombre'),
                                         $request->get('apellido_paterno'),
                                         $request->get('apellido_materno'),
+                                        $request->get('rut'),
                                         $request->get('email'),
                                         $request->get('anno_ingreso'),
-                                        $request->get('carrera')
-                                    );
-        return view('Mantenedores.Alumnos.lista_alumnos')->with("lista", $lista);
+                                        $request->get('carrera'));
+
+        $contador = $lista->count();
+        $lista = $lista->paginate(10);
+
+        return view('Mantenedores/Alumnos/lista_alumnos')
+            ->with("lista", $lista)
+            ->with('contador',$contador);
     }
 
     public function crear()
@@ -105,10 +118,81 @@ class AlumnoController extends Controller
             return redirect()->route('lista_alumnos');
         }
     }
+
     public function borrarAlumno($id_elemento){
         $elemento_eliminar =  Alumno::find($id_elemento);
         $usuario_eliminar = User::find($elemento_eliminar->id_user);
         $usuario_eliminar->delete();
         return redirect()->route('lista_alumnos');
     }
+
+    public function alumnosEnPractica(Request $request, $carrera)
+    {
+        //-----Alumnos de informatica-----//
+        $alumnosInformatica = DB::table('alumnos')
+            ->join('practicas', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
+            ->join('solicitudes', 'solicitudes.id_alumno', 'alumnos.id_alumno')
+            ->leftJoin('resoluciones', 'resoluciones.id_practica', 'practicas.id_practica')
+            ->leftJoin('autoevaluaciones', 'autoevaluaciones.id_practica', 'practicas.id_practica')
+            ->where('alumnos.carrera', '=', $carrera)
+            ->where('practicas.f_inscripcion', '!=', null)
+            ->where('resoluciones.resolucion_practica', '=', null)
+            ->select('alumnos.*', 'solicitudes.id_solicitud', 'autoevaluaciones.id_autoeval', 'practicas.f_inscripcion')
+            ->get();
+
+        //-----Si no se seleccionaron filtros solo entregamos la consulta de la base-----//
+        if ($request->nombre != null || $request->apellido_paterno != null || $request->rut != null || $request->email != null || $request->anno_ingreso != null )
+        {
+            //-----Filtro-----//
+            $listaFiltrada= Alumno::filtrarAlumnosEnPractica(
+                $request->get('nombre'),
+                $request->get('apellido_paterno'),
+                $request->get('rut'),
+                $request->get('email'),
+                $request->get('anno_ingreso'),
+                $carrera
+            );
+
+            $contador = $listaFiltrada->count();  //mostrara la cantidad de resultados en la tabla filtrada
+            $listaFiltrada = $listaFiltrada->paginate(10);
+
+            return view('Practicas/alumnos_en_practica')->with('lista',$listaFiltrada)
+                ->with('contador',$contador)
+                ->with('carrera', $carrera);
+        }
+        $contador = $alumnosInformatica->count(); //mostrara la cantidad de resultados en la tabla
+        $alumnosInformatica = $alumnosInformatica->paginate(10);
+        return view('Practicas/alumnos_en_practica')->with('lista',$alumnosInformatica)
+            ->with('contador', $contador)
+            ->with('carrera', $carrera);
+    }
+
+    public function mostrarSolicitudModal($id) //Mostrar el formulario del alumno
+    {
+        $solicitudes = Solicitud::where('id_alumno', $id)->first();
+
+        return view('Practicas/modales/modalSolicitud')->with('solicitudes',$solicitudes);
+    }
+
+    public function mostrarInscripcionModal($id) //Mostrar el formulario del alumno
+    {
+        $alumnos = Alumno::where('id_alumno', $id)->first();
+        $practicas = Practica::where('id_alumno', $alumnos->id_alumno)->first();
+        $supervisores = Supervisor::where('id_supervisor', $practicas->id_supervisor)->first();
+        $empresas = Empresa::where('id_empresa', $supervisores->id_empresa)->first();
+
+        return view('Practicas/modales/modalInscripcion')
+            ->with('alumnos',$alumnos)
+            ->with('practicas',$practicas)
+            ->with('supervisores',$supervisores)
+            ->with('empresas', $empresas);
+    }
+
+    public function mostrarAutoEvaluacionModal($id) //Mostrar el formulario del alumno
+    {
+        $autoEvaluacion = Autoevaluacion::where('id_practica', $id)->first();
+
+        return view('Practicas/modales/modalAutoEvaluacion')->with('formulario',$autoEvaluacion);
+    }
+
 }

@@ -32,4 +32,52 @@
             </div>
         </div>
     </div>
+    <div class="card-body">
+        <h4 class="card-header">Prácticas Inscritas</h4>
+        @if (count($practica)>0)
+            <div class="table-responsive text-center">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead class="bg-dark" style="color: white">
+                    <tr>
+                        <th class="text-truncate text-center">Fechas</th>
+                        <th class="text-truncate text-center">Periodo Práctica</th>
+                        <th class="text-truncate text-center">Supervisor</th>
+                        <th class="text-truncate text-center">Resolucion Práctica</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach ($practica as $practicas)
+                        <tr id="{{$practicas->id_practica}}">
+                            <td>
+                                <b> Solicitud:</b>{{date('d-m-Y', strtotime($practicas->f_solicitud))}}<br>
+                                <b> Inscripcion:</b>{{date('d-m-Y', strtotime($practicas->f_inscripcion))}}
+                            </td>
+                            <td >
+                                <b> Desde:</b> {{date('d-m-Y', strtotime($practicas->f_desde))}}<br>
+                                <b> Hasta:</b> {{date('d-m-Y', strtotime($practicas->f_hasta))}}
+                            </td>
+                            <td>
+                                {{$practicas->nombre}}
+                                {{$practicas->apellido_paterno}}<br>
+                                <b> Email :</b> {{$practicas->email}}
+                            </td>
+                            @if($practicas->resolucion_practica)
+                                @if($practicas->resolucion_practica == 1)
+                                    <td class="text-success">Aprobada</td>
+                                @else
+                                    <td class="text-danger">Reprobada</td>
+                                @endif
+                            @else
+                                <td>Practica no Evaluada</td>
+                            @endif
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+            </div>
+        @else
+            <p class="text-center">No se encontraron Practicas Inscritas</p>
+        @endif
+    </div>
+
 @endsection
