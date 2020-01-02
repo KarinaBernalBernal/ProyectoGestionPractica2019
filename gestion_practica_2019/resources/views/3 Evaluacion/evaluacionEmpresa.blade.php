@@ -36,6 +36,7 @@
                         <th class="text-truncate text-center">Nombre</th>
                         <th class="text-truncate text-center">Rut</th>
                         <th class="text-truncate text-center">Datos de contacto</th>
+                        <th class="text-truncate text-center">Periodo Práctica</th>
                         <th class="text-truncate text-center">Evaluacion</th>
                     </tr>
                     </thead>
@@ -53,14 +54,20 @@
                                 <b> Dirección :</b> {{$alumnos->direccion}}<br>
                                 <b> Fono :</b> {{$alumnos->fono}}
                             </td>
+                            <td>
+                                <b> Desde :</b> {{date('d-m-Y', strtotime($alumnos->f_desde))}}<br>
+                                <b> Hasta :</b> {{date('d-m-Y', strtotime($alumnos->f_hasta))}}
+                            </td>
                             <td class="text-center">
-
                                 @if($alumnos->f_entrega_eval)
                                     <a  href="" class='botonModalEvaluacion fa fa-check text-success' data-toggle="modal" data-form="{{ route('evaluacionModal',['id'=>$alumnos->id_alumno])}}" data-target="#modal-evaluacion"></a><br>
                                 @else
-                                    <a href="{{route('formularioEvaluacionEmpresa', ['id'=>$alumnos->id_alumno])}}" class="btn btn-secondary"> <span>Evaluar al alumno</span></a>
+                                    @if(!$alumnos->resolucion_practica)
+                                        <a href="{{route('formularioEvaluacionEmpresa', ['id'=>$alumnos->id_practica])}}" class="btn btn-secondary"> <span>Evaluar al alumno</span></a>
+                                    @else
+                                        <p class="text-danger">La Práctica del alumno ya fue evaluada</p>
+                                    @endif
                                 @endif
-
                             </td>
                         </tr>
                     @endforeach
@@ -70,6 +77,9 @@
         @else
             <p class="text-center">No se encontraron Alumnos</p>
         @endif
+    </div>
+    <<div class="row d-flex justify-content-center">
+        {{ $lista->appends(Request::except("page"))->render("pagination::bootstrap-4") }}
     </div>
 
     <div class="modal" id="modal-evaluacion"></div>

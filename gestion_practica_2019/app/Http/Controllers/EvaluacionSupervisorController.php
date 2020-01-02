@@ -26,16 +26,17 @@ class EvaluacionSupervisorController extends Controller
         $this->middleware('is_supervisor')->only('store');
     }
     
-    public function index()
+    public function index($id)
     {
   		$area = Area::all()->where('vigencia',"1");
         $actitud = EvalActitudinal::all()->where('vigencia',"1");
         $conocimiento = EvalConocimiento::all()->where('vigencia',"1");
-        
+
         return view('3 Evaluacion/formularioEvaluacionEmpresa',[
             'area'=>$area,
             'actitud'=>$actitud,
             'conocimiento'=>$conocimiento,
+            'idPractica'=>$id
         ]);
     }
 
@@ -49,10 +50,12 @@ class EvaluacionSupervisorController extends Controller
             ->join('practicas', 'practicas.id_alumno', '=','alumnos.id_alumno')
             ->join('supervisores', 'supervisores.id_supervisor', '=', 'practicas.id_supervisor')
             ->leftJoin('evaluaciones_supervisor', 'evaluaciones_supervisor.id_practica', 'practicas.id_practica')
+            ->leftJoin('resoluciones', 'resoluciones.id_practica', 'practicas.id_practica')
             ->where('practicas.id_supervisor', '=', $supervisores->id_supervisor)
-            ->select('alumnos.*', 'evaluaciones_supervisor.f_entrega_eval')
+            ->select('alumnos.*', 'evaluaciones_supervisor.f_entrega_eval', 'practicas.id_practica', 'practicas.f_desde', 'practicas.f_hasta','resoluciones.resolucion_practica' )
             ->get();
 
+        $alumnos = $alumnos->paginate(10);
         /*Se envian a todos los alumnos que corresponden al supervisor*/
         return view('3 Evaluacion/evaluacionEmpresa')->with('lista',$alumnos);
     }
@@ -141,18 +144,28 @@ class EvaluacionSupervisorController extends Controller
         return redirect()->route('lista_evaluaciones_supervisor');
     }
 
-    public function store(Request $request)
+    public function store(Request $request, $idPractica)
     {
         $fecha= date("Y-m-d H:i:s");
         $id = auth()->user()->id_user;
         $supervisores = Supervisor::where('id_user', $id)->first();
-        $practicas = Practica::where('id_supervisor', $supervisores->id_supervisor)->first();
+
+        $practicas = DB::table('practicas')
+            ->join('supervisores', 'supervisores.id_supervisor', '=', 'supervisores.id_supervisor')
+            ->leftJoin('resoluciones', 'resoluciones.id_practica', 'practicas.id_practica')
+            ->where('resoluciones.resolucion_practica', null)
+            ->where('practicas.id_practica', $idPractica)
+            ->where('supervisores.id_supervisor', $supervisores->id_supervisor)
+            ->select('practicas.*')
+            ->first();
+
         $evaluacionesSupervisor = EvaluacionSupervisor::create([
             'id_practica' => $practicas->id_practica,
             'f_entrega_eval' => $fecha,
             'porcent_tareas_realizadas' => $request->porcentaje,
             'resultado_eval' => $request->recomendacion
         ]);
+
         for($i = 0; $i<count($request->fortaleza,1); $i++)
         {
             Fortaleza::create([

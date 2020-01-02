@@ -16,6 +16,7 @@
                         </div>
                         <div class="col-2">
                             <input id="f_entrega" type="text" class="form-control" name="f_entrega" placeholder="Fecha Entrega">
+                            <label  class="font-italic">"yy-mm-dd"</label>
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-info"><span class="fa fa-search"></span></button>

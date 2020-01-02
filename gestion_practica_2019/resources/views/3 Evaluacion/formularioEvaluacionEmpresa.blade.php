@@ -4,8 +4,7 @@
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">FORMULARIO DE EVALUACIÓN DE EMPRESA</h1>
         </div>
-        
-        <form id="formularioEvaluacionEmpresa" action="{{route('agregarEvaluacionEmpresa')}}" enctype="multipart/form-data" method="POST" role="form">
+        <form id="formularioEvaluacionEmpresa" action="{{route('agregarEvaluacionEmpresa', [$idPractica])}}" enctype="multipart/form-data" method="POST" role="form">
             {{ csrf_field() }}
             <div class="card text">
                 <div class="card-body">

@@ -20,10 +20,13 @@
                         </div>
                         <div class="col-2">
                             {!! Form::text('f_inscripcion', null, ['class' => 'form-control', 'placeholder' => 'Fecha Inscripcion']) !!}
+                            <label  class="font-italic">"yy-mm-dd"</label>
                         </div>
-                        <button type="submit" class="btn btn-info form-group col-1">Buscar</button>
+                        <div class="col-1">
+                            <button type="submit" class="btn btn-info"><span class="fa fa-search"></span></button>
+                        </div>
+                        <div class="container-fluid ">Se encontraron {{ $contador }} Inscripciones</div>
                         {!! Form::close() !!}
-                        <p class="col-2">Hay {{ $contador }} Inscripciones</p>
                     </div>
                     <div class="card-body">
                         @if (count($alumnos)>0)
@@ -70,8 +73,8 @@
                 </div>
             </div>
         </div>
-        <div class="row d-flex justify-content-center">
-            {{ $alumnos->links() }}
+        <<div class="row d-flex justify-content-center">
+            {{ $alumnos->appends(Request::except("page"))->render("pagination::bootstrap-4") }}
         </div>
     </div>
 @endsection

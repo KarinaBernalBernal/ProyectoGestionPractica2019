@@ -26,6 +26,7 @@
                                 </div>
                                 <div class="col-2">
                                     <input id="f_inscripcion" type="text" class="form-control" name="f_inscripcion" placeholder="Inscripcion">
+                                    <label  class="font-italic">"yy-mm-dd"</label>
                                 </div>
                                 <div class="col-2">
                                     <input id="rutAlumno" type="text" class="form-control" name="rutAlumno" placeholder="Rut Alumno">

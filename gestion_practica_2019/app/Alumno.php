@@ -62,7 +62,7 @@ class Alumno extends Model
     {
         $alumnosFiltrados = DB::table('alumnos')
             ->join('practicas', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
-            ->join('solicitudes', 'solicitudes.id_alumno', 'alumnos.id_alumno')
+            //->join('solicitudes', 'solicitudes.id_alumno', 'alumnos.id_alumno')
             ->leftJoin('resoluciones', 'resoluciones.id_practica', '=', 'practicas.id_practica')
             ->leftJoin('autoevaluaciones', 'autoevaluaciones.id_practica', 'practicas.id_practica')
             ->where('practicas.f_inscripcion', '!=', null)
@@ -73,7 +73,7 @@ class Alumno extends Model
             ->where('alumnos.carrera', 'LIKE', '%'.$carrera. '%')
             ->where('alumnos.anno_ingreso', 'LIKE', '%'.$anno_ingreso . '%')
             ->where('alumnos.email', 'LIKE', '%'.$email . '%')
-            ->select('alumnos.*', 'solicitudes.id_solicitud', 'autoevaluaciones.id_autoeval', 'practicas.f_inscripcion')
+            ->select('alumnos.*', 'autoevaluaciones.id_autoeval', 'practicas.f_inscripcion')
             ->get();
 
         return $alumnosFiltrados;

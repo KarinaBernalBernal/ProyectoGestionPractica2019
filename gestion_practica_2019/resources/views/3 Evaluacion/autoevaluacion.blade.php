@@ -60,7 +60,11 @@
                                         <a  href="" class='botonModalAutoEvaluacion fa fa-file text-success' data-toggle="modal" data-form="{{ route('autoEvaluacionModal',['id'=>$autoevaluaciones->id_practica])}}" data-target="#modal-autoEvaluacion"></a><br>
                                     @else
                                         @if( $fechaActual >= $autoevaluaciones->f_hasta)
-                                            <a href="{{route('formularioAutoEvaluacion')}}" class="btn btn-secondary"> <span>Acceder al formulario</span></a>
+                                            @if(!$autoevaluaciones->resolucion_practica)
+                                                <a href="{{route('formularioAutoEvaluacion')}}" class="btn btn-secondary"> <span>Acceder al formulario</span></a>
+                                            @else
+                                                <span class="text-danger">No se puede completar, la práctica ya fue evaluada</span>
+                                            @endif
                                         @else
                                             <span>El periodo de tu Práctica aun no termina</span>
                                         @endif()
@@ -78,6 +82,4 @@
             <p class="text-center">No se encontraron Autoevaluaciones</p>
         @endif
     </div>
-
-
 @endsection

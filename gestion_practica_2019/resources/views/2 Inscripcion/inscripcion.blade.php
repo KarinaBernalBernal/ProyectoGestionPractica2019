@@ -21,12 +21,6 @@
                             </li>
                         </ul>
                         </p>
-
-                        <div class="form-group">
-                            <div class="row d-flex justify-content-center"> 
-                                <a href="{{route('formularioInscripcion')}}" class="btn btn-secondary"> <span>Acceder al formulario</span></a>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -43,6 +37,7 @@
                         <th class="text-truncate text-center">Periodo Práctica</th>
                         <th class="text-truncate text-center">Supervisor</th>
                         <th class="text-truncate text-center">Resolucion Práctica</th>
+                        <th class="text-truncate text-center">Formulario</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -50,16 +45,29 @@
                         <tr id="{{$practicas->id_practica}}">
                             <td>
                                 <b> Solicitud:</b>{{date('d-m-Y', strtotime($practicas->f_solicitud))}}<br>
-                                <b> Inscripcion:</b>{{date('d-m-Y', strtotime($practicas->f_inscripcion))}}
+                                @if($practicas->f_inscripcion)
+                                    <b> Inscripcion:</b>{{date('d-m-Y', strtotime($practicas->f_inscripcion))}}
+                                    @else
+                                        <b>Práctica no Inscrita</b>
+                                @endif
+
                             </td>
                             <td >
-                                <b> Desde:</b> {{date('d-m-Y', strtotime($practicas->f_desde))}}<br>
-                                <b> Hasta:</b> {{date('d-m-Y', strtotime($practicas->f_hasta))}}
+                                @if($practicas->f_desde && $practicas->f_hasta)
+                                    <b> Desde:</b> {{date('d-m-Y', strtotime($practicas->f_desde))}}<br>
+                                    <b> Hasta:</b> {{date('d-m-Y', strtotime($practicas->f_hasta))}}
+                                    @else
+                                        <b>Práctica no inscrita</b>
+                                @endif
                             </td>
                             <td>
+                                @if($practicas->nombre && $practicas->apellido_paterno && $practicas->email)
                                 {{$practicas->nombre}}
                                 {{$practicas->apellido_paterno}}<br>
-                                <b> Email :</b> {{$practicas->email}}
+                                {{$practicas->email}}
+                                    @else
+                                        <b>Supervisor no Inscrito</b>
+                                @endif
                             </td>
                             @if($practicas->resolucion_practica)
                                 @if($practicas->resolucion_practica == 1)
@@ -68,8 +76,19 @@
                                     <td class="text-danger">Reprobada</td>
                                 @endif
                             @else
-                                <td>Practica no Evaluada</td>
+                                <td>Práctica no Evaluada</td>
                             @endif
+                            <td>
+                                @if($practicas->f_inscripcion)
+                                    <b>Práctica Inscrita</b>
+                                    @else
+                                        @if(!$solicitud)
+                                        <a href="{{route('formularioInscripcion')}}" class="btn btn-secondary"> <span>Acceder al formulario</span></a>
+                                            @else
+                                        <b>El estado de tu solicitud es "Pendiente"</b>
+                                        @endif
+                                @endif
+                            </td>
                         </tr>
                     @endforeach
                     </tbody>

@@ -55,14 +55,6 @@
                                     </td>
                                     <td class="text-truncate text-center">{{$alumnos->anno_ingreso}}</td>
                                     <td>
-                                        <b> Solicitud :</b>
-
-                                        @if($alumnos->id_solicitud)
-                                            <a  href="" class='botonModalSolicitud fa fa-check text-success' data-toggle="modal" data-form="{{ route('solicitudModal',['id'=>$alumnos->id_alumno])}}" data-target="#modal-solicitud"></a> <br>
-                                        @else
-                                            <a class='fa fa-times text-danger'></a><br>
-                                        @endif
-
                                         <b> Inscripcion :</b>
 
                                         @if($alumnos->f_inscripcion)

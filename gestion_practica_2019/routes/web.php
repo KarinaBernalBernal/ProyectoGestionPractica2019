@@ -187,7 +187,7 @@ Route::get('/formularioAutoEvaluacion', 'AutoEvaluacionController@index')->name(
 Route::post('/agregarAutoEvaluacion', 'AutoEvaluacionController@store')->name('agregarAutoEvaluacion');
 Route::get('/descripcionEvaluacionEmpresa', 'EvaluacionSupervisorController@verDescripcionEvaluacionEmpresa')->name('descripcionEvaluacionEmpresa');
 Route::get('/formularioEvaluacionEmpresa/{id}', 'EvaluacionSupervisorController@index')->name('formularioEvaluacionEmpresa');
-Route::post('/agregarEvaluacionEmpresa', 'EvaluacionSupervisorController@store')->name('agregarEvaluacionEmpresa');
+Route::post('/agregarEvaluacionEmpresa/{idPractica}', 'EvaluacionSupervisorController@store')->name('agregarEvaluacionEmpresa');
 Route::get('/listaAutoevaluacion/{carrera}', 'AutoEvaluacionController@autoevaluacion')->name('listaAutoevaluacion');
 Route::get('/listaEvaluacionSupervisor/{carrera}', 'EvaluacionSupervisorController@listaEvaluacionSupervisor')->name('listaEvaluacionSupervisor');
 

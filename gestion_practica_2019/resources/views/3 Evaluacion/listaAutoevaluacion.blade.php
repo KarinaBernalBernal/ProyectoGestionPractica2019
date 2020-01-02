@@ -19,8 +19,11 @@
                 </div>
                 <div class="col-2">
                     {!! Form::text('f_entrega', null, ['class' => 'form-control', 'placeholder' => 'Fecha Entrega']) !!}
+                    <label  class="font-italic">"yy-mm-dd"</label>
                 </div>
-                <button type="submit" class="btn btn-info"><span class="fa fa-search"></span></button>
+                <div class="col-1">
+                    <button type="submit" class="btn btn-info"><span class="fa fa-search"></span></button>
+                </div>
                 <div class="container-fluid ">Se encontraron {{ $contador }} Autoevaluaciones</div>
                 {!! Form::close() !!}
             </div>

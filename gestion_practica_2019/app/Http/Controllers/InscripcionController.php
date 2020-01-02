@@ -2,6 +2,7 @@
 
 namespace SGPP\Http\Controllers;
 use Auth;
+use function Couchbase\defaultDecoder;
 use Illuminate\Http\Request;
 use SGPP\Alumno;
 use SGPP\DocSolicitado;
@@ -88,10 +89,28 @@ class InscripcionController extends Controller
         $fecha = date("Y-m-d");
         $usuario_id = Auth()->user()->id_user;
         $alumno = Alumno::where('id_user',$usuario_id)->first();
-        $solicitud = Solicitud::all()
-            ->where('rut', $alumno->rut)
-            ->where("carrera",$alumno->carrera)->first();
+
+        $solicitud = DB::table('solicitudes') //Me consigo la evaluacion que no
+            ->join('alumnos', 'alumnos.id_alumno', 'solicitudes.id_alumno')
+            ->join('practicas', 'practicas.id_alumno', 'alumnos.id_alumno')
+            ->leftJoin('resoluciones', 'resoluciones.id_practica', 'practicas.id_practica')
+            ->where('resoluciones.resolucion_practica', null)
+            ->where('alumnos.id_alumno', $alumno->id_alumno)
+            ->select('solicitudes.*')
+            ->first();
+
+        $practicaValida = DB::table('practicas')
+            ->join('alumnos', 'alumnos.id_alumno', 'practicas.id_alumno')
+            ->leftJoin('resoluciones', 'resoluciones.id_practica', 'practicas.id_practica')
+            ->where('resoluciones.resolucion_practica', null)
+            ->where('alumnos.id_alumno', $alumno->id_alumno)
+            ->select('practicas.*')
+            ->first();
+
+        $practica = Practica::where('id_practica', $practicaValida->id_practica)->first();
         $empresa = Empresa::where('rut',$request->rutEmpresa)->first();
+
+
         if($empresa == null)
         {
             Empresa::create([
@@ -130,7 +149,6 @@ class InscripcionController extends Controller
             $supervisor = Supervisor::where('email',$request->emailSupervisor)->first();
         }
 
-        $practica = Practica::where('id_alumno',$alumno->id_alumno)->first();
         if($practica == null) //Si el alumno no posee ninguna practica
         {
             Practica::create([
@@ -177,17 +195,26 @@ class InscripcionController extends Controller
 
         $practicas = DB::table('practicas')
             ->join('alumnos', 'alumnos.id_alumno', '=','practicas.id_alumno')
-            ->join('supervisores', 'supervisores.id_supervisor', '=', 'practicas.id_supervisor')
+            ->leftJoin('supervisores', 'supervisores.id_supervisor', '=', 'practicas.id_supervisor')
             ->leftJoin('resoluciones', 'resoluciones.id_practica', 'practicas.id_practica')
             ->where('practicas.id_alumno', '=', $alumnos->id_alumno)
             ->select('practicas.*', 'supervisores.nombre', 'supervisores.apellido_paterno', 'supervisores.email', 'resoluciones.resolucion_practica')
             ->get();
 
+        $solicitudPendiente = DB::table('solicitudes')
+            ->join('alumnos', 'alumnos.id_alumno', '=','solicitudes.id_alumno')
+            ->join('practicas', 'practicas.id_alumno', 'alumnos.id_alumno')
+            ->where('practicas.id_alumno', '=', $alumnos->id_alumno)
+            ->where('solicitudes.resolucion_solicitud', "Pendiente")
+            ->select('solicitudes.*')
+            ->first();
+
         //Se retornan las practicas asociadas al alumno, el supervisor asociado a cada practica y el estado de la practica
 
         return view('2 Inscripcion/inscripcion')
             ->with('practica', $practicas)
-            ->with('alumno', $alumnos);
+            ->with('alumno', $alumnos)
+            ->with('solicitud', $solicitudPendiente);
     }
 
     /* -------Listas de inscripcion -----*/

@@ -254,7 +254,7 @@
 
 
         // this is the id of the form
-        $("#formularioSolicitudd").submit(function(e) {
+        $("#formularioSolicitud").submit(function(e) {
 
             e.preventDefault(); // avoid to execute the actual submit of the form.
 

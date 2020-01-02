@@ -52,8 +52,9 @@ class AutoEvaluacionController extends Controller
         $autoevaluaciones = DB::table('practicas')
             ->join('alumnos', 'alumnos.id_alumno', '=', 'practicas.id_alumno')
             ->leftJoin('autoevaluaciones', 'autoevaluaciones.id_practica', 'practicas.id_practica')
+            ->leftJoin('resoluciones', 'resoluciones.id_practica', 'practicas.id_practica')
             ->where('alumnos.id_alumno', '=', $alumnos->id_alumno)
-            ->select('practicas.*', 'autoevaluaciones.*')
+            ->select('practicas.*', 'autoevaluaciones.*', 'resoluciones.resolucion_practica')
             ->get();
 
         $fechaActual = date("Y-m-d");

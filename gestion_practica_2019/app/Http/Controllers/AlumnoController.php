@@ -131,13 +131,13 @@ class AlumnoController extends Controller
         //-----Alumnos de informatica-----//
         $alumnosInformatica = DB::table('alumnos')
             ->join('practicas', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
-            ->join('solicitudes', 'solicitudes.id_alumno', 'alumnos.id_alumno')
+            //->join('solicitudes', 'solicitudes.id_alumno', 'alumnos.id_alumno')
             ->leftJoin('resoluciones', 'resoluciones.id_practica', 'practicas.id_practica')
             ->leftJoin('autoevaluaciones', 'autoevaluaciones.id_practica', 'practicas.id_practica')
             ->where('alumnos.carrera', '=', $carrera)
             ->where('practicas.f_inscripcion', '!=', null)
             ->where('resoluciones.resolucion_practica', '=', null)
-            ->select('alumnos.*', 'solicitudes.id_solicitud', 'autoevaluaciones.id_autoeval', 'practicas.f_inscripcion')
+            ->select('alumnos.*', 'autoevaluaciones.id_autoeval', 'practicas.f_inscripcion', 'resoluciones.resolucion_practica', 'practicas.id_practica')
             ->get();
 
         //-----Si no se seleccionaron filtros solo entregamos la consulta de la base-----//
