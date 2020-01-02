@@ -187,7 +187,7 @@
             chart: {
                 title: 'Comparativa de evaluaciones del supervisor, sección actitud del alumno',
                 subtitle: 'Ingeniería Civil Informática , Ingeniería de Ejecución Informática'
-            }
+            },
             legend: { position: 'bottom', alignment: 'end' },
             responsive: true,
         };
