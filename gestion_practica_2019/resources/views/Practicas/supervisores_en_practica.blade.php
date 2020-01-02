@@ -54,7 +54,7 @@
                                     <td>
                                         @if($supervisores->resultado_eval)
                                             <strong>{{ $supervisores->nombre_alumno}}  {{$supervisores->apellido_alumno}}: </strong>
-                                            <a href="" class='botonModalEvaluacion fa fa-check text-success' data-toggle="modal" data-form="{{ route('evaluacionModal',['id'=>$supervisores->id_eval_supervisor])}}" data-target="#modal-evaluacion"></a><br>
+                                            <a href="" class='botonModalEvaluacion fa fa-check text-success' data-toggle="modal" data-form="{{ route('evaluacionModalInformatica',['id'=>$supervisores->id_eval_supervisor])}}" data-target="#modal-evaluacion"></a><br>
                                         @else
                                             <strong>{{ $supervisores->nombre_alumno}}  {{$supervisores->apellido_alumno}}: </strong>
                                             <a class='fa fa-times text-danger'></a><br>
@@ -78,8 +78,6 @@
     <div class="modal" id="modal-evaluacion"></div>
 
 <script>
-    /*BOTON AUTO EVALUACION*/
-
     $(document).ready(function ()
     {
         //modal-autoEvaluacion

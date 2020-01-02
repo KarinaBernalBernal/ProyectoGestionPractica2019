@@ -220,46 +220,6 @@ class EvaluacionSupervisorController extends Controller
         }
         return redirect()->route('descripcionEvaluacionEmpresa');
     }
-    
-    public function mostrarEvaluacionModal($id)
-    {
-        $evaluacion = EvaluacionSupervisor::where('id_eval_supervisor', $id)->first();
-
-        $fortalezas = DB::table('evaluaciones_supervisor')
-            ->join('fortalezas', 'fortalezas.id_eval_supervisor', 'evaluaciones_supervisor.id_eval_supervisor')
-            ->where('evaluaciones_supervisor.id_eval_supervisor', $id)
-            ->select('fortalezas.*')
-            ->get();
-        $debilidades = DB::table('evaluaciones_supervisor')
-            ->join('debilidades', 'debilidades.id_eval_supervisor', 'evaluaciones_supervisor.id_eval_supervisor')
-            ->where('evaluaciones_supervisor.id_eval_supervisor', $id)
-            ->select('debilidades.*')
-            ->get();
-        $areasevaluacion = DB::table('area_evaluacion')
-            ->join('areas', 'areas.id_area', 'area_evaluacion.id_area')
-            ->where('area_evaluacion.id_eval_supervisor', $id)
-            ->select('areas.*')
-            ->get();
-        $evalActEmpresas = DB::table('eval_act_emp_practica')
-            ->join('eval_actitudinales', 'eval_actitudinales.id_actitudinal', 'eval_act_emp_practica.id_actitudinal')
-            ->where('eval_act_emp_practica.id_eval_supervisor', $id)
-            ->select('eval_actitudinales.*', 'eval_act_emp_practica.valor_act_emp_practica')
-            ->get();
-        $evalConEmpresas = DB::table('eval_con_emp_practicas')
-            ->join('eval_conocimientos', 'eval_conocimientos.id_conocimiento', 'eval_con_emp_practicas.id_conocimiento')
-            ->where('eval_con_emp_practicas.id_eval_supervisor', $id)
-            ->select('eval_conocimientos.*', 'eval_con_emp_practicas.valor_con_emp_practica')
-            ->get();
-
-        return view('Practicas/modales/modalEvaluacion')
-            ->with('fortalezas',$fortalezas)
-            ->with('debilidades',$debilidades)
-            ->with('areasevaluacion',$areasevaluacion)
-            ->with('evalActEmpresas',$evalActEmpresas)
-            ->with('evalConEmpresas',$evalConEmpresas)
-            ->with('evaluacion',$evaluacion);
-
-    }
     public function listaEvaluacionSupervisor(Request $request, $carrera)
     {
         //-----Supervisores de informatica-----//
