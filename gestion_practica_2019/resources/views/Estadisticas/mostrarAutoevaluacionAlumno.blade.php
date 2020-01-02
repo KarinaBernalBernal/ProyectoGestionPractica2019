@@ -304,14 +304,14 @@
                                                 </thead>
                                                 <tbody>
                                                     <tr class='text-center'>
-                                                        <th>Promedio general</th>
+                                                        <th>Evaluación del supervisor</th>
                                                         @foreach($evalActPractica as $evalActPract)
                                                             <th style=" font-weight: normal;"> {{ $evalActPract->valor_act_practica }} </th>
                                                         @endforeach
                                                         
                                                     </tr >
                                                     <tr class='text-center'>
-                                                        <th>Evaluación del supervisor</th>
+                                                        <th>Promedio general</th>
                                                         @foreach($evalActPractica as $evalActPract)
                                                             <th style=" font-weight: normal;"> {{ $evalActPromG[($evalActPract->id_actitudinal)-1] }} </th>
                                                         @endforeach
@@ -350,14 +350,14 @@
                                                 </thead>
                                                 <tbody>
                                                     <tr class='text-center'>
-                                                        <th>Promedio general</th>
+                                                        <th>Evaluación del supervisor</th>
                                                         @foreach($evalConPractica as $evalConPract)
                                                             <th style=" font-weight: normal;"> {{ $evalConPract->valor_con_practica }} </th>
                                                         @endforeach
                                                         
                                                     </tr >
                                                     <tr class='text-center'>
-                                                        <th>Evaluación del supervisor</th>
+                                                        <th>Promedio general</th>
                                                         @foreach($evalConPractica as $evalConPract)
                                                             <th style=" font-weight: normal;"> {{ $evalConPromG[($evalConPract->id_conocimiento)-1] }} </th>
                                                         @endforeach
@@ -399,7 +399,7 @@
 
     function drawChart() {
         var data_EvalActPractica = google.visualization.arrayToDataTable([
-            ['Actitud del Alumno','Respuesta alumno','Promedio General'],
+            ['Actitud del alumno','Respuesta alumno','Promedio General'],
             <?php  
                 foreach($evalActPractica as $evalActPract){
                     if ($evalActitudinales[($evalActPract->id_actitudinal)-1]->id_actitudinal == $evalActPract->id_actitudinal){  
@@ -413,8 +413,8 @@
         
         var options1 = {
             chart: {
-                title:  'Comparativa actitud del alumno en la Autoevaluación',
-                subtitle: 'Escuela de Ingeniería en Informática'
+                title: 'Comparativa de autoevaluaciones, sección actitud del alumno',
+                subtitle: 'Respuesta alumno, Promedio general carrera',
             },
             legend: { position: 'bottom', alignment: 'end' },
             responsive: true,
@@ -432,12 +432,12 @@
 
     function drawChart2() {
         var data_EvalConPractica = google.visualization.arrayToDataTable([
-            ['Conocimiento del Alumno','Respuesta alumno','Promedio General'],
+            ['Conocimiento del alumno','Respuesta alumno','Promedio general'],
             <?php  
                 foreach($evalConPractica as $evalConPract){
                     if ($evalConocimientos[($evalConPract->id_conocimiento)-1]->id_conocimiento == $evalConPract->id_conocimiento){
             ?>
-                            ['<?php echo $evalConocimientos[($evalConPract->id_conocimiento)-1]->n_con; ?>', <?php echo intval($evalConPract->valor_con_practica); ?> , <?php echo $evalConPromG[($evalConPract->id_conocimiento)-1];?> ],
+                        ['<?php echo $evalConocimientos[($evalConPract->id_conocimiento)-1]->n_con; ?>', <?php echo intval($evalConPract->valor_con_practica); ?> , <?php echo $evalConPromG[($evalConPract->id_conocimiento)-1];?> ],
             <?php
                     }
                 }
@@ -447,8 +447,8 @@
         
         var options2 = {
             chart: {
-                title: 'Escuela de Ingeniería en Informática',
-                subtitle: 'Autoevaluación, Conocimiento del Alumno',
+                title: 'Comparativa de autoevaluaciones, sección conocimiento del alumno',
+                subtitle: 'Respuesta alumno, Promedio general carrera',
             },
             legend: { position: 'bottom', alignment: 'end' },
             responsive: true,

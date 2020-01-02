@@ -75,7 +75,7 @@
                         </thead>
                         <tbody>
                             <tr class='text-center'>
-                                <th>Ingeniería Civil Infornática</th>
+                                <th>Ingeniería Civil Informática</th>
                                 @foreach($evalConocimientos as $evalConocimiento)
                                     <th style=" font-weight: normal;"> {{ $evalConCivilPromG[($evalConocimiento->id_conocimiento)-1] }} </th>
                                 @endforeach
@@ -129,8 +129,8 @@
 
         var options = {
             chart: {
-                title: 'Evaluación del supervisor, <?php echo $desde ?>',
-                subtitle: 'Escuela de Ingeniería en Informática',
+                title: 'Comparativa de evaluaciones del supervisor <?php echo $desde ?>, sección actitud del alumno',
+                subtitle: 'Ingeniería Civil Informática , Ingeniería de Ejecución Informática'
             },
             legend: { position: 'bottom', alignment: 'end' },
             responsive: true,
@@ -164,8 +164,8 @@
 
         var options = {
             chart: {
-                title: 'Evaluación del supervisor, <?php echo $desde ?>',
-                subtitle: 'Escuela de Ingeniería en Informática',
+                title: 'Comparativa de evaluaciones del supervisor <?php echo $desde ?>, sección conocimiento del alumno',
+                subtitle: 'Ingeniería Civil Informática , Ingeniería de Ejecución Informática'
             },
             legend: { position: 'bottom', alignment: 'end' },
             responsive: true,
@@ -195,8 +195,8 @@
 
         var options = {
             chart: {
-                title: 'Company Performance',
-                subtitle: 'Sales, Expenses, and Profit: 2014-2017',
+                title: 'Comparativa de evaluaciones del supervisor <?php echo $desde ?>, sección áreas',
+                subtitle: 'Ingeniería Civil Informática , Ingeniería de Ejecución Informática'
             },
             bars: 'horizontal', // Required for Material Bar Charts.
             legend: { position: 'bottom', alignment: 'end' },

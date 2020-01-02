@@ -87,14 +87,14 @@ class EstadisticaController extends Controller
         $evaluacionSupervisor = EvaluacionSupervisor::where('id_practica',$id)->first();
         
         if($autoevaluacion != null && $evaluacionSupervisor != null ){
-            $evalActPractica = EvalActPractica::orderby('id_actitudinal', 'ASC')->where('id_autoeval',$autoevaluacion->id_autoeval)->paginate(12);
-            $evalConPractica = EvalConPractica::orderby('id_conocimiento', 'ASC')->where('id_autoeval',$autoevaluacion->id_autoeval)->paginate(12);
+            $evalActPractica = EvalActPractica::orderby('id_actitudinal', 'ASC')->where('id_autoeval',$autoevaluacion->id_autoeval)->get();
+            $evalConPractica = EvalConPractica::orderby('id_conocimiento', 'ASC')->where('id_autoeval',$autoevaluacion->id_autoeval)->get();
 
-            $evalActEmpPractica = EvalActEmpPractica::orderby('id_actitudinal', 'ASC')->where('id_eval_supervisor',$evaluacionSupervisor->id_eval_supervisor)->paginate(12);
-            $evalConEmpPractica = EvalConEmpPractica::orderby('id_conocimiento', 'ASC')->where('id_eval_supervisor',$evaluacionSupervisor->id_eval_supervisor)->paginate(12);
+            $evalActEmpPractica = EvalActEmpPractica::orderby('id_actitudinal', 'ASC')->where('id_eval_supervisor',$evaluacionSupervisor->id_eval_supervisor)->get();
+            $evalConEmpPractica = EvalConEmpPractica::orderby('id_conocimiento', 'ASC')->where('id_eval_supervisor',$evaluacionSupervisor->id_eval_supervisor)->get();
 
-            $evalActitudinales = EvalActitudinal::orderby('id_actitudinal', 'ASC')->paginate(12);
-            $evalConocimientos = EvalConocimiento::orderby('id_conocimiento', 'ASC')->paginate(12);
+            $evalActitudinales = EvalActitudinal::orderby('id_actitudinal', 'ASC')->get();
+            $evalConocimientos = EvalConocimiento::orderby('id_conocimiento', 'ASC')->get();
             
             $evalConPractica->toArray();
             $evalActPractica->toArray();
@@ -121,21 +121,20 @@ class EstadisticaController extends Controller
         
         if($autoevaluacion != null){
             $desempeño = Desempenno::where('id_autoeval',$autoevaluacion->id_autoeval)->first();
-            $tareas = Tarea::where('id_autoeval',$autoevaluacion->id_autoeval)->paginate(12);
-            $habilidades = Habilidad::where('id_autoeval',$autoevaluacion->id_autoeval)->paginate(12);
-            $conocimientos = Conocimiento::where('id_autoeval',$autoevaluacion->id_autoeval)->paginate(12);
+            $tareas = Tarea::where('id_autoeval',$autoevaluacion->id_autoeval)->get();
+            $habilidades = Habilidad::where('id_autoeval',$autoevaluacion->id_autoeval)->get();
+            $conocimientos = Conocimiento::where('id_autoeval',$autoevaluacion->id_autoeval)->get();
             
-            $herramientaPracticas = HerramientaPractica::where('id_autoeval',$autoevaluacion->id_autoeval)->paginate(12);
-            $areaAutoevals = AreaAutoeval::where('id_autoeval',$autoevaluacion->id_autoeval)->paginate(12);
+            $herramientaPracticas = HerramientaPractica::where('id_autoeval',$autoevaluacion->id_autoeval)->get();
+            $areaAutoevals = AreaAutoeval::where('id_autoeval',$autoevaluacion->id_autoeval)->get();
 
-            $herramientas = Herramienta::orderby('id_herramienta', 'DESC')->paginate(12);
-            $areas = Area::orderby('id_area', 'DESC')->paginate(12);
+            $herramientas = Herramienta::orderby('id_herramienta', 'DESC')->get();
+            $areas = Area::orderby('id_area', 'DESC')->get();
 
-            $evalActPractica = EvalActPractica::orderby('id_actitudinal', 'ASC')->where('id_autoeval',$autoevaluacion->id_autoeval)->paginate(12);
-            $evalConPractica = EvalConPractica::orderby('id_conocimiento', 'ASC')->where('id_autoeval',$autoevaluacion->id_autoeval)->paginate(12);
-
-            $evalActitudinales = EvalActitudinal::orderby('id_actitudinal', 'ASC')->paginate(12);
-            $evalConocimientos = EvalConocimiento::orderby('id_conocimiento', 'ASC')->paginate(12);
+            $evalActPractica = EvalActPractica::orderby('id_actitudinal', 'ASC')->where('id_autoeval',$autoevaluacion->id_autoeval)->get();
+            $evalConPractica = EvalConPractica::orderby('id_conocimiento', 'ASC')->where('id_autoeval',$autoevaluacion->id_autoeval)->get();
+            $evalActitudinales = EvalActitudinal::orderby('id_actitudinal', 'ASC')->get();
+            $evalConocimientos = EvalConocimiento::orderby('id_conocimiento', 'ASC')->get();
 
             $evalActitudinales->toArray();
             $evalConocimientos->toArray();
@@ -167,16 +166,16 @@ class EstadisticaController extends Controller
         $evaluacionSupervisor = EvaluacionSupervisor::where('id_practica',$id)->first();
         
         if($evaluacionSupervisor != null){
-            $fortalezas = Fortaleza::where('id_eval_supervisor',$evaluacionSupervisor->id_eval_supervisor)->paginate(12);
-            $debilidades = Debilidad::where('id_eval_supervisor',$evaluacionSupervisor->id_eval_supervisor)->paginate(12);
-            $areaEvals = AreaEvaluacion::where('id_eval_supervisor',$evaluacionSupervisor->id_eval_supervisor)->paginate(12);
-            $areas = Area::orderby('id_area', 'DESC')->paginate(12);
+            $fortalezas = Fortaleza::where('id_eval_supervisor',$evaluacionSupervisor->id_eval_supervisor)->get();
+            $debilidades = Debilidad::where('id_eval_supervisor',$evaluacionSupervisor->id_eval_supervisor)->get();
+            $areaEvals = AreaEvaluacion::where('id_eval_supervisor',$evaluacionSupervisor->id_eval_supervisor)->get();
+            $areas = Area::orderby('id_area', 'DESC')->get();
 
-            $evalActPractica = EvalActEmpPractica::orderby('id_actitudinal', 'ASC')->where('id_eval_supervisor',$evaluacionSupervisor->id_eval_supervisor)->paginate(12);
-            $evalConPractica = EvalConEmpPractica::orderby('id_conocimiento', 'ASC')->where('id_eval_supervisor',$evaluacionSupervisor->id_eval_supervisor)->paginate(12);
+            $evalActPractica = EvalActEmpPractica::orderby('id_actitudinal', 'ASC')->where('id_eval_supervisor',$evaluacionSupervisor->id_eval_supervisor)->get();
+            $evalConPractica = EvalConEmpPractica::orderby('id_conocimiento', 'ASC')->where('id_eval_supervisor',$evaluacionSupervisor->id_eval_supervisor)->get();
 
-            $evalActitudinales = EvalActitudinal::orderby('id_actitudinal', 'ASC')->paginate(12);
-            $evalConocimientos = EvalConocimiento::orderby('id_conocimiento', 'ASC')->paginate(12);
+            $evalActitudinales = EvalActitudinal::orderby('id_actitudinal', 'ASC')->get();
+            $evalConocimientos = EvalConocimiento::orderby('id_conocimiento', 'ASC')->get();
 
             $evalActitudinales->toArray();
             $evalActPractica->toArray();
@@ -251,7 +250,7 @@ class EstadisticaController extends Controller
     public function verEstadisticaGeneral(){
         $fechas = Practica::join('alumnos', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
                     ->join('resoluciones','practicas.id_practica','=','resoluciones.id_practica')
-                    ->where('resoluciones.resolucion_practica',2)
+                    ->where('resoluciones.resolucion_practica',1)
                     ->select('resoluciones.f_resolucion')
                     ->get();
         $arrayFechas = array();
@@ -277,10 +276,10 @@ class EstadisticaController extends Controller
 
     public function verEstadisticaCriteriosAutoeval(){
 
-        $evalActitudinales = EvalActitudinal::orderby('id_actitudinal', 'ASC')->paginate(12);
-        $evalConocimientos = EvalConocimiento::orderby('id_conocimiento', 'ASC')->paginate(12);
-        $areas = Area::orderby('id_area', 'ASC')->where('areas.vigencia', 1)->paginate(12);
-        $herramientas = Herramienta::orderby('id_herramienta', 'ASC')->where('herramientas.vigencia', 1)->paginate(12);
+        $evalActitudinales = EvalActitudinal::orderby('id_actitudinal', 'ASC')->get();
+        $evalConocimientos = EvalConocimiento::orderby('id_conocimiento', 'ASC')->get();
+        $areas = Area::orderby('id_area', 'ASC')->where('areas.vigencia', 1)->get();
+        $herramientas = Herramienta::orderby('id_herramienta', 'ASC')->where('herramientas.vigencia', 1)->get();
         
         $evalActitudinales->toArray();
         $evalConocimientos->toArray();
@@ -308,9 +307,9 @@ class EstadisticaController extends Controller
 
     public function verEstadisticaCriteriosEvalSupervisor(){
 
-        $evalActitudinales = EvalActitudinal::orderby('id_actitudinal', 'ASC')->paginate(12);
-        $evalConocimientos = EvalConocimiento::orderby('id_conocimiento', 'ASC')->paginate(12);
-        $areas = Area::orderby('id_area', 'ASC')->where('areas.vigencia', 1)->paginate(12);        
+        $evalActitudinales = EvalActitudinal::orderby('id_actitudinal', 'ASC')->get();
+        $evalConocimientos = EvalConocimiento::orderby('id_conocimiento', 'ASC')->get();
+        $areas = Area::orderby('id_area', 'ASC')->where('areas.vigencia', 1)->get();
 
         $evalActitudinales->toArray();
         $evalConocimientos->toArray();
@@ -336,10 +335,10 @@ class EstadisticaController extends Controller
     //-------------------------------------------- Busquedas -------------------------------------//
 
     public function busquedaAutoeval(Request $request){
-        $evalActitudinales = EvalActitudinal::orderby('id_actitudinal', 'ASC')->paginate(12);
-        $evalConocimientos = EvalConocimiento::orderby('id_conocimiento', 'ASC')->paginate(12);
-        $areas = Area::orderby('id_area', 'ASC')->where('areas.vigencia', 1)->paginate(12);
-        $herramientas = Herramienta::orderby('id_herramienta', 'ASC')->where('herramientas.vigencia', 1)->paginate(12);
+        $evalActitudinales = EvalActitudinal::orderby('id_actitudinal', 'ASC')->get();
+        $evalConocimientos = EvalConocimiento::orderby('id_conocimiento', 'ASC')->get();
+        $areas = Area::orderby('id_area', 'ASC')->where('areas.vigencia', 1)->get();
+        $herramientas = Herramienta::orderby('id_herramienta', 'ASC')->where('herramientas.vigencia', 1)->get();
         
         $evalActitudinales->toArray();
         $evalConocimientos->toArray();
@@ -392,9 +391,9 @@ class EstadisticaController extends Controller
     }
 
     public function busquedaEvalSup(Request $request){
-        $evalActitudinales = EvalActitudinal::orderby('id_actitudinal', 'ASC')->paginate(12);
-        $evalConocimientos = EvalConocimiento::orderby('id_conocimiento', 'ASC')->paginate(12);
-        $areas = Area::orderby('id_area', 'ASC')->where('areas.vigencia', 1)->paginate(12);
+        $evalActitudinales = EvalActitudinal::orderby('id_actitudinal', 'ASC')->get();
+        $evalConocimientos = EvalConocimiento::orderby('id_conocimiento', 'ASC')->get();
+        $areas = Area::orderby('id_area', 'ASC')->where('areas.vigencia', 1)->get();
         
         $evalActitudinales->toArray();
         $evalConocimientos->toArray();
@@ -441,7 +440,7 @@ class EstadisticaController extends Controller
 public function totalPracticantes($arrayFechas ,$carrera){
         $fechas = Practica::join('alumnos', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
                                 ->join('resoluciones','practicas.id_practica','=','resoluciones.id_practica')
-                                ->where('resoluciones.resolucion_practica',2)
+                                ->where('resoluciones.resolucion_practica',1)
                                 ->where('alumnos.carrera',$carrera)
                                 ->select('resoluciones.f_resolucion')
                                 ->get();
@@ -466,7 +465,7 @@ public function totalPracticantes($arrayFechas ,$carrera){
                                 ->join('practicas', 'autoevaluaciones.id_practica', '=', 'practicas.id_practica')
                                 ->join('alumnos', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
                                 ->join('resoluciones','practicas.id_practica','=','resoluciones.id_practica')
-                                ->where('resoluciones.resolucion_practica',2)
+                                ->where('resoluciones.resolucion_practica',1)
                                 ->where('alumnos.carrera',$carrera)
                                 ->select('eval_act_practicas.*')
                                 ->get();
@@ -497,7 +496,7 @@ public function totalPracticantes($arrayFechas ,$carrera){
                                 ->join('practicas', 'autoevaluaciones.id_practica', '=', 'practicas.id_practica')
                                 ->join('alumnos', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
                                 ->join('resoluciones','practicas.id_practica','=','resoluciones.id_practica')
-                                ->where('resoluciones.resolucion_practica',2)
+                                ->where('resoluciones.resolucion_practica',1)
                                 ->where('alumnos.carrera',$carrera)
                                 ->select('eval_con_practicas.*')
                                 ->get();
@@ -527,7 +526,7 @@ public function totalPracticantes($arrayFechas ,$carrera){
                                                 ->join('practicas', 'evaluaciones_supervisor.id_practica', '=', 'practicas.id_practica')
                                                 ->join('alumnos', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
                                                 ->join('resoluciones','practicas.id_practica','=','resoluciones.id_practica')
-                                                ->where('resoluciones.resolucion_practica',2)
+                                                ->where('resoluciones.resolucion_practica',1)
                                                 ->where('alumnos.carrera',$carrera)
                                                 ->select('eval_act_emp_practica.*')
                                                 ->get();
@@ -557,7 +556,7 @@ public function totalPracticantes($arrayFechas ,$carrera){
                                                 ->join('practicas', 'evaluaciones_supervisor.id_practica', '=', 'practicas.id_practica')
                                                 ->join('alumnos', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
                                                 ->join('resoluciones','practicas.id_practica','=','resoluciones.id_practica')
-                                                ->where('resoluciones.resolucion_practica',2)
+                                                ->where('resoluciones.resolucion_practica',1)
                                                 ->where('alumnos.carrera',$carrera)
                                                 ->select('eval_con_emp_practicas.*')
                                                 ->get();
@@ -582,13 +581,13 @@ public function totalPracticantes($arrayFechas ,$carrera){
 
     public function calcularHerramAutoevalPromG($herramientas, $carrera){
         $herramientasPromG = array_fill(0, sizeof($herramientas), 0);
-        
+
         $herramientasPracticas = HerramientaPractica::join('autoevaluaciones', 'herramientas_practica.id_autoeval', '=', 'autoevaluaciones.id_autoeval')
                                 ->join('practicas', 'autoevaluaciones.id_practica', '=', 'practicas.id_practica')
                                 ->join('alumnos', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
                                 ->join('herramientas','herramientas_practica.id_herramienta', '=', 'herramientas.id_herramienta')
                                 ->join('resoluciones','practicas.id_practica','=','resoluciones.id_practica')
-                                ->where('resoluciones.resolucion_practica',2)
+                                ->where('resoluciones.resolucion_practica',1)
                                 ->where('alumnos.carrera',$carrera)
                                 ->where('herramientas.vigencia', 1)
                                 ->select('herramientas_practica.*')
@@ -602,21 +601,22 @@ public function totalPracticantes($arrayFechas ,$carrera){
 
     public function calcularAreasAutoevalPromG($areas, $carrera){
         $areasPromG = array_fill(0, sizeof($areas), 0);
-        
+
         $areasAutoevals = AreaAutoeval::join('autoevaluaciones', 'areas_autoeval.id_autoeval', '=', 'autoevaluaciones.id_autoeval')
                                 ->join('practicas', 'autoevaluaciones.id_practica', '=', 'practicas.id_practica')
                                 ->join('alumnos', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
                                 ->join('areas','areas_autoeval.id_area', '=', 'areas.id_area')
                                 ->join('resoluciones','practicas.id_practica','=','resoluciones.id_practica')
-                                ->where('resoluciones.resolucion_practica',2)
+                                ->where('resoluciones.resolucion_practica',1)
                                 ->where('alumnos.carrera',$carrera)
                                 ->where('areas.vigencia', 1)
                                 ->select('areas_autoeval.*')
                                 ->get();
 
         foreach($areasAutoevals as $areasAutoeval){
-            $areasPromG[($areasAutoeval->id_area) -1] += 1;
+            $areasPromG[($areasAutoeval->id_area) -1]=+1;
         }
+        
         return $areasPromG;
     }
 
@@ -628,7 +628,7 @@ public function totalPracticantes($arrayFechas ,$carrera){
                                 ->join('alumnos', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
                                 ->join('areas','area_evaluacion.id_area', '=', 'areas.id_area')
                                 ->join('resoluciones','practicas.id_practica','=','resoluciones.id_practica')
-                                ->where('resoluciones.resolucion_practica',2)
+                                ->where('resoluciones.resolucion_practica',1)
                                 ->where('alumnos.carrera',$carrera)
                                 ->where('areas.vigencia', 1)
                                 ->select('area_evaluacion.*')
@@ -649,7 +649,7 @@ public function totalPracticantes($arrayFechas ,$carrera){
                                 ->join('practicas', 'autoevaluaciones.id_practica', '=', 'practicas.id_practica')
                                 ->join('alumnos', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
                                 ->join('resoluciones','practicas.id_practica','=','resoluciones.id_practica')
-                                ->where('resoluciones.resolucion_practica',2)
+                                ->where('resoluciones.resolucion_practica',1)
                                 ->where('alumnos.carrera',$carrera)
                                 ->select('eval_act_practicas.*','resoluciones.f_resolucion')
                                 ->get();
@@ -683,7 +683,7 @@ public function totalPracticantes($arrayFechas ,$carrera){
                                 ->join('practicas', 'autoevaluaciones.id_practica', '=', 'practicas.id_practica')
                                 ->join('alumnos', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
                                 ->join('resoluciones','practicas.id_practica','=','resoluciones.id_practica')
-                                ->where('resoluciones.resolucion_practica',2)
+                                ->where('resoluciones.resolucion_practica',1)
                                 ->where('alumnos.carrera',$carrera)
                                 ->select('eval_con_practicas.*','resoluciones.f_resolucion')
                                 ->get();
@@ -717,7 +717,7 @@ public function totalPracticantes($arrayFechas ,$carrera){
                                 ->join('practicas', 'evaluaciones_supervisor.id_practica', '=', 'practicas.id_practica')
                                 ->join('alumnos', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
                                 ->join('resoluciones','practicas.id_practica','=','resoluciones.id_practica')
-                                ->where('resoluciones.resolucion_practica',2)
+                                ->where('resoluciones.resolucion_practica',1)
                                 ->where('alumnos.carrera',$carrera)
                                 ->select('eval_act_emp_practica.*','resoluciones.f_resolucion')
                                 ->get();
@@ -751,7 +751,7 @@ public function totalPracticantes($arrayFechas ,$carrera){
                                 ->join('practicas', 'evaluaciones_supervisor.id_practica', '=', 'practicas.id_practica')
                                 ->join('alumnos', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
                                 ->join('resoluciones','practicas.id_practica','=','resoluciones.id_practica')
-                                ->where('resoluciones.resolucion_practica',2)
+                                ->where('resoluciones.resolucion_practica',1)
                                 ->where('alumnos.carrera',$carrera)
                                 ->select('eval_con_emp_practicas.*','resoluciones.f_resolucion')
                                 ->get();
@@ -785,7 +785,7 @@ public function totalPracticantes($arrayFechas ,$carrera){
                                 ->join('alumnos', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
                                 ->join('herramientas','herramientas_practica.id_herramienta', '=', 'herramientas.id_herramienta')
                                 ->join('resoluciones','practicas.id_practica','=','resoluciones.id_practica')
-                                ->where('resoluciones.resolucion_practica',2)
+                                ->where('resoluciones.resolucion_practica',1)
                                 ->where('alumnos.carrera',$carrera)
                                 ->where('herramientas.vigencia', 1)
                                 ->select('herramientas_practica.*','resoluciones.f_resolucion')
@@ -808,7 +808,7 @@ public function totalPracticantes($arrayFechas ,$carrera){
                                 ->join('alumnos', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
                                 ->join('areas','areas_autoeval.id_area', '=', 'areas.id_area')
                                 ->join('resoluciones','practicas.id_practica','=','resoluciones.id_practica')
-                                ->where('resoluciones.resolucion_practica',2)
+                                ->where('resoluciones.resolucion_practica',1)
                                 ->where('alumnos.carrera',$carrera)
                                 ->where('areas.vigencia', 1)
                                 ->select('areas_autoeval.*','resoluciones.f_resolucion')
@@ -831,7 +831,7 @@ public function totalPracticantes($arrayFechas ,$carrera){
                                 ->join('alumnos', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
                                 ->join('areas','area_evaluacion.id_area', '=', 'areas.id_area')
                                 ->join('resoluciones','practicas.id_practica','=','resoluciones.id_practica')
-                                ->where('resoluciones.resolucion_practica',2)
+                                ->where('resoluciones.resolucion_practica',1)
                                 ->where('alumnos.carrera',$carrera)
                                 ->where('areas.vigencia', 1)
                                 ->select('area_evaluacion.*','resoluciones.f_resolucion')
@@ -856,7 +856,7 @@ public function totalPracticantes($arrayFechas ,$carrera){
                                 ->join('practicas', 'autoevaluaciones.id_practica', '=', 'practicas.id_practica')
                                 ->join('alumnos', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
                                 ->join('resoluciones','practicas.id_practica','=','resoluciones.id_practica')
-                                ->where('resoluciones.resolucion_practica',2)
+                                ->where('resoluciones.resolucion_practica',1)
                                 ->where('alumnos.carrera',$carrera)
                                 ->select('eval_act_practicas.*','resoluciones.f_resolucion')
                                 ->get();
@@ -892,7 +892,7 @@ public function totalPracticantes($arrayFechas ,$carrera){
                                 ->join('practicas', 'autoevaluaciones.id_practica', '=', 'practicas.id_practica')
                                 ->join('alumnos', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
                                 ->join('resoluciones','practicas.id_practica','=','resoluciones.id_practica')
-                                ->where('resoluciones.resolucion_practica',2)
+                                ->where('resoluciones.resolucion_practica',1)
                                 ->where('alumnos.carrera',$carrera)
                                 ->select('eval_con_practicas.*','resoluciones.f_resolucion')
                                 ->get();
@@ -926,7 +926,7 @@ public function totalPracticantes($arrayFechas ,$carrera){
                                 ->join('practicas', 'evaluaciones_supervisor.id_practica', '=', 'practicas.id_practica')
                                 ->join('alumnos', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
                                 ->join('resoluciones','practicas.id_practica','=','resoluciones.id_practica')
-                                ->where('resoluciones.resolucion_practica',2)
+                                ->where('resoluciones.resolucion_practica',1)
                                 ->where('alumnos.carrera',$carrera)
                                 ->select('eval_act_emp_practica.*','resoluciones.f_resolucion')
                                 ->get();
@@ -962,7 +962,7 @@ public function totalPracticantes($arrayFechas ,$carrera){
                                 ->join('practicas', 'evaluaciones_supervisor.id_practica', '=', 'practicas.id_practica')
                                 ->join('alumnos', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
                                 ->join('resoluciones','practicas.id_practica','=','resoluciones.id_practica')
-                                ->where('resoluciones.resolucion_practica',2)
+                                ->where('resoluciones.resolucion_practica',1)
                                 ->where('alumnos.carrera',$carrera)
                                 ->select('eval_con_emp_practicas.*','resoluciones.f_resolucion')
                                 ->get();
@@ -996,7 +996,7 @@ public function totalPracticantes($arrayFechas ,$carrera){
                                 ->join('alumnos', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
                                 ->join('herramientas','herramientas_practica.id_herramienta', '=', 'herramientas.id_herramienta')
                                 ->join('resoluciones','practicas.id_practica','=','resoluciones.id_practica')
-                                ->where('resoluciones.resolucion_practica',2)
+                                ->where('resoluciones.resolucion_practica',1)
                                 ->where('alumnos.carrera',$carrera)
                                 ->where('herramientas.vigencia', 1)
                                 ->select('herramientas_practica.*','resoluciones.f_resolucion')
@@ -1020,7 +1020,7 @@ public function totalPracticantes($arrayFechas ,$carrera){
                                 ->join('alumnos', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
                                 ->join('areas','areas_autoeval.id_area', '=', 'areas.id_area')
                                 ->join('resoluciones','practicas.id_practica','=','resoluciones.id_practica')
-                                ->where('resoluciones.resolucion_practica',2)
+                                ->where('resoluciones.resolucion_practica',1)
                                 ->where('alumnos.carrera',$carrera)
                                 ->where('areas.vigencia', 1)
                                 ->select('areas_autoeval.*','resoluciones.f_resolucion')
@@ -1044,7 +1044,7 @@ public function totalPracticantes($arrayFechas ,$carrera){
                                 ->join('alumnos', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
                                 ->join('areas','area_evaluacion.id_area', '=', 'areas.id_area')
                                 ->join('resoluciones','practicas.id_practica','=','resoluciones.id_practica')
-                                ->where('resoluciones.resolucion_practica',2)
+                                ->where('resoluciones.resolucion_practica',1)
                                 ->where('alumnos.carrera',$carrera)
                                 ->where('areas.vigencia', 1)
                                 ->select('area_evaluacion.*','resoluciones.f_resolucion')

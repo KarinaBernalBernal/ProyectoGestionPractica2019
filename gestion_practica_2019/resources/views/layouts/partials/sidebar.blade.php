@@ -22,9 +22,9 @@
     @if (Route::has('login'))
         @auth
         <?php
-            $gestionador = Administrador::where('id_user', Auth::user()->id_user)->where('nombre', Auth::user()->name)->where('email', Auth::user()->email)->where('cargo', 'gestionador')->first();
-            $jefeDocencia = Administrador::where('id_user', Auth::user()->id_user)->where('nombre', Auth::user()->name)->where('email', Auth::user()->email)->where('cargo', 'jefe de docencia')->first();
-            $profesor = Administrador::where('id_user', Auth::user()->id_user)->where('nombre', Auth::user()->name)->where('email', Auth::user()->email)->where('cargo', 'profesor')->first();?>
+            $gestionador = Administrador::where('id_user', Auth::user()->id_user)->where('nombre', Auth::user()->name)->where('email', Auth::user()->email)->where('cargo', 'Gestionador')->first();
+            $jefeDocencia = Administrador::where('id_user', Auth::user()->id_user)->where('nombre', Auth::user()->name)->where('email', Auth::user()->email)->where('cargo', 'Jefe de docencia')->first();
+            $profesor = Administrador::where('id_user', Auth::user()->id_user)->where('nombre', Auth::user()->name)->where('email', Auth::user()->email)->where('cargo', 'Profesor')->first();?>
 
         <?php if (Auth::user()->type == 'administrador'): ?>
 
@@ -64,22 +64,6 @@
                 </div>
             </li>
             @endif
-            <li class="nav-item">
-                <!-- Solo profesores -->
-                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseVerEstadisticas" aria-expanded="true" aria-controls="collapseVerEstadisticas"><i class="fas fa-users"></i>
-                        <span>Ver estadísticas</span>
-                    </a>
-                    <div id="collapseVerEstadisticas" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                        <div class="bg-white py-2 collapse-inner rounded">
-                            <a class="collapse-item" href="{{route('estadisticaAlumno')}}">Búsqueda avanzada</a>
-                            <a class="collapse-item" href="{{route('estadisticaCriteriosAutoeval')}}">Búsqueda por año:<br> Autoevaluación del alumno</a>
-                            <a class="collapse-item" href="{{route('estadisticaCriteriosEvalSupervisor')}}">Búsqueda por año:<br> Evaluación del supervisor</a>
-                            <a class="collapse-item" href="{{route('estadisticaGeneral')}}">Estadísticas Generales</a>
-                        </div>
-                    </div>
-                    <!-- -->
-            </li>
-             
             @if(Auth::user()->type == 'administrador' && $jefeDocencia != null || $profesor !=null)
             <li class="nav-item">
                 <!-- Solo profesores -->
@@ -97,7 +81,23 @@
                 <!-- -->
             </li>
             @endif
-             
+            @if(Auth::user()->type == 'administrador' && ($jefeDocencia != null || $gestionador !=null))
+                <li class="nav-item">
+                    <!-- Solo profesores -->
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseVerEstadisticas" aria-expanded="true" aria-controls="collapseVerEstadisticas"><i class="fas fa-chart-bar"></i>
+                            <span>Ver estadísticas</span>
+                        </a>
+                        <div id="collapseVerEstadisticas" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                            <div class="bg-white py-2 collapse-inner rounded">
+                                <a class="collapse-item" href="{{route('estadisticaAlumno')}}">Búsqueda avanzada</a>
+                                <a class="collapse-item" href="{{route('estadisticaCriteriosAutoeval')}}">Búsqueda por año:<br> Autoevaluación del alumno</a>
+                                <a class="collapse-item" href="{{route('estadisticaCriteriosEvalSupervisor')}}">Búsqueda por año:<br> Evaluación del supervisor</a>
+                                <a class="collapse-item" href="{{route('estadisticaGeneral')}}">Estadísticas Generales</a>
+                            </div>
+                        </div>
+                    <!-- -->
+                </li>
+            @endif
             <hr class="sidebar-divider">
 
             <!-- Heading -->

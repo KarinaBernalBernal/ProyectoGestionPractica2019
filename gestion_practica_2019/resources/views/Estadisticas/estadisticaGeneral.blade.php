@@ -56,8 +56,8 @@
 
         var options = {
             chart: {
-                title: 'Autoevaluación del alumno',
-                subtitle: 'Escuela de Ingeniería en Informática',
+                title: 'Comparativa de frecuencia de practicantes',
+                subtitle: 'Ingeniería Civil Informática , Ingeniería de Ejecución Informática'
             },
             legend: { position: 'bottom', alignment: 'end' },
             responsive: true,
