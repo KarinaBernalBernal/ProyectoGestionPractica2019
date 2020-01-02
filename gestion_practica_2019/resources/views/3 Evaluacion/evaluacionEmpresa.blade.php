@@ -68,7 +68,7 @@
                 </table>
             </div>
         @else
-            <p class="text-danger text-center">No se encontraron Alumnos</p>
+            <p class="text-center">No se encontraron Alumnos</p>
         @endif
     </div>
 

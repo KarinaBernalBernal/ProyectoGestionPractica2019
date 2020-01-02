@@ -133,8 +133,10 @@ class SupervisorController extends Controller
         $supervisoresInformatica = DB::table('supervisores')
             ->join('practicas', 'practicas.id_supervisor', '=', 'supervisores.id_supervisor')
             ->join('alumnos', 'alumnos.id_alumno', '=', 'practicas.id_alumno')
+            ->leftJoin('resoluciones', 'resoluciones.id_practica', 'practicas.id_practica')
             ->leftJoin('evaluaciones_supervisor', 'evaluaciones_supervisor.id_practica', 'practicas.id_practica')
             ->where('alumnos.carrera', '=', $carrera)
+            ->where('resoluciones.resolucion_practica', '=', null)
             ->select('supervisores.*', 'evaluaciones_supervisor.*', 'alumnos.nombre as nombre_alumno', 'alumnos.apellido_paterno as apellido_alumno')
             ->get();
 

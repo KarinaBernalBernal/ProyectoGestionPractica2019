@@ -82,7 +82,6 @@
 										@endif
 										<td><strong>Semestre:</strong> {{ $solicitudP->semestre_proyecto }} <br>
 											<strong>Año:</strong>	{{ $solicitudP->anno_proyecto }}</td>
-
 										<td><a class='botonModalEvaluarSolicitud btn btn-primary btn-sm' href="" data-toggle="modal" data-form="{{ route('evaluarSolicitudModal',['id'=>$solicitudP->id_solicitud])}}" data-target="#modal-evaluarSolicitud">Evaluar</a></td>
 									</tr>
 								@endforeach

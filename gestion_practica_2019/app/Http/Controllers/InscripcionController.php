@@ -20,8 +20,8 @@ class InscripcionController extends Controller
 
     public function __construct(){
         $this->middleware('auth');
-        $this->middleware('is_administrador')->only('lista', 'listaInscripcionCivil', 'listaInscripcionEjecucion');
-        $this->middleware('is_alumno')->except('lista', 'listaInscripcionCivil', 'listaInscripcionEjecucion');
+        $this->middleware('is_administrador')->only('lista', 'listaInscripcion');
+        $this->middleware('is_alumno')->except('lista', 'listaInscripcion');
     }
     /**
      * Display a listing of the resource.
@@ -170,8 +170,24 @@ class InscripcionController extends Controller
         return view('2 Inscripcion/solicitudDocumentos');
     }
 
-    public function verDescripcionInscripcion(){
-        return view('2 Inscripcion/inscripcion');
+    public function verDescripcionInscripcion()
+    {
+        $id = auth()->user()->id_user;
+        $alumnos = Alumno::where('id_user', $id)->first();
+
+        $practicas = DB::table('practicas')
+            ->join('alumnos', 'alumnos.id_alumno', '=','practicas.id_alumno')
+            ->join('supervisores', 'supervisores.id_supervisor', '=', 'practicas.id_supervisor')
+            ->leftJoin('resoluciones', 'resoluciones.id_practica', 'practicas.id_practica')
+            ->where('practicas.id_alumno', '=', $alumnos->id_alumno)
+            ->select('practicas.*', 'supervisores.nombre', 'supervisores.apellido_paterno', 'supervisores.email', 'resoluciones.resolucion_practica')
+            ->get();
+
+        //Se retornan las practicas asociadas al alumno, el supervisor asociado a cada practica y el estado de la practica
+
+        return view('2 Inscripcion/inscripcion')
+            ->with('practica', $practicas)
+            ->with('alumno', $alumnos);
     }
 
     /* -------Listas de inscripcion -----*/

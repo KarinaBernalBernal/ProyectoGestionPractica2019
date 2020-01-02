@@ -48,7 +48,7 @@
                                 <td class="text-truncate text-center">{{date('d-m-Y', strtotime($autoevaluaciones->f_entrega))}}</td>
                                 <td class="text-center">
                                     @if($autoevaluaciones->id_autoeval)
-                                        <a  href="" class='botonModalAutoEvaluacion fa fa-file text-success' data-toggle="modal" data-form="{{ route('autoEvaluacionModal',['id'=>$autoevaluaciones->id_alumno])}}" data-target="#modal-autoEvaluacion"></a><br>
+                                        <a  href="" class='botonModalAutoEvaluacion fa fa-file text-success' data-toggle="modal" data-form="{{ route('autoEvaluacionModal',['id'=>$autoevaluaciones->id_practica])}}" data-target="#modal-autoEvaluacion"></a><br>
                                     @else
                                         <a class='fa fa-times text-danger'></a><br>
                                     @endif

@@ -17,61 +17,116 @@ class ResolucionPracticaController extends Controller
         $this->middleware('auth');
         $this->middleware('is_administrador');
     }
-    public function resolucionCivil()
+
+    public function resolucion($carrera)
     {
         $practicasP = DB::table('practicas')
             ->join('alumnos', 'alumnos.id_alumno', 'practicas.id_alumno')
             ->leftJoin('supervisores', 'supervisores.id_supervisor', 'practicas.id_supervisor')
             ->leftJoin('resoluciones', 'resoluciones.id_practica', 'practicas.id_practica')
-            ->where('alumnos.carrera', "Ingeniería Civil Informática")
+            ->where('alumnos.carrera', $carrera)
             ->where('resoluciones.id_resolucion', NULL)
+            ->where('practicas.f_inscripcion', '!=', NULL)
             ->select('practicas.*', 'alumnos.rut', 'alumnos.nombre AS nombreAlumno', 'alumnos.apellido_paterno AS apellidoAlumno', 'supervisores.nombre', 'supervisores.apellido_paterno', 'supervisores.email AS emailSupervisor')
             ->get();
 
         $practicasE = DB::table('practicas')
             ->join('alumnos', 'alumnos.id_alumno', 'practicas.id_alumno')
             ->leftJoin('supervisores', 'supervisores.id_supervisor', 'practicas.id_supervisor')
-            ->Join('resoluciones', 'resoluciones.id_practica', 'practicas.id_practica')
-            ->where('alumnos.carrera', "Ingeniería Civil Informática")
+            ->join('resoluciones', 'resoluciones.id_practica', 'practicas.id_practica')
+            ->where('alumnos.carrera', $carrera)
+            ->where('practicas.f_inscripcion', '!=', NULL)
             ->select('practicas.*', 'alumnos.rut', 'alumnos.nombre AS nombreAlumno', 'alumnos.apellido_paterno AS apellidoAlumno', 'supervisores.nombre', 'supervisores.apellido_paterno', 'resoluciones.resolucion_practica', 'resoluciones.f_resolucion', 'supervisores.email AS emailSupervisor')
             ->get();
 
+        $contadorP = $practicasP->count();
+        $contadorE = $practicasE->count();
+        $practicasP = $practicasP->paginateEspecial(10, null, null, 'pendiente');
+        $practicasE = $practicasE->paginateEspecial(10, null, null, 'evaluada');
+
         return view('4 Resoluciones/resolucionPractica',[
             'practicasP'=>$practicasP,
-            'practicasE'=>$practicasE
+            'practicasE'=>$practicasE,
+            'contadorP'=>$contadorP,
+            'contadorE'=>$contadorE,
+            'carrera'=>$carrera
         ]);
     }
-    /* ----------- Lista de Practicas Ejecucion  ----------  */
-    public function resolucionEjecucion()
+
+    public function filtrarResolucionP(Request $request, $carrera)
+    {
+        $practicasE = DB::table('practicas')
+            ->join('alumnos', 'alumnos.id_alumno', 'practicas.id_alumno')
+            ->leftJoin('supervisores', 'supervisores.id_supervisor', 'practicas.id_supervisor')
+            ->join('resoluciones', 'resoluciones.id_practica', 'practicas.id_practica')
+            ->where('alumnos.carrera', $carrera)
+            ->where('practicas.f_inscripcion', '!=', NULL)
+            ->select('practicas.*', 'alumnos.rut', 'alumnos.nombre AS nombreAlumno', 'alumnos.apellido_paterno AS apellidoAlumno', 'supervisores.nombre', 'supervisores.apellido_paterno', 'resoluciones.resolucion_practica', 'resoluciones.f_resolucion', 'supervisores.email AS emailSupervisor')
+            ->get();
+
+
+        $listaFiltrada= Resolucion::filtrarResolucionP(
+            $request->get('nombre'),
+            $request->get('apellido_paterno'),
+            $request->get('rut'),
+            $carrera,
+            $request->get('email'));
+
+        $contador = $listaFiltrada->count();
+        $listaFiltrada = $listaFiltrada->paginateEspecial(10, null, null, "pendiente");
+        $contadorE = $practicasE->count();
+        $practicasE = $practicasE->paginateEspecial(10, null, null, 'evaluada');
+
+
+        return view('4 Resoluciones/resolucionPractica',[
+            'practicasP'=>$listaFiltrada,
+            'practicasE'=>$practicasE,
+            'contadorP'=>$contador,
+            'contadorE'=>$contadorE,
+            'carrera'=>$carrera
+        ]);
+
+    }
+
+    public function filtrarResolucionE(Request $request, $carrera)
     {
         $practicasP = DB::table('practicas')
             ->join('alumnos', 'alumnos.id_alumno', 'practicas.id_alumno')
             ->leftJoin('supervisores', 'supervisores.id_supervisor', 'practicas.id_supervisor')
             ->leftJoin('resoluciones', 'resoluciones.id_practica', 'practicas.id_practica')
-            ->where('alumnos.carrera', "Ingeniería de Ejecución Informática")
+            ->where('alumnos.carrera', $carrera)
             ->where('resoluciones.id_resolucion', NULL)
+            ->where('practicas.f_inscripcion', '!=', NULL)
             ->select('practicas.*', 'alumnos.rut', 'alumnos.nombre AS nombreAlumno', 'alumnos.apellido_paterno AS apellidoAlumno', 'supervisores.nombre', 'supervisores.apellido_paterno', 'supervisores.email AS emailSupervisor')
             ->get();
 
-        $practicasE = DB::table('practicas')
-            ->join('alumnos', 'alumnos.id_alumno', 'practicas.id_alumno')
-            ->leftJoin('supervisores', 'supervisores.id_supervisor', 'practicas.id_supervisor')
-            ->Join('resoluciones', 'resoluciones.id_practica', 'practicas.id_practica')
-            ->where('alumnos.carrera', "Ingeniería de Ejecución Informática")
-            ->select('practicas.*', 'alumnos.rut', 'alumnos.nombre AS nombreAlumno', 'alumnos.apellido_paterno AS apellidoAlumno', 'supervisores.nombre', 'supervisores.apellido_paterno', 'resoluciones.resolucion_practica', 'resoluciones.f_resolucion', 'supervisores.email AS emailSupervisor')
-            ->get();
+        $listaFiltrada= Resolucion::filtrarResolucionE(
+            $request->get('nombre'),
+            $request->get('apellido_paterno'),
+            $request->get('rut'),
+            $carrera,
+            $request->get('email'));
+
+        $contadorP = $practicasP->count();
+        $practicasP = $practicasP->paginateEspecial(10, null, null, 'pendiente');
+        $contador = $listaFiltrada->count();
+        $listaFiltrada = $listaFiltrada->paginateEspecial(10, null, null, "evaluada");
 
         return view('4 Resoluciones/resolucionPractica',[
             'practicasP'=>$practicasP,
-            'practicasE'=>$practicasE
+            'practicasE'=>$listaFiltrada,
+            'contadorP'=>$contadorP,
+            'contadorE'=>$contador,
+            'carrera'=>$carrera
         ]);
     }
+
 
     public function resolucionPracticaModal($id)
     {
         $practicas = DB::table('practicas')
             ->join('alumnos', 'alumnos.id_alumno', 'practicas.id_alumno')
-            ->leftJoin('supervisores', 'supervisores.id_supervisor', 'practicas.id_supervisor')
+            ->join('supervisores', 'supervisores.id_supervisor', 'practicas.id_supervisor')
             ->leftJoin('evaluaciones_supervisor', 'evaluaciones_supervisor.id_practica', 'practicas.id_practica')
             ->where('practicas.id_practica', $id)
             ->select('practicas.*', 'alumnos.rut', 'alumnos.nombre AS nombreAlumno', 'alumnos.apellido_paterno AS apellidoAlumno'

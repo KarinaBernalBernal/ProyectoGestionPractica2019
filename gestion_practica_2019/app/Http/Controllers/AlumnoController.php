@@ -131,9 +131,12 @@ class AlumnoController extends Controller
         //-----Alumnos de informatica-----//
         $alumnosInformatica = DB::table('alumnos')
             ->join('practicas', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
+            ->join('solicitudes', 'solicitudes.id_alumno', 'alumnos.id_alumno')
+            ->leftJoin('resoluciones', 'resoluciones.id_practica', 'practicas.id_practica')
             ->leftJoin('autoevaluaciones', 'autoevaluaciones.id_practica', 'practicas.id_practica')
-            ->leftJoin('solicitudes', 'solicitudes.id_alumno', 'alumnos.id_alumno')
             ->where('alumnos.carrera', '=', $carrera)
+            ->where('practicas.f_inscripcion', '!=', null)
+            ->where('resoluciones.resolucion_practica', '=', null)
             ->select('alumnos.*', 'solicitudes.id_solicitud', 'autoevaluaciones.id_autoeval', 'practicas.f_inscripcion')
             ->get();
 
@@ -149,14 +152,16 @@ class AlumnoController extends Controller
                 $request->get('anno_ingreso'),
                 $carrera
             );
+
             $contador = $listaFiltrada->count();  //mostrara la cantidad de resultados en la tabla filtrada
-            $listaFiltrada = $listaFiltrada->paginate(1);
+            $listaFiltrada = $listaFiltrada->paginate(10);
+
             return view('Practicas/alumnos_en_practica')->with('lista',$listaFiltrada)
                 ->with('contador',$contador)
                 ->with('carrera', $carrera);
         }
         $contador = $alumnosInformatica->count(); //mostrara la cantidad de resultados en la tabla
-        $alumnosInformatica = $alumnosInformatica->paginate(5);
+        $alumnosInformatica = $alumnosInformatica->paginate(10);
         return view('Practicas/alumnos_en_practica')->with('lista',$alumnosInformatica)
             ->with('contador', $contador)
             ->with('carrera', $carrera);
@@ -185,8 +190,7 @@ class AlumnoController extends Controller
 
     public function mostrarAutoEvaluacionModal($id) //Mostrar el formulario del alumno
     {
-        $practicas = Practica::where('id_alumno', $id)->first();
-        $autoEvaluacion = Autoevaluacion::where('id_practica', $practicas->id_practica)->first();
+        $autoEvaluacion = Autoevaluacion::where('id_practica', $id)->first();
 
         return view('Practicas/modales/modalAutoEvaluacion')->with('formulario',$autoEvaluacion);
     }

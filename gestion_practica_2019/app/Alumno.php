@@ -62,8 +62,11 @@ class Alumno extends Model
     {
         $alumnosFiltrados = DB::table('alumnos')
             ->join('practicas', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
+            ->join('solicitudes', 'solicitudes.id_alumno', 'alumnos.id_alumno')
+            ->leftJoin('resoluciones', 'resoluciones.id_practica', '=', 'practicas.id_practica')
             ->leftJoin('autoevaluaciones', 'autoevaluaciones.id_practica', 'practicas.id_practica')
-            ->leftJoin('solicitudes', 'solicitudes.id_alumno', 'alumnos.id_alumno')
+            ->where('practicas.f_inscripcion', '!=', null)
+            ->where('resoluciones.resolucion_practica', '=', null)
             ->where('alumnos.nombre', 'LIKE', '%'.$nombre. '%')
             ->where('alumnos.apellido_paterno', 'LIKE', '%'.$apellido_paterno. '%')
             ->where('alumnos.rut', 'LIKE', '%'.$rut. '%')

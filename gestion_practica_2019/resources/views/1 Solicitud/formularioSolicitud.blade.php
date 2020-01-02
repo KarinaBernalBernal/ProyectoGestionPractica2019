@@ -80,7 +80,7 @@
                         <label for="fono" class="col-md-3 col-form-label text-md-right">{{ __('Fono') }}</label>
 
                         <div class="col-md-6">
-                            <input id="fono" type="number" class="form-control" name="fono" value="{{ old('fono') }}"minlength="9">
+                            <input id="fono" type="number" class="form-control" name="fono" value="{{ old('fono') }}" required minlength="9">
                             <label for="fono" class="font-italic">Ej. 9 87654321</label>
                         </div>
                     </div>    
@@ -254,7 +254,7 @@
 
 
         // this is the id of the form
-        $("#formularioSolicitud").submit(function(e) {
+        $("#formularioSolicitudd").submit(function(e) {
 
             e.preventDefault(); // avoid to execute the actual submit of the form.
 

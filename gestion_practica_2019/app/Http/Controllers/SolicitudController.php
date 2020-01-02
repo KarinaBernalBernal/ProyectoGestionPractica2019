@@ -41,25 +41,85 @@ class SolicitudController extends Controller
      */
     public function store(Request $request)
     {
-        $fecha = date("Y-m-d H:i:s");
-        Solicitud::create([
-            'nombre' => $request->nombreAlumno,
-            'apellido_paterno' => $request->aPaternoAlumno,
-            'apellido_materno' => $request->aMaternoAlumno,
-            'rut' => $request->rutAlumno,
-            'email' => $request->email,
-            'direccion' => $request->direccion,
-            'fono' => $request->fono,
-            'anno_ingreso' => $request->añoCarrera,
-            'carrera' => $request->carrera,
-            'practica' => $request->practica,
-            'semestre_proyecto' => $request->semestreProyecto,
-            'anno_proyecto' => $request->añoProyecto,
-            'f_solicitud' => $fecha,
-            'resolucion_solicitud' => null,
-            'observacion_solicitud' => null
-        ]);
-        return redirect()->route('descripcionSolicitud');
+        $solicitudDuplicada = DB::table('solicitudes')
+            ->where('solicitudes.rut', $request->rutAlumno)
+            ->where('solicitudes.resolucion_solicitud', null)
+            ->select('solicitudes.*')
+            ->first();
+
+        $solicitudEvaluada = DB::table('solicitudes')
+            ->join('alumnos', 'alumnos.id_alumno', 'solicitudes.id_alumno')
+            ->join('practicas', 'practicas.id_alumno', 'alumnos.id_alumno')
+            ->where('solicitudes.rut', $request->rutAlumno)
+            ->where('solicitudes.resolucion_solicitud', '!=', null)
+            ->where('solicitudes.resolucion_solicitud', '!=', "Rechazada")
+            ->where('practicas.f_inscripcion', null)
+            ->select('solicitudes.*')
+            ->first();
+
+        $solicitudesEnPractica = DB::table('solicitudes')
+            ->join('alumnos', 'alumnos.id_alumno', 'solicitudes.id_alumno')
+            ->join('practicas', 'practicas.id_alumno', 'alumnos.id_alumno')
+            ->join('resoluciones', 'resoluciones.id_practica', 'practicas.id_practica')
+            ->where('solicitudes.rut', $request->rutAlumno)
+            ->where('practicas.f_inscripcion', '!=', null)
+            ->where('resoluciones.resolucion_practica', null)
+            ->select('solicitudes.*')
+            ->first();
+
+        if( !$solicitudEvaluada && !$solicitudesEnPractica )
+        {
+            if(!$solicitudDuplicada)
+            {
+                $fecha = date("Y-m-d H:i:s");
+                Solicitud::create([
+                    'nombre' => $request->nombreAlumno,
+                    'apellido_paterno' => $request->aPaternoAlumno,
+                    'apellido_materno' => $request->aMaternoAlumno,
+                    'rut' => $request->rutAlumno,
+                    'email' => $request->email,
+                    'direccion' => $request->direccion,
+                    'fono' => $request->fono,
+                    'anno_ingreso' => $request->añoCarrera,
+                    'carrera' => $request->carrera,
+                    'practica' => $request->practica,
+                    'semestre_proyecto' => $request->semestreProyecto,
+                    'anno_proyecto' => $request->añoProyecto,
+                    'f_solicitud' => $fecha,
+                    'resolucion_solicitud' => null,
+                    'observacion_solicitud' => null
+                ]);
+                return redirect()->route('descripcionSolicitud');
+            }
+            else
+            {
+                //Borramos la vieja y ponemos la nueva solicitud
+
+                $solicitudDuplicada = Solicitud::find($solicitudDuplicada->id_solicitud);
+                $solicitudDuplicada->delete();
+
+                $fecha = date("Y-m-d H:i:s");
+                Solicitud::create([
+                    'nombre' => $request->nombreAlumno,
+                    'apellido_paterno' => $request->aPaternoAlumno,
+                    'apellido_materno' => $request->aMaternoAlumno,
+                    'rut' => $request->rutAlumno,
+                    'email' => $request->email,
+                    'direccion' => $request->direccion,
+                    'fono' => $request->fono,
+                    'anno_ingreso' => $request->añoCarrera,
+                    'carrera' => $request->carrera,
+                    'practica' => $request->practica,
+                    'semestre_proyecto' => $request->semestreProyecto,
+                    'anno_proyecto' => $request->añoProyecto,
+                    'f_solicitud' => $fecha,
+                    'resolucion_solicitud' => null,
+                    'observacion_solicitud' => null
+                ]);
+                return redirect()->route('descripcionSolicitud'); //Solicitud reemplazante
+            }
+        }
+        return redirect()->route('descripcionSolicitud'); //Solicitud reemplazante
     }
     /**
      * Remove the specified resource from storage.
@@ -313,10 +373,14 @@ class SolicitudController extends Controller
     }
     /* Funciones modales */
 
-    public function evaluarSolicitud(Request $request, $id){
+    public function evaluarSolicitud(Request $request, $id)
+    {
         $solicitud = Solicitud::find($id);
+
         if(!isset($solicitud))
+        {
             return redirect()->route('home');
+        }
         $solicitud->resolucion_solicitud = $request->resolucion;
         $solicitud->observacion_solicitud = $request->observacion;
         $solicitud->estado = 1;
@@ -365,7 +429,6 @@ class SolicitudController extends Controller
                 $solicitud->id_alumno = $alumno->id_alumno;
                 $solicitud->save();
                 $nueva_instancia->save();
-
             }
         }
         // Se notifica al Alumno sobre el estado de su solicitud
@@ -412,7 +475,7 @@ class SolicitudController extends Controller
                         $alumno->delete();
                     }
             }
-            if($solicitud->resolucion_solicitud == 'Rechazada' && $request->resolucion == 'Pendiente' || $request->resolucion == 'Autorizada')
+            if($solicitud->resolucion_solicitud == 'Rechazada' && ($request->resolucion == 'Pendiente' || $request->resolucion == 'Autorizada'))
             {
                 $fecha= date("Y-m-d H:i:s");
                 $alumno = Alumno::all()
@@ -440,6 +503,7 @@ class SolicitudController extends Controller
                     $nueva_instancia->save();
                     $nuevo->id_user = $nueva_instancia->id_user;
                     $nuevo->save();
+                    $solicitud->id_alumno = $nuevo->id_alumno;
                     $solicitud->save();
                     $nueva_instancia = new Practica;
                     $nueva_instancia->f_solicitud = $fecha;
@@ -447,6 +511,7 @@ class SolicitudController extends Controller
                     $nueva_instancia->save();
                 }
                 else {
+
                     $nueva_instancia = new Practica;
                     $nueva_instancia->f_solicitud = $fecha;
                     $nueva_instancia->id_alumno = $alumno->id_alumno;

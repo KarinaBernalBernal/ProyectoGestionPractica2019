@@ -46,10 +46,9 @@
                 </a>
                 <div id="collapseGestionCuentas" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-
                         <a class="collapse-item" href="{{route('lista_usuarios')}}">Usuarios</a>
-                        <!--<a class="collapse-item" href="{{route('lista_recursos')}}">recursos</a>-->
-                        <!--<a class="collapse-item" href="{{route('lista_perfiles')}}">perfiles</a>-->
+                    <!--<a class="collapse-item" href="{{route('lista_recursos')}}">recursos</a>-->
+                    <!--<a class="collapse-item" href="{{route('lista_perfiles')}}">perfiles</a>-->
                         <a class="collapse-item" href="{{route('lista_alumnos')}}">Alumnos</a>
                         <a class="collapse-item" href="{{route('lista_administradores')}}">Administradores</a>
                         <a class="collapse-item" href="{{route('lista_supervisores')}}">Supervisores</a>
@@ -58,36 +57,28 @@
                         <a class="collapse-item" href="{{route('lista_auto_evaluaciones')}}">Autoevaluaciones</a>
                         <a class="collapse-item" href="{{route('lista_evaluaciones_supervisor')}}">Evaluaciones supervisor</a>
                         <h6 class="collapse-header">Formularios</h6>
-                        <a class="collapse-item" href="{{route('lista_elementos_dinamicos')}}">Elementos dinámicos</a>
-                        <a class="collapse-item" href="{{route('lista_otros')}}">Respuestas "otro"</a>
+                        <a class="collapse-item" href="{{route('lista_elementos_dinamicos',["Área"])}}">Elementos dinámicos</a>
+                        <a class="collapse-item" href="{{route('lista_otros',["Área"])}}">Respuestas "otro"</a>
+                        <a class="collapse-item" href="{{route('estadisticaAlumno')}}">Busqueda avanzada</a>
+                        <a class="collapse-item" href="{{route('estadisticaCriterios')}}">Estadísticas generales</a>
                     </div>
                 </div>
             </li>
             @endif
             <li class="nav-item">
                 <!-- Solo profesores -->
-                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseVerEstadisticas" aria-expanded="true" aria-controls="collapseVerEstadisticas"><i class="fas fa-users"></i>
-                        <span>Ver estadísticas</span>
-                    </a>
-                    <div id="collapseVerEstadisticas" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                        <div class="bg-white py-2 collapse-inner rounded">
-                            <a class="collapse-item" href="{{route('lista_usuarios')}}">Usuarios</a>
-                            <!--<a class="collapse-item" href="{{route('lista_recursos')}}">recursos</a>-->
-                            <!--<a class="collapse-item" href="{{route('lista_perfiles')}}">perfiles</a>-->
-                            <a class="collapse-item" href="{{route('lista_alumnos')}}">Alumnos</a>
-                            <a class="collapse-item" href="{{route('lista_administradores')}}">Administradores</a>
-                            <a class="collapse-item" href="{{route('lista_supervisores')}}">Supervisores</a>
-                            <a class="collapse-item" href="{{route('lista_practicas')}}">Prácticas</a>
-                            <a class="collapse-item" href="{{route('lista_empresas')}}">Empresas</a>
-                            <a class="collapse-item" href="{{route('lista_auto_evaluaciones')}}">Autoevaluaciones</a>
-                            <a class="collapse-item" href="{{route('lista_evaluaciones_supervisor')}}">Evaluaciones supervisor</a>
-                            <h6 class="collapse-header">Formularios</h6>
-                            <a class="collapse-item" href="{{route('lista_elementos_dinamicos',["Área"])}}">Elementos dinámicos</a>
-                            <a class="collapse-item" href="{{route('lista_otros',["Área"])}}">Respuestas "otro"</a>
-                            <a class="collapse-item" href="{{route('estadisticaAlumno')}}">Busqueda avanzada</a>
-                            <a class="collapse-item" href="{{route('estadisticaCriterios')}}">Estadísticas generales</a>
-                        </div>
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseVerEstadisticas" aria-expanded="true" aria-controls="collapseVerEstadisticas"><i class="fas fa-users"></i>
+                    <span>Ver estadísticas</span>
+                </a>
+                <div id="collapseVerEstadisticas" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        {{--<a class="collapse-item" href="{{route('estadisticaAlumno')}}">Búsqueda avanzada</a>
+                        <a class="collapse-item" href="{{route('estadisticaCriteriosAutoeval')}}">Búsqueda por año:<br> Autoevaluación del alumno</a>
+                        <a class="collapse-item" href="{{route('estadisticaCriteriosEvalSupervisor')}}">Búsqueda por año:<br> Evaluación del supervisor</a>
+                        <a class="collapse-item" href="{{route('estadisticaGeneral')}}">Estadísticas Generales</a>
+                        --}}
                     </div>
+                </div>
                 <!-- -->
             </li>
             @if(Auth::user()->type == 'administrador' && $jefeDocencia != null || $profesor !=null)
@@ -99,8 +90,8 @@
                 <div id="collapseResolucionPracticas" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
 
-                        <a class="collapse-item" href="{{route('ResolucionPracticaCivil')}}">Ing. Civil Informática</a>
-                        <a class="collapse-item" href="{{route('ResolucionPracticaEjecucion')}}">Ing. Ejec. Informática</a>
+                        <a class="collapse-item" href="{{route('resolucionPractica', ["Ingeniería Civil Informática"])}}">Ing. Civil Informática</a>
+                        <a class="collapse-item" href="{{route('resolucionPractica', ["Ingeniería de Ejecución Informática"])}}">Ing. Ejec. Informática</a>
 
                     </div>
                 </div>

@@ -192,10 +192,12 @@ Route::get('/listaAutoevaluacion/{carrera}', 'AutoEvaluacionController@autoevalu
 Route::get('/listaEvaluacionSupervisor/{carrera}', 'EvaluacionSupervisorController@listaEvaluacionSupervisor')->name('listaEvaluacionSupervisor');
 
 /*--------------------- Etapa Resolucion ---------------------*/
-//Civil
-Route::get('/ResolucionCivil', 'ResolucionPracticaController@resolucionCivil')->name('ResolucionPracticaCivil');
-//Ejecucion
-Route::get('/ResolucionEjecucion', 'ResolucionPracticaController@resolucionEjecucion')->name('ResolucionPracticaEjecucion');
+
+//Ejecucion / Civil
+Route::get('/resolucionPractica/{carrera}', 'ResolucionPracticaController@resolucion')->name('resolucionPractica');
+//Filtros
+Route::get('/filtrarResolucionP/{carrera}', 'ResolucionPracticaController@filtrarResolucionP')->name('filtrarResolucionP');
+Route::get('/filtrarResolucionE/{carrera}', 'ResolucionPracticaController@filtrarResolucionE')->name('filtrarResolucionE');
 //modals
 Route::get('/modal/resolucionPracticaModal/{id}','ResolucionPracticaController@resolucionPracticaModal')->name('resolucionPracticaModal');
 Route::post('/resolucionPractica/evaluarPractica/{id},{email},{name}','ResolucionPracticaController@evaluarPractica')->name('evaluarPractica');

@@ -38,7 +38,7 @@
                                 </div>
                             </div>
                             <div class="form-group{{ $errors->has('type') ? ' has-error' : '' }}">
-                                <label for="type" class="col-md-4 control-label">Tipo de usuarioo</label>
+                                <label for="type" class="col-md-4 control-label">Tipo de usuario</label>
                                 <div class="col-md-6">
                                     <select name="type" id="type" class="form-control">
                                         <option value="" disabled >Elige una opcion...</option>

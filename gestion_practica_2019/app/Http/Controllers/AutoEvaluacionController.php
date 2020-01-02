@@ -44,8 +44,24 @@ class AutoEvaluacionController extends Controller
             'conocimiento'=>$conocimiento,
         ]);
     }
-    public function verDescripcionAutoEvaluacion(){
-        return view('3 Evaluacion/autoEvaluacion');
+    public function verDescripcionAutoEvaluacion()
+    {
+        $id = auth()->user()->id_user;
+        $alumnos = Alumno::where('id_user', $id)->first();
+
+        $autoevaluaciones = DB::table('practicas')
+            ->join('alumnos', 'alumnos.id_alumno', '=', 'practicas.id_alumno')
+            ->leftJoin('autoevaluaciones', 'autoevaluaciones.id_practica', 'practicas.id_practica')
+            ->where('alumnos.id_alumno', '=', $alumnos->id_alumno)
+            ->select('practicas.*', 'autoevaluaciones.*')
+            ->get();
+
+        $fechaActual = date("Y-m-d");
+
+        //Se retornan todas las practicas del alumno con su autoevaluacion del alumno
+        return view('3 Evaluacion/autoEvaluacion')
+            ->with('autoevaluacion', $autoevaluaciones)
+            ->with('fechaActual', $fechaActual);
     }
 
     //vista principal de un elemento en especifico
@@ -130,13 +146,20 @@ class AutoEvaluacionController extends Controller
         $fecha= date("Y-m-d H:i:s");
         $id = auth()->user()->id_user;
         $alumnos = Alumno::where('id_user', $id)->first();
-        $practicas = Practica::where('id_alumno', $alumnos->id_alumno)->first();
+        //$practicas = Practica::where('id_alumno', $alumnos->id_alumno)->first();
+
+        $practicas = DB::table('practicas')
+            ->join('alumnos', 'alumnos.id_alumno', 'practicas.id_alumno')
+            ->leftJoin('resoluciones', 'resoluciones.id_practica', 'practicas.id_practica')
+            ->where('resoluciones.resolucion_practica', '=', null)
+            ->where('alumnos.id_alumno', '=', $alumnos->id_alumno)
+            ->select('practicas.*')
+            ->first();
 
         $autoevaluaciones = Autoevaluacion::create([
             'id_practica' => $practicas->id_practica,
             'f_entrega' => $fecha
         ]);
-
 
         Desempenno::create([
             'id_autoeval' => $autoevaluaciones->id_autoeval,
@@ -270,7 +293,7 @@ class AutoEvaluacionController extends Controller
             ->join('practicas', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
             ->join('autoevaluaciones', 'autoevaluaciones.id_practica', 'practicas.id_practica')
             ->where('alumnos.carrera', '=', $carrera)
-            ->select('alumnos.*',  'practicas.f_inscripcion', 'autoevaluaciones.id_autoeval', 'autoevaluaciones.f_entrega')
+            ->select('alumnos.*',  'practicas.f_inscripcion', 'practicas.id_practica', 'autoevaluaciones.id_autoeval', 'autoevaluaciones.f_entrega')
             ->get();
 
         //-----Si no se seleccionaron filtros solo entregamos la consulta de la base-----//
