@@ -6,13 +6,13 @@
     <div class="card text">
         <div class="card-body">
             {{-- Autoevaluacion --}}
-            <div class="form-group row justify-content-md-center">
+            <div class="form-group row">
                 <div class="col-md-12">
                     <h3>Autoevaluación del alumno</h3>
                     <hr>
                 </div>
             </div> 
-            <div class="form-group row justify-content-md-center">
+            <div class="form-group row">
                 <div class="col-md-12">
                     @if($autoevaluacion <> NULL)
                         {{-- Autoevaluacion --}}
@@ -29,7 +29,7 @@
                         </div>
 
                         {{-- Desempeño --}}
-                        <div class="form-group row justify-content-md-center">
+                        <div class="form-group row">
                             <div class="col-md-12">
                                 <h5>Desempeño del alumno</h5>
                                 <hr>
@@ -59,46 +59,58 @@
                         </div>
                         
                         {{-- Tareas --}}
-                        <div class="form-group row justify-content-md-center">
+                        <div class="form-group row">
                             <div class="col-md-12">
                                 <h5>Tareas</h5>
                                 <hr>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <ol>
-                                @foreach($tareas as $tarea)
-                                    <li>
-                                        <label class="col-form-label text-md-right">{{$tarea->n_tarea}}</label>
-                                        <!--<label class="col-form-label text-md-justify">{{$tarea->dp_tarea}}</label> 
-                                            -->
-                                    </li>
-                                @endforeach                   
-                            </ol> 
+                            <div class="col-md-11">
+                                <ul>
+                                    @foreach($tareas as $tarea)
+                                        <li>
+                                            <p>
+                                                <a class="col-form-label text-md-right" data-toggle="collapse" href="#collapseTarea" aria-expanded="false" aria-controls="collapseExample">{{$tarea->n_tarea}}</a>
+                                            </p>
+                                            <div class="collapse" id="collapseTarea">
+                                                <div class="card card-body">
+                                                    <label class="col-form-label text-md-justify">{{$tarea->dp_tarea}}</label> 
+                                                </div>
+                                            </div>                                            
+                                        </li>
+                                    @endforeach                   
+                                </ul>
+                            </div>
                         </div>
 
                         {{-- Habilidades --}}
-                        <div class="form-group row justify-content-md-center">
+                        <div class="form-group row">
                             <div class="col-md-12">
                                 <h5>Habilidades</h5>
                                 <hr>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <div class="col-md-12">
+                            <div class="col-md-11">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <h6>Habilidades aprendidas<h6>
+                                        <h6>Habilidades aprendidas</h6>
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <ul>
                                                     @foreach($habilidades as $habilidad)
                                                         @if($habilidad->tipo_habilidad == 'aprendida')
-                                                            <li>                                            
-                                                                <label class="col-form-label text-md-justify">{{$habilidad->n_habilidad}}</label>
-                                                                <!--<label class="col-form-label text-md-justify">{{$habilidad->dp_habilidad}}</label> 
-                                                                -->
-                                                            </li>              
+                                                            <li>
+                                                                <p>
+                                                                    <a class="col-form-label text-md-right" data-toggle="collapse" href="#collapseHabAprendida" aria-expanded="false" aria-controls="collapseExample">{{$habilidad->n_habilidad}}</a>
+                                                                </p>
+                                                                <div class="collapse" id="collapseHabAprendida">
+                                                                    <div class="card card-body">
+                                                                        <label class="col-form-label text-md-justify">{{$habilidad->dp_habilidad}}</label> 
+                                                                    </div>
+                                                                </div>                                            
+                                                            </li>         
                                                         @endif
                                                     @endforeach   
                                                 </ul> 
@@ -106,49 +118,59 @@
                                         </div>         
                                     </div>
                                     <div class="col-md-6">
-                                        <h6>Habilidades faltantes<h6>
+                                        <h6>Habilidades faltantes</h6>
                                         <div class="row">
-                                            <div class="col-md-12">
+                                            <div class="col-md-11">
                                                 <ul>
                                                     @foreach($habilidades as $habilidad)
                                                         @if($habilidad->tipo_habilidad == 'faltante')
-                                                            <li>                                            
-                                                                <label class="col-form-label text-md-justify">{{$habilidad->n_habilidad}}</label>
-                                                                <!--<label class="col-form-label text-md-justify">{{$habilidad->dp_habilidad}}</label> 
-                                                                -->
-                                                            </li>            
+                                                            <li>
+                                                                <p>
+                                                                    <a class="col-form-label text-md-right" data-toggle="collapse" href="#collapseHabFaltante" aria-expanded="false" aria-controls="collapseExample">{{$habilidad->n_habilidad}}</a>
+                                                                </p>
+                                                                <div class="collapse" id="collapseHabFaltante">
+                                                                    <div class="card card-body">
+                                                                        <label class="col-form-label text-md-justify">{{$habilidad->dp_habilidad}}</label> 
+                                                                    </div>
+                                                                </div>                                            
+                                                            </li>                  
                                                         @endif
                                                     @endforeach   
                                                 </ul> 
                                             </div>
                                         </div>  
                                     </div>
-                                <div>
+                                </div>
                             </div>
                         </div>
-                        <br>
+                        </br>
                         {{-- Conocimientos --}}
-                        <div class="form-group row justify-content-md-center">
+                        <div class="form-group row">
                             <div class="col-md-12">
                                 <h5>Conocimientos</h5>
                                 <hr>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <div class="col-md-12">
+                            <div class="col-md-11">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <h6>Conocimientos aprendidos<h6>
+                                        <h6>Conocimientos aprendidos</h6>
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <ul>
                                                     @foreach($conocimientos as $conocimiento)
-                                                        @if($conocimiento->tipo_conocimiento == 'aprendida')
+                                                        @if($conocimiento->tipo_conocimiento == 'aprendida') 
                                                             <li>
-                                                                <label class="col-form-label text-md-left">{{$conocimiento->n_conocimiento}}</label>
-                                                                <!--<label class="col-form-label text-md-justify">{{$conocimiento->dp_conocimiento}}</label> 
-                                                                -->
-                                                            </li>            
+                                                                <p>
+                                                                    <a class="col-form-label text-md-left" data-toggle="collapse" href="#collapseConAprendido" aria-expanded="false" aria-controls="collapseExample">{{$conocimiento->n_conocimiento}}</a>
+                                                                </p>
+                                                                <div class="collapse" id="collapseConAprendido">
+                                                                    <div class="card card-body">
+                                                                        <label class="col-form-label text-md-justify">{{$conocimiento->dp_conocimiento}}</label> 
+                                                                    </div>
+                                                                </div>                                            
+                                                            </li>           
                                                         @endif
                                                     @endforeach
                                                 </ul>
@@ -156,16 +178,21 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <h6>Conocimientos faltantes<h6>
+                                        <h6>Conocimientos faltantes</h6>
                                         <div class="row">
-                                            <div class="col-md-12">
+                                            <div class="col-md-11">
                                                 <ul>
                                                     @foreach($conocimientos as $conocimiento)
                                                         @if($conocimiento->tipo_conocimiento == 'faltante')
                                                             <li>
-                                                                <label class="col-form-label text-md-left">{{$conocimiento->n_conocimiento}}</label>
-                                                                <!--<label class="col-form-label text-md-justify">{{$conocimiento->dp_conocimiento}}</label> 
-                                                                -->
+                                                                <p>
+                                                                    <a class="col-form-label text-md-left" data-toggle="collapse" href="#collapseConFaltante" aria-expanded="false" aria-controls="collapseExample">{{$conocimiento->n_conocimiento}}</a>
+                                                                </p>
+                                                                <div class="collapse" id="collapseConFaltante">
+                                                                    <div class="card card-body">
+                                                                        <label class="col-form-label text-md-justify">{{$conocimiento->dp_conocimiento}}</label> 
+                                                                    </div>
+                                                                </div>                                            
                                                             </li>            
                                                         @endif
                                                     @endforeach
@@ -174,19 +201,25 @@
                                         </div>
                                     </div>
                                 </div>
+                                <br>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <h6>Conocimientos adqueridos en la práctica<h6>
+                                        <h6>Conocimientos adqueridos en la práctica</h6>
                                         <div class="row">
-                                            <div class="col-md-12">
+                                            <div class="col-md-11">
                                                 <ul>
                                                     @foreach($conocimientos as $conocimiento)
                                                         @if($conocimiento->tipo_conocimiento == 'adquerido')
                                                             <li>
-                                                                <!--<label class="col-form-label text-md-left">{{$conocimiento->n_conocimiento}}</label>-->
-                                                                <label class="col-form-label text-md-justify">{{$conocimiento->dp_conocimiento}}</label> 
-                                                                
-                                                            </li>            
+                                                                <p>
+                                                                    <a class="col-form-label text-md-left" data-toggle="collapse" href="#collapseConAdquerido" aria-expanded="false" aria-controls="collapseExample">{{$conocimiento->n_conocimiento}}</a>
+                                                                </p>
+                                                                <div class="collapse" id="collapseConAdquerido">
+                                                                    <div class="card card-body">
+                                                                        <label class="col-form-label text-md-justify">{{$conocimiento->dp_conocimiento}}</label> 
+                                                                    </div>
+                                                                </div>                                            
+                                                            </li>             
                                                         @endif
                                                     @endforeach
                                                 </ul>
@@ -198,57 +231,49 @@
                         </div>
                         <br>
                         {{-- Herramientas --}}
-                        <div class="form-group row justify-content-md-center">
+                        <div class="form-group row">
                             <div class="col-md-12">
                                 <h5>Herramientas</h5>
                                 <hr>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <div class="col-md-12">
-                                <div class="form-group row">   
-                                    <div class="col-md-9"> 
-                                        @foreach($herramientaPracticas as $herramientaPractica)
-                                            @foreach($herramientas as $herramienta)
-                                                @if($herramientaPractica->id_herramienta == $herramienta->id_herramienta )
-                                                    <label class="col-form-label text-md">{{$herramienta->n_herramienta}}</label>
-                                                @endif
-                                            @endforeach
-                                            @if($loop->count <> $loop->iteration)
-                                                <label >-</label>
-                                            @endif
-                                        @endforeach       
-                                    </div>
-                                </div>
+                            <div class="col-md-11">
+                                @foreach($herramientaPracticas as $herramientaPractica)
+                                    @foreach($herramientas as $herramienta)
+                                        @if($herramientaPractica->id_herramienta == $herramienta->id_herramienta )
+                                            <label class="col-form-label text-md">{{$herramienta->n_herramienta}}</label>
+                                        @endif
+                                    @endforeach
+                                    @if($loop->count <> $loop->iteration)
+                                        <label >-</label>
+                                    @endif
+                                @endforeach       
                             </div> 
                         </div>
 
                         {{-- Areas --}}
-                        <div class="form-group row justify-content-md-center">
+                        <div class="form-group row">
                             <div class="col-md-12">
                                 <h5>Áreas</h5>
                                 <hr>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <div class="col-md-12">
-                                <div class="form-group row">   
-                                    <div class="col-md-9"> 
-                                        @foreach($areaAutoevals as $areaAutoeval)
-                                            @foreach($areas as $area)
-                                                @if($areaAutoeval->id_area == $area->id_area )
-                                                    <label class="col-form-label text-md-right">{{$area->n_area}}</label>
-                                                @endif
-                                            @endforeach
-                                            @if($loop->count <> $loop->iteration)
-                                                <label >-</label>
-                                            @endif
-                                        @endforeach    
-                                    </div>
-                                </div>                  
+                            <div class="col-md-11">
+                                @foreach($areaAutoevals as $areaAutoeval)
+                                    @foreach($areas as $area)
+                                        @if($areaAutoeval->id_area == $area->id_area )
+                                            <label class="col-form-label text-md-right">{{$area->n_area}}</label>
+                                        @endif
+                                    @endforeach
+                                    @if($loop->count <> $loop->iteration)
+                                        <label >-</label>
+                                    @endif
+                                @endforeach                   
                             </div> 
                         </div>
-                        <div class="form-group row justify-content-md-center">
+                        <div class="form-group row">
                             <div class="col-md-12">
                                 <h5>Autoevaluación del alumno</h5>
 
@@ -257,14 +282,14 @@
                         <div class="card text">
                             <div class="card-body">
                                 {{-- Autoevaluacion --}}
-                                <div class="form-group row justify-content-md-center">
+                                <div class="form-group row">
                                     <div class="col-md-12">
                                         <h6>Actitud del alumno</h6>                       
                                                             
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <div class="col-md-11">
+                                    <div class="col-md-12">
                                         @if($evalActPractica <> NULL)
                                             <div id="columnchart_evalActPractica" style="height: 300px;"></div>
                                             <br>
@@ -304,13 +329,13 @@
                         <br> 
                         <div class="card text">
                             <div class="card-body">
-                                <div class="form-group row justify-content-md-center">
+                                <div class="form-group row">
                                     <div class="col-md-12">
                                         <h6>Conocimiento del alumno</h6>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <div class="col-md-11">
+                                    <div class="col-md-12">
                                         @if($evalConPractica <> NULL)
                                             <div id="columnchart_evalConPractica" style="height: 300px;"></div>
                                             <br>
@@ -352,14 +377,13 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-3">
-                <a href="{{ route('datosAlumno',['id'=>$autoevaluacion->id_practica]) }}"><button class="btn btn-secondary">Atrás</button></a>
-            </div>  
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-3">
+                        <a href="{{ route('datosAlumno',['id'=>$autoevaluacion->id_practica]) }}"><button class="btn btn-secondary">Atrás</button></a>
+                    </div>  
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -379,16 +403,9 @@
             <?php  
                 foreach($evalActPractica as $evalActPract){
                     if ($evalActitudinales[($evalActPract->id_actitudinal)-1]->id_actitudinal == $evalActPract->id_actitudinal){  
-                        if($evalActPract->valor_act_practica == 'NA' || $evalActPract->valor_act_practica == 'NL'){
             ?>
-                            ['<?php echo $evalActitudinales[($evalActPract->id_actitudinal)-1]->n_act; ?>', 'NA' , <?php echo $evalActPromG[($evalActPract->id_actitudinal)-1];?> ],
+                        ['<?php echo $evalActitudinales[($evalActPract->id_actitudinal)-1]->n_act; ?>', <?php echo intval($evalActPract->valor_act_practica); ?> , <?php echo $evalActPromG[($evalActPract->id_actitudinal)-1];?> ],
             <?php
-                        }
-                        else{
-            ?>
-                            ['<?php echo $evalActitudinales[($evalActPract->id_actitudinal)-1]->n_act; ?>', <?php echo intval($evalActPract->valor_act_practica); ?> , <?php echo $evalActPromG[($evalActPract->id_actitudinal)-1];?> ],
-            <?php
-                        } 
                     }
                 }
             ?>
@@ -396,8 +413,8 @@
         
         var options1 = {
             chart: {
-                title: 'Escuela de Ingeniería en Informática',
-                subtitle: 'Autoevaluación, Actitud del alumno',
+                title:  'Comparativa actitud del alumno en la Autoevaluación',
+                subtitle: 'Escuela de Ingeniería en Informática'
             },
             legend: { position: 'bottom', alignment: 'end' },
             responsive: true,
@@ -418,17 +435,10 @@
             ['Conocimiento del Alumno','Respuesta alumno','Promedio General'],
             <?php  
                 foreach($evalConPractica as $evalConPract){
-                     if ($evalConocimientos[($evalConPract->id_conocimiento)-1]->id_conocimiento == $evalConPract->id_conocimiento){
-                        if($evalConPract->valor_con_practica == 'NA' || $evalConPract->valor_con_practica == 'NL'){
-            ?>
-                            ['<?php echo $evalConocimientos[($evalConPract->id_conocimiento)-1]->n_con; ?>', 'NA' , <?php echo $evalConPromG[($evalConPract->id_conocimiento)-1];?> ],
-            <?php
-                        }
-                        else{
+                    if ($evalConocimientos[($evalConPract->id_conocimiento)-1]->id_conocimiento == $evalConPract->id_conocimiento){
             ?>
                             ['<?php echo $evalConocimientos[($evalConPract->id_conocimiento)-1]->n_con; ?>', <?php echo intval($evalConPract->valor_con_practica); ?> , <?php echo $evalConPromG[($evalConPract->id_conocimiento)-1];?> ],
             <?php
-                        } 
                     }
                 }
             ?>
