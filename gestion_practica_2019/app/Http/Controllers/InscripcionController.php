@@ -20,8 +20,8 @@ class InscripcionController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('is_administrador')->only('lista', 'listaInscripcionCivil', 'listaInscripcionEjecucion');
-        $this->middleware('is_alumno')->except('lista', 'listaInscripcionCivil', 'listaInscripcionEjecucion', 'solicitudDocumentosModal','aviso', 'borrarSolicitud');
+        $this->middleware('is_administrador')->only('lista', 'listaInscripcion', 'solicitudDocumentosModal','aviso', 'borrarSolicitud');
+        $this->middleware('is_alumno')->except('lista', 'listaInscripcion', 'solicitudDocumentosModal','aviso', 'borrarSolicitud');
     }
     /**
      * Display a listing of the resource.
@@ -112,7 +112,7 @@ class InscripcionController extends Controller
             User::create([
                 'name' => $request->nombreSupervisor,
                 'email' => $request->emailSupervisor,
-                'password' => str_random(8),
+                'password' => str_random(12),
                 'type' => 'Supervisor'
             ]);
             $usuarioS = User::where('email',$request->emailSupervisor)->first();
@@ -128,6 +128,22 @@ class InscripcionController extends Controller
                 'id_empresa' => $empresa->id_empresa
             ]);
             $supervisor = Supervisor::where('email',$request->emailSupervisor)->first();
+
+            $subject = "Contraseña para SGPP";
+            $for = $request->emailSupervisor;
+            $data = [
+                'usuario' => $usuarioS,
+                'request'=> $request
+            ];
+            //Cuando el Supervisor se ingrese en la base con una contraseña random de 8 digitos, se la enviamos por correo, luego, la encriptamos en la base para que pueda ingresar.
+
+            Mail::send('Emails.supervisor', $data, function($msj) use($subject,$for){
+                $msj->from("practicaprofesionalpucv@gmail.com","Docencia Escuela de Ingeniería Informática");
+                $msj->subject($subject);
+                $msj->to("pablo.cabello.alvarez@gmail.com");
+            });
+            $usuarioS->password = bcrypt($usuarioS->password);
+            $usuarioS->save();
         }
 
         $practica = Practica::where('id_alumno',$alumno->id_alumno)->first();
@@ -176,7 +192,7 @@ class InscripcionController extends Controller
 
     public function verDescripcionInscripcion()
     {
-        $id = auth()->user()->id_user;
+        $id = Auth::user()->id_user;
         $alumnos = Alumno::where('id_user', $id)->first();
 
         $practicas = DB::table('practicas')

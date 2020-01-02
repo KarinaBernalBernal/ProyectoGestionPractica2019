@@ -6,7 +6,7 @@
             <h1 class="h3 mb-0 text-gray-800">SOLICITUD CARTA PRESENTACIÓN Y/O SEGURO ESCOLAR</h1>
         </div>
         
-        <form action="{{route('agregarSolicitudDocumentos')}}" enctype="multipart/form-data" method="POST" role="form">
+        <form id="formularioSolicitudDocumentos" action="{{route('agregarSolicitudDocumentos')}}" enctype="multipart/form-data" method="POST" role="form">
             {{ csrf_field() }} 
 
             <div class="card text">                
@@ -117,6 +117,59 @@
         {
             $('#fechaHasta').removeAttr('disabled');
             $('#fechaHasta').attr('min', $('#fechaDesde').val());
+        });
+
+        $("#formularioSolicitudDocumentos").submit(function(e) {
+
+            e.preventDefault(); // avoid to execute the actual submit of the form.
+
+            var form = $(this);
+            var url = form.attr('action');
+
+            Swal({
+                title: '¿Estás seguro?',
+                text: "Es imporante revisar si todo está correcto!",
+                type: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si!'
+            }).then((result) => {
+
+                if (result.value) {
+
+                    window.swal({
+                        title: "Por favor espere",
+                        showConfirmButton: false,
+                        allowOutsideClick: false
+                    });
+                    $.ajax({
+                        url: url,
+                        method: "POST",
+                        data: form.serialize(), // serializes the form's elements.
+                        success: function(){
+                            Swal(
+                                'Listo!',
+                                '',
+                                'success'
+                            ).then((result) =>
+                            {
+                                if (result.value)
+                                {
+                                    window.location.href = "{{route('descripcionSolicitudDocumentos')}}"
+                                }
+                            })
+                        },
+                        error:function() {
+                            Swal.fire({
+                                type: 'error',
+                                title: 'Opps...!',
+                                text: 'No se pudo enviar el formulario',
+                            });
+                        }
+                    });
+                }
+            });
         });
     </script>
 @endsection 

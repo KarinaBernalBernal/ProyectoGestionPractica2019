@@ -74,7 +74,7 @@
                                         <b> Autoevaluacion :</b>
 
                                         @if($alumnos->id_autoeval)
-                                            <a  href="" class='botonModalAutoEvaluacion fa fa-check text-success' data-toggle="modal" data-form="{{ route('autoEvaluacionModal',['id'=>$alumnos->id_alumno])}}" data-target="#modal-autoEvaluacion"></a><br>
+                                            <a  href="" class='botonModalAutoEvaluacion fa fa-check text-success' data-toggle="modal" data-form="{{ route('autoEvaluacionModal',['id'=>$alumnos->id_autoeval])}}" data-target="#modal-autoEvaluacion"></a><br>
                                          @else
                                             <a class='fa fa-times text-danger'></a><br>
                                         @endif

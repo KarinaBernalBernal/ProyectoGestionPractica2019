@@ -90,6 +90,7 @@
                             </div>
                         </div>
 
+                        @if($solicitud->practica == "Ingeniería Civil Informática")
                         {{-- Segunda Practica --}}
                         <div class="form-group row">
                             <div class="col-md-3">
@@ -102,7 +103,7 @@
                                 <label class="col-form-label text-md-right">{{$solicitud->practica}}</label>
                             </div>
                         </div>
-
+                        @endif
                         {{-- Proyecto de Titulo --}}
                         <div class="form-group row">
                             <div class="col-md-3">
