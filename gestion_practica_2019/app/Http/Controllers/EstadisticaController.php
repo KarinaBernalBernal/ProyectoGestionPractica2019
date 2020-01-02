@@ -70,14 +70,12 @@ class EstadisticaController extends Controller
     }
 
     public function buscarAlumno(Request $request){
-        $lista= Alumno::filtrarYPaginar($request->get('buscador'),
-                                        $request->get('nombre'), 
+        $lista= Alumno::filtrarYPaginar($request->get('nombre'), 
                                         $request->get('apellido_paterno'),
                                         $request->get('apellido_materno'),
-                                        $request->get('email'),
                                         $request->get('anno_ingreso'),
                                         $request->get('carrera'),
-                                        $request->get('direccion')
+                                        $request->get('rut')                                        
                                     );
         return view('Estadisticas/alumnosDetalles')->with("lista", $lista);
     }
@@ -979,8 +977,11 @@ class EstadisticaController extends Controller
         $practica2 = Practica::where('id_practica','<>',$practica1->id_practica)->where('id_alumno',$id)->first();
 
         $autoevaluacion1 = Autoevaluacion::where('id_practica',$practica1->id_practica)->first();
+        $evaluacionSupervisor1 = EvaluacionSupervisor::where('id_practica',$practica1->id_practica)->first();
+
         $autoevaluacion2 = Autoevaluacion::where('id_practica',$practica2->id_practica)->first();
-        
+        $evaluacionSupervisor2 = EvaluacionSupervisor::where('id_practica',$practica2->id_practica)->first();
+
         //dd($practica1->id_practica, $practica2->id_practica);
         
         if($autoevaluacion1 != null && $autoevaluacion2 != null ){
@@ -1003,18 +1004,36 @@ class EstadisticaController extends Controller
             
             $evalActitudinales->toArray();
             $evalConocimientos->toArray();
-            
+
+            $evalActEmpPractica1 = EvalActEmpPractica::orderby('id_actitudinal', 'ASC')->where('id_eval_supervisor',$evaluacionSupervisor1->id_eval_supervisor)->paginate(12);
+            $evalConEmpPractica1 = EvalConEmpPractica::orderby('id_conocimiento', 'ASC')->where('id_eval_supervisor',$evaluacionSupervisor1->id_eval_supervisor)->paginate(12);
+
+            $evalActEmpPractica1->toArray();
+            $evalConEmpPractica1->toArray();
+
+            $evalActEmpPractica2 = EvalActEmpPractica::orderby('id_actitudinal', 'ASC')->where('id_eval_supervisor',$evaluacionSupervisor2->id_eval_supervisor)->paginate(12);
+            $evalConEmpPractica2 = EvalConEmpPractica::orderby('id_conocimiento', 'ASC')->where('id_eval_supervisor',$evaluacionSupervisor2->id_eval_supervisor)->paginate(12);
+
+            $evalActEmpPractica2->toArray();
+            $evalConEmpPractica2->toArray();
+        
             return view('Estadisticas/AvanceCivil')->with("autoevaluacion1", $autoevaluacion1)
                                                     ->with("evalActPractica1", $evalActPractica1)
                                                     ->with("evalConPractica1", $evalConPractica1)
                                                     ->with("evalActPractica2", $evalActPractica2)
                                                     ->with("evalConPractica2", $evalConPractica2)
+                                                    ->with("evalActEmpPractica1", $evalActEmpPractica1)
+                                                    ->with("evalConEmpPractica1", $evalConEmpPractica1)
+                                                    ->with("evalActEmpPractica2", $evalActEmpPractica2)
+                                                    ->with("evalConEmpPractica2", $evalConEmpPractica2)
                                                     ->with("evalActitudinales", $evalActitudinales)
                                                     ->with("evalConocimientos", $evalConocimientos);
         }
         else{
             return view('Estadisticas/AvanceCivil')->with("autoevaluacion1", $autoevaluacion1)
-                            ->with("evaluacion2", $autoevaluacion2);
+                            ->with("evaluacion2", $autoevaluacion2)
+                            ->with("evaluacionSupervisor1", $evaluacionSupervisor1)
+                            ->with("evaluacionSupervisor2", $evaluacionSupervisor2);
         }        
     }
 }
