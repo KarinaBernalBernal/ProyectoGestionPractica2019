@@ -98,9 +98,7 @@
               </tr>
               <tr>
                 <td class="bodycopy">
-                  Te informamos que para poder completar el formulario de “Solicitud autorización práctica profesional” es necesario que ingreses al enlace a continuación.
-                  <br><br>
-                  {{$url}}
+                  Te informamos que tus papeles (Carta de presentación y/o Seguro escolar) están listos para ser retirados.
                 </td>
               </tr>
             </table>

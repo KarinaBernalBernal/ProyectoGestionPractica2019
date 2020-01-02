@@ -16,7 +16,7 @@ class AlumnoController extends Controller
 {
     public function __construct(){
         $this->middleware('auth');
-        $this->middleware('is_administrador');
+        $this->middleware('is_administrador')->except('mostrarAutoEvaluacionModal');
     }
 
     //vista principal de un elemento en especifico
@@ -190,9 +190,82 @@ class AlumnoController extends Controller
 
     public function mostrarAutoEvaluacionModal($id) //Mostrar el formulario del alumno
     {
-        $autoEvaluacion = Autoevaluacion::where('id_practica', $id)->first();
+        $autoEvaluacion = Autoevaluacion::where('id_autoeval', $id)->first();
 
-        return view('Practicas/modales/modalAutoEvaluacion')->with('formulario',$autoEvaluacion);
+        $desempennos = DB::table('autoevaluaciones')
+            ->join('desempennos', 'desempennos.id_autoeval', '=', 'autoevaluaciones.id_autoeval')
+            ->where('autoevaluaciones.id_autoeval', $id)
+            ->select('desempennos.*')
+            ->get();
+        $tareas = DB::table('autoevaluaciones')
+            ->join('tareas', 'tareas.id_autoeval', 'autoevaluaciones.id_autoeval')
+            ->where('autoevaluaciones.id_autoeval', $id)
+            ->select('tareas.*')
+            ->get();
+        $habilidadesA = DB::table('autoevaluaciones')
+            ->join('habilidades', 'habilidades.id_autoeval', 'autoevaluaciones.id_autoeval')
+            ->where('autoevaluaciones.id_autoeval', $id)
+            ->where('habilidades.tipo_habilidad', "faltante")
+            ->select('habilidades.*')
+            ->get();
+        $habilidadesF = DB::table('autoevaluaciones')
+            ->join('habilidades', 'habilidades.id_autoeval', 'autoevaluaciones.id_autoeval')
+            ->where('autoevaluaciones.id_autoeval', $id)
+            ->where('habilidades.tipo_habilidad', "aprendida")
+            ->select('habilidades.*')
+            ->get();
+        $conocimientosA = DB::table('autoevaluaciones')
+            ->join('conocimientos', 'conocimientos.id_autoeval', 'autoevaluaciones.id_autoeval')
+            ->where('autoevaluaciones.id_autoeval', $id)
+            ->where('conocimientos.tipo_conocimiento', "aprendida")
+            ->select('conocimientos.*')
+            ->get();
+        $conocimientosF = DB::table('autoevaluaciones')
+            ->join('conocimientos', 'conocimientos.id_autoeval', 'autoevaluaciones.id_autoeval')
+            ->where('autoevaluaciones.id_autoeval', $id)
+            ->where('conocimientos.tipo_conocimiento', "faltante")
+            ->select('conocimientos.*')
+            ->get();
+        $conocimientosAd = DB::table('autoevaluaciones')
+            ->join('conocimientos', 'conocimientos.id_autoeval', 'autoevaluaciones.id_autoeval')
+            ->where('autoevaluaciones.id_autoeval', $id)
+            ->where('conocimientos.tipo_conocimiento', "adquirida")
+            ->select('conocimientos.*')
+            ->get();
+        $herramientasPractica = DB::table('herramientas_practica')
+            ->join('herramientas', 'herramientas.id_herramienta', 'herramientas_practica.id_herramienta')
+            ->where('herramientas_practica.id_autoeval', $id)
+            ->select('herramientas.*')
+            ->get();
+        $areasautoeval = DB::table('areas_autoeval')
+            ->join('areas', 'areas.id_area', 'areas_autoeval.id_area')
+            ->where('areas_autoeval.id_autoeval', $id)
+            ->select('areas.*')
+            ->get();
+        $evalActPracticas = DB::table('eval_act_practicas')
+            ->join('eval_actitudinales', 'eval_actitudinales.id_actitudinal', 'eval_act_practicas.id_actitudinal')
+            ->where('eval_act_practicas.id_autoeval', $id)
+            ->select('eval_actitudinales.*', 'eval_act_practicas.valor_act_practica')
+            ->get();
+        $evalConPracticas = DB::table('eval_con_practicas')
+            ->join('eval_conocimientos', 'eval_conocimientos.id_conocimiento', 'eval_con_practicas.id_conocimiento')
+            ->where('eval_con_practicas.id_autoeval', $id)
+            ->select('eval_conocimientos.*', 'eval_con_practicas.valor_con_practica')
+            ->get();
+        return view('Practicas/modales/modalAutoEvaluacion')
+            ->with('desempennos',$desempennos)
+            ->with('tareas',$tareas)
+            ->with('habilidadesA',$habilidadesA)
+            ->with('habilidadesF',$habilidadesF)
+            ->with('conocimientosA',$conocimientosA)
+            ->with('conocimientosF',$conocimientosF)
+            ->with('conocimientosAd',$conocimientosAd)
+            ->with('herramientasPractica',$herramientasPractica)
+            ->with('areasautoeval',$areasautoeval)
+            ->with('evalActPracticas',$evalActPracticas)
+            ->with('evalConPracticas',$evalConPracticas)
+            ->with('autoEvaluacion',$autoEvaluacion);
+
     }
 
 }

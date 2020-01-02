@@ -46,12 +46,12 @@
 						<div class="text-left">Se encontraron {{ $contadorP }} Solicitudes</div>
 						<hr>
 					</form>
-                    <div class="row">
+                    <div class="form-row">
 					   <h2>Solicitudes Pendientes</h2>
 					</div>
 					@if (count($solicitudesP)>0)
 					<br>
-					<div class="row d-flex justify-content-center text-center">
+					<div class="form-row text-center">
 						<table class="table table-bordered bg-light table-hover table-responsive">
         					<thead class="bg-dark" style="color: white">							
 								<tr class='text-center'>
@@ -131,12 +131,12 @@
 						<div class="text-left">Se encontraron {{ $contadorE }} Solicitudes</div>
 						<hr>
 					</form>
-					<div class="row">
+					<div class="form-row">
 					   <h2>Solicitudes Evaluadas</h2>
 					</div>
 					@if (count($solicitudesE)>0)
 					<br>
-					<div class="row d-flex justify-content-center text-center">
+					<div class="form-row text-center">
 						<table class="table table-bordered bg-light table-hover table-responsive">
         					<thead class="bg-dark" style="color: white">
 								<tr class='text-center'>
@@ -184,6 +184,7 @@
 			</div>
 		</div>
    </div>
+
 
    <div class="modal" id="modal-evaluarSolicitud"></div>
    <div class="modal" id="modal-modificarEvaluacionSolicitud"></div>

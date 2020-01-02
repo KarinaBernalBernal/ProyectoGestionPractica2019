@@ -93,14 +93,16 @@
             <table width="100%" border="0" cellspacing="0" cellpadding="0">
               <tr>
                 <td class="h2">
-                  Estimado(a) estudiante
+                  Estimado(a) {{$request->nombreSupervisor}}
                 </td>
               </tr>
               <tr>
                 <td class="bodycopy">
-                  Te informamos que para poder completar el formulario de “Solicitud autorización práctica profesional” es necesario que ingreses al enlace a continuación.
+                  Te informamos que tu contraseña para poder ingresar al Sistema de gestión practica profesional es la siguiente:
                   <br><br>
-                  {{$url}}
+                  {{$usuario->password}}
+                  <br><br>
+                  Una vez dentro, te recomendamos modificarla.
                 </td>
               </tr>
             </table>

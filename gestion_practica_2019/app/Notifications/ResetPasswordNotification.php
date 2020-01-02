@@ -47,6 +47,7 @@ class ResetPasswordNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
+            ->from("practicaprofesionalpucv@gmail.com","Docencia Escuela de Ingeniería Informática")
             ->subject('Solicitud de restablecimiento de contraseña')
             ->greeting('Hola ' . $notifiable->name)
             ->line('Recibes este email porque se solicito un restablecimiento de contraseña para tu cuenta.')

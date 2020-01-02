@@ -12,17 +12,17 @@ use SGPP\Supervisor;
 use SGPP\Empresa;
 use SGPP\Solicitud;
 use Illuminate\Support\Facades\DB;
-
-
+use Mail;
 
 class InscripcionController extends Controller
 {
     /* ----- Solicitar Documentos ----*/
 
-    public function __construct(){
+    public function __construct()
+    {
         $this->middleware('auth');
-        $this->middleware('is_administrador')->only('lista', 'listaInscripcion');
-        $this->middleware('is_alumno')->except('lista', 'listaInscripcion');
+        $this->middleware('is_administrador')->only('lista', 'listaInscripcion', 'solicitudDocumentosModal','aviso', 'borrarSolicitud');
+        $this->middleware('is_alumno')->except('lista', 'listaInscripcion', 'solicitudDocumentosModal','aviso', 'borrarSolicitud');
     }
     /**
      * Display a listing of the resource.
@@ -131,7 +131,7 @@ class InscripcionController extends Controller
             User::create([
                 'name' => $request->nombreSupervisor,
                 'email' => $request->emailSupervisor,
-                'password' => bcrypt('supervisor123'), //str_random(8) Para el value
+                'password' => str_random(12),
                 'type' => 'Supervisor'
             ]);
             $usuarioS = User::where('email',$request->emailSupervisor)->first();
@@ -147,6 +147,22 @@ class InscripcionController extends Controller
                 'id_empresa' => $empresa->id_empresa
             ]);
             $supervisor = Supervisor::where('email',$request->emailSupervisor)->first();
+
+            $subject = "Contraseña para SGPP";
+            $for = $request->emailSupervisor;
+            $data = [
+                'usuario' => $usuarioS,
+                'request'=> $request
+            ];
+            //Cuando el Supervisor se ingrese en la base con una contraseña random de 8 digitos, se la enviamos por correo, luego, la encriptamos en la base para que pueda ingresar.
+
+            Mail::send('Emails.supervisor', $data, function($msj) use($subject,$for){
+                $msj->from("practicaprofesionalpucv@gmail.com","Docencia Escuela de Ingeniería Informática");
+                $msj->subject($subject);
+                $msj->to("pablo.cabello.alvarez@gmail.com");
+            });
+            $usuarioS->password = bcrypt($usuarioS->password);
+            $usuarioS->save();
         }
 
         if($practica == null) //Si el alumno no posee ninguna practica
@@ -176,7 +192,11 @@ class InscripcionController extends Controller
 
     public function lista()
     {
-        $lista=DocSolicitado::all();
+        $lista = DB::table('documentos_solicitados')
+            ->join('alumnos', 'alumnos.id_alumno', 'documentos_solicitados.id_alumno')
+            ->join('solicitudes', 'solicitudes.id_alumno', 'alumnos.id_alumno')
+            ->select('documentos_solicitados.*', 'alumnos.*', 'solicitudes.resolucion_solicitud')
+            ->get();
         return view('2 Inscripcion/lista_solicitudes_documentos',[
                 'lista'=>$lista,
             ]);
@@ -190,7 +210,7 @@ class InscripcionController extends Controller
 
     public function verDescripcionInscripcion()
     {
-        $id = auth()->user()->id_user;
+        $id = Auth::user()->id_user;
         $alumnos = Alumno::where('id_user', $id)->first();
 
         $practicas = DB::table('practicas')
@@ -218,6 +238,38 @@ class InscripcionController extends Controller
     }
 
     /* -------Listas de inscripcion -----*/
+    public function solicitudDocumentosModal($id)
+    {
+        $solicitudD = DB::table('documentos_solicitados')
+            ->join('alumnos', 'alumnos.id_alumno', 'documentos_solicitados.id_alumno')
+            ->join('solicitudes', 'solicitudes.id_alumno', 'alumnos.id_alumno')
+            ->where('documentos_solicitados.id_doc_solicitado', $id)
+            ->select('documentos_solicitados.*', 'alumnos.*', 'solicitudes.resolucion_solicitud')
+            ->get();
+
+
+        return view('2 Inscripcion/modales/modalSolicitudDocumentos',[
+            'solicitudD'=>$solicitudD,
+        ]);
+    }
+    public function aviso(Request $request)
+    {
+        $alumno = Alumno::find($request->id);
+        $subject = "Carta presentación/Seguro escolar";
+        $for = $alumno->email;
+        Mail::send('Emails.solicitudDocumentos', $request->all(), function($msj) use($subject,$for){
+            $msj->from("practicaprofesionalpucv@gmail.com","Docencia Escuela de Ingeniería Informática");
+            $msj->subject($subject);
+            $msj->to($for);
+        });
+    }
+    public function borrarSolicitud($id_elemento)
+    {
+        $elemento_eliminar =  DocSolicitado::find($id_elemento);
+        $elemento_eliminar->delete();
+        return redirect()->route('lista_solicitudes_documentos');
+    }
+
     public function listaInscripcion(Request $request, $carrera)
     {
         $alumnosInformatica = DB::table('alumnos')
@@ -250,3 +302,4 @@ class InscripcionController extends Controller
             ->with('carrera', $carrera);
     }   
 }
+

@@ -57,7 +57,7 @@
                             <td class="text-center">
                                 @if($autoevaluaciones->f_inscripcion)
                                     @if($autoevaluaciones->id_autoeval)
-                                        <a  href="" class='botonModalAutoEvaluacion fa fa-file text-success' data-toggle="modal" data-form="{{ route('autoEvaluacionModal',['id'=>$autoevaluaciones->id_practica])}}" data-target="#modal-autoEvaluacion"></a><br>
+                                        <a  href="" class='botonModalAutoEvaluacion fa fa-file text-success' data-toggle="modal" data-form="{{ route('autoEvaluacionModal',['id'=>$autoevaluaciones->id_autoeval])}}" data-target="#modal-autoEvaluacion"></a><br>
                                     @else
                                         @if( $fechaActual >= $autoevaluaciones->f_hasta)
                                             @if(!$autoevaluaciones->resolucion_practica)
@@ -82,4 +82,30 @@
             <p class="text-center">No se encontraron Autoevaluaciones</p>
         @endif
     </div>
+
+    <div class="modal" id="modal-autoEvaluacion"></div>
+
+    <script>
+        /*BOTON AUTO EVALUACION*/
+        $(document).ready(function ()
+        {
+            //modal-autoEvaluacion
+            $(".botonModalAutoEvaluacion").click(function (ev) // for each edit contact url
+            {
+                ev.preventDefault(); // prevent navigation
+                var url = $(this).data("form"); // get the contact form url
+                console.log(url);
+                $("#modal-autoEvaluacion").load(url, function () // load the url into the modal
+                {
+                    $(this).modal('show'); // display the modal on url load
+                });
+            });
+
+            $('#modal-autoEvaluacion').on('hidden.bs.modal', function (e)
+            {
+                $(this).find('.modal-content').empty();
+            });
+        });
+
+    </script>
 @endsection
