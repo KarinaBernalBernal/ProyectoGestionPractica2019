@@ -233,7 +233,6 @@ Route::get('/modal/inscripcionModal/{id}','AlumnoController@mostrarInscripcionMo
 Route::get('/modal/autoEvaluacionModal/{id}','AlumnoController@mostrarAutoEvaluacionModal')->name('autoEvaluacionModal');
 
 /*Modal evaluacion supervisor*/
-Route::get('/modal/evaluacionModal/{id}','EvaluacionSupervisorController@mostrarEvaluacionModal')->name('evaluacionModal');
 Route::get('/modal/evaluacionModalInformatica/{id}','SupervisorController@mostrarEvaluacionModal')->name('evaluacionModalInformatica');
 
 /* ----------------- Modificar Contraseña ---------------------------- */
