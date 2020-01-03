@@ -38,7 +38,7 @@
     function drawChart() {
 
         var data = new google.visualization.DataTable();
-        data.addColumn('string', 'Actitud del alumno');
+        data.addColumn('string', 'Años');
         data.addColumn('number', 'Ingeniería Civil Informática');
         data.addColumn('number', 'Ingeniería de Ejecución Informática');
 

@@ -4,7 +4,7 @@
 
 <div class="container-fluid">
   	<div class="d-sm-flex align-items-center justify-content-between mb-4">
-    	<h3 class="h3 mb-0 text-gray-800">Autoevaluación del alumno</h3>
+    	<h3 class="h3 mb-0 text-gray-800">Autoevaluaciones del alumno</h3>
   	</div>
      
     <div class="card text">

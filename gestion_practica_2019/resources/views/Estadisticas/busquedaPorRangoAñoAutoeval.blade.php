@@ -13,7 +13,7 @@
             <br>
             <div class="row">
                 <div class="col-md-12">
-                    <div id="barchart_herramientas" style="height: 300px;"></div> 
+                    <div id="barchart_herramientas" style="height: 600px;"></div> 
                 </div>
             </div>
         </div>
@@ -37,7 +37,7 @@
             <br>
             <div class="row">
                 <div class="col-md-12">
-                    <div id="columnchart_evalActPractica" style="height: 300px;"></div>
+                    <div id="columnchart_evalActPractica" style="height: 500px;"></div>
                     <br> 
                     <table id='tablagraficoAct' class="table table-sm table-responsive">
                         <thead >

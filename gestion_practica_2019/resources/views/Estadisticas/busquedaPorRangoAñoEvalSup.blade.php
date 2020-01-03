@@ -12,7 +12,7 @@
             <br>
             <div class="row">
                 <div class="col-md-12">
-                    <div id="barchart_areas" style="height: 300px;"></div>        
+                    <div id="barchart_areas" style="height: 500px;"></div>        
                 </div>
             </div>
         </div>

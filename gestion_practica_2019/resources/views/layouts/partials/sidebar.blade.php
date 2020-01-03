@@ -72,27 +72,25 @@
                 </a>
                 <div id="collapseResolucionPracticas" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-
                         <a class="collapse-item" href="{{route('ResolucionPracticaCivil')}}">Ing. Civil Informática</a>
                         <a class="collapse-item" href="{{route('ResolucionPracticaEjecucion')}}">Ing. Ejec. Informática</a>
-
                     </div>
                 </div>
                 <!-- -->
             </li>
             @endif
-            @if(Auth::user()->type == 'administrador' && ($jefeDocencia != null || $gestionador !=null))
+            @if(Auth::user()->type == 'administrador' && $jefeDocencia != null || $profesor !=null)
                 <li class="nav-item">
                     <!-- Solo profesores -->
                         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseVerEstadisticas" aria-expanded="true" aria-controls="collapseVerEstadisticas"><i class="fas fa-chart-bar"></i>
                             <span>Ver estadísticas</span>
                         </a>
                         <div id="collapseVerEstadisticas" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                            <div class="bg-white py-2 collapse-inner rounded">
-                                <a class="collapse-item" href="{{route('estadisticaAlumno')}}">Búsqueda avanzada</a>
-                                <a class="collapse-item" href="{{route('estadisticaCriteriosAutoeval')}}">Búsqueda por año:<br> Autoevaluación del alumno</a>
-                                <a class="collapse-item" href="{{route('estadisticaCriteriosEvalSupervisor')}}">Búsqueda por año:<br> Evaluación del supervisor</a>
-                                <a class="collapse-item" href="{{route('estadisticaGeneral')}}">Estadísticas Generales</a>
+                            <div class="bg-white py-2 collapse-inner rounded"> 
+                                <a class="collapse-item" href="{{route('estadisticaAlumno')}}">Estadísticas por alumno</a>
+                                <a class="collapse-item" href="{{route('estadisticaCriteriosAutoeval')}}">Autoevaluaciones del <br>alumno</a>
+                                <a class="collapse-item" href="{{route('estadisticaCriteriosEvalSupervisor')}}"> Evaluaciones del <br>supervisor</a>
+                                <a class="collapse-item" href="{{route('estadisticaGeneral')}}">Estadísticas generales</a>
                             </div>
                         </div>
                     <!-- -->
