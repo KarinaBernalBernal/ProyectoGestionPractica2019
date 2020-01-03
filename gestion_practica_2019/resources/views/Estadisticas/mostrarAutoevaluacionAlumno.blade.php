@@ -304,7 +304,7 @@
                                                 </thead>
                                                 <tbody>
                                                     <tr class='text-center'>
-                                                        <th>Evaluación del supervisor</th>
+                                                        <th>Autoevaluación</th>
                                                         @foreach($evalActPractica as $evalActPract)
                                                             <th style=" font-weight: normal;"> {{ $evalActPract->valor_act_practica }} </th>
                                                         @endforeach
@@ -350,7 +350,7 @@
                                                 </thead>
                                                 <tbody>
                                                     <tr class='text-center'>
-                                                        <th>Evaluación del supervisor</th>
+                                                        <th>Autoevaluación</th>
                                                         @foreach($evalConPractica as $evalConPract)
                                                             <th style=" font-weight: normal;"> {{ $evalConPract->valor_con_practica }} </th>
                                                         @endforeach
