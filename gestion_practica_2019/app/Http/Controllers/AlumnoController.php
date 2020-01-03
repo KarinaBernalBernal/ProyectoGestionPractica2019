@@ -154,14 +154,14 @@ class AlumnoController extends Controller
             );
 
             $contador = $listaFiltrada->count();  //mostrara la cantidad de resultados en la tabla filtrada
-            $listaFiltrada = $listaFiltrada->paginate(10);
+            $listaFiltrada = $listaFiltrada->paginate(15);
 
             return view('Practicas/alumnos_en_practica')->with('lista',$listaFiltrada)
                 ->with('contador',$contador)
                 ->with('carrera', $carrera);
         }
         $contador = $alumnosInformatica->count(); //mostrara la cantidad de resultados en la tabla
-        $alumnosInformatica = $alumnosInformatica->paginate(10);
+        $alumnosInformatica = $alumnosInformatica->paginate(15);
         return view('Practicas/alumnos_en_practica')->with('lista',$alumnosInformatica)
             ->with('contador', $contador)
             ->with('carrera', $carrera);

@@ -36,9 +36,9 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead class="bg-dark" style="color: white">
                     <tr>
-                        <th class="text-truncate text-center">Fecha Inscripcion Practica</th>
+                        <th class="text-truncate text-center">Fecha Inscripción Practica</th>
                         <th class="text-truncate text-center">Fecha de entrega</th>
-                        <th class="text-truncate text-center">Autoevaluacion</th>
+                        <th class="text-truncate text-center">Autoevaluación</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -47,12 +47,12 @@
                             @if($autoevaluaciones->f_inscripcion)
                                 <td>{{date('d-m-Y', strtotime($autoevaluaciones->f_inscripcion))}}</td>
                             @else
-                                <td>La Práctica no esta inscrita</td>
+                                <td>La Práctica no está inscrita</td>
                             @endif
                             @if($autoevaluaciones->f_entrega)
                                 <td>{{date('d-m-Y', strtotime($autoevaluaciones->f_entrega))}}</td>
                             @else
-                                <td>La Autoevaluacion no esta terminada</td>
+                                <td>La Autoevaluación no está terminada</td>
                             @endif
                             <td class="text-center">
                                 @if($autoevaluaciones->f_inscripcion)
@@ -70,7 +70,7 @@
                                         @endif()
                                     @endif
                                 @else
-                                    <span>La Práctica no esta inscrita</span>
+                                    <span>La Práctica no está inscrita</span>
                                 @endif
                             </td>
                         </tr>

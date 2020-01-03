@@ -60,9 +60,15 @@
                             <div class="col-md-1">
                                 <label class="col-form-label text-md-right" >:</label>
                             </div>
+                            @if($practica->resultado_eval == "")
+                            <div class="col-md-5">
+                                <label style="color: red" class="col-form-label text-md-right">Sin evaluación</label>
+                            </div>
+                            @else
                             <div class="col-md-5">
                                 <label class="col-form-label text-md-right">{{$practica->resultado_eval}}</label>
                             </div>
+                            @endif
                         </div>
 
                         {{-- Presentación del alumno --}}
@@ -73,11 +79,16 @@
                             <div class="col-md-1">
                                 <label class="col-form-label text-md-right" >:</label>
                             </div>
+                            @if($practica->asist_ch_post_pract == "")
                             <div class="col-md-5">
-                                <label class="col-form-label text-md-right">[INSERTAR AQUI!]</label>
+                                <label style="color: red" class="col-form-label text-md-right">Sin charla asignada</label>
                             </div>
+                            @else
+                            <div class="col-md-5">
+                                <label class="col-form-label text-md-right">{{$practica->asist_ch_post_pract}}</label>
+                            </div>
+                            @endif
                         </div>
-
                         {{-- Observacion --}}
                         <div class="form-group row">
                             <div class="col-md-5">

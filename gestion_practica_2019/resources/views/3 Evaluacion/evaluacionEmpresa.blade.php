@@ -37,7 +37,7 @@
                         <th class="text-truncate text-center">Rut</th>
                         <th class="text-truncate text-center">Datos de contacto</th>
                         <th class="text-truncate text-center">Periodo Práctica</th>
-                        <th class="text-truncate text-center">Evaluacion</th>
+                        <th class="text-truncate text-center">Evaluación</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -60,12 +60,16 @@
                             </td>
                             <td class="text-center">
                                 @if($alumnos->f_entrega_eval)
-                                    <a  href="" class='botonModalEvaluacion fa fa-check text-success' data-toggle="modal" data-form="{{ route('evaluacionModal',['id'=>$alumnos->id_alumno])}}" data-target="#modal-evaluacion"></a><br>
+                                    <a  href="" class='botonModalEvaluacion fa fa-check text-success' data-toggle="modal" data-form="{{ route('evaluacionModalInformatica',['id'=>$alumnos->id_eval_supervisor])}}" data-target="#modal-evaluacion"></a><br>
                                 @else
-                                    @if(!$alumnos->resolucion_practica)
-                                        <a href="{{route('formularioEvaluacionEmpresa', ['id'=>$alumnos->id_practica])}}" class="btn btn-secondary"> <span>Evaluar al alumno</span></a>
+                                    @if($alumnos->id_autoeval)
+                                        @if(!$alumnos->resolucion_practica)
+                                            <a href="{{route('formularioEvaluacionEmpresa', ['id'=>$alumnos->id_practica])}}" class="btn btn-secondary"> <span>Evaluar al alumno</span></a>
+                                            @else
+                                                <p class="text-danger">La Práctica del alumno ya fue evaluada</p>
+                                        @endif
                                     @else
-                                        <p class="text-danger">La Práctica del alumno ya fue evaluada</p>
+                                    <p class="text-danger">El alumno debe completar su Autoevaluación</p>
                                     @endif
                                 @endif
                             </td>

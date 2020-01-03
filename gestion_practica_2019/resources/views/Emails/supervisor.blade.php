@@ -98,7 +98,7 @@
               </tr>
               <tr>
                 <td class="bodycopy">
-                  Te informamos que tu contraseña para poder ingresar al Sistema de gestión practica profesional es la siguiente:
+                  Te informamos que tu contraseña para poder ingresar al Sistema de gestión práctica profesional es la siguiente:
                   <br><br>
                   {{$usuario->password}}
                   <br><br>
@@ -119,9 +119,9 @@
             <table width="100%" border="0" cellspacing="0" cellpadding="0">
               <tr>
                 <td align="center" class="footercopy">
-                  &reg; Sistema de gestión practica profesional, 2019<br/>
+                  &reg; Sistema de gestión práctica profesional, 2019<br/>
                   <a href="#" class="unsubscribe"><font color="#ffffff">SGPP</font></a>
-                  <span class="hide">Sistema de gestión practica profesional</span>
+                  <span class="hide">Sistema de gestión práctica profesional</span>
                 </td>
               </tr>
               <tr>

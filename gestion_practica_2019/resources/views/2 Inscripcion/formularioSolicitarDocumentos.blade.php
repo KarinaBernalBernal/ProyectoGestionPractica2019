@@ -12,7 +12,7 @@
             <div class="card text">                
                 <div class="card-body">
 
-                    <h5>Documentos y periodo de práctica</h5>   
+                    <h5>Documentos y periodo de Práctica</h5>
 
                     <hr>
 
@@ -48,7 +48,7 @@
             <div class="card text">
                 <div class="card-body"> 
 
-                    <h5>Datos de la empresa</h5> 
+                    <h5>Datos de la Empresa</h5>
 
                     <hr>
 

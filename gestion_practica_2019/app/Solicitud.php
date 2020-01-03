@@ -123,15 +123,18 @@ class Solicitud extends Model
         return $query;
     }
 
-    public static function filtrarSolicitudGestionador($rut, $carrera)
+    public static function filtrarSolicitudGestionador($rut, $carrera, $anno_ingreso, $resolucion_solicitud, $f_solicitud)
     {
-        $areas = DB::table('solicitudes')
+        $solicitudes = DB::table('solicitudes')
             ->where('rut', 'LIKE', '%'.$rut. '%')
             ->where('carrera', 'LIKE', '%'.$carrera. '%')
+            ->where('anno_ingreso', 'LIKE', '%'.$anno_ingreso. '%')
+            ->where('resolucion_solicitud', 'LIKE', '%'.$resolucion_solicitud. '%')
+            ->where('f_solicitud', 'LIKE', '%'.$f_solicitud. '%')
             ->select('solicitudes.*')
             ->get();
 
-        return $areas;
+        return $solicitudes;
     }
 
     public function scopeResolucionSolicitud($query, $resolucion_solicitud){

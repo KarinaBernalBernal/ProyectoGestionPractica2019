@@ -108,7 +108,7 @@
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                @if(Auth::user()->type == 'administrador' && $gestionador != null)
+                @if(Auth::user()->type == 'administrador' && $gestionador != null || $jefeDocencia != null)
                     <a class="nav-link collapsed" href="{{route('lista_solicitudes_documentos')}}">
                         <i class="fas fa-arrow-right"></i><span>Solicitudes documentos</span>
                     </a>        

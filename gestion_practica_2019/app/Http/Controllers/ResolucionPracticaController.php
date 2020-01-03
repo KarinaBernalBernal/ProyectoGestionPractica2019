@@ -297,20 +297,20 @@ class ResolucionPracticaController extends Controller
         $resolucion->id_admin = $evaluador->id_admin;
         $resolucion->save();
 
+
         $subject = "Estado resolución de práctica";
         $for = $alumno->email;
         $data = [
             'alumno' => $alumno,
             'request'=> $request
         ];
-        /*
+
         Mail::send('Emails.resolucion',$data, function($msj) use($subject,$for){
             $msj->from("practicaprofesionalpucv@gmail.com","Docencia Escuela de Ingeniería Informática");
             $msj->subject($subject);
             $msj->to($for);
         });
-        */
-        return redirect()->route('ResolucionPracticaEjecucion')->with('success','Registro creado satisfactoriamente');
+
     }
     public function modificarResolucionPractica(Request $request, $id, $email, $nombre)
     {
@@ -330,7 +330,7 @@ class ResolucionPracticaController extends Controller
             'alumno' => $alumno,
             'request'=> $request
         ];
-        /*
+
         $subject = "Modificación de resolución de práctica";
         $for = $alumno->email;
 
@@ -339,7 +339,7 @@ class ResolucionPracticaController extends Controller
             $msj->subject($subject);
             $msj->to($for);
         });
-        */
+
         return redirect()->route('ResolucionPracticaEjecucion')->with('success', 'Registro creado satisfactoriamente');
     }
 }

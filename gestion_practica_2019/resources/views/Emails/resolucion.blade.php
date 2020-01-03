@@ -74,7 +74,7 @@
                   </tr>
                   <tr>
                     <td class="h1" style="padding: 5px 0 0 0;">
-                      Sistema de gestión de practica profesional
+                      Sistema de gestión de práctica profesional
                     </td>
                   </tr>
                 </table>

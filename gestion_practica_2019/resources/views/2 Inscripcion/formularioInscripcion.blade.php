@@ -14,7 +14,7 @@
             <div class="card text">
                 <div class="card-body"> 
 
-                    <h4>Documentos y periodo de práctica</h4> 
+                    <h4>Documentos y periodo de Práctica</h4>
             {{--Fechas--}}
                     <hr>
                     <div class="form-group row">
@@ -36,7 +36,7 @@
 
             <div class="card text"> 
                 <div class="card-body">
-                    <h4>Datos de la empresa</h4> 
+                    <h4>Datos de la Empresa</h4>
 
                     <hr>
     
@@ -98,7 +98,7 @@
 
                     {{-- Correo Electronico Empresa--}}
                     <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }} row">
-                        <label for="email" class="col-md-3 col-form-label text-md-right control-label">Email empresa</label>
+                        <label for="email" class="col-md-3 col-form-label text-md-right control-label">Email Empresa</label>
 
                         <div class="col-md-6">
                             <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>

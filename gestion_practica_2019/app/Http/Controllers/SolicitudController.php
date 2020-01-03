@@ -157,63 +157,72 @@ class SolicitudController extends Controller
     /* ----------- Validar una solicitud ----------  */
     public function listaSolicitudEjecucion( Request $request)
     {
-        //$solicitudes = Solicitud::orderBy('rut','DESC')->where('carrera', 'Ingeniería de Ejecución Informática')->paginate(7);
         $solicitudes = DB::table('solicitudes')
             ->where('carrera', 'LIKE', '%'."Ingeniería de Ejecución Informática". '%')
+            ->where('solicitudes.resolucion_solicitud', '!=', null)
             ->select('solicitudes.*')
             ->get();
         $contador = $solicitudes->count();
+        $numeroSolicitudes = 0;
 
-        if ($request->rut != null)
+        if($request->rut != null || $request->anno_ingreso != null || $request->resolucion_solicitud != null || $request->f_solicitud != null)
         {
             //-----Filtro-----//
             $listaFiltrada= Solicitud::filtrarSolicitudGestionador(
                 $request->get('rut'),
-                "Ingeniería de Ejecución Informática"
+                "Ingeniería de Ejecución Informática",
+                $request->get('anno_ingreso'),
+                $request->get('resolucion_solicitud'),
+                $request->get('f_solicitud')
             );
             $contador = $listaFiltrada->count();
-            $listaFiltrada = $listaFiltrada->paginate(10);
+            $listaFiltrada = $listaFiltrada->paginate(70);
 
             return view('1 Solicitud/listaSolicitudEjecucion')
                 ->with('solicitudes',$listaFiltrada)
-                ->with('contador',$contador);
+                ->with('contador',$contador)
+                ->with('numeroSolicitudes', $numeroSolicitudes);
         }
 
-        $solicitudes = $solicitudes->paginate(10);
+        $solicitudes = $solicitudes->paginate(70);
         return view('1 Solicitud/listaSolicitudEjecucion')
             ->with('solicitudes', $solicitudes)
-            ->with('contador', $contador);
+            ->with('contador', $contador)
+            ->with('numeroSolicitudes', $numeroSolicitudes);
     }
 
     public function listaSolicitudCivil(Request $request)
     {
-        //$solicitudes = Solicitud::orderBy('rut','DESC')->where('carrera', 'Ingeniería Civil Informática')->paginate(7);
         $solicitudes = DB::table('solicitudes')
             ->where('carrera', 'LIKE', '%'."Ingeniería Civil Informática". '%')
             ->select('solicitudes.*')
             ->get();
 
         $contador = $solicitudes->count();
+        $numeroSolicitudes = 0;
 
-        if ($request->rut != null)
+        if($request->rut != null || $request->anno_ingreso != null || $request->resolucion_solicitud != null || $request->f_solicitud != null)
         {
-
-            //-----Filtro-----//
             $listaFiltrada= Solicitud::filtrarSolicitudGestionador(
                 $request->get('rut'),
-                "Ingeniería Civil Informática"
+                "Ingeniería Civil Informática",
+                $request->get('anno_ingreso'),
+                $request->get('resolucion_solicitud'),
+                $request->get('f_solicitud')
             );
             $contador = $listaFiltrada->count();
-            $listaFiltrada = $listaFiltrada->paginate(10);
+            $listaFiltrada = $listaFiltrada->paginate(100);
 
             return view('1 Solicitud/listaSolicitudCivil')
                 ->with('solicitudes',$listaFiltrada)
-                ->with('contador',$contador);
+                ->with('contador',$contador)
+                ->with('numeroSolicitudes', $numeroSolicitudes);
         }
 
-        $solicitudes = $solicitudes->paginate(10);
+        $solicitudes = $solicitudes->paginate(100);
         return view('1 Solicitud/listaSolicitudCivil')
             ->with('solicitudes', $solicitudes)
+            ->with('numeroSolicitudes', $numeroSolicitudes)
             ->with('contador', $contador);
     }
     /*---------------------------------------------------------------------------*/
@@ -466,6 +475,8 @@ class SolicitudController extends Controller
             {
                 $usuario = User::find($alumno->id_user);
                 $practica = Practica::all()->where('id_alumno', $alumno->id_alumno);
+                $solicitud->id_alumno = null; //Para luego mostrar la solicitud Rechazada
+                $solicitud->save();
                 if($practica->count() > 1)
                 {
                     $practica->last()->delete();
@@ -522,7 +533,7 @@ class SolicitudController extends Controller
         $solicitud->resolucion_solicitud = $request->resolucion;
         $solicitud->observacion_solicitud = $request->observacion;
         $solicitud->save();
-/* POR MIENTRAS PARA NO ESTAR MANDANDO CORREOS A CADA RATO
+
         $subject = "Estado solicitud de práctica";
         $for = $solicitud->email;
         $data = [
@@ -534,7 +545,7 @@ class SolicitudController extends Controller
             $msj->subject($subject);
             $msj->to($for);
         });
-*/
+
         if($solicitud->carrera == "Ingeniería Civil Informática"){
             return redirect()->route('evaluacionSolicitud')->with('success','Registro creado satisfactoriamente');
         }

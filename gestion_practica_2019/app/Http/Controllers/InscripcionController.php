@@ -159,7 +159,7 @@ class InscripcionController extends Controller
             Mail::send('Emails.supervisor', $data, function($msj) use($subject,$for){
                 $msj->from("practicaprofesionalpucv@gmail.com","Docencia Escuela de Ingeniería Informática");
                 $msj->subject($subject);
-                $msj->to("pablo.cabello.alvarez@gmail.com");
+                $msj->to($for);
             });
             $usuarioS->password = bcrypt($usuarioS->password);
             $usuarioS->save();

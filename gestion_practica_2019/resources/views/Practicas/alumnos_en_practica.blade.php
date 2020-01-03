@@ -22,13 +22,16 @@
                 <div class="col-2">
                     {!! Form::text('anno_ingreso', null, ['class' => 'form-control', 'placeholder' => 'Año de ingreso']) !!}
                 </div>
-                <button type="submit" class="btn btn-info"><span class="fa fa-search"></span></button>
+                <div class="form-row row">
+                    <button type="submit" class="btn btn-info"><span class="fa fa-search"></span></button>
+                    <button class="btn btn-primary" type='button' id='btn' value='Print' onclick='printtag("DivIdToPrint");'><span class="fa fa-print"></span> </button>
+                </div>
                 <div class="container-fluid">Se encontraron {{ $contador }} Alumnos</div>
                 {!! Form::close() !!}
             </div>
             <div class="card-body">
                 @if (count($lista)>0)
-                    <div class="table-responsive">
+                    <div class="table-responsive" id="DivIdToPrint">
                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                             <thead class="bg-dark" style="color: white">
                             <tr>
@@ -55,7 +58,7 @@
                                     </td>
                                     <td class="text-truncate text-center">{{$alumnos->anno_ingreso}}</td>
                                     <td>
-                                        <b> Inscripcion :</b>
+                                        <b> Inscripción :</b>
 
                                         @if($alumnos->f_inscripcion)
                                             <a  href="" class='botonModalInscripcion fa fa-check text-success' data-toggle="modal" data-form="{{ route('inscripcionModal',['id'=>$alumnos->id_alumno])}}" data-target="#modal-inscripcion"></a><br>
@@ -63,7 +66,7 @@
                                             <a class='fa fa-times text-danger'></a><br>
                                         @endif
 
-                                        <b> Autoevaluacion :</b>
+                                        <b> Autoevaluación :</b>
 
                                         @if($alumnos->id_autoeval)
                                             <a  href="" class='botonModalAutoEvaluacion fa fa-check text-success' data-toggle="modal" data-form="{{ route('autoEvaluacionModal',['id'=>$alumnos->id_autoeval])}}" data-target="#modal-autoEvaluacion"></a><br>
@@ -73,6 +76,7 @@
                                     </td>
                                 </tr>
                             @endforeach
+
                             </tbody>
                         </table>
                     </div>
@@ -154,6 +158,24 @@
                 $(this).find('.modal-content').empty();
             });
         });
+
+        function printtag(tagid) {
+            var hashid = "#"+ tagid;
+            var tagname =  $(hashid).prop("tagName").toLowerCase() ;
+            var attributes = "";
+            var attrs = document.getElementById(tagid).attributes;
+            $.each(attrs,function(i,elem){
+                attributes +=  " "+  elem.name+" ='"+elem.value+"' " ;
+            });
+            var divToPrint= $(hashid).html() ;
+            var head = "<html><head>"+ $("head").html() + "</head>" ;
+            var allcontent = head + "<body  onload='window.print()' >"+ "<" + tagname + attributes + ">" +  divToPrint + "<" + tagname + ">" +  "</body></html>"  ;
+            var newWin=window.open('','Print-Window');
+            newWin.document.open();
+            newWin.document.write(allcontent);
+            newWin.document.close();
+            // setTimeout(function(){newWin.close();},10);
+        }
     </script>
 @endsection
 

@@ -12,7 +12,7 @@
             <div class="card text">
                 <div class="card-body">  
                 {{ csrf_field() }} 
-                    <h6>1.- Antecendentes Generales</h6>    
+                    <h6>1.- Antecedentes Generales</h6>
 
                     {{-- Nombre --}}   
                     <div class="form-group row">
@@ -53,7 +53,7 @@
 
                     {{-- Correo Electronico --}}
                     <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }} row">
-                        <label for="email" class="col-md-3 col-form-label text-md-right control-label">Correo electronico</label>
+                        <label for="email" class="col-md-3 col-form-label text-md-right control-label">Correo electrónico</label>
 
                         <div class="col-md-6">
                             <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>

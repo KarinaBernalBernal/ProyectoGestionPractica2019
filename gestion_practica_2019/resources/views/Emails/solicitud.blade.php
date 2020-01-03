@@ -119,7 +119,7 @@
                 <td align="center" class="footercopy">
                   &reg; Sistema de gestión practica profesional, 2019<br/>
                   <a href="#" class="unsubscribe"><font color="#ffffff">SGPP</font></a>
-                  <span class="hide">Sistema de gestión practica profesional</span>
+                  <span class="hide">Sistema de gestión práctica profesional</span>
                 </td>
               </tr>
               <tr>

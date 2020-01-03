@@ -104,9 +104,6 @@
     </div>
 </div>
 <script type="text/javascript">
-
-
-
     function printtag(tagid) {
         var hashid = "#"+ tagid;
         var tagname =  $(hashid).prop("tagName").toLowerCase() ;

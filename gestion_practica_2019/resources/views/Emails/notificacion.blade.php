@@ -74,7 +74,7 @@
                     </tr>
                     <tr>
                       <td class="h1" style="padding: 5px 0 0 0;">
-                        Sistema de gestión de practica profesional
+                        Sistema de gestión de práctica profesional
                       </td>
                     </tr>
                   </table>
@@ -106,7 +106,7 @@
                   @endif
 
                   @if($request->resolucion == "Autorizada")
-                    <p>La información de los pasos a seguir se encuentran en la pagina de Sistema de gestión de practica profesional.
+                    <p>La información de los pasos a seguir se encuentran en la página de Sistema de gestión de práctica profesional.
                       Puedes acceder al sistema con tu correo y contraseña , siendo este ultimo tu rut sin puntos.</p>
                   @endif
 
@@ -114,7 +114,7 @@
                     <p>No podrás realizar la práctica profesional este semestre, para mas información, puedes consultar tus dudas en docencia.</p>
                   @endif
                   @if($request->resolucion == "Pendiente")
-                    <p>La información de los pasos a seguir se encuentran en la pagina de Sistema de gestión de practica profesional.
+                    <p>La información de los pasos a seguir se encuentran en la página de Sistema de gestión de práctica profesional.
                       Puedes acceder al sistema con tu correo y contraseña , siendo este ultimo tu rut sin puntos. Para que esta solicitud finalmente sea autorizada, es necesario que a final de semestre, apruebes las asignaturas que estás cursando.</p>
                   @endif
                 </td>

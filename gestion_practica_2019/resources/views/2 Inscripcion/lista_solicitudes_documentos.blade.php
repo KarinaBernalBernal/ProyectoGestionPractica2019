@@ -8,12 +8,15 @@
                     <div class="container-fluid">
                         <h2>Nuevas Solicitudes</h2>
                     </div>
+                    <div class="col-auto text-right">
+                        <button class="btn btn-primary" type='button' id='btn' value='Print' onclick='printtag("DivIdToPrint");'><span class="fa fa-print"></span> </button>
+                    </div>
                     <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
                     <br>
                     @if (count($lista)>0)
 
                         <div class="container-fluid">
-                            <div class="table-responsive">
+                            <div class="table-responsive" id="DivIdToPrint">
                                 <table class="table table-bordered table-sm" id="MyTable">
                                     <thead class="bg-dark" style="color: white">
                                     <tr class="text-truncate text-center">
@@ -170,6 +173,23 @@
                     });
                 }
             })
+        }
+        function printtag(tagid) {
+            var hashid = "#"+ tagid;
+            var tagname =  $(hashid).prop("tagName").toLowerCase() ;
+            var attributes = "";
+            var attrs = document.getElementById(tagid).attributes;
+            $.each(attrs,function(i,elem){
+                attributes +=  " "+  elem.name+" ='"+elem.value+"' " ;
+            });
+            var divToPrint= $(hashid).html() ;
+            var head = "<html><head>"+ $("head").html() + "</head>" ;
+            var allcontent = head + "<body  onload='window.print()' >"+ "<" + tagname + attributes + ">" +  divToPrint + "<" + tagname + ">" +  "</body></html>"  ;
+            var newWin=window.open('','Print-Window');
+            newWin.document.open();
+            newWin.document.write(allcontent);
+            newWin.document.close();
+            // setTimeout(function(){newWin.close();},10);
         }
     </script>
 @endsection

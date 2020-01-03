@@ -16,7 +16,7 @@ class SupervisorController extends Controller
 
     public function __construct(){
         $this->middleware('auth');
-        $this->middleware('is_administrador');
+        $this->middleware('is_administrador')->except('mostrarEvaluacionModal');
     }
 
     //vista principal de un elemento en especifico

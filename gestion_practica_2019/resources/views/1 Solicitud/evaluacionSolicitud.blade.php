@@ -33,9 +33,9 @@
 							@if( $carrera == "Ingeniería Civil Informática")
 							<div class="col-2">
 								<select id="practica" type="text" class="form-control" name="practica">
-									<option value="">Seleccione Resolucion</option>
-									<option value="No">Primera Practica</option>
-									<option value="Si">Segunda Practica</option>
+									<option value="">Seleccione Resolución</option>
+									<option value="No">Primera Práctica</option>
+									<option value="Si">Segunda Práctica</option>
 								</select>
 							</div>
 							@endif
@@ -43,7 +43,7 @@
 								<button type="submit" class="btn btn-info"><span class="fa fa-search"></span></button>
 							</div>
 						</div>
-						<div class="text-left">Se encontraron {{ $contadorP }} Solicitudes</div>
+							<div class="text-left">Se encontraron {{ $contadorP }} Solicitudes</div>
 						<hr>
 					</form>
                     <div class="form-row">
@@ -118,7 +118,7 @@
 							</div>
 							<div class="col-2">
 								<select id="resolucion_solicitud" type="text" class="form-control" name="resolucion_solicitud">
-									<option value="">Seleccione Resolucion</option>
+									<option value="">Seleccione Resolución</option>
 									<option value="Autorizada">Autorizada</option>
 									<option value="Rechazada">Rechazada</option>
 									<option value="Pendiente">Pendiente</option>

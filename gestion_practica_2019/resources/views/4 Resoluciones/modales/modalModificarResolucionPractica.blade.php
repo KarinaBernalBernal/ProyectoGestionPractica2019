@@ -1,7 +1,10 @@
 <div class="modal-dialog modal-lg">
-    <div class="modal-content">
+    <div class="modal-content"  id="DivIdToPrint">
         <div class="modal-header">
             <h4>Modificación de Resolución</h4>
+            <div class="col-1">
+                <button class="btn btn-primary" type='button' id='btn' value='Print' onclick='printtag("DivIdToPrint");'><span class="fa fa-print"></span> </button>
+            </div>
             <button type="button" class="close" data-dismiss="modal">
                 <span> <i class="fas fa-times"></i></span>
             </button>
@@ -73,9 +76,15 @@
                                 <div class="col-md-1">
                                     <label class="col-form-label text-md-right" >:</label>
                                 </div>
-                                <div class="col-md-5">
-                                    <label class="col-form-label text-md-right">[INSERTAR AQUI!]</label>
-                                </div>
+                                @if($practica->asist_ch_post_pract == "")
+                                    <div class="col-md-5">
+                                        <label style="color: red" class="col-form-label text-md-right">Sin charla asignada</label>
+                                    </div>
+                                @else
+                                    <div class="col-md-5">
+                                        <label class="col-form-label text-md-right">{{$practica->asist_ch_post_pract}}</label>
+                                    </div>
+                                @endif
                             </div>
 
                             {{-- Observacion --}}
@@ -259,4 +268,21 @@
             }
         });
     });
+    function printtag(tagid) {
+        var hashid = "#"+ tagid;
+        var tagname =  $(hashid).prop("tagName").toLowerCase() ;
+        var attributes = "";
+        var attrs = document.getElementById(tagid).attributes;
+        $.each(attrs,function(i,elem){
+            attributes +=  " "+  elem.name+" ='"+elem.value+"' " ;
+        });
+        var divToPrint= $(hashid).html() ;
+        var head = "<html><head>"+ $("head").html() + "</head>" ;
+        var allcontent = head + "<body  onload='window.print()' >"+ "<" + tagname + attributes + ">" +  divToPrint + "<" + tagname + ">" +  "</body></html>"  ;
+        var newWin=window.open('','Print-Window');
+        newWin.document.open();
+        newWin.document.write(allcontent);
+        newWin.document.close();
+        // setTimeout(function(){newWin.close();},10);
+    }
 </script>

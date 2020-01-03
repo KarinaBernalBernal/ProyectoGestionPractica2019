@@ -52,9 +52,11 @@ class EvaluacionSupervisorController extends Controller
             ->join('supervisores', 'supervisores.id_supervisor', '=', 'practicas.id_supervisor')
             ->leftJoin('evaluaciones_supervisor', 'evaluaciones_supervisor.id_practica', 'practicas.id_practica')
             ->leftJoin('resoluciones', 'resoluciones.id_practica', 'practicas.id_practica')
+            ->leftJoin('autoevaluaciones', 'autoevaluaciones.id_practica', 'practicas.id_practica')
             ->where('practicas.id_supervisor', '=', $supervisores->id_supervisor)
-            ->select('alumnos.*', 'evaluaciones_supervisor.f_entrega_eval', 'practicas.id_practica', 'practicas.f_desde', 'practicas.f_hasta','resoluciones.resolucion_practica' )
+            ->select('alumnos.*', 'evaluaciones_supervisor.f_entrega_eval','evaluaciones_supervisor.id_eval_supervisor', 'practicas.id_practica', 'practicas.f_desde', 'practicas.f_hasta','resoluciones.resolucion_practica', 'autoevaluaciones.id_autoeval' )
             ->get();
+
 
         $alumnos = $alumnos->paginate(10);
         /*Se envian a todos los alumnos que corresponden al supervisor*/

@@ -36,7 +36,7 @@
                 <div class="card-body">
                     <h4>Evaluación</h4>
                     <hr>
-                    <h6 style="text-align: justify; text-justify: inter-word;"><strong>Para los siguientes criterios, evalúe el desempeño percibido por el alumno donde con una escala de 1 a 4, donde 1 representa criterio debilmente logrado y 4 criterio totalmente logrado. Además si considera necesario puede considerar evaluar con<br>NA: No Aplica <br>NL: No Logrado</strong></h6>
+                    <h6 style="text-align: justify; text-justify: inter-word;"><strong>Para los siguientes criterios, evalúe el desempeño percibido por el alumno donde con una escala de 1 a 4, donde 1 representa criterio débilmente logrado y 4 criterio totalmente logrado. Además si considera necesario puede considerar evaluar con<br>NA: No Aplica <br>NL: No Logrado</strong></h6>
 
                     <br>
                     {{-- Evaluacion con "dea acuerdo", "muy de acuerdo", etc.  --}}
