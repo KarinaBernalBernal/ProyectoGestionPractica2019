@@ -13,33 +13,34 @@
             <form class="form-horizontal" action="{{route('estadisticaAlumno')}}" method="get">
                 <div class="row">
                     <div class="col-sm-2 mb-1">
-                        <label>Nombre</label>
+                        <label for="nombre">Nombre</label>
                         <input id="nombre" type="text" class="form-control" name="nombre" placeholder="Ingrese nombre...">
                     </div>
     
                     <div class="col-sm-2 mb-1">
-                        <label>Apellido Paterno</label>
-                        <input id="apellido_paterno" type="text" class="form-control" name="apellido_paterno" placeholder="Ingrese apellido Paterno...">
+                        <label for="apellido_paterno">Apellido Paterno</label>
+                        <input id="apellido_paterno" type="text" class="form-control" name="apellido_paterno" placeholder="Ingrese apellido...">
                     </div>
                     <div class="col-sm-2 mb-1">
-                        <label>Apellido Materno</label>
-                        <input id="apellido_materno" type="text" class="form-control" name="apellido_materno" placeholder="Ingrese apellido Materno...">
+                        <label for="apellido_materno">Apellido Materno</label>
+                        <input id="apellido_materno" type="text" class="form-control" name="apellido_materno" placeholder="Ingrese apellido...">
                     </div>
                     <div class="col-sm-2 mb-1">
-                        <label>Año de ingreso</label>
-                        <input id="anno_ingreso" type="number" class="form-control" name="anno_ingreso" placeholder="Ingrese año de ingreso...">
+                        <label for="anno_ingreso">Año de ingreso</label>
+                        <input id="anno_ingreso" type="number" min="1" pattern="^[0-9]+" class="form-control" name="anno_ingreso" placeholder="Ingrese año...">
                     </div>
                     <div class="col-sm-2 mb-1">
-                        <label>Carrera</label>
+                        <label for="carrera">Carrera</label>
                         <select id="carrera" type="text" class="form-control" name="carrera">
-                            <option value="">Seleccione Carrera</option>
+                            <option value="">Seleccione...</option>
                             <option value="Ingeniería Civil en Informatica">Ingeniería Civil en Informatica</option>
                             <option value="Ingeniería de Ejecución en Informatica">Ingeniería de Ejecución en Informatica</option>
                         </select>
                     </div>
                     <div class="col-sm-2 mb-1">
-                        <label>Rut</label>
+                        <label for="rut">Rut</label>
                         <input id="rut" type="text" class="form-control" name="rut" placeholder="Ingrese Rut...">
+                        <label for="rut" class="font-italic"> Ej. 11111111-1</label>
                     </div>
                      
                 </div>
