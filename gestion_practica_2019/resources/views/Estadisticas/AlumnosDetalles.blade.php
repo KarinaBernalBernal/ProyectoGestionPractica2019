@@ -38,7 +38,7 @@
                         <div class="row">
                             
                             <div class="col-sm-3">
-                                <input id="anno_ingreso" type="number" min="1" pattern="^[0-9]+" class="form-control" name="anno_ingreso" placeholder="Ingrese año de ingreso">
+                                <input id="anno_ingreso" type="number" min="1" pattern="^[0-9]+" class="form-control" name="anno_ingreso" placeholder="Año de ingreso">
                             </div>
                     
                             <div class="col-sm-4">
@@ -53,7 +53,7 @@
                        
                  
                     <div class="col-sm-2 mb-12">
-                        <button type="submit" class="btn btn-primary" name="buscador"><i class="fas fa-search"></i><span>Buscar</span></button>
+                        <button type="submit" class="btn btn-primary" name="buscador"><i class="fas fa-search"></i><span> Buscar</span></button>
                     </div>
                 
                 </div>

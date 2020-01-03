@@ -79,7 +79,7 @@
                 <!-- -->
             </li>
             @endif
-            @if(Auth::user()->type == 'administrador' && $jefeDocencia != null || $profesor !=null)
+            @if(Auth::user()->type == 'administrador' && $profesor !=null)
                 <li class="nav-item">
                     <!-- Solo profesores -->
                         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseVerEstadisticas" aria-expanded="true" aria-controls="collapseVerEstadisticas"><i class="fas fa-chart-bar"></i>
