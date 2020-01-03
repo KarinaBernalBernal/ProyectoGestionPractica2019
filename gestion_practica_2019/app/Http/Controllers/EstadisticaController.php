@@ -36,6 +36,37 @@ class EstadisticaController extends Controller
     public function mostrarEstadisticasAlumno($id){
         $alumno = Alumno::find($id);
         $practicas = Practica::where('id_alumno',$id)->paginate(12);
+        
+        $practicasA = Practica::join('alumnos', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
+                    ->join('resoluciones','practicas.id_practica','=','resoluciones.id_practica')
+                    ->where('resoluciones.resolucion_practica',1)
+                    ->where('practicas.id_alumno',$id)
+                    ->get();
+
+        $cantPracticas = 0;
+
+        if(strtoupper($alumno->carrera) == strtoupper('Ingeniería Civil Informática')){
+            $carrera = 0;
+        }
+        else{
+            $carrera = 1;
+        }
+        //dd($carrera);
+
+        //Cantidad de practicas aprobadas del alumno
+        foreach($practicasA as $practica){
+            if($practica->resolucion_practica == 1){
+                $cantPracticas = $cantPracticas + 1;
+            }
+            //dd($practica->resolucion_practica);
+        }
+        //dd($cantPracticas); 
+        if($cantPracticas == 2){
+            $flag = 0;
+        }
+        else{
+            $flag = 1;
+        }
 
         //Lista de supervisores
         $supervisores = new Supervisor();
@@ -66,18 +97,18 @@ class EstadisticaController extends Controller
                     ->with("practicas", $practicas)
                     ->with('supervisores', $supervisores)
                     ->with('empresas', $empresas)
-                    ->with('resoluciones', $resoluciones);                      
+                    ->with('resoluciones', $resoluciones)
+                    ->with('flag1', $carrera)
+                    ->with('flag2', $flag);                      
     }
 
     public function buscarAlumno(Request $request){
-        $lista= Alumno::filtrarYPaginar($request->get('buscador'),
-                                        $request->get('nombre'), 
+        $lista= Alumno::filtrarYPaginar($request->get('nombre'), 
                                         $request->get('apellido_paterno'),
                                         $request->get('apellido_materno'),
-                                        $request->get('email'),
                                         $request->get('anno_ingreso'),
                                         $request->get('carrera'),
-                                        $request->get('direccion')
+                                        $request->get('rut')                                        
                                     );
         return view('Estadisticas/alumnosDetalles')->with("lista", $lista);
     }
@@ -203,13 +234,25 @@ class EstadisticaController extends Controller
     }
 
     public function avance($id){
+        $practica1 = Practica::join('alumnos', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
+                    ->join('resoluciones','practicas.id_practica','=','resoluciones.id_practica')
+                    ->where('resoluciones.resolucion_practica',1)
+                    ->where('practicas.id_alumno',$id)
+                    ->first();
 
-        $practica1 = Practica::where('id_alumno',$id)->first();
-        $practica2 = Practica::where('id_practica','<>',$practica1->id_practica)->where('id_alumno',$id)->first();
+        $practica2 = Practica::join('alumnos', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
+                    ->join('resoluciones','practicas.id_practica','=','resoluciones.id_practica')
+                    ->where('resoluciones.resolucion_practica',1)
+                    ->where('practicas.id_practica','<>',$practica1->id_practica)
+                    ->where('practicas.id_alumno',$id)
+                    ->first();
 
         $autoevaluacion1 = Autoevaluacion::where('id_practica',$practica1->id_practica)->first();
+        $evaluacionSupervisor1 = EvaluacionSupervisor::where('id_practica',$practica1->id_practica)->first();
+
         $autoevaluacion2 = Autoevaluacion::where('id_practica',$practica2->id_practica)->first();
-        
+        $evaluacionSupervisor2 = EvaluacionSupervisor::where('id_practica',$practica2->id_practica)->first();
+
         //dd($practica1->id_practica, $practica2->id_practica);
         
         if($autoevaluacion1 != null && $autoevaluacion2 != null ){
@@ -232,18 +275,36 @@ class EstadisticaController extends Controller
             
             $evalActitudinales->toArray();
             $evalConocimientos->toArray();
-            
+
+            $evalActEmpPractica1 = EvalActEmpPractica::orderby('id_actitudinal', 'ASC')->where('id_eval_supervisor',$evaluacionSupervisor1->id_eval_supervisor)->paginate(12);
+            $evalConEmpPractica1 = EvalConEmpPractica::orderby('id_conocimiento', 'ASC')->where('id_eval_supervisor',$evaluacionSupervisor1->id_eval_supervisor)->paginate(12);
+
+            $evalActEmpPractica1->toArray();
+            $evalConEmpPractica1->toArray();
+
+            $evalActEmpPractica2 = EvalActEmpPractica::orderby('id_actitudinal', 'ASC')->where('id_eval_supervisor',$evaluacionSupervisor2->id_eval_supervisor)->paginate(12);
+            $evalConEmpPractica2 = EvalConEmpPractica::orderby('id_conocimiento', 'ASC')->where('id_eval_supervisor',$evaluacionSupervisor2->id_eval_supervisor)->paginate(12);
+
+            $evalActEmpPractica2->toArray();
+            $evalConEmpPractica2->toArray();
+        
             return view('Estadisticas/AvanceCivil')->with("autoevaluacion1", $autoevaluacion1)
                                                     ->with("evalActPractica1", $evalActPractica1)
                                                     ->with("evalConPractica1", $evalConPractica1)
                                                     ->with("evalActPractica2", $evalActPractica2)
                                                     ->with("evalConPractica2", $evalConPractica2)
+                                                    ->with("evalActEmpPractica1", $evalActEmpPractica1)
+                                                    ->with("evalConEmpPractica1", $evalConEmpPractica1)
+                                                    ->with("evalActEmpPractica2", $evalActEmpPractica2)
+                                                    ->with("evalConEmpPractica2", $evalConEmpPractica2)
                                                     ->with("evalActitudinales", $evalActitudinales)
                                                     ->with("evalConocimientos", $evalConocimientos);
         }
         else{
             return view('Estadisticas/AvanceCivil')->with("autoevaluacion1", $autoevaluacion1)
-                            ->with("evaluacion2", $autoevaluacion2);
+                            ->with("evaluacion2", $autoevaluacion2)
+                            ->with("evaluacionSupervisor1", $evaluacionSupervisor1)
+                            ->with("evaluacionSupervisor2", $evaluacionSupervisor2);
         }        
     }
 /////////////////////////////////////////////// Estadisticas Generales ////////////////////////////////////////////////////
@@ -253,6 +314,7 @@ class EstadisticaController extends Controller
                     ->where('resoluciones.resolucion_practica',1)
                     ->select('resoluciones.f_resolucion')
                     ->get();
+        
         $arrayFechas = array();
 
         foreach($fechas as $fecha){
@@ -273,6 +335,17 @@ class EstadisticaController extends Controller
         return view('Estadisticas/estadisticaGeneral')->with('arrayFechas',$arrayFechas)
                                         ->with('totalCivil',$totalCivil)->with('totalEjec',$totalEjec);
     }           
+
+    public function verEstadisticaEmpresas(){
+        $empresas = Empresa::orderby('id_empresa', 'ASC')->paginate(12);
+
+        $empresas->toArray();
+
+        $empresasCivilPromG = $this->calcularEmpresasPromG($empresas ,'Ingeniería Civil Informática');
+        $empresasEjecPromG = $this->calcularEmpresasPromG($empresas, 'Ingeniería de Ejecución Informática');
+
+        return 0;
+    }
 
     public function verEstadisticaCriteriosAutoeval(){
 
@@ -437,7 +510,27 @@ class EstadisticaController extends Controller
     }
 /////////////////////////////////////////////// Funciones para calcular //////////////////////////////////////////////////////77
     
-public function totalPracticantes($arrayFechas ,$carrera){
+    public function totalPracticantes($arrayFechas ,$carrera){
+        $fechas = Practica::join('alumnos', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
+                                ->join('resoluciones','practicas.id_practica','=','resoluciones.id_practica')
+                                ->where('resoluciones.resolucion_practica',1)
+                                ->where('alumnos.carrera',$carrera)
+                                ->select('resoluciones.f_resolucion')
+                                ->get();
+        $arrayTotal = array_fill(0, sizeof($arrayFechas), 0);
+
+        foreach($fechas as $fecha){
+            $anio = date("Y", strtotime($fecha->f_resolucion));
+
+            if(in_array($anio,$arrayFechas)==true){
+                $key = array_search ($anio,$arrayFechas);
+                $arrayTotal[$key] += 1;
+            }
+        }
+        return $arrayTotal;
+    }
+
+    public function totalPracticantes2($arrayFechas ,$carrera){
         $fechas = Practica::join('alumnos', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
                                 ->join('resoluciones','practicas.id_practica','=','resoluciones.id_practica')
                                 ->where('resoluciones.resolucion_practica',1)
@@ -1059,6 +1152,6 @@ public function totalPracticantes($arrayFechas ,$carrera){
         }
         return $areasPromG;
     }
-    
+      
 }
 ?>

@@ -53,6 +53,43 @@
                                 @endif
                             </div>
                         </div>
+                        {{-- Empresa --}}
+                        <div class="form-group row">
+                            <div class="col-md-11">
+                                @if($evalActEmpPractica1 <> NULL)
+                                    <div id="columnchart_evalActPracticaSup" style="height: 300px;"></div>
+                                    <br> 
+    
+                                    <table id='tablagraficoActS' class="table table-sm table-responsive">
+                                        <thead >
+                                            <tr class='text-center'>
+                                                <th></th>
+                                                @foreach($evalActitudinales as $evalActitudinal)
+                                                    <th style="vertical-align: middle"> {{ $evalActitudinal->n_act }} </th>
+                                                @endforeach
+                                            </tr >
+                                        </thead>
+                                        <tbody>
+                                            <tr class='text-center'>
+                                                <th>1era Practica - Evaluación Supervisor</th>
+                                                @foreach($evalActitudinales as $evalActitudinal)
+                                                    <th style=" font-weight: normal;"> {{ $evalActEmpPractica1[($evalActitudinal->id_actitudinal)-1]->valor_act_emp_practica }} </th>
+                                                @endforeach
+                                            </tr>
+                                            <tr class='text-center'>
+                                                <th>2da Practica - Evaluación Supervisor</th>
+                                                @foreach($evalActitudinales as $evalActitudinal)
+                                                    <th style=" font-weight: normal;"> {{ $evalActEmpPractica2[($evalActitudinal->id_actitudinal)-1]->valor_act_emp_practica }} </th>
+                                                @endforeach
+                                            </tr >
+                                        </tbody>
+                                    </table>
+                                    <label style="font-size: small"> * NL: No logrado, NA: No aplica. </label>
+                                @else
+                                    No se puede visualizar el grafico
+                                @endif
+                            </div>
+                        </div>
                 </div>
             </div>
         </div>
@@ -84,13 +121,13 @@
                                         </thead>
                                         <tbody>
                                             <tr class='text-center'>
-                                                <th>1era Practica</th>
+                                                <th>1era Practica - Autoevaluación</th>
                                                 @foreach($evalConocimientos as $evalConocimiento)
                                                     <th style=" font-weight: normal;"> {{ $evalConPractica1[($evalConocimiento->id_conocimiento)-1]->valor_con_practica }} </th>
                                                 @endforeach
                                             </tr >
                                             <tr class='text-center'>
-                                                <th>2da practica</th>
+                                                <th>2da practica - Autoevaluación</th>
                                                 @foreach($evalConocimientos as $evalConocimiento)
                                                     <th style=" font-weight: normal;"> {{ $evalConPractica2[($evalConocimiento->id_conocimiento)-1]->valor_con_practica }} </th>
                                                 @endforeach
@@ -103,6 +140,44 @@
                                 @endif
                             </div>
                         </div>
+                        {{-- Empresa --}}
+                        <div class="form-group row">
+                            <div class="col-md-11">
+                                @if($evalConEmpPractica2 <> NULL)
+                                    <div id="columnchart_evalConPracticaSup" style="height: 300px;"></div>
+                                    <br> 
+    
+                                    <table id='tablagraficoConS' class="table table-sm table-responsive">
+                                        <thead >
+                                            <tr class='text-center'>
+                                                <th></th>
+                                                @foreach($evalConocimientos as $evalConocimiento)
+                                                    <th style="vertical-align: middle"> {{ $evalConocimiento->n_con }} </th>
+                                                @endforeach
+                                            </tr >
+                                        </thead>
+                                        <tbody>
+                                            <tr class='text-center'>
+                                                <th>1era Practica - Evaluación Supervisor</th>
+                                                @foreach($evalConocimientos as $evalConocimiento)
+                                                    <th style=" font-weight: normal;"> {{ $evalConEmpPractica1[($evalConocimiento->id_conocimiento)-1]->valor_con_emp_practica }} </th>
+                                                @endforeach
+                                            </tr>
+                                            <tr class='text-center'>
+                                                <th>2da Practica - Evaluación Supervisor</th>
+                                                @foreach($evalConocimientos as $evalConocimiento)
+                                                    <th style=" font-weight: normal;"> {{ $evalConEmpPractica2[($evalConocimiento->id_conocimiento)-1]->valor_con_emp_practica }} </th>
+                                                @endforeach
+                                            </tr >
+                                        </tbody>
+                                    </table>
+                                    <label style="font-size: small"> * NL: No logrado, NA: No aplica. </label>
+                                @else
+                                    No se puede visualizar el grafico
+                                @endif
+                            </div>
+                        </div>
+                        
                 </div>
             </div>
         </div>
@@ -115,7 +190,8 @@
             </div>  
         </div>
     </div>
-</div>  
+</div>
+
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
@@ -150,6 +226,36 @@
         eval_act_practica.draw(data_EvalActPractica1, google.charts.Bar.convertOptions(options1));
     }
 
+    google.charts.load('current', {'packages':['bar']});
+    google.charts.setOnLoadCallback(drawChartS1);
+
+    function drawChartS1() {
+        
+        var data_EvalActEmpPractica1 = google.visualization.arrayToDataTable([
+            ['Actitud del alumno','Respuesta 1era practica','Respuesta 2da practica'],
+            <?php  
+                foreach($evalActitudinales as $evalActitudinal){
+            ?>
+                    ['<?php echo $evalActitudinal->n_act; ?>', <?php echo intval($evalActEmpPractica1[($evalActitudinal->id_actitudinal)-1]->valor_act_emp_practica); ?> , <?php echo intval($evalActEmpPractica2[($evalActitudinal->id_actitudinal)-1]->valor_act_emp_practica); ?> ],
+            <?php
+                }
+            ?>
+        ]);
+        
+        var options3 = {
+            chart: {
+                title: 'Escuela de Ingeniería en Informática',
+                subtitle: 'Autoevaluación, Actitud del alumno',
+            },
+            legend: { position: 'bottom', alignment: 'end' },
+            responsive: true,
+          
+        
+        };
+		var eval_act_emp_practica= new google.charts.Bar(document.getElementById('columnchart_evalActPracticaSup'));
+        eval_act_emp_practica.draw(data_EvalActEmpPractica1, google.charts.Bar.convertOptions(options3));
+    }
+
     // ----------------------------------------- Conociminto del alumno ------------------------------------
 
     google.charts.load('current', {'packages':['bar']});
@@ -171,7 +277,7 @@
         var options2 = {
             chart: {
                 title: 'Escuela de Ingeniería en Informática',
-                subtitle: 'Autoevaluación, Conocimiento del Alumno',
+                subtitle: 'Evaluación Supervisor, Conocimiento del Alumno',
             },
             
             legend: { position: 'bottom', alignment: 'end' },
@@ -179,6 +285,36 @@
         };
 		var eval_con_practica= new google.charts.Bar(document.getElementById('columnchart_evalConPractica1'));
         eval_con_practica.draw(data_EvalConPractica1, google.charts.Bar.convertOptions(options2));
+    }
+
+    google.charts.load('current', {'packages':['bar']});
+    google.charts.setOnLoadCallback(drawChartS2);
+
+    function drawChartS2() {
+        
+        var data_EvalConEmpPractica1 = google.visualization.arrayToDataTable([
+            ['Conocimiento del alumno','Respuesta 1era practica','Respuesta 2da practica'],
+            <?php  
+                foreach($evalConocimientos as $evalConocimiento){
+            ?>
+                    ['<?php echo $evalConocimiento->n_con; ?>', <?php echo intval($evalConEmpPractica1[($evalConocimiento->id_conocimiento)-1]->valor_con_emp_practica); ?> , <?php echo intval($evalConEmpPractica2[($evalConocimiento->id_conocimiento)-1]->valor_con_emp_practica); ?> ],
+            <?php
+                }
+            ?>
+        ]);
+        
+        var options4 = {
+            chart: {
+                title: 'Escuela de Ingeniería en Informática',
+                subtitle: 'Evaluación Supervisor, Actitud del alumno',
+            },
+            legend: { position: 'bottom', alignment: 'end' },
+            responsive: true,
+          
+        
+        };
+		var eval_con_emp_practica= new google.charts.Bar(document.getElementById('columnchart_evalConPracticaSup'));
+        eval_con_emp_practica.draw(data_EvalConEmpPractica1, google.charts.Bar.convertOptions(options4));
     }
 
 </script>

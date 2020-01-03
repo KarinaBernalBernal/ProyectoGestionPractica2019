@@ -25,20 +25,18 @@ class Alumno extends Model
         return $this->belongsTo('App\Practica');    
     }
 
-    public static function filtrarYPaginar($direccion, $nombre, $apellido_paterno, $apellido_materno, $email, $anno_ingreso, $carrera){
+    public static function filtrarYPaginar($nombre, $apellido_paterno, $apellido_materno, $anno_ingreso, $carrera, $rut){
         return Alumno::Nombre($nombre)
                     ->ApellidoPaterno($apellido_paterno)
                     ->ApellidoMaterno($apellido_materno)
-                    ->Email($email)
                     ->AnnoIngreso($anno_ingreso)
                     ->Carrera($carrera)
-                    ->Direccion($direccion)
+                    ->Rut($rut)
                     ->orderBy('id_alumno', 'ASC')
                     ->paginate(25);
     }
 
     public function scopeDireccion($query, $direccion){
-
         if (  trim($direccion !== '') ) {
 			$query->where('direccion', 'LIKE', '%'. $direccion . '%');
 		}
@@ -46,7 +44,6 @@ class Alumno extends Model
     }
 
     public function scopeNombre($query, $nombre){
-
         if (  trim($nombre !== '') ) {
 			$query->where('nombre', 'LIKE', '%'. $nombre . '%');
 		}
@@ -54,7 +51,6 @@ class Alumno extends Model
     }
 
     public function scopeApellidoPaterno($query, $apellido_paterno){
-
         if (  trim($apellido_paterno !== '') ) {
 			$query->where('apellido_paterno', 'LIKE', '%'. $apellido_paterno . '%');
 		}
@@ -62,7 +58,6 @@ class Alumno extends Model
     }
 
     public function scopeApellidoMaterno($query, $apellido_materno){
-
         if (  trim($apellido_materno !== '') ) {
 			$query->where('apellido_materno', 'LIKE', '%'. $apellido_materno . '%');
 		}
@@ -70,7 +65,6 @@ class Alumno extends Model
     }
 
     public function scopeEmail($query, $email){
-
         if (  trim($email !== '') ) {
 			$query->where('email', 'LIKE', '%'. $email . '%');
 		}
@@ -78,7 +72,6 @@ class Alumno extends Model
     }
 
     public function scopeAnnoIngreso($query, $anno_ingreso){
-
         if (  trim($anno_ingreso !== '') ) {
 			$query->where('anno_ingreso', 'LIKE', '%'. $anno_ingreso . '%');
 		}
@@ -86,9 +79,15 @@ class Alumno extends Model
     }
 
     public function scopeCarrera($query, $carrera){
-
         if (  trim($carrera !== '') ) {
 			$query->where('carrera', 'LIKE', '%'. $carrera . '%');
+		}
+		return $query;
+    }
+
+    public function scopeRut($query, $rut){
+        if (  trim($rut !== '') ) {
+			$query->where('rut', 'LIKE', '%'. $rut . '%');
 		}
 		return $query;
     }
