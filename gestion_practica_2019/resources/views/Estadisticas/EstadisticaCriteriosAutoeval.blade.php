@@ -81,7 +81,7 @@
                                 </thead>
                                 <tbody>
                                     <tr class='text-center'>
-                                        <th>Ingeniería Civil Infornática</th>
+                                        <th>Ingeniería Civil Informática</th>
                                         @foreach($evalActitudinales as $evalActitudinal)
                                             <th style=" font-weight: normal;"> {{ $evalActCivilPromG[($evalActitudinal->id_actitudinal)-1] }} </th>
                                         @endforeach
@@ -118,7 +118,7 @@
                                 </thead>
                                 <tbody>
                                     <tr class='text-center'>
-                                        <th>Ingeniería Civil Infornática</th>
+                                        <th>Ingeniería Civil Informática</th>
                                         @foreach($evalConocimientos as $evalConocimiento)
                                             <th style=" font-weight: normal;"> {{ $evalConCivilPromG[($evalConocimiento->id_conocimiento)-1] }} </th>
                                         @endforeach
@@ -196,8 +196,8 @@
         
         var options = {
             chart: {
-                title: 'Autoevaluación del alumno, Promedio general',
-                subtitle: 'Escuela de Ingeniería en Informática',
+                title: 'Comparativa de autoevaluaciones, sección actitud del alumno',
+                subtitle: 'Ingeniería Civil Informática , Ingeniería de Ejecución Informática'
             },
             legend: { position: 'bottom', alignment: 'end' },
             responsive: true,
@@ -224,8 +224,8 @@
         
         var options2 = {
             chart: {
-                title: 'Autoevaluación del alumno, Promedio general',
-                subtitle: 'Escuela de Ingeniería en Informática',
+                title: 'Comparativa de autoevaluaciones, sección conocimiento del alumno',
+                subtitle: 'Ingeniería Civil Informática , Ingeniería de Ejecución Informática'
             },
             legend: { position: 'bottom', alignment: 'end' },
             responsive: true,
@@ -253,8 +253,8 @@
 
         var options = {
             chart: {
-                title: 'Autoevaluación del alumno, Promedio general',
-                subtitle: 'Sales, Expenses, and Profit: 2014-2017',
+                title: 'Comparativa de autoevaluaciones, sección herramientas',
+                subtitle: 'Ingeniería Civil Informática , Ingeniería de Ejecución Informática'
             },
             bars: 'horizontal', // Required for Material Bar Charts.
             legend: { position: 'bottom', alignment: 'end' },
@@ -285,8 +285,8 @@
 
         var options = {
             chart: {
-                title: 'Company Performance',
-                subtitle: 'Sales, Expenses, and Profit: 2014-2017',
+                title: 'Comparativa de autoevaluaciones, sección áreas',
+                subtitle: 'Ingeniería Civil Informática , Ingeniería de Ejecución Informática'
             },
             bars: 'horizontal',// Required for Material Bar Charts.
             legend: { position: 'bottom', alignment: 'end' },

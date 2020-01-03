@@ -7,6 +7,9 @@ use SGPP\Perfil;
 
 class PerfilController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth');
+    }
     //vista principal de un elemento en especifico
     public function lista()
     {

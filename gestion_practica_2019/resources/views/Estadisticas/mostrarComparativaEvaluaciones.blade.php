@@ -138,8 +138,8 @@
         
         var options1 = {
             chart: {
-                title: 'Escuela de Ingeniería en Informática',
-                subtitle: 'Autoevaluación, Actitud del alumno',
+                title: 'Comparativa de evaluaciones, sección actitud del alumno',
+                subtitle: 'Autoevaluación, Evaluación del supervisor',
             },
             legend: { position: 'bottom', alignment: 'end' },
             responsive: true,
@@ -170,8 +170,8 @@
 
         var options2 = {
             chart: {
-                title: 'Escuela de Ingeniería en Informática',
-                subtitle: 'Autoevaluación, Conocimiento del Alumno',
+                title: 'Comparativa de evaluaciones, sección conocimiento del alumno',
+                subtitle: 'Autoevaluación, Evaluación del supervisor',
             },
             
             legend: { position: 'bottom', alignment: 'end' },

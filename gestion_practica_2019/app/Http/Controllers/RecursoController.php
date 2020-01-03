@@ -9,6 +9,9 @@ use SGPP\PerfilRecurso;
 
 class RecursoController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth');
+    }
     //vista principal de un elemento en especifico
     public function lista()
     {
