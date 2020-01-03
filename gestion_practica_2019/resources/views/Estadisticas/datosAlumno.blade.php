@@ -228,9 +228,17 @@
                         
                         <div class="row">
                             <div class="col-md-12">
-                                <a id='botonMostrarAutoevaluacionAlumno' class='btn btn-info btn-sm' href="{{ route('mostrarAutoevaluacionAlumno',['id'=>$practica->id_practica])}}" >Ver autoevaluación</a>
-                                <a id='botonMostrarAutoevaluacionAlumno' class='btn btn-info btn-sm' href="{{ route('mostrarEvaluacionSupervisor',['id'=>$practica->id_practica])}}" >Ver evaluación del supervisor</a>
-                                <a id='botonMostrarComparativaEvaluaciones' class='btn btn-info btn-sm' href="{{ route('mostrarComparativaEvaluaciones',['id'=>$practica->id_practica])}}" >Comparativa de criterios de evaluaciones</a>    
+                                @if($auto >= 0 && $pracSup != $practica->id_practica)
+                                    <a id='botonMostrarAutoevaluacionAlumno' class='btn btn-info btn-sm' href="{{ route('mostrarAutoevaluacionAlumno',['id'=>$practica->id_practica])}}" >Ver autoevaluación</a>
+                                @endif
+                                
+                                @if($evalSup >= 0 && $pracAuto != $practica->id_practica)
+                                    <a id='botonMostrarAutoevaluacionAlumno' class='btn btn-info btn-sm' href="{{ route('mostrarEvaluacionSupervisor',['id'=>$practica->id_practica])}}" >Ver evaluación del supervisor</a>
+                                @endif
+
+                                @if($auto >= 1 && $evalSup >= 1)
+                                    <a id='botonMostrarComparativaEvaluaciones' class='btn btn-info btn-sm' href="{{ route('mostrarComparativaEvaluaciones',['id'=>$practica->id_practica])}}" >Comparativa de criterios de evaluaciones</a>
+                                @endif
                             </div>
                         </div>
                     </div> 

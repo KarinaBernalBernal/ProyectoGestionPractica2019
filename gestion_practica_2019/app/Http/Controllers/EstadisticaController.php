@@ -3,6 +3,7 @@
 namespace SGPP\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 use SGPP\Alumno;
 use SGPP\Area;
@@ -36,7 +37,13 @@ class EstadisticaController extends Controller
     public function mostrarEstadisticasAlumno($id){
         $alumno = Alumno::find($id);
         $practicas = Practica::where('id_alumno',$id)->paginate(12);
-        
+        $auto = 0;
+        $evalSup = 0;
+        $carrera = 1;
+        $flag = 1;
+        $pracAuto = null;
+        $pracSup = null;
+
         $practicasA = Practica::join('alumnos', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
                     ->join('resoluciones','practicas.id_practica','=','resoluciones.id_practica')
                     ->where('resoluciones.resolucion_practica',1)
@@ -48,13 +55,27 @@ class EstadisticaController extends Controller
         if(strtoupper($alumno->carrera) == strtoupper('Ingeniería Civil Informática')){
             $carrera = 0;
         }
-        else{
-            $carrera = 1;
-        }
         //dd($carrera);
 
         //Cantidad de practicas aprobadas del alumno
         foreach($practicasA as $practica){
+            $autoevaluacion = Autoevaluacion::where('id_practica',$practica->id_practica)->first();
+            $evaluacionSuper = Autoevaluacion::where('id_practica',$practica->id_practica)->first();
+            
+            if($autoevaluacion != null){
+                $auto = $auto + 1;
+            }
+            else{
+                $pracAuto = $practica->id_practica;
+            }
+
+            if($evaluacionSuper != null){
+                $evalSup = $evalSup +1;
+            }
+            else{
+                $pracSup = $practica->id_practica;
+            }
+
             if($practica->resolucion_practica == 1){
                 $cantPracticas = $cantPracticas + 1;
             }
@@ -63,9 +84,6 @@ class EstadisticaController extends Controller
         //dd($cantPracticas); 
         if($cantPracticas == 2){
             $flag = 0;
-        }
-        else{
-            $flag = 1;
         }
 
         //Lista de supervisores
@@ -99,7 +117,11 @@ class EstadisticaController extends Controller
                     ->with('empresas', $empresas)
                     ->with('resoluciones', $resoluciones)
                     ->with('flag1', $carrera)
-                    ->with('flag2', $flag);                      
+                    ->with('flag2', $flag)
+                    ->with('auto', $auto)
+                    ->with('evalSup', $evalSup)
+                    ->with('pracAuto', $pracAuto)
+                    ->with('pracSup', $pracSup);                      
     }
 
     public function buscarAlumno(Request $request){
@@ -109,7 +131,8 @@ class EstadisticaController extends Controller
                                         $request->get('anno_ingreso'),
                                         $request->get('carrera'),
                                         $request->get('rut')                                        
-                                    );
+                                        );
+        
         return view('Estadisticas/alumnosDetalles')->with("lista", $lista);
     }
 
