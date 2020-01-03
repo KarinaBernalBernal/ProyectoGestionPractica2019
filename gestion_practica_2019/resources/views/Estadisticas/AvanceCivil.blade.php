@@ -14,7 +14,7 @@
                     {{-- Autoevaluacion --}}
                         <div class="form-group row justify-content-md-center">
                             <div class="col-md-12">
-                                <h4>Actitud del alumno</h4>
+                                <h4>Actitudes del alumno</h4>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -216,8 +216,8 @@
         
         var options1 = {
             chart: {
-                title: 'Comparativa de autoevaluaciones, sección actitud del alumno',
-                subtitle: 'Evaluaciones del alumno',
+                title: 'Comparativa entre autoevaluaciones',
+                subtitle: 'Criterios del alumno',
             },
             legend: { position: 'bottom', alignment: 'end' },
             responsive: true,
@@ -246,8 +246,8 @@
         
         var options3 = {
             chart: {
-                title: 'Comparativa de evaluaciones, sección actitud del alumno',
-                subtitle: 'Evaluaciones del Supervisor',
+                title: 'Comparativa entre evaluaciones',
+                subtitle: 'Criterios del Supervisor',
             },
             legend: { position: 'bottom', alignment: 'end' },
             responsive: true,
@@ -265,7 +265,7 @@
 
     function drawChart2() {
         var data_EvalConPractica1 = google.visualization.arrayToDataTable([
-            ['Conocimiento del alumno','1era Práctica','2da Práctica'],
+            ['Conocimiento del alumno','Respuesta 1era Práctica','Respuesta 2da Práctica'],
             <?php               
                 foreach($evalConocimientos as $evalConocimiento){
             ?>
@@ -278,8 +278,8 @@
 
         var options2 = {
             chart: {
-                title: 'Comparativa de autoevaluaciones, sección conocimiento del alumno',
-                subtitle: 'Evaluaciones del Alumno',
+                title: 'Comparativa entre autoevaluaciones',
+                subtitle: 'Criterios del Alumno',
             },
             
             legend: { position: 'bottom', alignment: 'end' },
@@ -307,8 +307,8 @@
         
         var options4 = {
             chart: {
-                title: 'Comparativa de evaluaciones, sección conocimiento del alumno',
-                subtitle: 'Evaluaciones del Supervisor',
+                title: 'Comparativa entre evaluaciones',
+                subtitle: 'Criterios del Supervisor',
             },
             legend: { position: 'bottom', alignment: 'end' },
             responsive: true,
