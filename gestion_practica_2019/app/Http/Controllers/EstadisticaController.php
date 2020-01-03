@@ -340,6 +340,11 @@ class EstadisticaController extends Controller
         
         $arrayFechas = array();
 
+        $empresas = Empresa::orderby('id_empresa', 'ASC')->paginate(12);
+        $empresasCivil = $this->calcularEmpresasProm($empresas ,'Ingeniería Civil Informática');
+        
+        $empresasEjec = $this->calcularEmpresasProm($empresas, 'Ingeniería de Ejecución Informática');
+
         foreach($fechas as $fecha){
             $anio = date("Y", strtotime($fecha->f_resolucion));
 
@@ -356,19 +361,29 @@ class EstadisticaController extends Controller
         $totalEjec= $this->totalPracticantes($arrayFechas ,'Ingeniería de Ejecución Informática');
 
         return view('Estadisticas/estadisticaGeneral')->with('arrayFechas',$arrayFechas)
-                                        ->with('totalCivil',$totalCivil)->with('totalEjec',$totalEjec);
+                                                        ->with('totalCivil',$totalCivil)->with('totalEjec',$totalEjec)
+                                                        ->with('empresas',$empresas)
+                                                        ->with('empresasCivil',$empresasCivil)
+                                                        ->with('empresasEjec',$empresasEjec);
     }           
+    
+    public function calcularEmpresasProm($empresas){
+        $empresasProm = array_fill(0, sizeof($empresas), 0);
 
-    public function verEstadisticaEmpresas(){
-        $empresas = Empresa::orderby('id_empresa', 'ASC')->paginate(12);
+        $Autoevalempresas = Practica::join('supervisores', 'practicas.id_supervisor', '=', 'supervisores.id_supervisor')
+                                ->join('empresas', 'supervisores.id_empresa', '=', 'empresas.id_empresa')
+                                ->join('resoluciones','practicas.id_practica','=','resoluciones.id_practica')
+                                ->where('resoluciones.resolucion_practica',1)
+                                ->select('empresas.*')
+                                ->get();
 
-        $empresas->toArray();
-
-        $empresasCivilPromG = $this->calcularEmpresasPromG($empresas ,'Ingeniería Civil Informática');
-        $empresasEjecPromG = $this->calcularEmpresasPromG($empresas, 'Ingeniería de Ejecución Informática');
-
-        return 0;
+        foreach($Autoevalempresas as $Autoevalempresa){
+            $empresasProm[($Autoevalempresa->id_empresa) -1]=+1;
+        }
+        
+        return $empresasProm;
     }
+
 
     public function verEstadisticaCriteriosAutoeval(){
 

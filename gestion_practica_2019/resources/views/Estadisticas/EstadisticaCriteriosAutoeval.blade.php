@@ -30,7 +30,7 @@
                         <input id="busquedaHasta" type="number" placeholder="Hasta" class="form-control" name="busquedaHasta" value="{{ old('busquedaHasta') }}" style="display: none;" required disabled>
                     </div>
                     
-                    <div class="col-md-2">
+                    <div class="col-md-1">
                         <a href=""><button class="btn btn-primary" type="submit" ><i class="fas fa-search"></i></button></a>
                     </div>
                 </div>
@@ -44,7 +44,7 @@
                     <br>
                     <div class="row">
                         <div class="col-md-12">
-                            <div id="barchart_herramientas" style="height: 300px;"></div> 
+                            <div id="barchart_herramientas" style="height: 600px;"></div> 
                         </div>
                     </div>
                 </div>
@@ -56,7 +56,7 @@
                     <br>
                     <div class="row">
                         <div class="col-md-12">
-                            <div id="barchart_areas" style="height: 300px;"></div> 
+                            <div id="barchart_areas" style="height: 500px;"></div> 
                         </div>
                     </div>
                 </div>

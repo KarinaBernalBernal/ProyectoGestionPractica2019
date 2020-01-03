@@ -4,7 +4,7 @@
 
 <div class="container-fluid">
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h3 class="h3 mb-0 text-gray-800">Autoevaluación 1era Practica vs 2da Practica</h3>
+        <h3 class="h3 mb-0 text-gray-800">Avance del alumno entre 1era Práctica y 2da Práctica</h3>
     </div>
         
     <div class="card text">
@@ -14,7 +14,7 @@
                     {{-- Autoevaluacion --}}
                         <div class="form-group row justify-content-md-center">
                             <div class="col-md-12">
-                                <h4>Actitud del alumno</h4>
+                                <h4>Actitudes del alumno</h4>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -34,13 +34,13 @@
                                         </thead>
                                         <tbody>
                                             <tr class='text-center'>
-                                                <th>1era practica</th>
+                                                <th>1era Práctica - Autoevaluación</th>
                                                 @foreach($evalActitudinales as $evalActitudinal)
                                                     <th style=" font-weight: normal;"> {{ $evalActPractica1[($evalActitudinal->id_actitudinal)-1]->valor_act_practica }} </th>
                                                 @endforeach
                                             </tr>
                                             <tr class='text-center'>
-                                                <th>2da practica</th>
+                                                <th>2da Práctica - Autoevaluación</th>
                                                 @foreach($evalActitudinales as $evalActitudinal)
                                                     <th style=" font-weight: normal;"> {{ $evalActPractica2[($evalActitudinal->id_actitudinal)-1]->valor_act_practica }} </th>
                                                 @endforeach
@@ -53,6 +53,7 @@
                                 @endif
                             </div>
                         </div>
+                        <hr>
                         {{-- Empresa --}}
                         <div class="form-group row">
                             <div class="col-md-11">
@@ -71,13 +72,13 @@
                                         </thead>
                                         <tbody>
                                             <tr class='text-center'>
-                                                <th>1era Practica - Evaluación Supervisor</th>
+                                                <th>1era Práctica - Evaluación Supervisor</th>
                                                 @foreach($evalActitudinales as $evalActitudinal)
                                                     <th style=" font-weight: normal;"> {{ $evalActEmpPractica1[($evalActitudinal->id_actitudinal)-1]->valor_act_emp_practica }} </th>
                                                 @endforeach
                                             </tr>
                                             <tr class='text-center'>
-                                                <th>2da Practica - Evaluación Supervisor</th>
+                                                <th>2da Práctica - Evaluación Supervisor</th>
                                                 @foreach($evalActitudinales as $evalActitudinal)
                                                     <th style=" font-weight: normal;"> {{ $evalActEmpPractica2[($evalActitudinal->id_actitudinal)-1]->valor_act_emp_practica }} </th>
                                                 @endforeach
@@ -99,7 +100,7 @@
         <div class="card-body"> 
             <div class="form-group row justify-content-md-center">
                 <div class="col-md-12">
-                    {{-- "2da practica" --}}
+                    {{-- "2da Práctica" --}}
                         <div class="form-group row justify-content-md-center">
                             <div class="col-md-12">
                                 <h4>Conocimiento del alumno</h4>
@@ -121,13 +122,13 @@
                                         </thead>
                                         <tbody>
                                             <tr class='text-center'>
-                                                <th>1era Practica - Autoevaluación</th>
+                                                <th>1era Práctica - Autoevaluación</th>
                                                 @foreach($evalConocimientos as $evalConocimiento)
                                                     <th style=" font-weight: normal;"> {{ $evalConPractica1[($evalConocimiento->id_conocimiento)-1]->valor_con_practica }} </th>
                                                 @endforeach
                                             </tr >
                                             <tr class='text-center'>
-                                                <th>2da practica - Autoevaluación</th>
+                                                <th>2da Práctica - Autoevaluación</th>
                                                 @foreach($evalConocimientos as $evalConocimiento)
                                                     <th style=" font-weight: normal;"> {{ $evalConPractica2[($evalConocimiento->id_conocimiento)-1]->valor_con_practica }} </th>
                                                 @endforeach
@@ -140,6 +141,7 @@
                                 @endif
                             </div>
                         </div>
+                        <hr>
                         {{-- Empresa --}}
                         <div class="form-group row">
                             <div class="col-md-11">
@@ -158,13 +160,13 @@
                                         </thead>
                                         <tbody>
                                             <tr class='text-center'>
-                                                <th>1era Practica - Evaluación Supervisor</th>
+                                                <th>1era Práctica - Evaluación Supervisor</th>
                                                 @foreach($evalConocimientos as $evalConocimiento)
                                                     <th style=" font-weight: normal;"> {{ $evalConEmpPractica1[($evalConocimiento->id_conocimiento)-1]->valor_con_emp_practica }} </th>
                                                 @endforeach
                                             </tr>
                                             <tr class='text-center'>
-                                                <th>2da Practica - Evaluación Supervisor</th>
+                                                <th>2da Práctica - Evaluación Supervisor</th>
                                                 @foreach($evalConocimientos as $evalConocimiento)
                                                     <th style=" font-weight: normal;"> {{ $evalConEmpPractica2[($evalConocimiento->id_conocimiento)-1]->valor_con_emp_practica }} </th>
                                                 @endforeach
@@ -202,7 +204,7 @@
 
     function drawChart() {
         var data_EvalActPractica1 = google.visualization.arrayToDataTable([
-            ['Actitud del alumno','Respuesta 1era practica','Respuesta 2da practica'],
+            ['Actitud del alumno','Respuesta 1era Práctica','Respuesta 2da Práctica'],
             <?php  
                 foreach($evalActitudinales as $evalActitudinal){
             ?>
@@ -214,8 +216,8 @@
         
         var options1 = {
             chart: {
-                title: 'Escuela de Ingeniería en Informática',
-                subtitle: 'Autoevaluación, Actitud del alumno',
+                title: 'Comparativa entre autoevaluaciones',
+                subtitle: 'Criterios del alumno',
             },
             legend: { position: 'bottom', alignment: 'end' },
             responsive: true,
@@ -232,7 +234,7 @@
     function drawChartS1() {
         
         var data_EvalActEmpPractica1 = google.visualization.arrayToDataTable([
-            ['Actitud del alumno','Respuesta 1era practica','Respuesta 2da practica'],
+            ['Actitud del alumno','Respuesta 1era Práctica','Respuesta 2da Práctica'],
             <?php  
                 foreach($evalActitudinales as $evalActitudinal){
             ?>
@@ -244,8 +246,8 @@
         
         var options3 = {
             chart: {
-                title: 'Escuela de Ingeniería en Informática',
-                subtitle: 'Autoevaluación, Actitud del alumno',
+                title: 'Comparativa entre evaluaciones',
+                subtitle: 'Criterios del Supervisor',
             },
             legend: { position: 'bottom', alignment: 'end' },
             responsive: true,
@@ -263,7 +265,7 @@
 
     function drawChart2() {
         var data_EvalConPractica1 = google.visualization.arrayToDataTable([
-            ['Conocimiento del alumno','1era Practica','2da Practica'],
+            ['Conocimiento del alumno','Respuesta 1era Práctica','Respuesta 2da Práctica'],
             <?php               
                 foreach($evalConocimientos as $evalConocimiento){
             ?>
@@ -276,8 +278,8 @@
 
         var options2 = {
             chart: {
-                title: 'Escuela de Ingeniería en Informática',
-                subtitle: 'Evaluación Supervisor, Conocimiento del Alumno',
+                title: 'Comparativa entre autoevaluaciones',
+                subtitle: 'Criterios del Alumno',
             },
             
             legend: { position: 'bottom', alignment: 'end' },
@@ -293,7 +295,7 @@
     function drawChartS2() {
         
         var data_EvalConEmpPractica1 = google.visualization.arrayToDataTable([
-            ['Conocimiento del alumno','Respuesta 1era practica','Respuesta 2da practica'],
+            ['Conocimiento del alumno','Respuesta 1era Práctica','Respuesta 2da Práctica'],
             <?php  
                 foreach($evalConocimientos as $evalConocimiento){
             ?>
@@ -305,8 +307,8 @@
         
         var options4 = {
             chart: {
-                title: 'Escuela de Ingeniería en Informática',
-                subtitle: 'Evaluación Supervisor, Actitud del alumno',
+                title: 'Comparativa entre evaluaciones',
+                subtitle: 'Criterios del Supervisor',
             },
             legend: { position: 'bottom', alignment: 'end' },
             responsive: true,

@@ -19,6 +19,19 @@
         </div>
     </div>
     <br>
+    <div class="card text">
+        <div class="card-body">   
+            <h4>Empresas Frecuentes</h4>
+            <br>
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="barchart_empresas" style="height: 600px;"></div> 
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-3">
@@ -67,6 +80,37 @@
 
         chart.draw(data, google.charts.Line.convertOptions(options));
     }
+    //Empresas 
+
+      google.charts.load('current', {'packages':['bar']});
+      google.charts.setOnLoadCallback(drawChart3);
+
+      function drawChart3() {
+        var data = google.visualization.arrayToDataTable([
+            ['empresas', 'Ingeniería Civil Informática', 'Ingeniería de Ejecución Informática'],
+            <?php  
+                foreach($empresas as $empresa){
+            ?>
+                    ['<?php echo $empresa->n_empresa; ?>' , <?php echo $empresasCivil[($empresa->id_empresa)-1];?> , <?php echo $empresasEjec[($empresa->id_empresa)-1];?> ],
+            <?php
+                }
+            ?>
+        ]);
+
+        var options = {
+            chart: {
+                title: 'Comparativa de frecuencia de empresas',
+                subtitle: 'Ingeniería Civil Informática , Ingeniería de Ejecución Informática'
+            },
+            bars: 'horizontal', // Required for Material Bar Charts.
+            legend: { position: 'bottom', alignment: 'end' },
+            responsive: true,
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('barchart_empresas'));
+
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+      }
     
 
 </script>
