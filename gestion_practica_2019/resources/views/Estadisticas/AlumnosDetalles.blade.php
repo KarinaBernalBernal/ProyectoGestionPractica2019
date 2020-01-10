@@ -14,17 +14,14 @@
                 <div class="row">
                     <div class="col-sm-12 mb-6">
                         <div class="row">
-           
                             <div class="col-sm-3">
-                                <input id="nombre" type="text" class="form-control" name="nombre" placeholder="Nombre">
+                                <input id="nombre" type="text" class="form-control letras" name="nombre" placeholder="Nombre">
                             </div>
-                
                             <div class="col-sm-3">
-                                <input id="apellido_paterno" type="text" class="form-control" name="apellido_paterno" placeholder="Apellido paterno">
+                                <input id="apellido_paterno" type="text" class="form-control letras" name="apellido_paterno" placeholder="Apellido paterno">
                             </div>
-                
                             <div class="col-sm-3">
-                                <input id="apellido_materno" type="text" class="form-control" name="apellido_materno" placeholder="Apellido materno">
+                                <input id="apellido_materno" type="text" class="form-control letras" name="apellido_materno" placeholder="Apellido materno">
                             </div>
                             <div class="col-sm-3 ">
                                 <input id="rut" type="text" class="form-control" name="rut" placeholder="Rut: Ej. 11111111-1">
@@ -49,9 +46,6 @@
                                 </select>
                             </div>
 
-
-                       
-                 
                     <div class="col-sm-2 mb-12">
                         <button type="submit" class="btn btn-primary" name="buscador"><i class="fas fa-search"></i><span> Buscar</span></button>
                     </div>
@@ -128,4 +122,29 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    $(".letras").keypress(function (key) {
+        if ((key.charCode < 97 || key.charCode > 122)//letras mayusculas
+                && (key.charCode < 65 || key.charCode > 90) //letras minusculas
+                && (key.charCode != 45) //retroceso
+                && (key.charCode != 241) //ñ
+                 && (key.charCode != 209) //Ñ
+                 && (key.charCode != 32) //espacio
+                 && (key.charCode != 225) //á
+                 && (key.charCode != 233) //é
+                 && (key.charCode != 237) //í
+                 && (key.charCode != 243) //ó
+                 && (key.charCode != 250) //ú
+                 && (key.charCode != 193) //Á
+                 && (key.charCode != 201) //É
+                 && (key.charCode != 205) //Í
+                 && (key.charCode != 211) //Ó
+                 && (key.charCode != 218) //Ú
+ 
+            )
+        return false;
+    });
+</script>
+
 @endsection
