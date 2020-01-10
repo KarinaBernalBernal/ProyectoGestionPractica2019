@@ -44,8 +44,8 @@
                             <div class="col-sm-4">
                                 <select id="carrera" type="text" class="form-control" name="carrera">
                                     <option value="">Seleccione carrera...</option>
-                                    <option value="Ingeniería Civil en Informatica">Ingeniería Civil en Informatica</option>
-                                    <option value="Ingeniería de Ejecución en Informatica">Ingeniería de Ejecución en Informatica</option>
+                                    <option value="Ingeniería Civil Informatica">Ingeniería Civil en Informatica</option>
+                                    <option value="Ingeniería de Ejecución Informática">Ingeniería de Ejecución en Informatica</option>
                                 </select>
                             </div>
 

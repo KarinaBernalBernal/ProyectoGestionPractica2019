@@ -110,8 +110,10 @@
                     <hr>
                 </div>
             </div>
-            
+            @if($resoluciones <> NULL)       
+                @foreach($resoluciones as $resolucion)
             @foreach($practicas as $practica) 
+                @if($resolucion <> NULL && $practica->id_practica == $resolucion->id_practica)
                 <div class="form-group row justify-content-md-center">
                     <div class="col-md-12">
                         <h6>Práctica {{ $loop->iteration }}</h6>
@@ -197,43 +199,37 @@
                             </div>
                         </div>
                         <br>
-                        @if($resoluciones <> NULL)       
-                            @foreach($resoluciones as $resolucion)
-                                @if($resolucion->id_practica == $practica->id_practica )
-                                    {{-- Resultados practica --}}
-                                    <div class="form-group row">
-                                        <div class="col-md-3">
-                                            <label class="col-form-label text-md-right" >{{ __('Resultado práctica') }}</label>
-                                        </div>
-                                        <div class="col-md-1">
-                                            <label class="col-form-label text-md-right" >:</label>
-                                        </div>
-                                        @if($resolucion->resolucion_practica == 1)
-                                            <div class="col-md-8">
-                                                <label class="col-form-label text-md-right">Aprobado</label>
-                                            </div>
-                                        @endif
-                                        @if($resolucion->resolucion_practica == 2)
-                                            <div class="col-md-8">
-                                                <label class="col-form-label text-md-right">Reprobado</label>
-                                            </div>
-                                        @endif
-                                    </div>
-                                    {{-- observacion practica --}}
-                                    <div class="form-group row">
-                                        <div class="col-md-3">
-                                            <label class="col-form-label text-md-right" >{{ __('Observación práctica') }}</label>
-                                        </div>
-                                        <div class="col-md-1">
-                                            <label class="col-form-label text-md-right" >:</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <label class="col-form-label text-md-right">{{$resolucion->observacion_resolucion}}</label>
-                                        </div>
-                                    </div>
-                                @endif
-                            @endforeach
-                        @endif
+                        {{-- Resultados practica --}}
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <label class="col-form-label text-md-right" >{{ __('Resultado práctica') }}</label>
+                            </div>
+                            <div class="col-md-1">
+                                <label class="col-form-label text-md-right" >:</label>
+                            </div>
+                            @if($resolucion->resolucion_practica == 1)
+                                <div class="col-md-8">
+                                    <label class="col-form-label text-md-right">Aprobado</label>
+                                </div>
+                            @endif
+                            @if($resolucion->resolucion_practica == 2)
+                                <div class="col-md-8">
+                                    <label class="col-form-label text-md-right">Reprobado</label>
+                                </div>
+                            @endif
+                        </div>
+                        {{-- observacion practica --}}
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <label class="col-form-label text-md-right" >{{ __('Observación práctica') }}</label>
+                            </div>
+                            <div class="col-md-1">
+                                <label class="col-form-label text-md-right" >:</label>
+                            </div>
+                            <div class="col-md-8">
+                                <label class="col-form-label text-md-right">{{$resolucion->observacion_resolucion}}</label>
+                            </div>
+                        </div>      
                         
                         <div class="row">
                             <div class="col-md-12">
@@ -253,7 +249,10 @@
                     </div> 
                 </div>
                 <br>
+            @endif
             @endforeach 
+            @endforeach
+            @endif
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-3">

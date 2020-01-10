@@ -340,9 +340,9 @@ class EstadisticaController extends Controller
         
         $arrayFechas = array();
 
-        $empresas = Empresa::orderby('id_empresa', 'ASC')->paginate(12);
+        $empresas = Empresa::orderby('id_empresa', 'ASC')->get();
+
         $empresasCivil = $this->calcularEmpresasProm($empresas ,'Ingeniería Civil Informática');
-        
         $empresasEjec = $this->calcularEmpresasProm($empresas, 'Ingeniería de Ejecución Informática');
 
         foreach($fechas as $fecha){
@@ -365,25 +365,7 @@ class EstadisticaController extends Controller
                                                         ->with('empresas',$empresas)
                                                         ->with('empresasCivil',$empresasCivil)
                                                         ->with('empresasEjec',$empresasEjec);
-    }           
-    
-    public function calcularEmpresasProm($empresas){
-        $empresasProm = array_fill(0, sizeof($empresas), 0);
-
-        $Autoevalempresas = Practica::join('supervisores', 'practicas.id_supervisor', '=', 'supervisores.id_supervisor')
-                                ->join('empresas', 'supervisores.id_empresa', '=', 'empresas.id_empresa')
-                                ->join('resoluciones','practicas.id_practica','=','resoluciones.id_practica')
-                                ->where('resoluciones.resolucion_practica',1)
-                                ->select('empresas.*')
-                                ->get();
-
-        foreach($Autoevalempresas as $Autoevalempresa){
-            $empresasProm[($Autoevalempresa->id_empresa) -1]=+1;
-        }
-        
-        return $empresasProm;
-    }
-
+    }         
 
     public function verEstadisticaCriteriosAutoeval(){
 
@@ -588,6 +570,25 @@ class EstadisticaController extends Controller
         return $arrayTotal;
     }
 
+    public function calcularEmpresasProm($empresas,$carrera){
+        $empresasProm = array_fill(0, sizeof($empresas), 0);
+
+        $Autoevalempresas = Practica::join('supervisores', 'practicas.id_supervisor', '=', 'supervisores.id_supervisor')
+                                ->join('alumnos', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
+                                ->join('empresas', 'supervisores.id_empresa', '=', 'empresas.id_empresa')
+                                ->join('resoluciones','practicas.id_practica','=','resoluciones.id_practica')
+                                ->where('resoluciones.resolucion_practica',1)
+                                ->where('alumnos.carrera',$carrera)
+                                ->select('empresas.*')
+                                ->get();
+
+        foreach($Autoevalempresas as $Autoevalempresa){
+            $empresasProm[($Autoevalempresa->id_empresa) -1] += 1;
+        }
+        
+        return $empresasProm;
+    }
+
     public function calcularActAutoevalPromG($evalActitudinales, $carrera){
         $evalActPromG = array_fill(0, sizeof($evalActitudinales), 0);
         $count = array_fill(0, sizeof($evalActitudinales), 0);
@@ -745,7 +746,7 @@ class EstadisticaController extends Controller
                                 ->get();
 
         foreach($areasAutoevals as $areasAutoeval){
-            $areasPromG[($areasAutoeval->id_area) -1]=+1;
+            $areasPromG[($areasAutoeval->id_area) -1] += 1;
         }
         
         return $areasPromG;
