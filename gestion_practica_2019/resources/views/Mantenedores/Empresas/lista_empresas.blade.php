@@ -19,7 +19,7 @@
                             <input id="ciudad" type="text" class="form-control" name="ciudad" placeholder="Ciudad">
                         </div>
                         <div class="col-2">
-                            <input id="direccion" type="text" class="form-control" name="direccion" placeholder="Direccion">
+                            <input id="direccion" type="text" class="form-control" name="direccion" placeholder="Dirección">
                         </div>
                         <div class="col-2">
                             <input id="email" type="text" class="form-control" name="email" placeholder="Email">
@@ -42,8 +42,8 @@
                                         <th>Id</th>
                                         <th>Nombre</th>
                                         <th>RUT</th>
-                                        <th>Direccion</th>
-                                        <th>Telefono</th>
+                                        <th>Dirección</th>
+                                        <th>Teléfono</th>
                                         <th>Casilla</th>
                                         <th>Email</th>
                                         <th>Opción</th>
@@ -80,7 +80,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-2">
-                            <a href="/"><button class="btn btn-primary btn-lg">Atras</button></a>
+                            <a href="/"><button class="btn btn-primary btn-lg">Atrás</button></a>
                         </div>
                         <div class='ml-auto'>
                             <a href="{{route ('crear_empresa')}}"><button id="boton_agregar" class="btn btn-primary btn-lg">Agregar</button></a>
@@ -98,13 +98,13 @@
     {
 
         Swal({
-              title: 'Estas seguro de querer eliminar la empresa '+name+'?',
-              text: "No sera posible revertir este cambio!",
+              title: '¿Estás seguro de querer eliminar la empresa '+name+'?',
+              text: "No será posible revertir este cambio",
               type: 'warning',
               showCancelButton: true,
               confirmButtonColor: '#3085d6',
               cancelButtonColor: '#d33',
-              confirmButtonText: 'Si, Eliminalo!'
+              confirmButtonText: 'Si, Elimínalo'
             }).then((result) => {
 
                 if (result.value) {
@@ -120,7 +120,7 @@
                         data: parametros,
                         success: function(response){
                             Swal(
-                              'Eliminado!',
+                              'Eliminado',
                               'La empresa ha sido eliminada.',
                               'success'
                             )

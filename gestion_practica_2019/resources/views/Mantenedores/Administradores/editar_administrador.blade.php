@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-md col-md-offset-2">
                 <div class="card">
-                    <div class="card-header"><h1>Modificar {{$elemento->nombre}}</h1></div>
+                    <div class="card-header"><he>Modificar {{$elemento->nombre}}</he></div>
                     <div class="card-body">
                         <form class="form-horizontal" action="{{route('actualizar_administrador',[$elemento->id_admin])}}" method="post">
                             {{ csrf_field() }}

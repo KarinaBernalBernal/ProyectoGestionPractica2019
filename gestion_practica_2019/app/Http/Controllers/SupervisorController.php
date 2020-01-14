@@ -35,12 +35,12 @@ class SupervisorController extends Controller
                 $request->get('fono')
             );
             $contador = $listaFiltrada->count();  //mostrara la cantidad de resultados en la tabla filtrada
-            $listaFiltrada = $listaFiltrada->paginate(10);
+            $listaFiltrada = $listaFiltrada->paginate(2);
 
             return view('Mantenedores/Supervisores/lista_supervisores')->with('lista',$listaFiltrada)->with('contador',$contador);
         }
 
-        $lista = $lista->paginate(10);
+        $lista = $lista->paginate(2);
         return view('Mantenedores/Supervisores/lista_supervisores',[
                 'lista'=>$lista,
                 'contador'=>$contador,
@@ -152,13 +152,13 @@ class SupervisorController extends Controller
                 $carrera
             );
             $contador = $listaFiltrada->count();  //mostrara la cantidad de resultados en la tabla filtrada
-            $listaFiltrada = $listaFiltrada->paginate(10);
+            $listaFiltrada = $listaFiltrada->paginate(2);
             return view('Practicas/supervisores_en_practica')->with('lista',$listaFiltrada)
                 ->with('contador', $contador)
                 ->with('carrera', $carrera);
         }
         $contador = $supervisoresInformatica->count(); //mostrara la cantidad de resultados en la tabla
-        $supervisoresInformatica = $supervisoresInformatica->paginate(10);
+        $supervisoresInformatica = $supervisoresInformatica->paginate(2);
         return view('Practicas/supervisores_en_practica')->with('lista',$supervisoresInformatica)
             ->with('contador', $contador)
             ->with('carrera', $carrera);

@@ -1,6 +1,5 @@
 @extends('layouts.mainlayout')
 @section('content')
-
     <div class="container-fluid">
         <div class="container-fluid text-center">
             <h2>Autoevaluaciones</h2>
@@ -62,16 +61,15 @@
                         </tbody>
                     </table>
                 </div>
-            </div>
-        </div>
             @else
                 <p class="text-center">No se encontraron Autoevaluaciones</p>
             @endif
+            </div>
+        </div>
         <div class="row d-flex justify-content-center">
             {{ $autoevaluacion->appends(Request::except("page"))->render("pagination::bootstrap-4") }}
         </div>
     </div>
-
     <div class="modal" id="modal-autoEvaluacion"></div>
 
     <script>

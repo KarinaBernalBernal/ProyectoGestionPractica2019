@@ -1,11 +1,11 @@
 <div class="modal-dialog modal-lg">
-    <div class="modal-content" id="DivIdToPrint">
+    <div class="modal-content" id="paraImprimir">
         <div class="modal-header">
             <div>
                 <h1 class="h3 mb-0 text-gray-1000">SOLICITUD PRÁCTICA</h1>
             </div>
             <div class="col-1">
-                <button class="btn btn-primary" type='button' id='btn' value='Print' onclick='printtag("DivIdToPrint");'><span class="fa fa-print"></span> </button>
+                <button class="btn btn-primary" type='button' id='btn' value='Print' onclick='printtag("paraImprimir");'><span class="fa fa-print"></span> </button>
             </div>
             <button type="button" class="close text-danger" data-dismiss="modal">
                 <span> <i class="fas fa-times"></i></span>

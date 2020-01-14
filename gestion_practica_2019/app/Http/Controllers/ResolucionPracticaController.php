@@ -41,8 +41,8 @@ class ResolucionPracticaController extends Controller
 
         $contadorP = $practicasP->count();
         $contadorE = $practicasE->count();
-        $practicasP = $practicasP->paginateEspecial(10, null, null, 'pendiente');
-        $practicasE = $practicasE->paginateEspecial(10, null, null, 'evaluada');
+        $practicasP = $practicasP->paginateEspecial(2, null, null, 'pendiente');
+        $practicasE = $practicasE->paginateEspecial(2, null, null, 'evaluada');
 
         return view('4 Resoluciones/resolucionPractica',[
             'practicasP'=>$practicasP,
@@ -73,9 +73,9 @@ class ResolucionPracticaController extends Controller
             $request->get('email'));
 
         $contador = $listaFiltrada->count();
-        $listaFiltrada = $listaFiltrada->paginateEspecial(10, null, null, "pendiente");
+        $listaFiltrada = $listaFiltrada->paginateEspecial(2, null, null, "pendiente");
         $contadorE = $practicasE->count();
-        $practicasE = $practicasE->paginateEspecial(10, null, null, 'evaluada');
+        $practicasE = $practicasE->paginateEspecial(2, null, null, 'evaluada');
 
 
         return view('4 Resoluciones/resolucionPractica',[
@@ -108,9 +108,9 @@ class ResolucionPracticaController extends Controller
             $request->get('email'));
 
         $contadorP = $practicasP->count();
-        $practicasP = $practicasP->paginateEspecial(10, null, null, 'pendiente');
+        $practicasP = $practicasP->paginateEspecial(2, null, null, 'pendiente');
         $contador = $listaFiltrada->count();
-        $listaFiltrada = $listaFiltrada->paginateEspecial(10, null, null, "evaluada");
+        $listaFiltrada = $listaFiltrada->paginateEspecial(2, null, null, "evaluada");
 
         return view('4 Resoluciones/resolucionPractica',[
             'practicasP'=>$practicasP,

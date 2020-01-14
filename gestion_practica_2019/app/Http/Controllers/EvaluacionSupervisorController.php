@@ -58,7 +58,7 @@ class EvaluacionSupervisorController extends Controller
             ->get();
 
 
-        $alumnos = $alumnos->paginate(10);
+        $alumnos = $alumnos->paginate(2);
         /*Se envian a todos los alumnos que corresponden al supervisor*/
         return view('3 Evaluacion/evaluacionEmpresa')->with('lista',$alumnos);
     }
@@ -84,14 +84,14 @@ class EvaluacionSupervisorController extends Controller
                 $request->get('f_entrega_eval')
             );
             $contador = $listaFiltrada->count();  //mostrara la cantidad de resultados en la tabla filtrada
-            $listaFiltrada = $listaFiltrada->paginate(10);
+            $listaFiltrada = $listaFiltrada->paginate(2);
 
             return view('Mantenedores/Evaluaciones/Supervisor/lista_evaluaciones_supervisor')
                 ->with('lista', $listaFiltrada)
                 ->with('contador', $contador);
         }
         $contador = $lista->count();
-        $lista = $lista->paginate(10);
+        $lista = $lista->paginate(2);
         return view('Mantenedores/Evaluaciones/Supervisor/lista_evaluaciones_supervisor',[
                 'lista'=>$lista,
                 'contador'=>$contador,
@@ -246,13 +246,13 @@ class EvaluacionSupervisorController extends Controller
                 $carrera
             );
             $contador = $listaFiltrada->count();  //mostrara la cantidad de resultados en la tabla filtrada
-            $listaFiltrada = $listaFiltrada->paginate(10);
+            $listaFiltrada = $listaFiltrada->paginate(2);
             return view('3 Evaluacion/listaEvaluacionSupervisor')->with('evaluacion',$listaFiltrada)
                 ->with('contador', $contador)
                 ->with('carrera', $carrera);
         }
         $contador = $supervisoresInformatica->count(); //mostrara la cantidad de resultados en la tabla
-        $supervisoresInformatica = $supervisoresInformatica->paginate(10);
+        $supervisoresInformatica = $supervisoresInformatica->paginate(2);
         return view('3 Evaluacion/listaEvaluacionSupervisor')->with('evaluacion',$supervisoresInformatica)
             ->with('contador', $contador)
             ->with('carrera', $carrera);

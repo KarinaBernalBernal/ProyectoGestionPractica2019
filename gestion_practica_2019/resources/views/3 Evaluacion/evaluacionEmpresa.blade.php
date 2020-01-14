@@ -5,7 +5,7 @@
             <div class="col col-md-offset">
                 <div class="card">
                     <h4 class="card-header">Evaluación de la empresa sobre el desempeño del estudiante en práctica</h4>
-                    <div class="card-body">
+                    <div class="card-body" style="text-align: justify;">
                         <h5><strong>Debes saber que...</strong> </h5>
                         <p>
                         <ul>
@@ -13,10 +13,13 @@
                                 En esta instancia se debe de evaluar al estudiante en práctica.
                             </li>
                             <li>
+                                Podrás evaluar a tu practicante luego de que este haya completado su autoevaluación. Se te notificara con un correo en el momento en el que el alumno haya realizado su autoevaluación
+                            </li>
+                            <li>
                                 El resultado de esta evaluación afectará la decisión final sobre la aprobación o reprobación del estudiante.
                             </li>
                             <li>
-                                Se ruega completar el formulario con responsabilidad y sinceridad.
+                                Se ruega completar el formulario con responsabilidad, sinceridad y lo antes posible.
                             </li>
                         </ul>
                         </p>

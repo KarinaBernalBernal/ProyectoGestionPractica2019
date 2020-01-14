@@ -176,7 +176,7 @@ class SolicitudController extends Controller
                 $request->get('f_solicitud')
             );
             $contador = $listaFiltrada->count();
-            $listaFiltrada = $listaFiltrada->paginate(70);
+            $listaFiltrada = $listaFiltrada->paginate(2);
 
             return view('1 Solicitud/listaSolicitudEjecucion')
                 ->with('solicitudes',$listaFiltrada)
@@ -184,7 +184,7 @@ class SolicitudController extends Controller
                 ->with('numeroSolicitudes', $numeroSolicitudes);
         }
 
-        $solicitudes = $solicitudes->paginate(70);
+        $solicitudes = $solicitudes->paginate(2);
         return view('1 Solicitud/listaSolicitudEjecucion')
             ->with('solicitudes', $solicitudes)
             ->with('contador', $contador)
@@ -211,7 +211,7 @@ class SolicitudController extends Controller
                 $request->get('f_solicitud')
             );
             $contador = $listaFiltrada->count();
-            $listaFiltrada = $listaFiltrada->paginate(100);
+            $listaFiltrada = $listaFiltrada->paginate(2);
 
             return view('1 Solicitud/listaSolicitudCivil')
                 ->with('solicitudes',$listaFiltrada)
@@ -219,7 +219,7 @@ class SolicitudController extends Controller
                 ->with('numeroSolicitudes', $numeroSolicitudes);
         }
 
-        $solicitudes = $solicitudes->paginate(100);
+        $solicitudes = $solicitudes->paginate(2);
         return view('1 Solicitud/listaSolicitudCivil')
             ->with('solicitudes', $solicitudes)
             ->with('numeroSolicitudes', $numeroSolicitudes)
@@ -239,8 +239,8 @@ class SolicitudController extends Controller
         $carrera = 'Ingeniería Civil Informática';
         $contadorP = $solicitudesP->count();
         $contadorE = $solicitudesE->count();
-        $solicitudesP = $solicitudesP->paginateEspecial(10, null, null, "pendiente");
-        $solicitudesE = $solicitudesE->paginateEspecial(10, null, null, "evaluada");
+        $solicitudesP = $solicitudesP->paginateEspecial(2, null, null, "pendiente");
+        $solicitudesE = $solicitudesE->paginateEspecial(2, null, null, "evaluada");
        
         return view('1 Solicitud/evaluacionSolicitud',[
             'solicitudesP'=>$solicitudesP,
@@ -263,8 +263,8 @@ class SolicitudController extends Controller
         $carrera = "Ingeniería de Ejecución Informática";
         $contadorP = $solicitudesP->count();
         $contadorE = $solicitudesE->count();
-        $solicitudesP = $solicitudesP->paginateEspecial(10, null, null, "pendiente");
-        $solicitudesE = $solicitudesE->paginateEspecial(10, null, null, "evaluada");
+        $solicitudesP = $solicitudesP->paginateEspecial(2, null, null, "pendiente");
+        $solicitudesE = $solicitudesE->paginateEspecial(2, null, null, "evaluada");
         
         return view('1 Solicitud/evaluacionSolicitud',[
             'solicitudesP'=>$solicitudesP,
@@ -283,7 +283,7 @@ class SolicitudController extends Controller
             ->where("estado",1);
 
         $contadorE = $solicitudesE->count();
-        $solicitudesE = $solicitudesE->paginateEspecial(10, null, null, "evaluada");
+        $solicitudesE = $solicitudesE->paginateEspecial(2, null, null, "evaluada");
 
         if( $carrera == "Ingeniería de Ejecución Informática")
         {
@@ -314,7 +314,7 @@ class SolicitudController extends Controller
         }
 
         $contadorP = $listaFiltrada->count();
-        $listaFiltrada = $listaFiltrada->paginateEspecial(10, null, null, "pendiente");
+        $listaFiltrada = $listaFiltrada->paginateEspecial(2, null, null, "pendiente");
 
         //Retorna los datos filtrados de la lista pendiente y la lista evaluada sin filtrar
         //Ademas retorna el tipo de carrera para diferenciar que la vista sea de civil y ejecucion
@@ -337,7 +337,7 @@ class SolicitudController extends Controller
             ->where("estado",0);
 
         $contadorP = $solicitudesP->count();
-        $solicitudesP = $solicitudesP->paginate(10, null, null, "pendiente");
+        $solicitudesP = $solicitudesP->paginate(2, null, null, "pendiente");
 
         //-----Filtro-----//
         $listaFiltrada = Solicitud::filtrar($request->get('buscador'),
@@ -352,7 +352,7 @@ class SolicitudController extends Controller
         );
 
         $contadorE = $listaFiltrada->count();
-        $listaFiltrada = $listaFiltrada->paginate(10, null, null, "evaluada");
+        $listaFiltrada = $listaFiltrada->paginate(2, null, null, "evaluada");
 
         //Retorna los datos filtrados de la lista evaluada y la lista pendiente sin filtrar
         //Ademas retorna el tipo de carrera para diferenciar que la vista sea de civil y ejecucion
@@ -367,17 +367,26 @@ class SolicitudController extends Controller
         ]);
     }
 
-    public function evaluarSolicitudModal($id){
+    public function evaluarSolicitudModal($id)
+    {
         $solicitud=Solicitud::find($id);
         return view('1 Solicitud/modales/modalEvaluarSolicitud',[
             'solicitud'=>$solicitud
         ]);
     }
 
-    public function modificarEvaluacionSolicitudModal($id){
-        $solicitud=Solicitud::find($id);
+    public function modificarEvaluacionSolicitudModal($id)
+    {
+        $solicitud = Solicitud::find($id);
+        $practicas = DB::table('practicas')
+            ->join('alumnos', 'alumnos.id_alumno', 'practicas.id_alumno')
+            ->leftJoin('solicitudes', 'solicitudes.id_alumno', 'alumnos.id_alumno')
+            ->select('practicas.f_inscripcion')
+            ->first();
+
         return view('1 Solicitud/modales/modalModificarEvaluacionSolicitud',[
-            'solicitud'=>$solicitud
+            'solicitud'=>$solicitud,
+            'practica'=>$practicas
         ]);
     }
     /* Funciones modales */
@@ -441,7 +450,7 @@ class SolicitudController extends Controller
             }
         }
         // Se notifica al Alumno sobre el estado de su solicitud
-/*POR MIENTRAS PARA NO ESTAR MANDANDO CORREOS A CADA RATO
+
         $subject = "Estado solicitud de práctica";
         $for = $solicitud->email;
         $data = [
@@ -453,7 +462,7 @@ class SolicitudController extends Controller
             $msj->subject($subject);
             $msj->to($for);
         });
-*/
+
         if($solicitud->carrera == "Ingeniería Civil Informática"){
             return redirect()->route('evaluacionSolicitud')->with('success','Registro creado satisfactoriamente');
         }
@@ -540,6 +549,7 @@ class SolicitudController extends Controller
             'solicitud' => $solicitud,
             'request'=> $request
         ];
+
         Mail::send('Emails.notificacion',$data, function($msj) use($subject,$for){
             $msj->from("practicaprofesionalpucv@gmail.com","Docencia Escuela de Ingeniería Informática");
             $msj->subject($subject);

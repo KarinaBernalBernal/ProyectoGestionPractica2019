@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-md col-md-offset-2">
                 <div class="card">
-                    <div class="card-header"><h1>Modificar {{$elemento->id_autoeval}}</h1></div>
+                    <div class="card-header"><h3>Modificar {{$elemento->id_autoeval}}</h3></div>
                     <div class="card-body">
                         <form class="form-horizontal" action="{{route('actualizar_auto_evaluacion',[$elemento->id_autoeval])}}" method="post">
                             {{ csrf_field() }}

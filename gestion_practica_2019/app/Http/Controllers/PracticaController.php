@@ -42,8 +42,8 @@ class PracticaController extends Controller
                 $request->get('emailSupervisor')
             );
             $contador = $listaFiltrada->count();  //mostrara la cantidad de resultados en la tabla filtrada
-            $listaFiltrada = $listaFiltrada->paginateEspecial(10, null, null, "page1");
-            $listaNoInscritos = $listaNoInscritos->paginateEspecial(10, null, null, "page2");
+            $listaFiltrada = $listaFiltrada->paginateEspecial(2, null, null, "page1");
+            $listaNoInscritos = $listaNoInscritos->paginateEspecial(2, null, null, "page2");
             return view('Mantenedores/Practicas/lista_practicas')
                 ->with('lista',$listaFiltrada)
                 ->with('contador',$contador)
@@ -52,7 +52,7 @@ class PracticaController extends Controller
         }
         $contador = $lista->count();
         $lista = $lista->paginateEspecial(10, null, null, "page1");
-        $listaNoInscritos = $listaNoInscritos->paginateEspecial(10, null, null, "page2");
+        $listaNoInscritos = $listaNoInscritos->paginateEspecial(2, null, null, "page2");
         return view('Mantenedores/Practicas/lista_practicas',[
                 'lista'=>$lista,
                 'contador'=>$contador,
@@ -87,7 +87,7 @@ class PracticaController extends Controller
             );
             $contadorNoInscritos = $listaFiltrada->count();  //mostrara la cantidad de resultados en la tabla filtrada
             $lista= $lista->paginateEspecial(10, null, null, "page1");
-            $listaFiltrada = $listaFiltrada->paginateEspecial(10, null, null, "page2");
+            $listaFiltrada = $listaFiltrada->paginateEspecial(2, null, null, "page2");
             return view('Mantenedores/Practicas/lista_practicas')
                 ->with('listaNoInscritos',$listaFiltrada)
                 ->with('contadorNoInscritos',$contadorNoInscritos)
@@ -97,7 +97,7 @@ class PracticaController extends Controller
 
         $contadorNoInscritos = $listaNoInscritos->count();
         $lista = $lista->paginateEspecial(10, null, null, "page1");
-        $listaNoInscritos = $listaNoInscritos->paginateEspecial(10, null, null, "page2");
+        $listaNoInscritos = $listaNoInscritos->paginateEspecial(2, null, null, "page2");
         return view('Mantenedores/Practicas/lista_practicas',[
             'lista'=>$lista,
             'contador'=>$contador,
@@ -129,7 +129,7 @@ class PracticaController extends Controller
         $nuevo->f_inscripcion = $data['f_inscripcion'];
         $nuevo->f_desde = $data['f_desde'];
         $nuevo->f_hasta = $data['f_hasta'];
-        $nuevo->asist_ch_post_pract = $data['asist_ch_post_pract'];
+        $nuevo->asistencia_charla = $data['asistenciaCharla'];
         $nuevo->id_alumno = $data['id_alumno'];
         $nuevo->id_supervisor = $data['id_supervisor'];
 
@@ -148,7 +148,7 @@ class PracticaController extends Controller
             $elemento_editar->f_inscripcion=$request->f_inscripcion;
             $elemento_editar->f_desde=$request->f_desde;
             $elemento_editar->f_hasta=$request->f_hasta;
-            $elemento_editar->asist_ch_post_pract=$request->asist_ch_post_pract;
+            $elemento_editar->asistencia_charla=$request->asistenciaCharla;
             $elemento_editar->id_alumno=$request->id_alumno;
             $elemento_editar->id_supervisor=$request->id_supervisor;
 

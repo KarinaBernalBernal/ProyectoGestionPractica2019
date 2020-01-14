@@ -19,8 +19,8 @@ class OtroController extends Controller
         $otrosAreas = OtrosAreas::all();
         $contadorHerramientas = $otrosHerramientas->count();
         $contadorAreas = $otrosAreas->count();
-        $otrosHerramientas = $otrosHerramientas->paginateEspecial(10, null, null, "herramienta");
-        $otrosAreas = $otrosAreas->paginateEspecial(10, null, null, "area");
+        $otrosHerramientas = $otrosHerramientas->paginateEspecial(2, null, null, "herramienta");
+        $otrosAreas = $otrosAreas->paginateEspecial(2, null, null, "area");
 
         if( $elemento == "Área")
         {
@@ -30,7 +30,7 @@ class OtroController extends Controller
                 $listaFiltrada= OtrosAreas::filtrarOtrosArea($request->get('nombre'));
 
                 $contador = $listaFiltrada->count();  //mostrara la cantidad de resultados en la tabla filtrada
-                $listaFiltrada = $listaFiltrada->paginateEspecial(10, null, null, "area");
+                $listaFiltrada = $listaFiltrada->paginateEspecial(2, null, null, "area");
                 return view('Mantenedores/Otros/lista_otros')
                     ->with('otrosAreas',$listaFiltrada)
                     ->with('otrosHerramientas',$otrosHerramientas)
@@ -47,7 +47,7 @@ class OtroController extends Controller
                 $listaFiltrada= OtrosHerramientas::filtrarOtrosHerramienta($request->get('nombre'));
 
                 $contador = $listaFiltrada->count();  //mostrara la cantidad de resultados en la tabla filtrada
-                $listaFiltrada = $listaFiltrada->paginateEspecial(10, null, null, "herramienta");
+                $listaFiltrada = $listaFiltrada->paginateEspecial(2, null, null, "herramienta");
                 return view('Mantenedores/Otros/lista_otros')
                     ->with('otrosAreas',$otrosAreas)
                     ->with('otrosHerramientas',$listaFiltrada)

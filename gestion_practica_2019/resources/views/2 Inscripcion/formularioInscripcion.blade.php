@@ -45,7 +45,7 @@
                         <label for="empresa" class="col-md-3 col-form-label text-md-right">{{ __('Nombre Empresa') }}</label>
                         
                         <div class="col-md-6">
-                            <input id="empresa" type="text" class="form-control" name="empresa" value="{{ old('empresa') }}" required>
+                            <input id="empresa" type="text" class="form-control" name="empresa" value="{{ old('empresa') }}" required maxlength="100">
                         </div>
                     </div>
 
@@ -54,7 +54,7 @@
                         <label for="rutEmpresa" class="col-md-3 col-form-label text-md-right">{{ __('RUT') }}</label>
 
                         <div class="col-md-6">
-                            <input id="rutEmpresa" type="text" class="form-control" name="rutEmpresa" value="{{ old('rutEmpresa') }}">
+                            <input id="rutEmpresa" type="text" class="form-control" name="rutEmpresa" value="{{ old('rutEmpresa') }}" required>
                             <label for="rutEmpresa" class="font-italic">Ej. 11111111-1</label>
                         </div>
                     </div>
@@ -64,7 +64,7 @@
                         <label for="ciudad" class="col-md-3 col-form-label text-md-right">{{ __('Ciudad') }}</label>
                         
                         <div class="col-md-6">
-                            <input id="ciudad" type="text" class="form-control" name="ciudad" value="{{ old('ciudad') }}" required>
+                            <input id="ciudad" type="text" class="form-control" name="ciudad" value="{{ old('ciudad') }}" required maxlength="100">
                         </div>
                     </div>
 
@@ -73,7 +73,7 @@
                         <label for="direccion" class="col-md-3 col-form-label text-md-right">{{ __('Dirección') }}</label>
 
                         <div class="col-md-6">
-                            <input id="direccion" type="text" class="form-control" name="direccion" value="{{ old('direccion') }}" required>
+                            <input id="direccion" type="text" class="form-control" name="direccion" value="{{ old('direccion') }}" required maxlength="100">
                         </div>
                     </div>  
 
@@ -92,7 +92,7 @@
                         <label for="casilla" class="col-md-3 col-form-label text-md-right">{{ __('Casilla') }}</label>
 
                         <div class="col-md-6">
-                            <input id="casilla" type="number" class="form-control" name="casilla" value="{{ old('casilla') }}" required>
+                            <input id="casilla" type="number" class="form-control" name="casilla" value="{{ old('casilla') }}" required maxlength="200">
                         </div>
                     </div>
 
@@ -101,7 +101,7 @@
                         <label for="email" class="col-md-3 col-form-label text-md-right control-label">Email Empresa</label>
 
                         <div class="col-md-6">
-                            <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
+                            <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required maxlength="100">
 
                             @if ($errors->has('email'))
                                 <span class="help-block">
@@ -126,7 +126,7 @@
                         <label for="nombreSupervisor" class="col-md-3 col-form-label text-md-right">{{ __('Nombre') }}</label>
                         
                         <div class="col-md-6">
-                            <input id="nombreSupervisor" type="text" class="form-control" name="nombreSupervisor" value="{{ old('nombreSupervisor') }}" required>
+                            <input id="nombreSupervisor" type="text" class="form-control" name="nombreSupervisor" value="{{ old('nombreSupervisor') }}" required maxlength="100">
                         </div>
                     </div>
 
@@ -135,7 +135,7 @@
                         <label for="aPaternoSupervisor" class="col-md-3 col-form-label text-md-right">{{ __('Apellido Paterno') }}</label>
 
                         <div class="col-md-6">
-                            <input id="aPaternoSupervisor" type="text" class="form-control" name="aPaternoSupervisor" value="{{ old('aPaternoSupervisor') }}" required>
+                            <input id="aPaternoSupervisor" type="text" class="form-control" name="aPaternoSupervisor" value="{{ old('aPaternoSupervisor') }}" required maxlength="100">
                         </div>
                     </div>
 
@@ -144,7 +144,7 @@
                         <label for="cargo" class="col-md-3 col-form-label text-md-right">{{ __('Cargo') }}</label>
                         
                         <div class="col-md-6">
-                            <input id="cargo" type="text" class="form-control" name="cargo" value="{{ old('cargo') }}" required>
+                            <input id="cargo" type="text" class="form-control" name="cargo" value="{{ old('cargo') }}" required maxlength="100">
                         </div>
                     </div>
 
@@ -153,7 +153,7 @@
                         <label for="departamento" class="col-md-3 col-form-label text-md-right">{{ __('Departamento') }}</label>
                         
                         <div class="col-md-6">
-                            <input id="departamento" type="text" class="form-control" name="departamento" value="{{ old('departamento') }}" required>
+                            <input id="departamento" type="text" class="form-control" name="departamento" value="{{ old('departamento') }}" required maxlength="100">
                         </div>
                     </div>
 
@@ -172,7 +172,7 @@
                         <label for="emailSupervisor" class="col-md-3 col-form-label text-md-right control-label">Email supervisor</label>
 
                         <div class="col-md-6">
-                            <input id="emailSupervisor" type="email" class="form-control" name="emailSupervisor" value="{{ old('emailSupervisor') }}" required>
+                            <input id="emailSupervisor" type="email" class="form-control" name="emailSupervisor" value="{{ old('emailSupervisor') }}" required maxlength="100">
 
                             @if ($errors->has('emailSupervisor'))
                                 <span class="help-block">
@@ -263,7 +263,7 @@
 
 
         // this is the id of the form
-        $("#formularioInscripcion").submit(function(e) {
+        $("#formularioInscripcionx  ").submit(function(e) {
 
             e.preventDefault(); // avoid to execute the actual submit of the form.
 
@@ -272,7 +272,7 @@
 
             Swal({
                 title: '¿Estás seguro?',
-                text: "Es imporante revisar si todo está correcto!",
+                text: "Es imporante revisar que todo esté correcto",
                 type: 'question',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
@@ -293,7 +293,7 @@
                         data: form.serialize(), // serializes the form's elements.
                         success: function(){
                             Swal(
-                                'Listo!',
+                                'Listo',
                                 'El formulario ha sido enviado.',
                                 'success'
                             ).then((result) =>

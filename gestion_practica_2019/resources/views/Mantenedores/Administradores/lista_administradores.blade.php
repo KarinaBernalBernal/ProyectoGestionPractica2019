@@ -85,7 +85,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-2">
-                                <a href="/"><button class="btn btn-primary btn-lg">Atras</button></a>
+                                <a href="/"><button class="btn btn-primary btn-lg">Atrás</button></a>
                         </div>
                         <div class='ml-auto'>
                             <a href="{{route ('crear_administrador')}}"><button id="boton_agregar" class="btn btn-primary btn-lg">Agregar</button></a>
@@ -104,13 +104,13 @@
     {
 
         Swal({
-              title: 'Estas seguro de querer eliminar el administrador '+name+'?',
-              text: "No sera posible revertir este cambio!",
+              title: '¿Estás seguro de querer eliminar el administrador '+name+'?',
+              text: "No será posible revertir este cambio",
               type: 'warning',
               showCancelButton: true,
               confirmButtonColor: '#3085d6',
               cancelButtonColor: '#d33',
-              confirmButtonText: 'Si, Eliminalo!'
+              confirmButtonText: 'Si, Elimínalo'
             }).then((result) => {
 
                 if (result.value) {
@@ -126,7 +126,7 @@
                         data: parametros,
                         success: function(response){
                             Swal(
-                              'Eliminado!',
+                              'Eliminado',
                               'El administrador ha sido eliminado.',
                               'success'
                             )

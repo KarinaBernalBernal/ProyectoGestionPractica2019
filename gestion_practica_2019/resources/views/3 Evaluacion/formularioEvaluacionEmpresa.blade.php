@@ -36,7 +36,7 @@
                 <div class="card-body">
                     <h4>Evaluación</h4>
                     <hr>
-                    <h6 style="text-align: justify; text-justify: inter-word;"><strong>Para los siguientes criterios, evalúe el desempeño percibido por el alumno donde con una escala de 1 a 4, donde 1 representa criterio débilmente logrado y 4 criterio totalmente logrado. Además si considera necesario puede considerar evaluar con<br>NA: No Aplica <br>NL: No Logrado</strong></h6>
+                    <h6 style="text-align: justify; text-justify: inter-word;"><strong>Para los siguientes criterios, evalúe el desempeño percibido por el alumno donde con una escala de 1 a 4, donde 1 representa criterio débilmente logrado y 4 criterio totalmente logrado. Además, si considera necesario puede considerar evaluar con<br>NA: No Aplica <br>NL: No Logrado</strong></h6>
 
                     <br>
                     {{-- Evaluacion con "dea acuerdo", "muy de acuerdo", etc.  --}}
@@ -117,7 +117,7 @@
                     {{-- Descripcion de tareas realizadas --}}
                     <div class="form-group row container-fluid">
                         <div class="col-md-1">
-                            <input id="porcentaje" type="text" class="form-control" name="porcentaje" value="{{ old('porcentaje') }}" required>
+                            <input id="porcentaje" type="text" class="form-control" name="porcentaje" value="{{ old('porcentaje') }}" required maxlength="254">
                         </div>
                         <label for="porcentaje" class="col-form-label text-md-left">{{ __('%') }}</label>
                     </div>
@@ -133,11 +133,11 @@
                     <div id="tablaFortalezas" class="container-fluid">
                         <div class="form-group row container-fluid">
                             <div class="col-2">
-                                <input type="text" name="fortaleza[]" placeholder="Nombre" class="form-control name_list" required/>
+                                <input type="text" name="fortaleza[]" placeholder="Nombre" class="form-control name_list" required maxlength="254"/>
                                 <label for="fortaleza" class="font-italic">Ej."Proactivo"</label>
                             </div>
                             <div class="col-9">
-                                <input type="text" name="dpFortaleza[]" placeholder="Explicación de fortaleza" class="form-control name_list" required/>
+                                <input type="text" name="dpFortaleza[]" placeholder="Explicación de fortaleza" class="form-control name_list" required maxlength="254"/>
                                 <label for="dpFortaleza" class="font-italic">Ej."Tiene iniciativa y capacidad de anticiparse a problemas"</label>
                             </div>
                             <div class="col-1">
@@ -156,11 +156,11 @@
                     <div id="tablaDebilidades" class="container-fluid">
                         <div class="form-group row container-fluid">
                             <div class="col-2">
-                                <input type="text" name="debilidad[]" placeholder="Nombre" class="form-control name_list" required/>
+                                <input type="text" name="debilidad[]" placeholder="Nombre" class="form-control name_list" required maxlength="254"/>
                                 <label for="debilidad" class="font-italic">Ej."Tímido"</label>
                             </div>
                             <div class="col-9">
-                                <input type="text" name="dpDebilidad[]" placeholder="Explicación de la debilidad" class="form-control name_list" required/>
+                                <input type="text" name="dpDebilidad[]" placeholder="Explicación de la debilidad" class="form-control name_list" required maxlength="254"/>
                                 <label for="dpDebilidad" class="font-italic">Ej."Tiene problemas para relacionarse con sus compañeros de trabajo"</label>
                             </div>
                             <div class="col-1">
@@ -179,7 +179,7 @@
                     <div class="form-group row">
                         <label for="recomendacion" class="col-md-3 col-form-label text-md-right">{{ __('Recomiendo que sea:') }}</label>
                         <div class="col-md-3">
-                            <select id="recomendacion" name="recomendacion" class="custom-select">
+                            <select id="recomendacion" name="recomendacion" class="custom-select" required>
                                 <option selected value="">Selecciona...</option>
                                 <option>Aprobada</option>
                                 <option>Rechazada</option>
@@ -201,15 +201,13 @@
             </div>
         </form>
     </div>
-@endsection
 
-@section('scripts')
     <script>
         $(document).ready(function(){
             var i=1;
             $('#addFortaleza').click(function(){
                 i++;
-                $('#tablaFortalezas').append('<div class="form-group row container-fluid" id="row'+i+'"><div class="col-2"><input type="text" name="fortaleza[]" placeholder="Nombre" class="form-control name_list" required/></div><div class="col-9"><input type="text" name="dpFortaleza[]" placeholder="Descripción de la fortaleza" class="form-control name_list" required/></div><div class="col-1"><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove"><span class="fas fa-trash-alt" aria-hidden="true"></span></button></div></div>');
+                $('#tablaFortalezas').append('<div class="form-group row container-fluid" id="row'+i+'"><div class="col-2"><input type="text" name="fortaleza[]" placeholder="Nombre" class="form-control name_list" required maxlength="254"/></div><div class="col-9"><input type="text" name="dpFortaleza[]" placeholder="Descripción de la fortaleza" class="form-control name_list" required maxlength="254"/></div><div class="col-1"><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove"><span class="fas fa-trash-alt" aria-hidden="true"></span></button></div></div>');
             });
             $(document).on('click', '.btn_remove', function(){
                 var button_id = $(this).attr("id");
@@ -217,7 +215,7 @@
             });
             $('#addAreasOtros').click(function(){
                 i++;
-                $('#areasOtros').append('<div id="row'+i+'" class="col-4"><div class="form-group row" ><input type="text" name="areasOtros[]" placeholder="Area" class="form-control name_list col-lg-6" required/><div class="col-1"><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove"><span class="fas fa-trash-alt" aria-hidden="true"></span></button></div></div></div>');
+                $('#areasOtros').append('<div id="row'+i+'" class="col-4"><div class="form-group row" ><input type="text" name="areasOtros[]" placeholder="Area" class="form-control name_list col-lg-6" required maxlength="254"/><div class="col-1"><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove"><span class="fas fa-trash-alt" aria-hidden="true"></span></button></div></div></div>');
             });
             $(document).on('click', '.btn_remove', function(){
                 var button_id = $(this).attr("id");
@@ -225,7 +223,7 @@
             });
             $('#addDebilidad').click(function(){
                 i++;
-                $('#tablaDebilidades').append('<div class="form-group row container-fluid" id="row'+i+'"><div class="col-2"><input type="text" name="debilidad[]" placeholder="Nombre" class="form-control name_list" required/></div><div class="col-9"><input type="text" name="dpDebilidad[]" placeholder="Descripción de la debilidad" class="form-control name_list" required/></div><div class="col-1"><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove"><span class="fas fa-trash-alt" aria-hidden="true"></span></button></div></div>');
+                $('#tablaDebilidades').append('<div class="form-group row container-fluid" id="row'+i+'"><div class="col-2"><input type="text" name="debilidad[]" placeholder="Nombre" class="form-control name_list" required maxlength="254"/></div><div class="col-9"><input type="text" name="dpDebilidad[]" placeholder="Descripción de la debilidad" class="form-control name_list" required maxlength="254"/></div><div class="col-1"><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove"><span class="fas fa-trash-alt" aria-hidden="true"></span></button></div></div>');
             });
             $(document).on('click', '.btn_remove', function(){
                 var button_id = $(this).attr("id");
@@ -242,12 +240,12 @@
 
             Swal({
                 title: '¿Estás seguro?',
-                text: "Es imporante revisar si todo está correcto!",
+                text: "Es imporante revisar qut todo esté correcto",
                 type: 'question',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Si!'
+                confirmButtonText: 'Si'
             }).then((result) => {
 
                 if (result.value) {
@@ -263,7 +261,7 @@
                         data: form.serialize(), // serializes the form's elements.
                         success: function(){
                             Swal(
-                                'Listo!',
+                                'Listo',
                                 'El formulario ha sido enviado.',
                                 'success'
                             ).then((result) =>
@@ -294,8 +292,8 @@
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                cancelButtonText: 'No!',
-                confirmButtonText:'Si!'
+                cancelButtonText: 'No',
+                confirmButtonText:'Si'
 
             }).then((result) =>
             {
@@ -305,8 +303,5 @@
                 }
             })
         });
-
-
     </script>
-
 @endsection

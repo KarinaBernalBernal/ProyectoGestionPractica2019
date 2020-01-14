@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-md col-md-offset-2">
                 <div class="card">
-                    <div class="card-header"><h1>Modificar {{$elemento->id_practica}}</h1></div>
+                    <div class="card-header"><h3>Modificar {{$elemento->id_practica}}</h3></div>
                     <div class="card-body">
                         <form class="form-horizontal" action="{{route('actualizar_practica',[$elemento->id_practica])}}" method="post">
                             {{ csrf_field() }}
@@ -54,13 +54,17 @@
                                     @endif
                                 </div>
                             </div>
-                             <div class="form-group{{ $errors->has('asist_ch_post_pract') ? ' has-error' : '' }}">
-                                <label for="asist_ch_post_pract" class="col-md-4 control-label">Asistencia Charla</label>
+                             <div class="form-group{{ $errors->has('asistenciaCharla') ? ' has-error' : '' }}">
+                                <label for="asistenciaCharla" class="col-md-4 control-label">Asistencia Charla</label>
                                 <div class="col-md-6">
-                                    <input id="asist_ch_post_pract" type="text" class="form-control" name="asist_ch_post_pract" value="{{ old('asist_ch_post_pract', $elemento->asist_ch_post_pract) }}"  required autofocus>
-                                    @if ($errors->has('asist_ch_post_pract'))
+                                    <select id="asistenciaCharla" type="text" class="form-control" name="asistenciaCharla" placeholder="">
+                                        <option value="">Seleccione Asistencia Charla</option>
+                                        <option value="1" @if(old("asistenciaCharla", $elemento->asistecia_charla) == 1) {{'selected'}} @endif>Si</option>
+                                        <option value="0" @if(old("asistenciaCharla", $elemento->asistecia_charla) == 0) {{'selected'}} @endif>No</option>
+                                    </select>
+                                    @if ($errors->has('asistenciaCharla'))
                                         <span class="help-block">
-                                            <strong>{{ $errors->first('asist_ch_post_pract') }}</strong>
+                                            <strong>{{ $errors->first('asistenciaCharla') }}</strong>
                                         </span>
                                     @endif
                                 </div>

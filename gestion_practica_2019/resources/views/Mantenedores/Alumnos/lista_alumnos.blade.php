@@ -103,7 +103,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-2">
-                                <a href="/"><button class="btn btn-primary btn-lg">Atras</button></a>
+                                <a href="/"><button class="btn btn-primary btn-lg">Atrás</button></a>
                         </div>
                         <div class='ml-auto'>
                             <a href="{{route ('crear_alumno')}}"><button id="boton_agregar" class="btn btn-primary btn-lg">Agregar</button></a>
@@ -122,13 +122,13 @@
     {
 
         Swal({
-              title: 'Estas seguro de querer eliminar el alumno '+name+'?',
-              text: "No sera posible revertir este cambio!",
+              title: '¿Estás seguro de querer eliminar el alumno '+name+'?',
+              text: "No será posible revertir este cambio",
               type: 'warning',
               showCancelButton: true,
               confirmButtonColor: '#3085d6',
               cancelButtonColor: '#d33',
-              confirmButtonText: 'Si, Eliminalo!'
+              confirmButtonText: 'Si, Elimínalo'
             }).then((result) => {
 
                 if (result.value) {
@@ -136,7 +136,7 @@
                     parametros={
                         'id_elemento': id_elemento,
                         "_token": $("#token").val()
-                    }
+                    };
 
                     $.ajax({
                         url: url_action,
@@ -144,10 +144,10 @@
                         data: parametros,
                         success: function(response){
                             Swal(
-                              'Eliminado!',
+                              'Eliminado',
                               'El alumno ha sido eliminado.',
                               'success'
-                            )
+                            );
                             $('#'+id_elemento).remove();
                         }
                     });

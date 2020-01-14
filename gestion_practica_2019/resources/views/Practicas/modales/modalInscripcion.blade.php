@@ -1,11 +1,11 @@
 <div class="modal-dialog modal-lg">
-    <div class="modal-content" id="DivIdToPrint">
+    <div class="modal-content" id="paraImprimir">
         <div class="modal-header">
             <div>
-                <h1 class="h3 mb-0 text-gray-1000">INSCRIPCION PRÁCTICA</h1>
+                <h1 class="h3 mb-0 text-gray-1000">Inscripión de Práctica</h1>
             </div>
             <div class="col-1">
-                <button class="btn btn-primary" type='button' id='btn' value='Print' onclick='printtag("DivIdToPrint");'><span class="fa fa-print"></span> </button>
+                <button class="btn btn-primary" type='button' id='btn' value='Print' onclick='printtag("paraImprimir");'><span class="fa fa-print"></span> </button>
             </div>
             <button type="button" class="close text-danger" data-dismiss="modal">
                 <span> <i class="fas fa-times"></i></span>
@@ -38,7 +38,7 @@
             {{-- Datos de la empresa --}}
             <div class="card text">
                 <div class="card-body">
-                    <h4 class="text-center">Datos de la Empresa</h4>
+                    <h4 class="text-center">Datos de la empresa</h4>
 
                     <hr>
 
@@ -123,7 +123,7 @@
                     {{-- Correo Electronico Empresa--}}
                     <div class="form-group row">
                         <div class="col-md-3">
-                            <b class="col-form-label text-md-right" >Email empresa</b>
+                            <b class="col-form-label text-md-right" >Email Empresa</b>
                         </div>
                         <div class="col-md-1">
                             <label class="col-form-label text-md-right" >:</label>
@@ -139,7 +139,7 @@
 
             <div class="card text">
                 <div class="card-body">
-                    <h4 class="text-center">Datos del Supervisor</h4>
+                    <h4 class="text-center">Datos del supervisor</h4>
 
                     <hr>
 

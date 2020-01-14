@@ -65,7 +65,7 @@
                                             <td>
                                                 {{$practicaP->nombreAlumno}}
                                                 {{$practicaP->apellidoAlumno}}<br>
-                                                <strong>Rut:</strong> {{$practicaP->rut}}
+                                                {{$practicaP->rut}}
                                             </td>
                                             <td>
                                                 {{$practicaP->nombre}}
@@ -75,7 +75,11 @@
                                             <td>{{ date('d-m-Y', strtotime($practicaP->f_inscripcion)) }}</td>
                                             <td>{{ date('d-m-Y', strtotime($practicaP->f_desde)) }}</td>
                                             <td>{{ date('d-m-Y', strtotime($practicaP->f_hasta)) }}</td>
-                                            <td>{{$practicaP->asist_ch_post_pract}}</td>
+                                            @if($practicaP->asistencia_charla == 0)
+                                                <td>No</td>
+                                            @else
+                                                <td>Si</td>
+                                            @endif
                                             <td class="text-center"><a class='botonModalResolucionPractica btn btn-primary btn-sm' href="" data-toggle="modal" data-form="{{ route('resolucionPracticaModal',['id'=>$practicaP->id_practica])}}" data-target="#modal-resolucionPractica">Evaluar</a></td>
                                         </tr>
                                     @endforeach
@@ -85,7 +89,7 @@
                             @else
                                 <br>
                                 <div class="container-fluid text-center">
-                                <p>No se encuentran Practicas en este momento!</p>
+                                <p>No se encuentran Prácticas en este momento!</p>
                                 </div>
                             @endif
 				        </div>
@@ -145,7 +149,7 @@
                                         <td>
                                             {{$practicaE->nombreAlumno}}
                                             {{$practicaE->apellidoAlumno}}<br>
-                                            <strong>RUT:</strong> {{$practicaE->rut}}
+                                            {{$practicaE->rut}}
                                         </td>
                                         <td>
                                             {{$practicaE->nombre}}

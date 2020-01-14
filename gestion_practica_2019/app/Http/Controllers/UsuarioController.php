@@ -3,6 +3,7 @@
 namespace SGPP\Http\Controllers;
 
 use Illuminate\Http\Request;
+use SGPP\Alumno;
 use SGPP\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -30,11 +31,11 @@ class UsuarioController extends Controller
                 $request->get('type')
             );
             $contador = $listaFiltrada->count();  //mostrara la cantidad de resultados en la tabla filtrada
-            $listaFiltrada = $listaFiltrada->paginate(10);
+            $listaFiltrada = $listaFiltrada->paginate(2);
 
             return view('Mantenedores/Usuarios/lista_usuarios')->with('lista',$listaFiltrada)->with('contador',$contador);
         }
-        $lista = $lista->paginate(10);
+        $lista = $lista->paginate(1);
         return view('Mantenedores/Usuarios/lista_usuarios',[
                 'lista'=>$lista,
                 'contador' =>$contador,
@@ -72,15 +73,17 @@ class UsuarioController extends Controller
 
     public function editarUsuario(Request $request, $id_elemento)
     {
-        $elemento_editar=User::find($id_elemento);
+        $elemento_editar =User::find($id_elemento);
+        $alumno_editar = Alumno::where('id_user', $elemento_editar->id_user)->first();
         if(isset($elemento_editar))
         {
-            $elemento_editar->name=$request->name;
-            $elemento_editar->email=$request->email;
-            $elemento_editar->type=$request->type;
-
+            $elemento_editar->name = $request->name;
+            $elemento_editar->email = $request->email;
+            $elemento_editar->type = $request->type;
+            $alumno_editar->email = $request->email;
 
             $elemento_editar->save();
+            $alumno_editar->save();
 
 
             return redirect()->route('lista_usuarios');

@@ -172,9 +172,15 @@
                 <div class="col-md-6 ">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                  </div>
-                <div class="col-md-6 text-md-right">
-                    <button id="botonModificar" type="submit" class="btn btn-primary" disabled>Modificar</button>
-                </div>
+                @if($practica->f_inscripcion)
+                    <div class="col-md-6 text-md-right">
+                        No se puede modificar está solicitud, el alumno ya está inscrito.
+                    </div>
+                @else
+                    <div class="col-md-6 text-md-right">
+                        <button id="botonModificar" type="submit" class="btn btn-primary" disabled>Modificar</button>
+                    </div>
+                @endif
             </div>
         </form>
     </div>
@@ -236,7 +242,7 @@
                     data: form.serialize(), // serializes the form's elements.
                     success: function(){
                         Swal(
-                            'Listo!',
+                            'Listo',
                             'Se ha modificado la solicitud.',
                             'success'
                         ).then((result) =>

@@ -163,6 +163,7 @@ class InscripcionController extends Controller
             });
             $usuarioS->password = bcrypt($usuarioS->password);
             $usuarioS->save();
+
         }
 
         if($practica == null) //Si el alumno no posee ninguna practica
@@ -186,7 +187,7 @@ class InscripcionController extends Controller
         }
         //Con esto evitamos que aquellas solicitudes de alumnos que estén en práctica, puedan ser modificadas y
         //asi evitar que la practica pueda ser eliminada.
-        $solicitud->estado = 3;
+
         return redirect()->route('descripcionInscripcion');
     }
 
@@ -290,13 +291,13 @@ class InscripcionController extends Controller
                 $carrera
             );
             $contador = $listaFiltrada->count();  //mostrara la cantidad de resultados en la tabla filtrada
-            $listaFiltrada = $listaFiltrada->paginate(7);
+            $listaFiltrada = $listaFiltrada->paginate(2);
             return view('2 Inscripcion/listaInscripcion')->with('alumnos',$listaFiltrada)
                 ->with('contador',$contador)
                 ->with('carrera', $carrera);
         }
         $contador = $alumnosInformatica->count();
-        $alumnosInformatica = $alumnosInformatica->paginate(7);
+        $alumnosInformatica = $alumnosInformatica->paginate(2);
         return view('2 Inscripcion/listaInscripcion')->with('alumnos',$alumnosInformatica)
             ->with('contador', $contador)
             ->with('carrera', $carrera);

@@ -2,6 +2,7 @@
 
 namespace SGPP;
 
+use function Couchbase\defaultDecoder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
@@ -79,7 +80,28 @@ class Alumno extends Model
         return $alumnosFiltrados;
     }
 
+    public static function filtrarAlumnosCharla($nombre, $apellido_paterno, $rut, $carrera, $resolucion_charla, $idCharla)
+    {
+        $alumnosCharla = DB::table('alumnos')
+            ->join('practicas', 'practicas.id_alumno', 'alumnos.id_alumno')
+            ->join('evaluaciones_supervisor', 'evaluaciones_supervisor.id_practica', 'practicas.id_practica')
+            ->where('practicas.id_charla', '!=', $idCharla)
+            ->where('nombre', 'LIKE', '%'.$nombre. '%')
+            ->where('apellido_paterno', 'LIKE', '%'.$apellido_paterno. '%')
+            ->where('rut', 'LIKE', '%'.$rut. '%')
+            ->where('carrera', 'LIKE', '%'.$carrera. '%')
+            ->where('practicas.resolucion_charla', 'LIKE', '%'.$resolucion_charla. '%')
+            ->select('alumnos.*', 'practicas.resolucion_charla')
+            ->get();
 
+        return $alumnosCharla;
+    }
+    /*->where( function ( $query )
+               {
+                   $query->whereNull('practicas.id_charla')
+                       ->orWhere('practicas.resolucion_charla', "pendiente");
+               })
+               */
     public static function filtrarYPaginar($buscador, $nombre, $apellido_paterno, $apellido_materno, $rut, $email, $anno_ingreso, $carrera)
     {
         return Alumno::Buscador($buscador)

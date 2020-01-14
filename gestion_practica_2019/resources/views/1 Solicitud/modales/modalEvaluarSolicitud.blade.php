@@ -205,7 +205,7 @@
                     data: form.serialize(), // serializes the form's elements.
                     success: function(){
                         Swal(
-                            'Listo!',
+                            'Listo',
                             'El ha evaluado la solicitud',
                             'success'
                         ).then((result) =>

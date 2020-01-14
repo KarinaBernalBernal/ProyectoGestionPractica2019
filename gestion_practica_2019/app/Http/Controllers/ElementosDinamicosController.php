@@ -27,10 +27,10 @@ class ElementosDinamicosController extends Controller
         $contadorConocimiento = $evalConocimiento->count();
         $contadorActitudinal = $evalActitudinal->count();
 
-        $area = $area->paginateEspecial(10, null, null, "area");
-        $herramienta = $herramienta->paginateEspecial(10, null, null, "herramienta");
-        $evalConocimiento = $evalConocimiento->paginateEspecial(10, null, null, "conocimiento");
-        $evalActitudinal = $evalActitudinal->paginateEspecial(10, null, null, "actitudinal");
+        $area = $area->paginateEspecial(2, null, null, "area");
+        $herramienta = $herramienta->paginateEspecial(2, null, null, "herramienta");
+        $evalConocimiento = $evalConocimiento->paginateEspecial(2, null, null, "conocimiento");
+        $evalActitudinal = $evalActitudinal->paginateEspecial(2, null, null, "actitudinal");
 
         if( $elemento == "Área")
         {
@@ -42,7 +42,7 @@ class ElementosDinamicosController extends Controller
                     $request->get('vigencia')
                 );
                 $contador = $listaFiltrada->count();  //mostrara la cantidad de resultados en la tabla filtrada
-                $listaFiltrada = $listaFiltrada->paginateEspecial(10, null, null, "area");
+                $listaFiltrada = $listaFiltrada->paginateEspecial(2, null, null, "area");
 
                 return view('Mantenedores/Elementos Dinamicos/lista_elementos_dinamicos')
                     ->with('area',$listaFiltrada)
@@ -66,7 +66,7 @@ class ElementosDinamicosController extends Controller
                     $request->get('vigencia')
                 );
                 $contador = $listaFiltrada->count();  //mostrara la cantidad de resultados en la tabla filtrada
-                $listaFiltrada = $listaFiltrada->paginateEspecial(10, null, null, "herramienta");
+                $listaFiltrada = $listaFiltrada->paginateEspecial(2, null, null, "herramienta");
 
                 return view('Mantenedores/Elementos Dinamicos/lista_elementos_dinamicos')
                     ->with('area',$area)
@@ -90,7 +90,7 @@ class ElementosDinamicosController extends Controller
                     $request->get('vigencia')
                 );
                 $contador = $listaFiltrada->count();  //mostrara la cantidad de resultados en la tabla filtrada
-                $listaFiltrada = $listaFiltrada->paginateEspecial(10, null, null, "actitudinal");
+                $listaFiltrada = $listaFiltrada->paginateEspecial(2, null, null, "actitudinal");
 
                 return view('Mantenedores/Elementos Dinamicos/lista_elementos_dinamicos')
                     ->with('area',$area)
@@ -114,7 +114,7 @@ class ElementosDinamicosController extends Controller
                     $request->get('vigencia')
                 );
                 $contador = $listaFiltrada->count();  //mostrara la cantidad de resultados en la tabla filtrada
-                $listaFiltrada = $listaFiltrada->paginateEspecial(10, null, null, "conocimiento");
+                $listaFiltrada = $listaFiltrada->paginateEspecial(2, null, null, "conocimiento");
 
                 return view('Mantenedores/Elementos Dinamicos/lista_elementos_dinamicos')
                     ->with('area',$area)

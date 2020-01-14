@@ -57,7 +57,7 @@
                         <label for="n_destinatario" class="col-md-3 col-form-label text-right">Nombre a quien se dirige la carta</label>
 
                         <div class="col-md-6">
-                            <input id="n_destinatario" type="text" class="form-control" name="n_destinatario" value="{{ old('n_destinatario') }}" required>
+                            <input id="n_destinatario" type="text" class="form-control" name="n_destinatario" value="{{ old('n_destinatario') }}" required maxlength="100">
                         </div>
                     </div>
 
@@ -66,7 +66,7 @@
                         <label for="cargo" class="col-md-3 col-form-label text-md-right">{{ __('Cargo') }}</label>
                         
                         <div class="col-md-6">
-                            <input id="cargo" type="text" class="form-control" name="cargo" value="{{ old('cargo') }}" required>
+                            <input id="cargo" type="text" class="form-control" name="cargo" value="{{ old('cargo') }}" required maxlength="100">
                         </div>
                     </div>
 
@@ -75,7 +75,7 @@
                         <label for="departamento" class="col-md-3 col-form-label text-md-right">{{ __('Departamento') }}</label>
 
                         <div class="col-md-6">
-                            <input id="departamento" type="text" class="form-control" name="departamento" value="{{ old('departamento') }}" required>
+                            <input id="departamento" type="text" class="form-control" name="departamento" value="{{ old('departamento') }}" required maxlength="100">
                         </div>
                     </div>
 
@@ -84,7 +84,7 @@
                         <label for="empresa" class="col-md-3 col-form-label text-md-right">{{ __('Empresa') }}</label>
                         
                         <div class="col-md-6">
-                            <input id="empresa" type="text" class="form-control" name="empresa" value="{{ old('empresa') }}" required>
+                            <input id="empresa" type="text" class="form-control" name="empresa" value="{{ old('empresa') }}" required maxlength="100">
                         </div>
                     </div>
 
@@ -93,7 +93,7 @@
                         <label for="ciudad" class="col-md-3 col-form-label text-md-right">{{ __('Ciudad') }}</label>
                         
                         <div class="col-md-6">
-                            <input id="ciudad" type="text" class="form-control" name="ciudad" value="{{ old('ciudad') }}" required>
+                            <input id="ciudad" type="text" class="form-control" name="ciudad" value="{{ old('ciudad') }}" required maxlength="100">
                         </div>
                     </div>
 
@@ -128,7 +128,7 @@
 
             Swal({
                 title: '¿Estás seguro?',
-                text: "Es imporante revisar si todo está correcto!",
+                text: "Es imporante revisar que todo esté correcto",
                 type: 'question',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
@@ -149,7 +149,7 @@
                         data: form.serialize(), // serializes the form's elements.
                         success: function(){
                             Swal(
-                                'Listo!',
+                                'Listo',
                                 '',
                                 'success'
                             ).then((result) =>

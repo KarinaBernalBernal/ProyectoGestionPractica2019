@@ -16,7 +16,7 @@ class AlumnoController extends Controller
 {
     public function __construct(){
         $this->middleware('auth');
-        $this->middleware('is_administrador')->except('mostrarAutoEvaluacionModal');
+        $this->middleware('is_administrador')->except('mostrarAutoEvaluacionModal', 'mostrarInscripcionModal');
     }
 
     //vista principal de un elemento en especifico
@@ -32,7 +32,7 @@ class AlumnoController extends Controller
                                         $request->get('carrera'));
 
         $contador = $lista->count();
-        $lista = $lista->paginate(10);
+        $lista = $lista->paginate(2);
 
         return view('Mantenedores/Alumnos/lista_alumnos')
             ->with("lista", $lista)
@@ -55,33 +55,35 @@ class AlumnoController extends Controller
     public function crearAlumno (Request $request)
     {
         $data = $request->all();
+        $alumnoExistente = Alumno::where('rut', $request->rut)->first();
+        if(!$alumnoExistente)
+        {
+            $nuevo = new Alumno;
 
-        $nuevo = new Alumno;
+            $nuevo->nombre = $data['nombre'];
+            $nuevo->apellido_paterno = $data['apellido_paterno'];
+            $nuevo->apellido_materno = $data['apellido_materno'];
+            $nuevo->rut = $data['rut'];
+            $nuevo->email = $data['email'];
+            $nuevo->direccion = $data['direccion'];
+            $nuevo->fono = $data['fono'];
+            $nuevo->anno_ingreso = $data['anno_ingreso'];
+            $nuevo->carrera = $data['carrera'];
+            $nuevo->semestre_proyecto = $data['semestreProyecto'];
+            $nuevo->anno_proyecto = $data['annoProyecto'];
 
-        $nuevo->nombre = $data['nombre'];
-		$nuevo->apellido_paterno = $data['apellido_paterno'];
-        $nuevo->apellido_materno = $data['apellido_materno'];
-        $nuevo->rut = $data['rut'];
-		$nuevo->email = $data['email'];
-        $nuevo->direccion = $data['direccion'];
-        $nuevo->fono = $data['fono'];
-		$nuevo->anno_ingreso = $data['anno_ingreso'];
-        $nuevo->carrera = $data['carrera'];
-        $nuevo->semestre_proyecto = $data['semestreProyecto'];
-        $nuevo->anno_proyecto = $data['annoProyecto'];
+            $nueva_instancia = new User;
+            $nueva_instancia->name = $nuevo->nombre;
+            $nueva_instancia->email = $nuevo->email;
+            $nueva_instancia->password = bcrypt($data['rut']);
+            $nueva_instancia->type = 'alumno';
 
-        $nueva_instancia = new User;
-        $nueva_instancia->name = $nuevo->nombre;
-        $nueva_instancia->email = $nuevo->email;
-        $nueva_instancia->password = bcrypt($data['rut']);
-        $nueva_instancia->type = 'alumno';
+            $nueva_instancia->save();
 
-        $nueva_instancia->save();
+            $nuevo->id_user = $nueva_instancia->id_user;
 
-		$nuevo->id_user = $nueva_instancia->id_user;
-
-
-        $nuevo->save();
+            $nuevo->save();
+        }
 
         return redirect()->route('lista_alumnos');
     }
@@ -154,14 +156,14 @@ class AlumnoController extends Controller
             );
 
             $contador = $listaFiltrada->count();  //mostrara la cantidad de resultados en la tabla filtrada
-            $listaFiltrada = $listaFiltrada->paginate(15);
+            $listaFiltrada = $listaFiltrada->paginate(2);
 
             return view('Practicas/alumnos_en_practica')->with('lista',$listaFiltrada)
                 ->with('contador',$contador)
                 ->with('carrera', $carrera);
         }
         $contador = $alumnosInformatica->count(); //mostrara la cantidad de resultados en la tabla
-        $alumnosInformatica = $alumnosInformatica->paginate(15);
+        $alumnosInformatica = $alumnosInformatica->paginate(2);
         return view('Practicas/alumnos_en_practica')->with('lista',$alumnosInformatica)
             ->with('contador', $contador)
             ->with('carrera', $carrera);
@@ -176,8 +178,12 @@ class AlumnoController extends Controller
 
     public function mostrarInscripcionModal($id) //Mostrar el formulario del alumno
     {
-        $alumnos = Alumno::where('id_alumno', $id)->first();
-        $practicas = Practica::where('id_alumno', $alumnos->id_alumno)->first();
+        $practicas = Practica::where('id_practica', $id)->first();
+        $alumnos = DB::table('alumnos')
+            ->join('practicas', 'practicas.id_alumno', '=', 'alumnos.id_alumno')
+            ->where('practicas.id_practica', $id)
+            ->select('alumnos.*')
+            ->first();
         $supervisores = Supervisor::where('id_supervisor', $practicas->id_supervisor)->first();
         $empresas = Empresa::where('id_empresa', $supervisores->id_empresa)->first();
 

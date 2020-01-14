@@ -61,7 +61,7 @@
                                         <b> Inscripción :</b>
 
                                         @if($alumnos->f_inscripcion)
-                                            <a  href="" class='botonModalInscripcion fa fa-check text-success' data-toggle="modal" data-form="{{ route('inscripcionModal',['id'=>$alumnos->id_alumno])}}" data-target="#modal-inscripcion"></a><br>
+                                            <a  href="" class='botonModalInscripcion fa fa-check text-success' data-toggle="modal" data-form="{{ route('inscripcionModal',['id'=>$alumnos->id_practica])}}" data-target="#modal-inscripcion"></a><br>
                                         @else
                                             <a class='fa fa-times text-danger'></a><br>
                                         @endif

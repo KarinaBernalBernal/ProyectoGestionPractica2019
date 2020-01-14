@@ -30,13 +30,13 @@ class EmpresaController extends Controller
                 $request->get('email')
             );
             $contador = $listaFiltrada->count();  //mostrara la cantidad de resultados en la tabla filtrada
-            $listaFiltrada = $listaFiltrada->paginate(10);
+            $listaFiltrada = $listaFiltrada->paginate(2);
 
             return view('Mantenedores/Empresas/lista_empresas')
                 ->with('lista',$listaFiltrada)
                 ->with('contador',$contador);
         }
-        $lista = $lista->paginate(10);
+        $lista = $lista->paginate(2);
         return view('Mantenedores/Empresas/lista_empresas',[
                 'lista'=>$lista,
                 'contador'=>$contador,

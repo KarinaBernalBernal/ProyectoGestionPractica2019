@@ -1,9 +1,9 @@
 <div class="modal-dialog modal-lg">
-    <div class="modal-content" id="DivIdToPrint">
+    <div class="modal-content" id="paraImprimir">
         <div class="modal-header">
             <h4>Autoevaluación</h4>
             <div class="col-1">
-                <button class="btn btn-primary" type='button' id='btn' value='Print' onclick='printtag("DivIdToPrint");'><span class="fa fa-print"></span> </button>
+                <button class="btn btn-primary" type='button' id='btn' value='Print' onclick='printtag("paraImprimir");'><span class="fa fa-print"></span> </button>
             </div>
             <button type="button" class="close" data-dismiss="modal">
                 <span> <i style="color: red;" class="fas fa-times"></i></span>

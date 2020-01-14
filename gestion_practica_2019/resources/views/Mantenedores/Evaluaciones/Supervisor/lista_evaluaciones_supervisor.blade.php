@@ -21,7 +21,7 @@
                         </div>
                         <div class="col-2">
                             <select id="resultado_eval" type="text" class="form-control" name="resultado_eval">
-                                <option value="">Seleccione un Resultado</option>
+                                <option value="">Seleccione un resultado</option>
                                 <option value="Aprobada">Aprobada</option>
                                 <option value="Rechazada">Rechazada</option>
                             </select>
@@ -48,7 +48,7 @@
                                             <th>Id</th>
                                             <th>Correo Supervisor</th>
                                             <th>Alumno Evaluado</th>
-                                            <th>% tareas realizadas</th>
+                                            <th>% Tareas realizadas</th>
                                             <th>Resultado Evaluación</th>
                                             <th>Fecha Entrega</th>
                                             <th>Opción</th>
@@ -81,7 +81,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-2">
-                            <a href="/"><button class="btn btn-primary btn-lg">Atras</button></a>
+                            <a href="/"><button class="btn btn-primary btn-lg">Atrás</button></a>
                         </div>
                         {{--
                         <div class='ml-auto'>
@@ -101,13 +101,13 @@
     {
 
         Swal({
-              title: 'Estas seguro de querer eliminar la evaluación de supervisor  '+name+'?',
-              text: "No sera posible revertir este cambio!",
+              title: '¿Estás seguro de querer eliminar la evaluación de supervisor  '+name+'?',
+              text: "No será posible revertir este cambio",
               type: 'warning',
               showCancelButton: true,
               confirmButtonColor: '#3085d6',
               cancelButtonColor: '#d33',
-              confirmButtonText: 'Si, Eliminalo!'
+              confirmButtonText: 'Si, Elimínalo'
             }).then((result) => {
 
                 if (result.value) {
@@ -123,7 +123,7 @@
                         data: parametros,
                         success: function(response){
                             Swal(
-                              'Eliminado!',
+                              'Eliminado',
                               'El registro de evaluación de supervisor ha sido eliminado.',
                               'success'
                             )

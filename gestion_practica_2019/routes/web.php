@@ -27,24 +27,6 @@ Route::post('/Usuarios/crear', 'Auth\RegisterController@create')->name('crear_us
 Route::post('/Usuarios/agregar', 'UsuarioController@crearUsuario')->name('agregar_usuario_mantenedor');
 Route::post('/Usuarios/actualizar/{id_elemento}', 'UsuarioController@editarUsuario')->name('actualizar_usuario');
 Route::post('/Usuarios/eliminar/{id_elemento}','UsuarioController@borrarUsuario')->name('borrar_usuario');
-/* Rutas mantenedor perfiles */
-// Rutas tipo GET
-Route::get('/Perfiles/lista', 'PerfilController@lista')->name('lista_perfiles');
-Route::get('/Perfiles/crear', 'PerfilController@crear')->name('crear_perfil');
-Route::get('/Perfiles/editar/{id_elemento}', 'PerfilController@editar')->name('editar_perfil');
-//Rutas tipo POST
-Route::post('/Perfiles/agregar', 'PerfilController@crearPerfil')->name('agregar_perfil');
-Route::post('/Perfiles/actualizar/{id_elemento}', 'PerfilController@editarPerfil')->name('actualizar_perfil');
-Route::post('/Perfiles/eliminar/{id_elemento}','PerfilController@borrarPerfil')->name('borrar_perfil');
-/* Rutas mantenedor recursos */
-// Rutas tipo GET
-Route::get('/Recursos/lista', 'RecursoController@lista')->name('lista_recursos');
-Route::get('/Recursos/crear', 'RecursoController@crear')->name('crear_recurso');
-Route::get('/Recursos/editar/{id_elemento}', 'RecursoController@editar')->name('editar_recurso');
-//Rutas tipo POST
-Route::post('/Recursos/agregar', 'RecursoController@crearRecurso')->name('agregar_recurso');
-Route::post('/Recursos/actualizar/{id_elemento}', 'RecursoController@editarRecurso')->name('actualizar_recurso');
-Route::post('/Recursos/eliminar/{id_elemento}','RecursoController@borrarRecurso')->name('borrar_recurso');
 /* Rutas mantenedor alumnos */
 // Rutas tipo GET
 Route::get('/Alumnos/lista', 'AlumnoController@lista')->name('lista_alumnos');
@@ -64,7 +46,7 @@ Route::post('/Administradores/agregar', 'AdministradorController@crearAdministra
 Route::post('/Administradores/actualizar/{id_elemento}', 'AdministradorController@editarAdministrador')->name('actualizar_administrador');
 Route::post('/Administradores/eliminar/{id_elemento}','AdministradorController@borrarAdministrador')->name('borrar_administrador');
 
-/* Rutas mantenedor recursos */
+/* Rutas mantenedor Practicas */
 // Rutas tipo GET
 Route::get('/Practicas/lista', 'PracticaController@lista')->name('lista_practicas');
 Route::get('/lista_practicasNoInscritos', 'PracticaController@listaNoInscritos')->name('lista_practicasNoInscritos');
@@ -238,4 +220,20 @@ Route::get('/modal/evaluacionModalInformatica/{id}','SupervisorController@mostra
 /* ----------------- Modificar Contraseña ---------------------------- */
 Route::get('/Usuario/contraseña', 'UsuarioController@contraseña')->name('contraseña');
 Route::post('/Usuario/actualizar_contraseña/{id_elemento}', 'UsuarioController@modificarContraseña')->name('actualizar_contraseña');
+
+/* ----------------- Gestionar Charlas ---------------------------- */
+Route::get('/Charlas/lista', 'CharlaController@lista')->name('lista_charlas');
+Route::get('/Charlas/lista/participantes/{idCharla}', 'CharlaController@listaParticipantes')->name('lista_participantes');
+Route::get('/Charlas/lista/asistencia/{idCharla}', 'CharlaController@listaAsistencia')->name('lista_asistencia');
+Route::get('/Charlas/lista/resolucion/{idCharla}', 'CharlaController@listaResolucion')->name('lista_resolucion');
+Route::get('/Charlas/crear', 'CharlaController@crear')->name('crear_charla');
+Route::get('/Charlas/editar/{id_elemento}', 'CharlaController@editar')->name('editar_charla');
+//Rutas tipo POST
+Route::post('/Charlas/agregar', 'CharlaController@crearCharla')->name('agregar_charla');
+Route::post('/Charlas/agregar/participante/{idCharla}', 'CharlaController@crearParticipante')->name('agregar_participante');
+Route::post('/Charlas/actualizar/{id_elemento}', 'CharlaController@editarCharla')->name('actualizar_charla');
+Route::post('/Charlas/eliminar/{id_elemento}','CharlaController@borrarCharla')->name('borrar_charla');
+Route::post('/Charlas/eliminar/participante/{id_elemento}','CharlaController@borrarParticipante')->name('borrar_participante');
+Route::post('/Charlas/asistencia', 'CharlaController@modificarAsistencia')->name('modificar_asistencia');
+Route::post('/Charlas/modificar/resolucion/{idCharla}', 'CharlaController@modificarResolucion')->name('modificar_resolucion');
 

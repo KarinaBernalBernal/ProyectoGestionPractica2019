@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-md col-md-offset-2">
                 <div class="card">
-                    <div class="card-header"><h1>Agregar alumno</h1></div>
+                    <div class="card-header"><h3>Agregar alumno</h3></div>
                     <div class="card-body">
                         <form class="form-horizontal" action="{{route('agregar_alumno')}}" method="post">
                             {{ csrf_field() }}

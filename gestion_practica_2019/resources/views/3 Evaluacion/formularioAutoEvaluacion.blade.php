@@ -40,9 +40,9 @@
                     <hr>
                     <div id="tablaTareas">
                         <div class="form-group row container-fluid">
-                            <input type="text" name="tarea[]" placeholder="Nombre tarea" class="form-control name_list col-lg-2" required/>
+                            <input type="text" name="tarea[]" placeholder="Nombre tarea" class="form-control name_list col-lg-2" required maxlength="254"/>
                             <div class="col-9">
-                                <input type="text" name="dptarea[]" placeholder="Explicación de tarea" class="form-control name_list" required/>
+                                <input type="text" name="dptarea[]" placeholder="Explicación de tarea" class="form-control name_list" required maxlength="254"/>
                             </div>
                             <div class="col-1">
                                 <button type="button" name="addTarea" id="addTarea" class="btn btn-success"><span class="fas fa-plus" aria-hidden="true"></span></button>
@@ -94,11 +94,11 @@
                         <div class="form-group row container-fluid">
                             <label for="conocimientoA" class="col-lg-2 col-form-label text-md-right"><strong>{{ __('Conocimiento:') }}</strong></label>
                             <div class="col-2">
-                                <input type="text" name="conocimientoA[]" placeholder="Nombre" class="form-control name_list" required/>
+                                <input type="text" name="conocimientoA[]" placeholder="Nombre" class="form-control name_list" required maxlength="254"/>
                                 <label for="conocimientoA" class="font-italic">Ej."Programación"</label>
                             </div>
                             <div class="col-7">
-                                <input type="text" name="dpConocimientoA[]" placeholder="Explicación de conocimiento aprendido" class="form-control name_list" required/>
+                                <input type="text" name="dpConocimientoA[]" placeholder="Explicación de conocimiento aprendido" class="form-control name_list" required maxlength="254"/>
                                 <label for="dpConocimientoA" class="font-italic">Ej."Conocimientos en programación orientada a objetos"</label>
                             </div>
                             <div class="col-1">
@@ -111,11 +111,11 @@
                         <div class="form-group row container-fluid">
                             <label for="habilidadA" class="col-lg-2 col-form-label text-md-right"><strong>{{ __('Habilidad:') }}</strong></label>
                             <div class="col-2">
-                                <input type="text" name="habilidadA[]" placeholder="Nombre" class="form-control name_list" required/>
+                                <input type="text" name="habilidadA[]" placeholder="Nombre" class="form-control name_list" required maxlength="254"/>
                                 <label for="habilidadA" class="font-italic">Ej."Informes"</label>
                             </div>
                             <div class="col-7">
-                                <input type="text" name="dpHabilidadA[]" placeholder="Explicación de habilidad aprendida" class="form-control name_list" required/>
+                                <input type="text" name="dpHabilidadA[]" placeholder="Explicación de habilidad aprendida" class="form-control name_list" required maxlength="254"/>
                                 <label for="dpHabilidadA" class="font-italic">Ej."Habilidad en redacción de informes"</label>
                             </div>
                             <div class="col-1">
@@ -134,11 +134,11 @@
                         <div class="form-group row container-fluid">
                             <label for="conocimientoF" class="col-lg-2 col-form-label text-md-right"><strong>{{ __('Conocimiento:') }}</strong></label>
                             <div class="col-2">
-                                <input type="text" name="conocimientoF[]" placeholder="Nombre" class="form-control name_list" required/>
+                                <input type="text" name="conocimientoF[]" placeholder="Nombre" class="form-control name_list" required maxlength="254"/>
                                 <label for="conocimientoF" class="font-italic">Ej."Programación"</label>
                             </div>
                             <div class="col-7">
-                                <input type="text" name="dpConocimientoF[]" placeholder="Explicación de conocimiento faltante" class="form-control name_list" required/>
+                                <input type="text" name="dpConocimientoF[]" placeholder="Explicación de conocimiento faltante" class="form-control name_list" required maxlength="254"/>
                                 <label for="dpConocimientoF" class="font-italic">Ej."Conocimientos en programación orientada a objetos"</label>
                             </div>
                             <div class="col-1">
@@ -151,11 +151,11 @@
                         <div class="form-group row container-fluid">
                             <label for="habilidadF" class="col-lg-2 col-form-label text-md-right"><strong>{{ __('Habilidad:') }}</strong></label>
                             <div class="col-2">
-                                <input type="text" name="habilidadF[]" placeholder="Nombre" class="form-control name_list" required/>
+                                <input type="text" name="habilidadF[]" placeholder="Nombre" class="form-control name_list" required maxlength="254"/>
                                 <label for="habilidadF" class="font-italic">Ej."Informes"</label>
                             </div>
                             <div class="col-7">
-                                <input type="text" name="dpHabilidadF[]" placeholder="Explicación de habilidad faltante" class="form-control name_list" required/>
+                                <input type="text" name="dpHabilidadF[]" placeholder="Explicación de habilidad faltante" class="form-control name_list" required maxlength="254"/>
                                 <label for="dpHabilidadF" class="font-italic">Ej."Habilidad en redacción de informes"</label>
                             </div>
                             <div class="col-1">
@@ -173,9 +173,9 @@
 
                     <div id="tablaConocimientos" class="container-fluid">
                         <div class="form-group row container-fluid">
-                            <input type="text" name="conocimiento[]" placeholder="Nombre" class="form-control name_list col-sm-2" required/>
+                            <input type="text" name="conocimiento[]" placeholder="Nombre" class="form-control name_list col-sm-2" required maxlength="254"/>
                             <div class="col-9">
-                                <input type="text" name="dpConocimiento[]" placeholder="Explicación del conocimiento" class="form-control name_list" required/>
+                                <input type="text" name="dpConocimiento[]" placeholder="Explicación del conocimiento" class="form-control name_list" required maxlength="254"/>
                             </div>
                             <div class="col-1">
                                 <button type="button" name="ddConocimiento" id="addConocimiento" class="btn btn-success"><span class="fas fa-plus" aria-hidden="true"></span></button>
@@ -201,7 +201,7 @@
                         <label for="desempenno" class="col-md-3 col-form-label text-md-right"></label>
 
                         <div class="col-md-6">
-                            <select id="desempenno" name="desempenno" class="custom-select">
+                            <select id="desempenno" name="desempenno" class="custom-select" required>
                                 <option selected value="">Selecciona...</option>
                                 <option>Malo</option>
                                 <option>Regular</option>
@@ -221,13 +221,13 @@
                     <div class="form-group row">
                         <label for="dpDesempenno" class="col-md-3 col-form-label text-md-right"></label>
                         <div class="col-md-6">
-                            <textarea id="dpDesempenno" name="dpDesempenno" class="form-control" rows="10" cols="40" placeholder="Escribe aquí tu comentario..."></textarea>
+                            <textarea id="dpDesempenno" name="dpDesempenno" class="form-control" rows="10" cols="40" placeholder="Escribe aquí tu comentario..." required maxlength="254"></textarea>
                         </div>
                     </div>
 
                     <br>
                     <div class="col-md-auto">
-                        <h6><strong>2.- De acuerdo a su experiencia en la práctica, realice una autoevaluación para evaluar su desempeño, utilizando una escala de 1 a 4, donde 1 representa criterio débilmente logrado y 4 criterio totalmente logrado. Además si considera necesario puede considerar evaluar con NA: No Aplica o NL: No Logrado.</strong></h6>
+                        <h6><strong>2.- De acuerdo a su experiencia en la práctica, realice una autoevaluación para evaluar su desempeño, utilizando una escala de 1 a 4, donde 1 representa criterio débilmente logrado y 4 criterio totalmente logrado. Además, si considera necesario puede considerar evaluar con NA: No Aplica o NL: No Logrado.</strong></h6>
                     </div>
                     <br>
                     {{-- Evaluacion con "dea acuerdo", "muy de acuerdo", etc.  --}}
@@ -315,15 +315,13 @@
             </div>
         </form>
     </div>
-@endsection
 
-@section('scripts')
     <script>
         $(document).ready(function(){
             var i=1;
             $('#addTarea').click(function(){
                 i++;
-                $('#tablaTareas').append('<div class="form-group row container-fluid" id="row'+i+'"><input type="text" name="tarea[]" placeholder="Nombre" class="form-control name_list col-sm-2" required/><div class="col-9"><input type="text" name="dptarea[]" placeholder="Descripción de tarea" class="form-control name_list" required/></div><div class="col-1"><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove"><span class="fas fa-trash-alt" aria-hidden="true"></span></button></div></div>');
+                $('#tablaTareas').append('<div class="form-group row container-fluid" id="row'+i+'"><input type="text" name="tarea[]" placeholder="Nombre" class="form-control name_list col-sm-2" required maxlength="254"/><div class="col-9"><input type="text" name="dptarea[]" placeholder="Descripción de tarea" class="form-control name_list" required maxlength="254"/></div><div class="col-1"><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove"><span class="fas fa-trash-alt" aria-hidden="true"></span></button></div></div>');
             });
             $(document).on('click', '.btn_remove', function(){
                 var button_id = $(this).attr("id");
@@ -332,7 +330,7 @@
 
             $('#addAreasOtros').click(function(){
                 i++;
-                $('#areasOtros').append('<div id="row'+i+'" class="col-lg-4"><div class="form-group row" ><input type="text" name="areasOtros[]" placeholder="Area" class="form-control name_list col-lg-6" required/><div class="col-1"><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove"><span class="fas fa-trash-alt" aria-hidden="true"></span></button></div></div></div>');
+                $('#areasOtros').append('<div id="row'+i+'" class="col-lg-4"><div class="form-group row" ><input type="text" name="areasOtros[]" placeholder="Area" class="form-control name_list col-lg-6" required maxlength="254"/><div class="col-1"><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove"><span class="fas fa-trash-alt" aria-hidden="true"></span></button></div></div></div>');
             });
             $(document).on('click', '.btn_remove', function(){
                 var button_id = $(this).attr("id");
@@ -340,7 +338,7 @@
             });
             $('#addHerramientasOtros').click(function(){
                 i++;
-                $('#herramientasOtros').append('<div id="row'+i+'" class="col-4"><div class="form-group row" ><input type="text" name="herramientasOtros[]" placeholder="Herramienta" class="form-control name_list col-lg-6" required/><div class="col-1"><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove"><span class="fas fa-trash-alt" aria-hidden="true"></span></button></div></div></div>');
+                $('#herramientasOtros').append('<div id="row'+i+'" class="col-4"><div class="form-group row" ><input type="text" name="herramientasOtros[]" placeholder="Herramienta" class="form-control name_list col-lg-6" required maxlength="254"/><div class="col-1"><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove"><span class="fas fa-trash-alt" aria-hidden="true"></span></button></div></div></div>');
             });
             $(document).on('click', '.btn_remove', function(){
                 var button_id = $(this).attr("id");
@@ -348,7 +346,7 @@
             });
             $('#addConocimientoA').click(function(){
                 i++;
-                $('#tablaConocimientosA').append('<div class="form-group row container-fluid" id="row'+i+'"><label for="conocimientoA" class="col-lg-2 col-form-label text-md-right"></label><div class="col-2"><input type="text" name="conocimientoA[]" placeholder="Nombre" class="form-control name_list" required/></div><div class="col-7"><input type="text" name="dpConocimientoA[]" placeholder="Explicación de conocimiento aprendido" class="form-control name_list" required/></div><div class="col-1"><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove"><span class="fas fa-trash-alt" aria-hidden="true"></span></button></div></div>');
+                $('#tablaConocimientosA').append('<div class="form-group row container-fluid" id="row'+i+'"><label for="conocimientoA" class="col-lg-2 col-form-label text-md-right"></label><div class="col-2"><input type="text" name="conocimientoA[]" placeholder="Nombre" class="form-control name_list" required maxlength="254"/></div><div class="col-7"><input type="text" name="dpConocimientoA[]" placeholder="Explicación de conocimiento aprendido" class="form-control name_list" required maxlength="254"/></div><div class="col-1"><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove"><span class="fas fa-trash-alt" aria-hidden="true"></span></button></div></div>');
             });
             $(document).on('click', '.btn_remove', function(){
                 var button_id = $(this).attr("id");
@@ -357,7 +355,7 @@
 
             $('#addConocimientoF').click(function(){
                 i++;
-                $('#tablaConocimientosF').append('<div class="form-group row container-fluid" id="row'+i+'"><label for="conocimientoF" class="col-lg-2 col-form-label text-md-right"></label><div class="col-2"><input type="text" name="conocimientoF[]" placeholder="Nombre" class="form-control name_list" required/></div><div class="col-7"><input type="text" name="dpConocimientoF[]" placeholder="Explicación de conocimiento faltante" class="form-control name_list" required/></div><div class="col-1"><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove"><span class="fas fa-trash-alt" aria-hidden="true"></span></button></div></div>');
+                $('#tablaConocimientosF').append('<div class="form-group row container-fluid" id="row'+i+'"><label for="conocimientoF" class="col-lg-2 col-form-label text-md-right"></label><div class="col-2"><input type="text" name="conocimientoF[]" placeholder="Nombre" class="form-control name_list" required maxlength="254"/></div><div class="col-7"><input type="text" name="dpConocimientoF[]" placeholder="Explicación de conocimiento faltante" class="form-control name_list" required maxlength="254"/></div><div class="col-1"><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove"><span class="fas fa-trash-alt" aria-hidden="true"></span></button></div></div>');
             });
             $(document).on('click', '.btn_remove', function(){
                 var button_id = $(this).attr("id");
@@ -366,7 +364,7 @@
 
             $('#addHabilidadA').click(function(){
                 i++;
-                $('#tablaHabilidadesA').append('<div class="form-group row container-fluid" id="row'+i+'"><label for="habilidadA" class="col-lg-2 col-form-label text-md-right"></label><div class="col-2"><input type="text" name="habilidadA[]" placeholder="Nombre" class="form-control name_list" required/></div><div class="col-7"><input type="text" name="dpHabilidadA[]" placeholder="Explicación de habilidad aprendida" class="form-control name_list" required/></div><div class="col-1"><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove"><span class="fas fa-trash-alt" aria-hidden="true"></span></button></div></div>');
+                $('#tablaHabilidadesA').append('<div class="form-group row container-fluid" id="row'+i+'"><label for="habilidadA" class="col-lg-2 col-form-label text-md-right"></label><div class="col-2"><input type="text" name="habilidadA[]" placeholder="Nombre" class="form-control name_list" required maxlength="254"/></div><div class="col-7"><input type="text" name="dpHabilidadA[]" placeholder="Explicación de habilidad aprendida" class="form-control name_list" required maxlength="254"/></div><div class="col-1"><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove"><span class="fas fa-trash-alt" aria-hidden="true"></span></button></div></div>');
             });
             $(document).on('click', '.btn_remove', function(){
                 var button_id = $(this).attr("id");
@@ -375,7 +373,7 @@
 
             $('#addHabilidadF').click(function(){
                 i++;
-                $('#tablaHabilidadesF').append('<div class="form-group row container-fluid" id="row'+i+'"><label for="habilidadF" class="col-lg-2 col-form-label text-md-right"></label><div class="col-2"><input type="text" name="habilidadF[]" placeholder="Nombre" class="form-control name_list" required/></div><div class="col-7"><input type="text" name="dpHabilidadF[]" placeholder="Explicación de habilidad faltante" class="form-control name_list" required/></div><div class="col-1"><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove"><span class="fas fa-trash-alt" aria-hidden="true"></span></button></div></div>');
+                $('#tablaHabilidadesF').append('<div class="form-group row container-fluid" id="row'+i+'"><label for="habilidadF" class="col-lg-2 col-form-label text-md-right"></label><div class="col-2"><input type="text" name="habilidadF[]" placeholder="Nombre" class="form-control name_list" required maxlength="254"/></div><div class="col-7"><input type="text" name="dpHabilidadF[]" placeholder="Explicación de habilidad faltante" class="form-control name_list" required maxlength="254"/></div><div class="col-1"><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove"><span class="fas fa-trash-alt" aria-hidden="true"></span></button></div></div>');
             });
             $(document).on('click', '.btn_remove', function(){
                 var button_id = $(this).attr("id");
@@ -384,7 +382,7 @@
 
             $('#addConocimiento').click(function(){
                 i++;
-                $('#tablaConocimientos').append('<div class="form-group row container-fluid" id="row'+i+'"><input type="text" name="conocimiento[]" placeholder="Nombre" class="form-control name_list col-sm-2" required/><div class="col-9"><input type="text" name="dpConocimiento[]" placeholder="Explicación del conocimiento" class="form-control name_list" required/></div><div class="col-1"><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove"><span class="fas fa-trash-alt" aria-hidden="true"></span></button></div></div>');
+                $('#tablaConocimientos').append('<div class="form-group row container-fluid" id="row'+i+'"><input type="text" name="conocimiento[]" placeholder="Nombre" class="form-control name_list col-sm-2" required maxlength="254"/><div class="col-9"><input type="text" name="dpConocimiento[]" placeholder="Explicación del conocimiento" class="form-control name_list" required maxlength="254"/></div><div class="col-1"><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove"><span class="fas fa-trash-alt" aria-hidden="true"></span></button></div></div>');
             });
             $(document).on('click', '.btn_remove', function(){
                 var button_id = $(this).attr("id");
@@ -403,12 +401,12 @@
 
             Swal({
                 title: '¿Estás seguro?',
-                text: "Es imporante revisar si todo está correcto!",
+                text: "Es imporante revisar que todo esté correcto",
                 type: 'question',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Si!'
+                confirmButtonText: 'Si'
             }).then((result) => {
 
                 if (result.value) {
@@ -424,7 +422,7 @@
                         data: form.serialize(), // serializes the form's elements.
                         success: function(){
                             Swal(
-                                'Listo!',
+                                'Listo',
                                 'El formulario ha sido enviado.',
                                 'success'
                             ).then((result) =>

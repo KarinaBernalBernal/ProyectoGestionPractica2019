@@ -6,7 +6,7 @@
             <div class="col col-md-offset">
                 <div class="card">
                     <h4 class="card-header">Formulario de autoevaluación</h4>
-                    <div class="card-body">
+                    <div class="card-body" style="text-align: justify;">
                         <h5><strong>Debes saber que...</strong> </h5>
                         <p>
                         <ul>
@@ -17,10 +17,10 @@
                                 Esta es la última instancia en la que deberás realizar algo en internet, cuando termines, la empresa podrá completar el formulario que contiene la calificación de tu desempeño.
                             </li>
                             <li>
-                                Cuando tu autoevaluación y evaluación de la empresa estén terminados, la DAE te informará, mediante un correo electrónico, el día de la reunión con asistencia OBLIGATORIA para aprobar la práctica.
+                                Cuando tu autoevaluación y evaluación de la empresa estén terminados, secretaría de docencia te informará, mediante un correo electrónico, el día de la charla de presentación de práctica con asistencia OBLIGATORIA para aprobar la práctica. Este será el ultimo paso que te permitira terminar con el proceso de práctica
                             </li>
                             <li>
-                                La decisión final será procesada tomando en cuenta tu autoevaluación, la evaluación de la empresa y tu asistencia a la charla.
+                                La decisión final será procesada tomando en cuenta tu autoevaluación, la evaluación de la empresa y tu desempeño en la charla.
                             </li>
                         </ul>
                         </p>
@@ -36,7 +36,7 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead class="bg-dark" style="color: white">
                     <tr>
-                        <th class="text-truncate text-center">Fecha Inscripción Practica</th>
+                        <th class="text-truncate text-center">Fecha Inscripción Práctica</th>
                         <th class="text-truncate text-center">Fecha de entrega</th>
                         <th class="text-truncate text-center">Autoevaluación</th>
                     </tr>

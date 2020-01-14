@@ -10,7 +10,7 @@ class Practica extends Model
     protected $primaryKey = 'id_practica';
 
     protected $fillable = [
-        'f_solicitud','f_inscripcion','f_desde','f_hasta','asist_ch_post_pract','id_alumno','id_supervisor'
+        'f_solicitud', 'f_inscripcion', 'f_desde', 'f_hasta', 'id_alumno', 'id_supervisor', 'asistencia_charla', 'resolucion_charla'
     ];
 
     public function alumno(){
@@ -30,6 +30,9 @@ class Practica extends Model
     }
     public function autoevaluacion(){
         return $this->hasOne('App\Autoevaluacion');
+    }
+    public function charla(){
+        return $this->hasMany('App\Charla');
     }
 
     public function scopeBuscador($query, $buscador)

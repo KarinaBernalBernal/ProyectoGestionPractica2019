@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-md col-md-offset-2">
                 <div class="card">
-                    <div class="card-header"><h1>Agregar Practica profecional</h1></div>
+                    <div class="card-header"><h3>Agregar práctica profesional</h3></div>
                     <div class="card-body">
                         <form class="form-horizontal" action="{{route('agregar_practica')}}" method="post">
                             {{ csrf_field() }}

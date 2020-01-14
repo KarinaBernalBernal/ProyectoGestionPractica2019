@@ -13,8 +13,8 @@
                             <div class="col-lg-6">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-2">¿Haz olvidado tu contraseña?</h1>
-                                        <p class="mb-4">Lo sabemos, cosas que pasan. Sólo tiene que introducir su email y le enviaremos un enlace para restablecer su contraseña.</p>
+                                        <h1 class="h4 text-gray-900 mb-2">¿Has olvidado tu contraseña?</h1>
+                                        <p class="mb-4">Lo sabemos, cosas que pasan. Sólo tienes que introducir tu email y te enviaremos un enlace para restablecer tu contraseña.</p>
                                     </div>
 
                                     @if (session('status'))

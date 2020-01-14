@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-md col-md-offset-2">
                 <div class="card">
-                    <div class="card-header"><h1>Modificar {{$elemento->id_eval_supervisor}}</h1></div>
+                    <div class="card-header"><h3>Modificar {{$elemento->id_eval_supervisor}}</h3></div>
                     <div class="card-body">
                         <form class="form-horizontal" action="{{route('actualizar_evaluacion_supervisor',[$elemento->id_eval_supervisor])}}" method="post">
                             {{ csrf_field() }}

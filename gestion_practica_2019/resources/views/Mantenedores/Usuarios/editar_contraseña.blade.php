@@ -81,7 +81,7 @@
                 if (result.value) {
 
                     window.swal({
-                        title: "Por favor espere",
+                        title: "Por favor, espere",
                         showConfirmButton: false,
                         allowOutsideClick: false
                     });
@@ -91,7 +91,7 @@
                         data: form.serialize(), // serializes the form's elements.
                         success: function(){
                             Swal(
-                                'Listo!',
+                                'Listo',
                                 'Se ha modificado tu contraseña.',
                                 'success'
                             ).then((result) =>
@@ -106,7 +106,7 @@
                             Swal.fire({
                                 type: 'error',
                                 title: 'Opps...!',
-                                text: 'No se pudo modificar tu contraseña',
+                                text: 'No se pudo modificar su contraseña',
                             });
                         }
                     });

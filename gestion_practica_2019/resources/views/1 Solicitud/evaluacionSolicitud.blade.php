@@ -52,7 +52,7 @@
 					@if (count($solicitudesP)>0)
 					<br>
 					<div class="form-row text-center">
-						<table class="table table-bordered bg-light table-hover table-responsive">
+						<table class="table table-bordered bg-light table-hover">
         					<thead class="bg-dark" style="color: white">							
 								<tr class='text-center'>
 									<th style="vertical-align: middle" scope="col">Rut</th>
@@ -62,7 +62,7 @@
 									@if( $carrera == "Ingeniería Civil Informática")
 									<th style="vertical-align: middle" scope="col">Segunda Práctica</th>
 									@endif
-									<th style="vertical-align: middle" scope="col">Proyecto de Titulo </th>
+									<th style="vertical-align: middle" scope="col">Proyecto de Título </th>
 									<th style="vertical-align: middle" scope="col"></th>
 								</tr>
 							</thead>
@@ -144,7 +144,7 @@
 									<th style="vertical-align: middle" scope="col">Nombre</th>
 									<th style="vertical-align: middle" scope="col">Año de Ingreso</th>
 									<th style="vertical-align: middle" scope="col">Carrera</th>
-									<th style="vertical-align: middle" scope="col">Proyecto de Titulo </th>
+									<th style="vertical-align: middle" scope="col">Proyecto de Título </th>
 									<th style="vertical-align: middle" scope="col">Resolución</th>
 									<th style="vertical-align: middle" scope="col">Observación</th>
 									<th style="vertical-align: middle" scope="col"></th>
@@ -170,10 +170,10 @@
 								@endforeach
 							</tbody>
 						</table>
+					</div>
 						<div class="row d-flex justify-content-center">
 							{{ $solicitudesE->appends(Request::except("evaluada"))->render("pagination::bootstrap-4") }}
 						</div>
-					</div>
 					@else
 						<br>
 						<div class="container-fluid text-center">

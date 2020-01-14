@@ -42,7 +42,7 @@
 									<button type="submit" class="btn btn-info"><span class="fa fa-search"></span></button>
 								</div>
 							</div>
-							<div class="text-left">Se encontraron {{ $contadorAreas }} Areas</div>
+							<div class="text-left">Se encontraron {{ $contadorAreas }} Áreas</div>
 							<hr>
 						</form>
 						<div class="text-center container-fluid">
@@ -85,14 +85,14 @@
 							</div>
 						@else
 							<div class="container-fluid text-center">
-								<p>No existen Áreas en este momento!</p>
+								<p>No existen Áreas en este momento</p>
 							</div>
 						@endif
 						</div>
 						<div class="container">
 							<div class="row">
 								<div class="col-md-2">
-									<a href="/"><button class="btn btn-primary btn-lg">Atras</button></a>
+									<a href="/"><button class="btn btn-primary btn-lg">Atrás</button></a>
 								</div>
 								<div class='ml-auto'>
 									<a href="{{route ('crear_elemento_dinamico',["Área"])}}"><button id="boton_agregar" class="btn btn-primary btn-lg">Agregar</button></a>
@@ -171,14 +171,14 @@
 								</div>
 							@else
 								<div class="container-fluid text-center">
-									<p>No existen Herramientas en este momento!</p>
+									<p>No existen Herramientas en este momento</p>
 								</div>
 						@endif
 						</div>
 						<div class="container">
 							<div class="row">
 								<div class="col-md-2">
-									<a href="/"><button class="btn btn-primary btn-lg">Atras</button></a>
+									<a href="/"><button class="btn btn-primary btn-lg">Atrás</button></a>
 								</div>
 								<div class='ml-auto'>
 									<a href="{{route ('crear_elemento_dinamico',["Herramienta"])}}"><button id="boton_agregar" class="btn btn-primary btn-lg">Agregar</button></a>
@@ -258,14 +258,14 @@
 								</div>
 							@else
 								<div class="container-fluid text-center">
-									<p>No existen Actitudes en este momento!</p>
+									<p>No existen Actitudes en este momento</p>
 								</div>
 							@endif
 						</div>
 						<div class="container">
 							<div class="row">
 								<div class="col-md-2">
-									<a href="/"><button class="btn btn-primary btn-lg">Atras</button></a>
+									<a href="/"><button class="btn btn-primary btn-lg">Atrás</button></a>
 								</div>
 								<div class='ml-auto'>
 									<a href="{{route ('crear_elemento_dinamico',["Actitud"])}}"><button id="boton_agregar" class="btn btn-primary btn-lg">Agregar</button></a>
@@ -345,14 +345,14 @@
 								</div>
 							@else
 								<div class="container-fluid text-center">
-									<p>No existen Conocimientos en este momento!</p>
+									<p>No existen Conocimientos en este momento</p>
 								</div>
 							@endif
 						</div>
 						<div class="container">
 							<div class="row">
 								<div class="col-md-2">
-									<a href="/"><button class="btn btn-primary btn-lg">Atras</button></a>
+									<a href="/"><button class="btn btn-primary btn-lg">Atrás</button></a>
 								</div>
 								<div class='ml-auto'>
 									<a href="{{route ('crear_elemento_dinamico',["Conocimiento"])}}"><button id="boton_agregar" class="btn btn-primary btn-lg">Agregar</button></a>
@@ -405,7 +405,7 @@
                    Swal.fire({
                        type: 'error',
                        title: 'Opps...!',
-                       text: 'No se pudo modificar la vigencia, recarge la pagina para verificar!',
+                       text: 'No se pudo modificar la vigencia, recargue la página para verificar',
                    });
                }
 		   });
@@ -421,7 +421,7 @@
                    Swal.fire({
                        type: 'error',
                        title: 'Opps...!',
-                       text: 'No se pudo modificar la vigencia, recarge la pagina para verificar!',
+                       text: 'No se pudo modificar la vigencia, recargue la página para verificar',
                    });
                }
            });
@@ -437,7 +437,7 @@
                    Swal.fire({
                        type: 'error',
                        title: 'Opps...!',
-                       text: 'No se pudo modificar la vigencia, recarge la pagina para verificar!',
+                       text: 'No se pudo modificar la vigencia, recargue la página para verificar',
                    });
                }
            });
@@ -453,7 +453,7 @@
                    Swal.fire({
                        type: 'error',
                        title: 'Opps...!',
-                       text: 'No se pudo modificar la vigencia, recarge la pagina para verificar!',
+                       text: 'No se pudo modificar la vigencia, recargue la página para verificar',
                    });
                }
            });
@@ -461,13 +461,13 @@
        function borrar(id_elemento,name , url_action)
        {
            Swal({
-               title: 'Estas seguro de querer eliminar el elemento '+name+'?',
-               text: "No sera posible revertir este cambio!",
+               title: '¿Estás seguro de querer eliminar el elemento '+name+'?',
+               text: "No será posible revertir este cambio",
                type: 'warning',
                showCancelButton: true,
                confirmButtonColor: '#3085d6',
                cancelButtonColor: '#d33',
-               confirmButtonText: 'Si, Eliminalo!'
+               confirmButtonText: 'Si, Elimínalo'
            }).then((result) => {
 
                if (result.value) {
@@ -483,7 +483,7 @@
                        data: parametros,
                        success: function(response){
                            Swal(
-                               'Eliminado!',
+                               'Eliminado',
                                'El usuario ha sido eliminado.',
                                'success'
                            )

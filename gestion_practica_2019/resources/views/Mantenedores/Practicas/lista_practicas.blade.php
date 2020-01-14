@@ -25,7 +25,7 @@
                                     <input id="f_solicitud" type="text" class="form-control" name="f_solicitud" placeholder="Solicitud">
                                 </div>
                                 <div class="col-2">
-                                    <input id="f_inscripcion" type="text" class="form-control" name="f_inscripcion" placeholder="Inscripcion">
+                                    <input id="f_inscripcion" type="text" class="form-control" name="f_inscripcion" placeholder="Inscripción">
                                     <label  class="font-italic">"yy-mm-dd"</label>
                                 </div>
                                 <div class="col-2">
@@ -38,7 +38,7 @@
                                     <button type="submit" class="btn btn-info"><span class="fa fa-search"></span></button>
                                 </div>
                             </div>
-                            <div class="text-left">Se encontraron {{ $contador }} Practicas</div>
+                            <div class="text-left">Se encontraron {{ $contador }} Prácticas</div>
                             <hr>
                         </form>
                         <div class="text-center">
@@ -68,10 +68,10 @@
                                                     </td>
                                                     <td class="text-left">
                                                         @if( $practica->f_inscripcion)
-                                                            <strong>Inscripcion :</strong> {{ date('d-m-Y', strtotime($practica->f_inscripcion)) }}
+                                                            <strong>Inscripción :</strong> {{ date('d-m-Y', strtotime($practica->f_inscripcion)) }}
                                                             <br>
                                                         @else
-                                                            <strong>Practica no Inscrita</strong>
+                                                            <strong>Práctica no Inscrita</strong>
                                                         @endif
                                                         @if( $practica->f_desde)
                                                             <strong>Desde :</strong> {{ date('d-m-Y', strtotime($practica->f_desde)) }} <br>
@@ -99,20 +99,24 @@
                                 </div>
                             </div>
                                 @else
-                                <p>No existen practicas  en este momento</p>
+                                <p>No existen prácticas en este momento</p>
                                 @endif
                         </div>
                         <br>
+
                         <div class="container">
                             <div class="row">
                                 <div class="col-md-2">
-                                    <a href="/"><button class="btn btn-primary btn-lg">Atras</button></a>
+                                    <a href="/"><button class="btn btn-primary btn-lg">Atrás</button></a>
                                 </div>
+                                {{--
                                 <div class='ml-auto'>
                                     <a href="{{route ('crear_practica')}}"><button id="boton_agregar" class="btn btn-primary btn-lg">Agregar</button></a>
                                 </div>
+                                --}}
                             </div>
                         </div>
+
                     </div>
                 </div>
                 <div class="row d-flex justify-content-center">
@@ -138,7 +142,7 @@
                                     <button type="submit" class="btn btn-info"><span class="fa fa-search"></span></button>
                                 </div>
                             </div>
-                            <div class="text-left">Se encontraron {{ $contadorNoInscritos }} Practicas no Inscritas</div>
+                            <div class="text-left">Se encontraron {{ $contadorNoInscritos }} Prácticas no Inscritas</div>
                             <hr>
                         </form>
                         <div class="text-center">
@@ -176,14 +180,14 @@
                                     </div>
                                 </div>
                             @else
-                                <p>No existen practicas no inscritas en este momento</p>
+                                <p>No existen prácticas no inscritas en este momento</p>
                             @endif
                         </div>
                         <br>
                         <div class="container">
                             <div class="row">
                                 <div class="col-md-2">
-                                    <a href="/"><button class="btn btn-primary btn-lg">Atras</button></a>
+                                    <a href="/"><button class="btn btn-primary btn-lg">Atrás</button></a>
                                 </div>
                             </div>
                         </div>
@@ -201,13 +205,13 @@
     {
 
         Swal({
-              title: 'Estas seguro de querer eliminar la practica '+name+'?',
-              text: "No sera posible revertir este cambio!",
+              title: '¿Estás seguro de querer eliminar la práctica '+name+'?',
+              text: "No será posible revertir este cambio!",
               type: 'warning',
               showCancelButton: true,
               confirmButtonColor: '#3085d6',
               cancelButtonColor: '#d33',
-              confirmButtonText: 'Si, Eliminalo!'
+              confirmButtonText: 'Si, Elimínalo'
             }).then((result) => {
 
                 if (result.value) {
@@ -223,8 +227,8 @@
                         data: parametros,
                         success: function(response){
                             Swal(
-                              'Eliminado!',
-                              'La practica ha sido eliminada.',
+                              'Eliminado',
+                              'La práctica ha sido eliminada.',
                               'success'
                             )
                             $('#'+id_elemento).remove();

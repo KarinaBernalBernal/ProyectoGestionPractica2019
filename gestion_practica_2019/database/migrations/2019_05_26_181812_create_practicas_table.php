@@ -20,8 +20,8 @@ class CreatePracticasTable extends Migration
             $table->date('f_inscripcion')->nullable();
             $table->date('f_desde')->nullable();
             $table->date('f_hasta')->nullable();
-            $table->string('asist_ch_post_pract', 10)->nullable();
-
+            $table->string('resolucion_charla')->nullable()->default("no aplica");
+            $table->boolean('asistencia_charla')->nullable()->default(0);
             $table->integer('id_alumno')->unsigned();
             $table->integer('id_supervisor')->unsigned()->nullable();
             $table->timestamps();

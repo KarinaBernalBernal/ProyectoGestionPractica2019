@@ -79,13 +79,13 @@
                             <div class="col-md-1">
                                 <label class="col-form-label text-md-right" >:</label>
                             </div>
-                            @if($practica->asist_ch_post_pract == "")
+                            @if($practica->resolucion_charla == "no aplica")
                             <div class="col-md-5">
-                                <label style="color: red" class="col-form-label text-md-right">Sin charla asignada</label>
+                                <label style="color: red" class="col-form-label text-md-right">Sin resolución</label>
                             </div>
                             @else
                             <div class="col-md-5">
-                                <label class="col-form-label text-md-right">{{$practica->asist_ch_post_pract}}</label>
+                                <label class="col-form-label text-md-right">{{$practica->resolucion_charla}}</label>
                             </div>
                             @endif
                         </div>
@@ -148,7 +148,7 @@
                                         </tr>
                                         </tbody>
                                     </table>
-                                    <div class="text-left" style="font-size: 11px"><strong>MPA:</strong> Maximo puntaje Aplicable | <strong>PO:</strong> Puntaje Obtenido</div>
+                                    <div class="text-left" style="font-size: 11px"><strong>MPA:</strong> Máximo puntaje Aplicable | <strong>PO:</strong> Puntaje Obtenido</div>
                                 </div>
                             </div>
                         </div>

@@ -29,7 +29,7 @@
 									<button type="submit" class="btn btn-info"><span class="fa fa-search"></span></button>
 								</div>
 							</div>
-							<div class="text-left">Se encontraron {{ $contadorAreas }} Areas</div>
+							<div class="text-left">Se encontraron {{ $contadorAreas }} Áreas</div>
 							<hr>
 						</form>
 						<div class="text-center container-fluid">
@@ -72,7 +72,7 @@
 						<div class="container">
 							<div class="row">
 								<div class="col-md-2">
-									<a href="/"><button class="btn btn-primary btn-lg">Atras</button></a>
+									<a href="/"><button class="btn btn-primary btn-lg">Atrás</button></a>
 								</div>
 								<div class='ml-auto'>
 									<a href="{{route ('crear_otro',["Área"])}}"><button id="boton_agregar" class="btn btn-primary btn-lg">Agregar</button></a>
@@ -138,14 +138,14 @@
 								</div>
 							@else
 								<div class="container-fluid text-center">
-									<p>No existen Herramientas en este momento!</p>
+									<p>No existen Herramientas en este momento</p>
 								</div>
 						@endif
 						</div>
 						<div class="container">
 							<div class="row">
 								<div class="col-md-2">
-									<a href="/"><button class="btn btn-primary btn-lg">Atras</button></a>
+									<a href="/"><button class="btn btn-primary btn-lg">Atrás</button></a>
 								</div>
 								<div class='ml-auto'>
 									<a href="{{route ('crear_otro',["Herramienta"])}}"><button id="boton_agregar" class="btn btn-primary btn-lg">Agregar</button></a>
@@ -183,13 +183,13 @@
        function borrar(id_elemento,name , url_action)
        {
            Swal({
-               title: 'Estas seguro de querer eliminar el elemento '+name+'?',
-               text: "No sera posible revertir este cambio!",
+               title: '¿Estás seguro de querer eliminar el elemento '+name+'?',
+               text: "No será posible revertir este cambio!",
                type: 'warning',
                showCancelButton: true,
                confirmButtonColor: '#3085d6',
                cancelButtonColor: '#d33',
-               confirmButtonText: 'Si, Eliminalo!'
+               confirmButtonText: 'Si, Elimínalo'
            }).then((result) => {
 
                if (result.value) {
@@ -205,7 +205,7 @@
                        data: parametros,
                        success: function(response){
                            Swal(
-                               'Eliminado!',
+                               'Eliminado',
                                'El elemento ha sido eliminado.',
                                'success'
                            )

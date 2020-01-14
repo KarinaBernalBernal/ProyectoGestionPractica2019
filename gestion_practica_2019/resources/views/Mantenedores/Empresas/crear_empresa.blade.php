@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-md col-md-offset-2">
                 <div class="card">
-                    <div class="card-header"><h1>Agregar empresa</h1></div>
+                    <div class="card-header"><h3>Agregar Empresa</h3></div>
                     <div class="card-body">
                         <form class="form-horizontal" action="{{route('agregar_empresa')}}" method="post">
                             {{ csrf_field() }}
@@ -67,7 +67,7 @@
                                 </div>
                             </div>
                              <div class="form-group{{ $errors->has('casilla') ? ' has-error' : '' }}">
-                                <label for="casilla" class="col-md-4 control-label">Casilla de ingreso</label>
+                                <label for="casilla" class="col-md-4 control-label">Casilla</label>
                                 <div class="col-md-6">
                                     <input id="casilla" type="text" class="form-control" name="casilla" required autofocus>
                                     @if ($errors->has('casilla'))

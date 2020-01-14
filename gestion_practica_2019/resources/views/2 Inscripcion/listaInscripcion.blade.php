@@ -19,7 +19,7 @@
                             {!! Form::text('apellido_paterno', null, ['class' => 'form-control', 'placeholder' => 'Apellido']) !!}
                         </div>
                         <div class="col-2">
-                            {!! Form::text('f_inscripcion', null, ['class' => 'form-control', 'placeholder' => 'Fecha Inscripcion']) !!}
+                            {!! Form::text('f_inscripcion', null, ['class' => 'form-control', 'placeholder' => 'Fecha Inscripción']) !!}
                             <label  class="font-italic">"yy-mm-dd"</label>
                         </div>
                         <div class="col-2">
@@ -68,13 +68,13 @@
                                     </div>
                                 </div>
                             @else
-                         <p class="text-danger text-center">No se encontraron Inscripciones</p>
+                         <p class="text-center">No se encontraron Inscripciones</p>
                         @endif
                     </div>
                 </div>
             </div>
         </div>
-        <<div class="row d-flex justify-content-center">
+        <div class="row d-flex justify-content-center">
             {{ $alumnos->appends(Request::except("page"))->render("pagination::bootstrap-4") }}
         </div>
     </div>

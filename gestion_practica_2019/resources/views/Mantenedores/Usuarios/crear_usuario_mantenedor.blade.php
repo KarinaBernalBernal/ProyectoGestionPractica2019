@@ -25,7 +25,7 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">Correo electronico</label>
+                            <label for="email" class="col-md-4 control-label">Correo electrónico</label>
 
                             <div class="col-md-6">
                                 <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
@@ -60,10 +60,10 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="type" class="col-md-4 control-label"> Tipo de usuario</label>
+                            <label for="type" class="col-md-4 control-label">Tipo de usuario</label>
                             <div class="col-md-6">
                             <select name="type" class="form-control">
-                                <option value="" disabled selected>Elige una opcion...</option>
+                                <option value="" disabled selected>Elige una opción...</option>
                                 <option value="administrador">Administrador</option>
                                 <option value="alumno">Alumno</option>
                                 <option value="supervisor">Supervisor</option>

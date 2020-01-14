@@ -69,7 +69,7 @@
                         </table>
                     </div>
                 @else
-                    <p class="text-danger text-center">No se encontraron Evaluaciones</p>
+                    <p class="text-center">No se encontraron Evaluaciones</p>
                 @endif
             </div>
         </div>

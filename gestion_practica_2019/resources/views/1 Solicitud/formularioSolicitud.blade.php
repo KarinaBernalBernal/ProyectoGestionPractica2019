@@ -19,7 +19,7 @@
                         <label for="nombreAlumno" class="col-md-3 col-form-label text-md-right">{{ __('Nombre') }}</label>
                         
                         <div class="col-md-6">
-                            <input id="nombreAlumno" type="text" class="form-control" name="nombreAlumno" value="{{ old('nombreAlumno') }}" required>
+                            <input id="nombreAlumno" type="text" class="form-control" name="nombreAlumno" value="{{ old('nombreAlumno') }}" required maxlength="100">
                         </div>
                     </div>
 
@@ -28,7 +28,7 @@
                         <label for="aPaternoAlumno" class="col-md-3 col-form-label text-md-right">{{ __('Apellido Paterno') }}</label>
 
                         <div class="col-md-6">
-                            <input id="aPaternoAlumno" type="text" class="form-control" name="aPaternoAlumno" value="{{ old('aPaternoAlumno') }}" required>
+                            <input id="aPaternoAlumno" type="text" class="form-control" name="aPaternoAlumno" value="{{ old('aPaternoAlumno') }}" required maxlength="100">
                         </div>
                     </div>
 
@@ -37,7 +37,7 @@
                         <label for="aMaternoAlumno" class="col-md-3 col-form-label text-md-right">{{ __('Apellido Materno') }}</label>
 
                         <div class="col-md-6">
-                            <input id="aMaternoAlumno" type="text" class="form-control" name="aMaternoAlumno" value="{{ old('aMaternoAlumno') }}" required>
+                            <input id="aMaternoAlumno" type="text" class="form-control" name="aMaternoAlumno" value="{{ old('aMaternoAlumno') }}" required maxlength="100">
                         </div>
                     </div> 
 
@@ -56,7 +56,7 @@
                         <label for="email" class="col-md-3 col-form-label text-md-right control-label">Correo electrónico</label>
 
                         <div class="col-md-6">
-                            <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
+                            <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required maxlength="50">
 
                             @if ($errors->has('email'))
                                 <span class="help-block">
@@ -71,7 +71,7 @@
                         <label for="direccion" class="col-md-3 col-form-label text-md-right">{{ __('Dirección') }}</label>
 
                         <div class="col-md-6">
-                            <input id="direccion" type="text" class="form-control" name="direccion" value="{{ old('direccion') }}" required>
+                            <input id="direccion" type="text" class="form-control" name="direccion" value="{{ old('direccion') }}" required maxlength="100">
                         </div>
                     </div>  
 
@@ -80,7 +80,7 @@
                         <label for="fono" class="col-md-3 col-form-label text-md-right">{{ __('Fono') }}</label>
 
                         <div class="col-md-6">
-                            <input id="fono" type="number" class="form-control" name="fono" value="{{ old('fono') }}" required minlength="9">
+                            <input id="fono" type="number" class="form-control" name="fono" value="{{ old('fono') }}" required minlength="9" maxlength="100">
                             <label for="fono" class="font-italic">Ej. 9 87654321</label>
                         </div>
                     </div>    
@@ -263,12 +263,12 @@
 
             Swal({
                 title: '¿Estás seguro?',
-                text: "Es imporante revisar si todo está correcto!",
+                text: "Es importante revisar que todo esté correcto",
                 type: 'question',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Si!'
+                confirmButtonText: 'Si'
             }).then((result) => {
 
                 if (result.value) {
@@ -284,7 +284,7 @@
                         data: form.serialize(), // serializes the form's elements.
                         success: function(){
                             Swal(
-                                'Listo!',
+                                'Listo',
                                 'El formulario ha sido enviado.',
                                 'success'
                             ).then((result) =>

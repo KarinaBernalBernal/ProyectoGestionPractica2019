@@ -28,11 +28,11 @@ class AdministradorController extends Controller
                 $request->get('cargo')
             );
             $contador = $listaFiltrada->count();  //mostrara la cantidad de resultados en la tabla filtrada
-            $listaFiltrada = $listaFiltrada->paginate(10);
+            $listaFiltrada = $listaFiltrada->paginate(2);
 
             return view('Mantenedores.Administradores.lista_administradores')->with('administradores',$listaFiltrada)->with('contador',$contador);
         }
-        $administradores = $administradores->paginate(10);
+        $administradores = $administradores->paginate(2);
         return view('Mantenedores.Administradores.lista_administradores')->with("administradores", $administradores)->with('contador', $contador);
     }
 

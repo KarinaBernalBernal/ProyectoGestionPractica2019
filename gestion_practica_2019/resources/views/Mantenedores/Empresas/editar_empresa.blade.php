@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-md col-md-offset-2">
                 <div class="card">
-                    <div class="card-header"><h1>Modificar {{$elemento->n_empresa}}</h1></div>
+                    <div class="card-header"><h3>Modificar {{$elemento->n_empresa}}</h3></div>
                     <div class="card-body">
                         <form class="form-horizontal" action="{{route('actualizar_empresa',[$elemento->id_empresa])}}" method="post">
                             {{ csrf_field() }}

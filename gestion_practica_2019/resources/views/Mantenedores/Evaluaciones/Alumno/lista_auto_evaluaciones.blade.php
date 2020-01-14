@@ -36,7 +36,7 @@
                                             <th>Id</th>
                                             <th>Rut Alumno</th>
                                             <th>Fecha entrega</th>
-                                            <th>Id practica</th>
+                                            <th>Id práctica</th>
                                             <th>Opción</th>
                                         </tr >
                                     </thead>
@@ -58,14 +58,14 @@
                             </div>
                         </div>
                     @else
-                        <p>No existen Auto evaluaciones en este momento</p>
+                        <p>No existen Autoevaluaciones en este momento</p>
                     @endif
                     <!-- FIN DATA TABLES -->
                 </div>
                 <div class="container">
                     <div class="row">
                         <div class="col-md-2">
-                            <a href="/"><button class="btn btn-primary btn-lg">Atras</button></a>
+                            <a href="/"><button class="btn btn-primary btn-lg">Atrás</button></a>
                         </div>
                         {{--
                         <div class='ml-auto'>
@@ -85,13 +85,13 @@
     {
 
         Swal({
-              title: 'Estas seguro de querer eliminar la auto evaluación '+name+'?',
-              text: "No sera posible revertir este cambio!",
+              title: '¿Estás seguro de querer eliminar la autoevaluación '+name+'?',
+              text: "No será posible revertir este cambio",
               type: 'warning',
               showCancelButton: true,
               confirmButtonColor: '#3085d6',
               cancelButtonColor: '#d33',
-              confirmButtonText: 'Si, Eliminalo!'
+              confirmButtonText: 'Si, Elimínalo'
             }).then((result) => {
 
                 if (result.value) {
@@ -107,8 +107,8 @@
                         data: parametros,
                         success: function(response){
                             Swal(
-                              'Eliminado!',
-                              'La auto evaluación ha sido eliminado.',
+                              'Eliminado',
+                              'La autoevaluación ha sido eliminado.',
                               'success'
                             )
                             $('#'+id_elemento).remove();
